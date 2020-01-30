@@ -216,7 +216,7 @@ class Main_Program(QWidget):
         self.stack_0_UI()
         self.stack_1_UI()
         self.stack_2_UI()
-        # self.stack_3_UI()
+        self.stack_3_UI()
 
         # -------------------- add stack to main layout --------------------
         v_layout.addWidget(self.Stack)
@@ -317,7 +317,7 @@ class Main_Program(QWidget):
         self.btn_01_s1.setIconSize(QSize(110, 110))
         self.btn_01_s1.setMaximumSize(200, 200)
         self.btn_01_s1.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
-        # self.btn_2_01.clicked.connect(self.show_package_page)
+        self.btn_01_s1.clicked.connect(self.show_wallet)
         self.v_layout_01_s1.addWidget(self.btn_01_s1)
 
         self.btn_02_s1 = QPushButton()
@@ -542,7 +542,53 @@ class Main_Program(QWidget):
 
     # -------------------- پنجره کیف پول --------------------
     def stack_3_UI(self):
-        pass
+        v_layout = QVBoxLayout()
+
+        v_layout1_s3 = QVBoxLayout()
+        # v_layout1_s3.getContentsMargins()
+        v_layout1_s3.setAlignment(Qt.AlignCenter)
+
+        v_layout2_s3 = QVBoxLayout()
+        v_layout2_s3.setAlignment(Qt.AlignCenter)
+        
+        widget_background1_s3 = QWidget()
+        widget_background1_s3.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        # widget_background.getContentsMargins()
+        widget_background1_s3.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
+        widget_background1_s3.setLayout(v_layout1_s3)
+        v_layout.addWidget(widget_background1_s3)
+
+
+        widget_background2_s3 = QWidget()
+        # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        widget_background2_s3.setMinimumSize(200,200)
+        # widget_background2_s3.getContentsMargins()
+        widget_background2_s3.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
+        widget_background2_s3.setLayout(v_layout2_s3)
+        v_layout1_s3.addWidget(widget_background2_s3)
+
+        self.lb_1_s3 = QLabel()
+        self.lb_1_s3.getContentsMargins()
+        self.lb_1_s3.setText('موجودی')
+        self.lb_1_s3.setStyleSheet('border: None')
+        v_layout2_s3.addWidget(self.lb_1_s3)
+
+        self.lb_2_s3 = QLabel()
+        self.lb_2_s3.getContentsMargins()
+        # self.lb_2_s3.setText()
+        self.lb_2_s3.setStyleSheet('border: None')
+        v_layout2_s3.addWidget(self.lb_2_s3)
+
+        self.lb_3_s3 = QLabel()
+        self.lb_3_s3.getContentsMargins()
+        self.lb_3_s3.setText('ریال')
+        self.lb_3_s3.setStyleSheet('border: None')
+        self.lb_3_s3.setAlignment(Qt.AlignCenter)
+        v_layout2_s3.addWidget(self.lb_3_s3)
+
+
+        self.stacks[3].setLayout(v_layout)
+
     # -------------------- windows method --------------------
     def change_flag(self):
         global flag
@@ -572,7 +618,7 @@ class Main_Program(QWidget):
         self.Stack.setCurrentIndex(2)
 
     def show_wallet(self):
-        self.Stack.setCurrentIndex(4)
+        self.Stack.setCurrentIndex(3)
 
     def show_charging_unit(self):
         self.Stack.setCurrentIndex(5)

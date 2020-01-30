@@ -45,3 +45,13 @@ class Database:
 
         return result
 
+    @staticmethod
+    def getWallet(mobileNumber):
+        mydb = Database.connect()
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * FROM users")
+        result = mycursor.fetchall()
+
+        return result        
+
