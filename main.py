@@ -226,7 +226,7 @@ class Main_Program(QWidget):
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.show()
 
-    # # -------------------- پنجره تیزر تبلیغاتی --------------------
+    # -------------------- پنجره تیزر تبلیغاتی --------------------
     def stack_0_UI(self):
         v_layout_s0 = QVBoxLayout()
         h_layout = QHBoxLayout()
@@ -412,7 +412,7 @@ class Main_Program(QWidget):
 
         self.stacks[1].setLayout(h_layout)
 
-    # # -------------------- پنجره تحویل پکیج --------------------
+    # -------------------- پنجره تحویل پکیج --------------------
     def stack_2_UI(self):
 
         self.btn_back.clicked.connect(partial(self.back_window, 'back_to_menu'))
@@ -540,6 +540,9 @@ class Main_Program(QWidget):
 
         self.stacks[2].setLayout(v_layout)
 
+    # -------------------- پنجره کیف پول --------------------
+    def stack_3_UI(self):
+        pass
     # -------------------- windows method --------------------
     def change_flag(self):
         global flag
