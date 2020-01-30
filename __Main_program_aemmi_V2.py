@@ -1,7 +1,7 @@
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
 __license__ = "GPL"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
