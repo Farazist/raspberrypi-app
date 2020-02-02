@@ -17,7 +17,7 @@ class Database:
         mydb = Database.connect()
 
         mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM users WHERE user_mobileNumber = '{mobileNumber}'")
+        mycursor.execute(f"SELECT * FROM users WHERE mobile_number = '{mobileNumber}'")
         result = mycursor.fetchall()
 
         if len(result) == 0:
@@ -50,8 +50,10 @@ class Database:
         mydb = Database.connect()
 
         mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM users")
+        mycursor.execute(f"SELECT * FROM users WHERE mobile_number = '{mobileNumber}'")
         result = mycursor.fetchall()
 
-        return result        
-
+        if len(result) == 0:
+            return None
+        else:
+            return result[4]

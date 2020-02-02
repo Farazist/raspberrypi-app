@@ -27,9 +27,10 @@ group4 = 0
 group5 = 0
 group6 = 0
 flag = False
-
+user = ''
 
 def qrcode_scan():
+    global user
     cap = cv.VideoCapture(0)
     detector = cv.QRCodeDetector()
 
@@ -39,16 +40,17 @@ def qrcode_scan():
         print('scan 2')
         _, img = cap.read()
         data, bbox, _ = detector.detectAndDecode(img)  # detect and decode qr code
+        user = data
 
-        window.show_menu()
-        break
+        # window.show_menu()
+        # break
 
-        # if data:
-        #     print("QR Code detected, data:", data)
-        #
-        #     if Database.login(data):
-        #         window.show_menu()
-        #         break
+        if data:
+            print("QR Code detected, data:", data)
+        
+            if Database.login(data):
+                window.show_menu()
+                break
 
     cap.release()
     cv.destroyAllWindows()
@@ -136,8 +138,10 @@ def detect_bottle():
 
 
 class Main_Program(QWidget):
+    
 
     def __init__(self):
+        
         super(Main_Program, self).__init__()
 
         thred_load_model = threading.Thread(target=load_model)
@@ -542,6 +546,8 @@ class Main_Program(QWidget):
 
     # -------------------- پنجره کیف پول --------------------
     def stack_3_UI(self):
+        global user
+
         v_layout = QVBoxLayout()
 
         v_layout1_s3 = QVBoxLayout()
@@ -575,7 +581,8 @@ class Main_Program(QWidget):
 
         self.lb_2_s3 = QLabel()
         self.lb_2_s3.getContentsMargins()
-        # self.lb_2_s3.setText()
+        # self.lb_2_s3.setText(Database.getWallet())
+        print('@@@@@@@', Database.getWallet(user))
         self.lb_2_s3.setStyleSheet('border: None')
         v_layout2_s3.addWidget(self.lb_2_s3)
 
