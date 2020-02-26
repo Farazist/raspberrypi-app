@@ -17,7 +17,7 @@ from login import Login_user
 from login import Login_admin
 from aescipher import AESCipher
 
-x = 1
+x = 111
 
 def scanQrCode():
     global user, cap
