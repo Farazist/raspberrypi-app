@@ -6,3 +6,4 @@ __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 key = 'farazist_sara71&sajjad73&amir73'
 url = 'https://farazist.ir'
+local_database_name = 'database.db'
