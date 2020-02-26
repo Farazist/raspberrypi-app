@@ -1,59 +1,38 @@
 import mysql.connector
-
+import requests
+import json
+from app import *
 
 class Database:
-
+    
     @staticmethod
-    def connect():
-        return mysql.connector.connect(
-            host="93.115.150.179",
-            user="farazist_user",
-            passwd="sara&sajjad&amir",
-            database="farazist_db"
-        )
-
-    @staticmethod
-    def login(mobileNumber):
-        mydb = Database.connect()
-
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM users WHERE mobile_number = '{mobileNumber}'")
-        result = mycursor.fetchall()
-
-        if len(result) == 0:
-            return None
-        else:
-            return result[0]
+    def signInUser(mobile_number, password):
+        
+        data = {'mobile_number':mobile_number, 'password':password,}
+        
+        response = requests.post(url=url + '/api/signin-user', data=data)
+        
+        return response.json()
 
     @staticmethod
     def getCategories():
-        mydb = Database.connect()
-
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM categories")
-        result = mycursor.fetchall()
-
-        return result
-
+        response = requests.post(url=url + '/api/get-categories')
+        return json.loads(response.text)
+        
     @staticmethod
-    def getWastes():
-        mydb = Database.connect()
-
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM wastes")
-        result = mycursor.fetchall()
-
-        return result
-
+    def getItems():
+        response = requests.post(url=url + '/api/get-items')
+        return response.json()
+        
     @staticmethod
-    def getWallet(mobileNumber):
-        mydb = Database.connect()
+    def addNewDelivery(user, items, system_id):
+        headers = {
+            'authorization': 'Bearer ' + user['access_token'], 
+            'Content-Type': 'application/json'
+        }
+        
+        data = {'user_id': user['id'], 'system_id': system_id, 'state': 'done', 'items': items}
+        
+        response = requests.post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
 
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM users WHERE mobile_number = '{mobileNumber}'")
-        result = mycursor.fetchall()
-
-        if len(result) == 0:
-            return None
-        else:
-            return result[4]
+        return response.json()
