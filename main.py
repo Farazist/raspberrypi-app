@@ -16,18 +16,21 @@ from app import *
 from login import Login_user
 from login import Login_admin
 from aescipher import AESCipher
-
+from localdatabase import LocalDataBase
 
 
 def scanQrCode():
     global user, cap
 
-    cap = cv.VideoCapture(0)
+    qrcode_camera_port = LocalDataBase.selectOne('system_id')[2]
+
+    cap = cv.VideoCapture(int(qrcode_camera_port))
+    
     detector = cv.QRCodeDetector()
     aes = AESCipher(key)
     print('start scan qrcode')
 
-    user = Database.signInUser('09150471487', 'Sajjad140573')
+    user = Database.signInUser('09150471487', '1234')
     window.show_menu()
     return
 
@@ -75,7 +78,9 @@ def deliveryItems():
     global predict_item_flag
     global user_items
 
-    cap = cv.VideoCapture(0)
+    item_camera_port = LocalDataBase.selectOne('item_camera_port')[2]
+
+    cap = cv.VideoCapture(int(item_camera_port))
     
     predict_item_list = []
     categories_count = np.zeros(len(categories), np.uint8)
@@ -654,7 +659,6 @@ class Main_Program(QWidget):
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(1)
 	
-
     def show_wallet(self):
         self.Stack.setCurrentIndex(3)
 

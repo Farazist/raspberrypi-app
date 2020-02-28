@@ -63,5 +63,5 @@ class LocalDataBase:
 #result = LocalDataBase.updateOne('system_id', '3')
 #print(result)
 
-#result = LocalDataBase.selectOne('system_id')
+#result = LocalDataBase.selectOne('item_camera_port')[2]
 #print(result)

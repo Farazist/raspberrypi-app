@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
+from localdatabase import LocalDataBase
 
 textbox_style = 'background-color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;'
 button_style = 'background-color: #3b8686; color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;'
@@ -69,6 +70,9 @@ class Login_user(QtWidgets.QDialog):
 class Login_admin(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super(Login_admin, self).__init__(parent)
+
+        self.get_username = LocalDataBase.selectOne('username')[2]
+        self.get_password = LocalDataBase.selectOne('password')[2]
         self.box = message_box()
         self.font = QFont()
         # font.setFamily("Arial")
@@ -105,8 +109,8 @@ class Login_admin(QtWidgets.QDialog):
         layout.addWidget(self.buttonLogin)
 
     def handleLogin(self):
-        if (self.username.text() == 'farazist' and
-            self.password.text() == '1234'):
+        if (self.username.text() == self.get_username and
+            self.password.text() == self.get_password):
             self.accept()
         else:
             self.box.exec_()
