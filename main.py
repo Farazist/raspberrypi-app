@@ -14,7 +14,8 @@ from functools import partial
 import pyzbar.pyzbar as pyzbar
 from app import *
 from login import Login_user
-from login import Login_admin
+from login import Login_pass
+from keyboard import KEYBoard
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
 
@@ -30,7 +31,7 @@ def scanQrCode():
     aes = AESCipher(key)
     print('start scan qrcode')
 
-    user = Database.signInUser('09150471487', '1234')
+    user = Database.signInUser('09150471487', 'Sajjad140573')
     window.show_menu()
     return
 
@@ -416,8 +417,6 @@ class Main_Program(QWidget):
     # -------------------- پنجره تنظیمات --------------------
     def stack_10_UI(self):
 
-        self.btns_keyboard = self.show_keyborad()
-        
         h_layout = QHBoxLayout()  # main window layout
         h_layout.setSpacing(500)
 
@@ -437,7 +436,9 @@ class Main_Program(QWidget):
         # lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         v_layout1_s10.addWidget(self.lb_s10)
 
-        v_layout1_s10.addLayout(self.btns_keyboard)
+        self.key_widget = KEYBoard(self.lb_s10)
+        self.key_layout = self.key_widget.output()
+        v_layout1_s10.addLayout(self.key_layout)
         self.setLayout(v_layout1_s10)
 
         # --- child 2
@@ -541,10 +542,15 @@ class Main_Program(QWidget):
         return self.login_btn
     
     def show_login_user(self):
-        self.check_login_user = Login_user()
+        self.check_login_user = Login_user('user')
         if self.check_login_user.exec_() == QDialog.Accepted:
+            self.show_login_pass()
+
+    def show_login_pass(self):
+        self.check_login_pass = Login_pass('user')
+        if self.check_login_pass.exec_() == QDialog.Accepted:
             self.show_menu()
-    
+
     # ---------- setting ----------
     def setting_button(self):
         self.setting = QPushButton()
@@ -554,76 +560,24 @@ class Main_Program(QWidget):
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.setting.setSizePolicy(sp_retain)
-        self.setting.clicked.connect(self.show_setting)
+        self.setting.clicked.connect(self.show_setting_user)
         return self.setting
 
-    def show_setting(self):
-        self.check_login_admin = Login_admin()
-        if self.check_login_admin.exec_() == QDialog.Accepted:
+    def show_setting_user(self):
+        self.check_setting_user = Login_user('admin')
+        if self.check_setting_user.exec_() == QDialog.Accepted:
+            self.show_setting_pass()
+
+    def show_setting_pass(self):
+        self.check_setting_pass = Login_pass('admin')
+        if self.check_setting_pass.exec_() == QDialog.Accepted:
             # self.show_menu()
             self.btn_back.show()
             self.btn_tick.show()
             self.Stack.setCurrentIndex(10)
 
-    # ---------- keyboard ----------
-    def show_keyborad(self):
-        g_layout = QGridLayout()
-        g_layout.setSpacing(10)
-        
-        # --- create numbers
-        board = [[0 for i in range(3)] for j in range(4)]
-        font = QFont('Times', 12, QFont.Bold)
-
-        for i in range(4):
-            for j in range(3):
-                btn = QPushButton()
-                btn.getContentsMargins()
-                btn.setFont(font)
-                board[i][j] = btn
-
-                btn_num = [[1, 2, 3],
-                          [4, 5, 6], 
-                          [7, 8, 9], 
-                          ['', 0, '']]
-                board[i][j].setText(str(btn_num[i][j]))
-                board[i][j].setFixedSize(80, 40)
-                board[i][j].setStyleSheet('background-color: #3b8686; color: #ffffff; border: none;')
-                # board[i][j].setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-                g_layout.addWidget(board[i][j], i, j, alignment=Qt.AlignHCenter)
-
-        board[0][0].clicked.connect(partial(self.number_show, 1))
-        board[0][1].clicked.connect(partial(self.number_show, 2))
-        board[0][2].clicked.connect(partial(self.number_show, 3))
-
-        board[1][0].clicked.connect(partial(self.number_show, 4))
-        board[1][1].clicked.connect(partial(self.number_show, 5))
-        board[1][2].clicked.connect(partial(self.number_show, 6))
-
-        board[2][0].clicked.connect(partial(self.number_show, 7))
-        board[2][1].clicked.connect(partial(self.number_show, 8))
-        board[2][2].clicked.connect(partial(self.number_show, 9))
-
-        board[3][1].clicked.connect(partial(self.number_show, 0))
-        board[3][2].clicked.connect(self.delete_number)
-
-        board[3][2].setIcon(QIcon('images/sign/216103-64.png'))
-        board[3][2].setIconSize(QSize(32, 32))
-        
-        board[3][0].hide()
-        return g_layout
-        # v_layout1_s10.addLayout(g_layout_1_s10)
-
-    def number_show(self, x):
-        self.lb_s10.setText(str(x))
-
-    def delete_number(self):
-        self.lb_s10.setText(self.lb_s10.text()[0:-1])
-
-    def changePredictItemFlag(self, value):
-        global predict_item_flag
-        predict_item_flag = value
-
     def showStart(self):
+        import qrcode
 
         self.btn_back.hide()
         self.btn_tick.hide()
@@ -642,23 +596,11 @@ class Main_Program(QWidget):
         self.btn_tick.show()
         # self.thread_detect = threading.Thread(target=Detect_Thread)
         # self.thread_detect.start()
-        self.detect_thread = threading.Thread(target=deliveryItems)
+        self.detect_thread = threading.Thread(target=detectItem)
         self.detectFlag = True
         self.detect_thread.start()
         self.Stack.setCurrentIndex(2)
 
-    def endDeliveryItems(self):
-        global delivery_items_flag
-        delivery_items_flag = False
-
-        print('user delivered items:', user_items)
-        result = Database.addNewDelivery(user, user_items, 4)
-
-        print('add new delivery:', result)
-        self.btn_back.show()
-        self.btn_tick.hide()
-        self.Stack.setCurrentIndex(1)
-	
     def show_wallet(self):
         self.Stack.setCurrentIndex(3)
 
