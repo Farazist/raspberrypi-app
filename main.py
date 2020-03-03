@@ -31,8 +31,8 @@ def scanQrCode():
     aes = AESCipher(key)
     print('start scan qrcode')
 
-    user = Database.signInUser('09150471487', 'Sajjad140573')
-    window.show_menu()
+    user = Database.signInUser('09150471487', '1234')
+    # window.show_menu()
     return
 
     while True:
@@ -71,7 +71,7 @@ def loadModel():
     print('model successfully loaded')
 
 
-def deliveryItems():
+def detectItem():
     global categories_count
     global flag
     global model
@@ -109,7 +109,7 @@ def deliveryItems():
                     predicted = np.argmax(prediction)
                     print(items[predicted])
 
-                    window.lb_2_s2.setText(items[predicted]['name'])
+                    window.lb_2_s3.setText(items[predicted]['name'])
 
                 if predict_item_flag == False:
                     predict_item_list.append(predicted)
@@ -123,7 +123,7 @@ def deliveryItems():
                     categories_count[category_index] += 1
 
                     for i in range(len(categories_count)):
-                        window.grid_widget_s2[2][i].setText(str(categories_count[i]))
+                        window.grid_widget_s3[2][i].setText(str(categories_count[i]))
 
                     for item in user_items:
                         if item['id'] == items[most_probability_item]['id']:
@@ -203,18 +203,19 @@ class Main_Program(QWidget):
 
         # -------------------- creat stack widgets --------------------
 
-        self.stacks = [QWidget() for _ in range(11)]
+        self.stacks = [QWidget() for _ in range(12)]
 
         # self.stack0 = QWidget()  # تیزر تبلیغاتی
-        # self.stack1 = QWidget()  # صفحه اصلی - منو
-        # self.stack2 = QWidget()  # تحویل پکیج
-        # self.stack3 = QWidget()  # کیف پول
-        # self.stack4 = QWidget()  # شارژ واحد مسکونی
-        # self.stack5 = QWidget()  # واریز به بازیافت کارت
-        # self.stack6 = QWidget()  # کمک به محیط زیست
-        # self.stack7 = QWidget()  # کمک به خیریه
-        # self.stack8 = QWidget()  # خریز شارژ
-        # self.stack9 = QWidget()  # فروشگاه
+        # self.stack1 = QWidget()  # qr پنجره
+        # self.stack2 = QWidget()  # صفحه اصلی - منو
+        # self.stack3 = QWidget()  # تحویل پکیج
+        # self.stack4 = QWidget()  # کیف پول
+        # self.stack5 = QWidget()  # شارژ واحد مسکونی
+        # self.stack6 = QWidget()  # واریز به بازیافت کارت
+        # self.stack7 = QWidget()  # کمک به محیط زیست
+        # self.stack8 = QWidget()  # کمک به خیریه
+        # self.stack9 = QWidget()  # خریز شارژ
+        # self.stack10 = QWidget()  # فروشگاه
 
         # -------------------- create stacks --------------------
         self.Stack = QStackedWidget(self)
@@ -227,7 +228,8 @@ class Main_Program(QWidget):
         self.stack_1_UI()
         self.stack_2_UI()
         self.stack_3_UI()
-        self.stack_10_UI()
+        self.stack_4_UI()
+        self.stack_11_UI()
 
         # -------------------- add stack to main layout --------------------
         v_layout.addWidget(self.Stack)
@@ -238,7 +240,7 @@ class Main_Program(QWidget):
     # -------------------- پنجره تیزر تبلیغاتی --------------------
     def stack_0_UI(self):
         btn_setting = self.setting_button()
-        btn_login = self.login_button()
+        btn_login, btn_qr = self.login_button()
 
         v_layout_s0 = QVBoxLayout()
         h_layout_1_s0 = QHBoxLayout()
@@ -254,19 +256,33 @@ class Main_Program(QWidget):
 
         movie = QMovie("animation/return.gif")
 
-        lb_1_s0 = QLabel()
-        h_layout_1_s0.addWidget(lb_1_s0, alignment=Qt.AlignHCenter)
-        lb_1_s0.setMovie(movie)
+        self.lb_1_s0 = QLabel()
+        h_layout_1_s0.addWidget(self.lb_1_s0, alignment=Qt.AlignHCenter)
+        self.lb_1_s0.setMovie(movie)
         movie.start()
 
         h_layout_2_s0.addWidget(btn_setting, alignment=Qt.AlignLeft)
+        h_layout_2_s0.addWidget(btn_qr, alignment=Qt.AlignRight)
         h_layout_2_s0.addWidget(btn_login, alignment=Qt.AlignRight)
         v_layout_s0.addLayout(h_layout_2_s0)
 
         self.stacks[0].setLayout(v_layout_s0)
 
-    # -------------------- پنجره منو برنامه --------------------
+    # -------------------- qr پنجره نمایش --------------------
     def stack_1_UI(self):
+        btn_setting = self.setting_button()
+        self.btn_back.clicked.connect(partial(self.back_window, 'back_to_teaser'))
+
+        v_layout_s1 = QVBoxLayout()
+        
+        self.lb_1_s1 = QLabel()
+        v_layout_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignCenter)
+        v_layout_s1.addWidget(btn_setting, alignment=Qt.AlignLeft)
+
+        self.stacks[1].setLayout(v_layout_s1)
+
+    # -------------------- پنجره منو برنامه --------------------
+    def stack_2_UI(self):
 
         btn_setting = self.setting_button()
         self.btn_back.clicked.connect(partial(self.back_window, 'back_to_teaser'))
@@ -275,9 +291,9 @@ class Main_Program(QWidget):
         h_layout = QHBoxLayout()
 
         # ------- child  layout
-        grid_layout_s1 = QGridLayout()
-        h_layout.addLayout(grid_layout_s1)
-        grid_layout_s1.setContentsMargins(0, 60, 0, 50)  # (left, top, right, bottom)
+        grid_layout_s2 = QGridLayout()
+        h_layout.addLayout(grid_layout_s2)
+        grid_layout_s2.setContentsMargins(0, 60, 0, 50)  # (left, top, right, bottom)
 
         main_menu_buttons = [   
             [
@@ -301,7 +317,7 @@ class Main_Program(QWidget):
             for j in range(4):
                 self.v_layouts_main_menu[i][j].setContentsMargins(10, 0, 10, 20)
                 
-                grid_layout_s1.addLayout(self.v_layouts_main_menu[i][j], i, j, Qt.AlignCenter)
+                grid_layout_s2.addLayout(self.v_layouts_main_menu[i][j], i, j, Qt.AlignCenter)
 
                 btn = QPushButton()
                 btn.setIcon(QIcon(main_menu_buttons[i][j]['image']))
@@ -321,10 +337,10 @@ class Main_Program(QWidget):
         v_layout.addLayout(h_layout)
         v_layout.addWidget(btn_setting)
 
-        self.stacks[1].setLayout(v_layout)
+        self.stacks[2].setLayout(v_layout)
 
     # -------------------- پنجره تحویل پکیج --------------------
-    def stack_2_UI(self):
+    def stack_3_UI(self):
 
         btn_setting = self.setting_button()
 
@@ -339,31 +355,31 @@ class Main_Program(QWidget):
 
         # ------- child  layout
         # --- child 1
-        h_layout1_s2 = QHBoxLayout()
-        h_layout1_s2.setContentsMargins(0, 0, 100, 0)
+        h_layout1_s3 = QHBoxLayout()
+        h_layout1_s3.setContentsMargins(0, 0, 100, 0)
 
-        grid_layout_s2 = QGridLayout()
-        grid_layout_s2.setContentsMargins(50, 30, 70, 20)
-        grid_layout_s2.setSpacing(0)
-        h_layout1_s2.addLayout(grid_layout_s2)
+        grid_layout_s3 = QGridLayout()
+        grid_layout_s3.setContentsMargins(50, 30, 70, 20)
+        grid_layout_s3.setSpacing(0)
+        h_layout1_s3.addLayout(grid_layout_s3)
 
-        widget_background_s2 = QWidget()
-        widget_background_s2.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        widget_background_s2.getContentsMargins()
-        widget_background_s2.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
+        widget_background_s3 = QWidget()
+        widget_background_s3.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        widget_background_s3.getContentsMargins()
+        widget_background_s3.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
         # background_1_10.setGraphicsEffect(self.shadow)
-        widget_background_s2.setLayout(h_layout1_s2)
-        v_layout.addWidget(widget_background_s2)
+        widget_background_s3.setLayout(h_layout1_s3)
+        v_layout.addWidget(widget_background_s3)
 
-        h_layout2_s2 = QHBoxLayout()
-        h_layout2_s2.setContentsMargins(0, 0, 90, 20)
-        v_layout.addLayout(h_layout2_s2)
+        h_layout2_s3 = QHBoxLayout()
+        h_layout2_s3.setContentsMargins(0, 0, 90, 20)
+        v_layout.addLayout(h_layout2_s3)
 
-        self.grid_widget_s2 = [[QLabel() for _ in range(len(categories))] for _ in range(3)]
+        self.grid_widget_s3 = [[QLabel() for _ in range(len(categories))] for _ in range(3)]
         for i in range(3):
             for j in range(len(categories)):
-                self.grid_widget_s2[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                grid_layout_s2.addWidget(self.grid_widget_s2[i][j], i, j)
+                self.grid_widget_s3[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                grid_layout_s3.addWidget(self.grid_widget_s3[i][j], i, j)
 
         for i in range(len(categories)):
             
@@ -371,29 +387,29 @@ class Main_Program(QWidget):
             img = img.scaledToWidth(128)
             img = img.scaledToHeight(128)
 
-            self.grid_widget_s2[0][i].setPixmap(img)
-            self.grid_widget_s2[0][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s3[0][i].setPixmap(img)
+            self.grid_widget_s3[0][i].setAlignment(Qt.AlignCenter)
 
-            self.grid_widget_s2[1][i].setText(categories[i]['name'])
-            self.grid_widget_s2[1][i].setFont(label_font)
-            self.grid_widget_s2[1][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s3[1][i].setText(categories[i]['name'])
+            self.grid_widget_s3[1][i].setFont(label_font)
+            self.grid_widget_s3[1][i].setAlignment(Qt.AlignCenter)
 
-            self.grid_widget_s2[2][i].setText('0')
-            self.grid_widget_s2[2][i].setFont(label_font)
-            self.grid_widget_s2[2][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s3[2][i].setText('0')
+            self.grid_widget_s3[2][i].setFont(label_font)
+            self.grid_widget_s3[2][i].setAlignment(Qt.AlignCenter)
 
-        lb_1_s2 = QLabel('اعتبار')
-        lb_1_s2.setFont(label_font)
-        h_layout1_s2.addWidget(lb_1_s2, alignment=Qt.AlignCenter)
+        lb_1_s3 = QLabel('اعتبار')
+        lb_1_s3.setFont(label_font)
+        h_layout1_s3.addWidget(lb_1_s3, alignment=Qt.AlignCenter)
 
         # --- child 3
-        h_layout2_s2.addWidget(btn_setting)
+        h_layout2_s3.addWidget(btn_setting)
 
-        self.lb_2_s2 = QLabel()
-        self.lb_2_s2.getContentsMargins()
-        self.lb_2_s2.setFont(label_font)
-        self.lb_2_s2.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
-        h_layout2_s2.addWidget(self.lb_2_s2, alignment=Qt.AlignLeft)
+        self.lb_2_s3 = QLabel()
+        self.lb_2_s3.getContentsMargins()
+        self.lb_2_s3.setFont(label_font)
+        self.lb_2_s3.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
+        h_layout2_s3.addWidget(self.lb_2_s3, alignment=Qt.AlignLeft)
 
         btn_1_21 = QPushButton('بعدی')
         btn_1_21.setMinimumSize(200, 40)
@@ -401,21 +417,75 @@ class Main_Program(QWidget):
         btn_1_21.clicked.connect(partial(self.changePredictItemFlag, True))
         btn_1_21.setStyleSheet(
             'background-color: #3b8686; color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        h_layout2_s2.addWidget(btn_1_21, alignment=Qt.AlignRight)
+        h_layout2_s3.addWidget(btn_1_21, alignment=Qt.AlignRight)
         
         btn_1_22 = QPushButton('پایان')
         btn_1_22.setMinimumSize(200, 40)
         btn_1_22.setFont(btn_font)
-        btn_1_22.clicked.connect(self.endDeliveryItems)
+        # btn_1_22.clicked.connect(self.endDeliveryItems)
         btn_1_22.setStyleSheet(
             'background-color: #3b8686; color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        h_layout2_s2.addWidget(btn_1_22, alignment=Qt.AlignRight)
+        h_layout2_s3.addWidget(btn_1_22, alignment=Qt.AlignRight)
 
 		
-        self.stacks[2].setLayout(v_layout)
+        self.stacks[3].setLayout(v_layout)
+
+    # -------------------- پنجره کیف پول --------------------
+    def stack_4_UI(self):
+        global user
+
+        btn_setting = self.setting_button()
+
+        v_layout = QVBoxLayout()
+
+        v_layout1_s4 = QVBoxLayout()
+        # v_layout1_s3.getContentsMargins()
+        v_layout1_s4.setAlignment(Qt.AlignCenter)
+
+        v_layout2_s4 = QVBoxLayout()
+        v_layout2_s4.setAlignment(Qt.AlignCenter)
+        
+        widget_background1_s4 = QWidget()
+        widget_background1_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        # widget_background.getContentsMargins()
+        widget_background1_s4.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
+        widget_background1_s4.setLayout(v_layout1_s4)
+        v_layout.addWidget(widget_background1_s4)
+
+
+        widget_background2_s4 = QWidget()
+        # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        widget_background2_s4.setMinimumSize(200,200)
+        # widget_background2_s3.getContentsMargins()
+        widget_background2_s4.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
+        widget_background2_s4.setLayout(v_layout2_s4)
+        v_layout1_s4.addWidget(widget_background2_s4)
+
+        self.lb_1_s4 = QLabel()
+        self.lb_1_s4.getContentsMargins()
+        self.lb_1_s4.setText('موجودی')
+        self.lb_1_s4.setStyleSheet('border: None')
+        v_layout2_s4.addWidget(self.lb_1_s4)
+
+        self.lb_2_s4 = QLabel()
+        self.lb_2_s4.getContentsMargins()
+        # self.lb_2_s3.setText(Database.getWallet())
+        self.lb_2_s4.setStyleSheet('border: None')
+        v_layout2_s4.addWidget(self.lb_2_s4)
+
+        self.lb_3_s4 = QLabel()
+        self.lb_3_s4.getContentsMargins()
+        self.lb_3_s4.setText('ریال')
+        self.lb_3_s4.setStyleSheet('border: None')
+        self.lb_3_s4.setAlignment(Qt.AlignCenter)
+        v_layout2_s4.addWidget(self.lb_3_s4)
+
+        v_layout.addWidget(btn_setting)
+
+        self.stacks[4].setLayout(v_layout)
 
     # -------------------- پنجره تنظیمات --------------------
-    def stack_10_UI(self):
+    def stack_11_UI(self):
 
         h_layout = QHBoxLayout()  # main window layout
         h_layout.setSpacing(500)
@@ -424,104 +494,50 @@ class Main_Program(QWidget):
 
         # ------- child  layout
         # --- child 1
-        v_layout1_s10 = QVBoxLayout()
-        v_layout1_s10.setSpacing(0)
-        v_layout1_s10.setContentsMargins(150, 0, 0, 0)
+        v_layout1_s11 = QVBoxLayout()
+        v_layout1_s11.setSpacing(0)
+        v_layout1_s11.setContentsMargins(150, 0, 0, 0)
         
         # ---------- child 1 widgets ----------
         # --- create line edit
-        self.lb_s10 = QLineEdit()
-        self.lb_s10.setMaximumSize(260, 50)
-        self.lb_s10.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
+        self.lb_s11 = QLineEdit()
+        self.lb_s11.setMaximumSize(260, 50)
+        self.lb_s11.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
         # lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        v_layout1_s10.addWidget(self.lb_s10)
+        v_layout1_s11.addWidget(self.lb_s11)
 
-        self.key_widget = KEYBoard(self.lb_s10)
+        self.key_widget = KEYBoard(self.lb_s11)
         self.key_layout = self.key_widget.output()
-        v_layout1_s10.addLayout(self.key_layout)
-        self.setLayout(v_layout1_s10)
+        v_layout1_s11.addLayout(self.key_layout)
+        self.setLayout(v_layout1_s11)
 
         # --- child 2
-        v_layout2_s10 = QVBoxLayout()
-        v_layout2_s10.setContentsMargins(20, 0, 20, 200)
+        v_layout2_s11 = QVBoxLayout()
+        v_layout2_s11.setContentsMargins(20, 0, 20, 200)
         # ---------- child 2 widgets ----------
-        self.btn_00_s10 = QPushButton()
-        self.btn_00_s10.setText('تنظیم شماره پورت')
-        self.btn_00_s10.setFixedSize(200, 40)
-        self.btn_00_s10.setStyleSheet('background-color: #3b8686; color: #ffffff; '
+        self.btn_00_s11 = QPushButton()
+        self.btn_00_s11.setText('تنظیم شماره پورت')
+        self.btn_00_s11.setFixedSize(200, 40)
+        self.btn_00_s11.setStyleSheet('background-color: #3b8686; color: #ffffff; '
                                       'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        v_layout2_s10.addWidget(self.btn_00_s10, alignment=Qt.AlignCenter)
+        v_layout2_s11.addWidget(self.btn_00_s11, alignment=Qt.AlignCenter)
 
 
-        self.btn_01_s10 = QPushButton()
-        self.btn_01_s10.setText('خروج از برنامه')
-        self.btn_01_s10.setFixedSize(200, 40)
-        self.btn_01_s10.setStyleSheet('background-color: #3b8686; color: #ffffff; '
+        self.btn_01_s11 = QPushButton()
+        self.btn_01_s11.setText('خروج از برنامه')
+        self.btn_01_s11.setFixedSize(200, 40)
+        self.btn_01_s11.setStyleSheet('background-color: #3b8686; color: #ffffff; '
                                       'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        self.btn_01_s10.clicked.connect(self.exit_message_box)
-        v_layout2_s10.addWidget(self.btn_01_s10, alignment=Qt.AlignCenter)
+        self.btn_01_s11.clicked.connect(self.exit_message_box)
+        v_layout2_s11.addWidget(self.btn_01_s11, alignment=Qt.AlignCenter)
 
        
         # group1.setLayout(v_layout1_s10)
-        group2.setLayout(v_layout2_s10)
+        group2.setLayout(v_layout2_s11)
         
-        h_layout.addLayout(v_layout1_s10)
+        h_layout.addLayout(v_layout1_s11)
         h_layout.addWidget(group2)
-        self.stacks[10].setLayout(h_layout)
-    # -------------------- پنجره کیف پول --------------------
-    def stack_3_UI(self):
-        global user
-
-        btn_setting = self.setting_button()
-
-        v_layout = QVBoxLayout()
-
-        v_layout1_s3 = QVBoxLayout()
-        # v_layout1_s3.getContentsMargins()
-        v_layout1_s3.setAlignment(Qt.AlignCenter)
-
-        v_layout2_s3 = QVBoxLayout()
-        v_layout2_s3.setAlignment(Qt.AlignCenter)
-        
-        widget_background1_s3 = QWidget()
-        widget_background1_s3.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        # widget_background.getContentsMargins()
-        widget_background1_s3.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
-        widget_background1_s3.setLayout(v_layout1_s3)
-        v_layout.addWidget(widget_background1_s3)
-
-
-        widget_background2_s3 = QWidget()
-        # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        widget_background2_s3.setMinimumSize(200,200)
-        # widget_background2_s3.getContentsMargins()
-        widget_background2_s3.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
-        widget_background2_s3.setLayout(v_layout2_s3)
-        v_layout1_s3.addWidget(widget_background2_s3)
-
-        self.lb_1_s3 = QLabel()
-        self.lb_1_s3.getContentsMargins()
-        self.lb_1_s3.setText('موجودی')
-        self.lb_1_s3.setStyleSheet('border: None')
-        v_layout2_s3.addWidget(self.lb_1_s3)
-
-        self.lb_2_s3 = QLabel()
-        self.lb_2_s3.getContentsMargins()
-        # self.lb_2_s3.setText(Database.getWallet())
-        self.lb_2_s3.setStyleSheet('border: None')
-        v_layout2_s3.addWidget(self.lb_2_s3)
-
-        self.lb_3_s3 = QLabel()
-        self.lb_3_s3.getContentsMargins()
-        self.lb_3_s3.setText('ریال')
-        self.lb_3_s3.setStyleSheet('border: None')
-        self.lb_3_s3.setAlignment(Qt.AlignCenter)
-        v_layout2_s3.addWidget(self.lb_3_s3)
-
-        v_layout.addWidget(btn_setting)
-
-        self.stacks[3].setLayout(v_layout)
-
+        self.stacks[11].setLayout(h_layout)
     # -------------------- windows method --------------------
     # ---------- flag ----------
     def changePredictItemFlag(self, value):
@@ -539,8 +555,18 @@ class Main_Program(QWidget):
         sp_retain.setRetainSizeWhenHidden(True)
         self.login_btn.setSizePolicy(sp_retain)
         self.login_btn.clicked.connect(self.show_login_user)
-        return self.login_btn
-    
+
+        self.login_qr = QPushButton()
+        self.login_qr.setText('qr ورود با')
+        self.login_qr.setStyleSheet('background-color: #3b8686; color: #ffffff; '
+                                      'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
+        self.login_qr.setMinimumWidth(200)
+        # sp_retain = QSizePolicy()
+        # sp_retain.setRetainSizeWhenHidden(True)
+        self.login_qr.setSizePolicy(sp_retain)
+        self.login_qr.clicked.connect(self.showQR)
+        return self.login_btn, self.login_qr
+
     def show_login_user(self):
         self.check_login_user = Login_user('user')
         if self.check_login_user.exec_() == QDialog.Accepted:
@@ -574,7 +600,7 @@ class Main_Program(QWidget):
             # self.show_menu()
             self.btn_back.show()
             self.btn_tick.show()
-            self.Stack.setCurrentIndex(10)
+            self.Stack.setCurrentIndex(11)
 
     def showStart(self):
         import qrcode
@@ -586,10 +612,27 @@ class Main_Program(QWidget):
         self.thread_qr.start()
         self.Stack.setCurrentIndex(0)
 
+    def showQR(self):
+        import qrcode
+
+        self.btn_back.show()
+
+        data = "http://farazist.ir/"
+        filename = 'images\qr\qrcode.png'
+
+        img = qrcode.make(data)
+        img.save(filename)
+
+        open_img = QPixmap(filename)
+        
+        self.lb_1_s1.setPixmap(open_img)
+
+        self.Stack.setCurrentIndex(1)
+
     def show_menu(self):
         self.btn_back.show()
         self.btn_tick.hide()
-        self.Stack.setCurrentIndex(1)
+        self.Stack.setCurrentIndex(2)
 
     def show_delivery(self):
         self.btn_back.show()
@@ -599,10 +642,10 @@ class Main_Program(QWidget):
         self.detect_thread = threading.Thread(target=detectItem)
         self.detectFlag = True
         self.detect_thread.start()
-        self.Stack.setCurrentIndex(2)
+        self.Stack.setCurrentIndex(3)
 
     def show_wallet(self):
-        self.Stack.setCurrentIndex(3)
+        self.Stack.setCurrentIndex(4)
 
     def show_charging_unit(self):
         self.Stack.setCurrentIndex(5)
@@ -637,7 +680,7 @@ class Main_Program(QWidget):
             self.btn_tick.hide()
             self.btn_back.show()
             cap.release()
-            self.Stack.setCurrentIndex(1)
+            self.Stack.setCurrentIndex(2)
 
         if self.get_parameter == 'save_package':
             self.btn_back.hide()
