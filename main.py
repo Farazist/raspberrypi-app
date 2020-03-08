@@ -147,6 +147,8 @@ def detectItem():
 
 
 cap = cv.VideoCapture(0)
+button_style = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
+
 class Main_Program(QWidget):
     
     def __init__(self):
@@ -154,6 +156,8 @@ class Main_Program(QWidget):
         super(Main_Program, self).__init__()
 
         self.detectFlag = False
+
+        self.setContentsMargins(10, 10, 10, 5)
 
         self.setStyleSheet('background-color: #f6fdfa  ')
         self.setGeometry(300, 50, 10, 10)
@@ -236,11 +240,15 @@ class Main_Program(QWidget):
 
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.showMaximized()
+        
+        # self.setFixedSize(1000, 600)
+        # self.show()
 
     # -------------------- پنجره تیزر تبلیغاتی --------------------
     def stack_0_UI(self):
         btn_setting = self.setting_button()
-        btn_login, btn_qr = self.login_button()
+        #btn_login, btn_qr = self.login_button()
+        wwww = self.login_button()
 
         v_layout_s0 = QVBoxLayout()
         h_layout_1_s0 = QHBoxLayout()
@@ -262,8 +270,9 @@ class Main_Program(QWidget):
         movie.start()
 
         h_layout_2_s0.addWidget(btn_setting, alignment=Qt.AlignLeft)
-        h_layout_2_s0.addWidget(btn_qr, alignment=Qt.AlignRight)
-        h_layout_2_s0.addWidget(btn_login, alignment=Qt.AlignRight)
+        #h_layout_2_s0.addWidget(btn_qr, alignment=Qt.AlignRight)
+        #h_layout_2_s0.addWidget(btn_login, alignment=Qt.AlignRight)
+        h_layout_2_s0.addLayout(wwww)
         v_layout_s0.addLayout(h_layout_2_s0)
 
         self.stacks[0].setLayout(v_layout_s0)
@@ -408,26 +417,23 @@ class Main_Program(QWidget):
         self.lb_2_s3 = QLabel()
         self.lb_2_s3.getContentsMargins()
         self.lb_2_s3.setFont(label_font)
-        self.lb_2_s3.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
+        self.lb_2_s3.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
         h_layout2_s3.addWidget(self.lb_2_s3, alignment=Qt.AlignLeft)
 
         btn_1_21 = QPushButton('بعدی')
         btn_1_21.setMinimumSize(200, 40)
         btn_1_21.setFont(btn_font)
         btn_1_21.clicked.connect(partial(self.changePredictItemFlag, True))
-        btn_1_21.setStyleSheet(
-            'background-color: #3b8686; color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
+        btn_1_21.setStyleSheet(button_style)
         h_layout2_s3.addWidget(btn_1_21, alignment=Qt.AlignRight)
         
         btn_1_22 = QPushButton('پایان')
         btn_1_22.setMinimumSize(200, 40)
         btn_1_22.setFont(btn_font)
         # btn_1_22.clicked.connect(self.endDeliveryItems)
-        btn_1_22.setStyleSheet(
-            'background-color: #3b8686; color: #ffffff; padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
+        btn_1_22.setStyleSheet(button_style)
         h_layout2_s3.addWidget(btn_1_22, alignment=Qt.AlignRight)
 
-		
         self.stacks[3].setLayout(v_layout)
 
     # -------------------- پنجره کیف پول --------------------
@@ -457,7 +463,7 @@ class Main_Program(QWidget):
         # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
         widget_background2_s4.setMinimumSize(200,200)
         # widget_background2_s3.getContentsMargins()
-        widget_background2_s4.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
+        widget_background2_s4.setStyleSheet('background-color: #ffffff; border: 3px solid #1E5631; border-radius: 30px;')
         widget_background2_s4.setLayout(v_layout2_s4)
         v_layout1_s4.addWidget(widget_background2_s4)
 
@@ -502,7 +508,7 @@ class Main_Program(QWidget):
         # --- create line edit
         self.lb_s11 = QLineEdit()
         self.lb_s11.setMaximumSize(260, 50)
-        self.lb_s11.setStyleSheet('padding: 3px; border: 2px solid #3b8686; border-radius: 6px;')
+        self.lb_s11.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
         # lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         v_layout1_s11.addWidget(self.lb_s11)
 
@@ -518,16 +524,14 @@ class Main_Program(QWidget):
         self.btn_00_s11 = QPushButton()
         self.btn_00_s11.setText('تنظیم شماره پورت')
         self.btn_00_s11.setFixedSize(200, 40)
-        self.btn_00_s11.setStyleSheet('background-color: #3b8686; color: #ffffff; '
-                                      'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
+        self.btn_00_s11.setStyleSheet(button_style)
         v_layout2_s11.addWidget(self.btn_00_s11, alignment=Qt.AlignCenter)
 
 
         self.btn_01_s11 = QPushButton()
         self.btn_01_s11.setText('خروج از برنامه')
         self.btn_01_s11.setFixedSize(200, 40)
-        self.btn_01_s11.setStyleSheet('background-color: #3b8686; color: #ffffff; '
-                                      'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
+        self.btn_01_s11.setStyleSheet(button_style)
         self.btn_01_s11.clicked.connect(self.exit_message_box)
         v_layout2_s11.addWidget(self.btn_01_s11, alignment=Qt.AlignCenter)
 
@@ -546,26 +550,34 @@ class Main_Program(QWidget):
 
     # ---------- login ----------
     def login_button(self):
+        btns_layout = QHBoxLayout()
+
         self.login_btn = QPushButton()
-        self.login_btn.setText('ورود به برنامه')
-        self.login_btn.setStyleSheet('background-color: #3b8686; color: #ffffff; '
-                                      'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        self.login_btn.setMinimumWidth(200)
+        self.login_btn.setText('ورود با نام کاربری')
+        self.login_btn.setIcon(QIcon('images/sign/user-outline1.png'))
+        self.login_btn.setIconSize(QSize(40, 40))
+        self.login_btn.setStyleSheet(button_style)
+        self.login_btn.setMinimumSize(200, 60)
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.login_btn.setSizePolicy(sp_retain)
         self.login_btn.clicked.connect(self.show_login_user)
 
         self.login_qr = QPushButton()
-        self.login_qr.setText('qr ورود با')
-        self.login_qr.setStyleSheet('background-color: #3b8686; color: #ffffff; '
-                                      'padding: 3px; border: 1px solid #3b8686; border-radius: 6px;')
-        self.login_qr.setMinimumWidth(200)
+        self.login_qr.setText('کد qr ورود با')
+        self.login_qr.setIcon(QIcon('images/sign/qr_code1.png'))
+        self.login_qr.setIconSize(QSize(40, 40))
+        self.login_qr.setStyleSheet(button_style)
+        self.login_qr.setMinimumSize(200, 60)
         # sp_retain = QSizePolicy()
         # sp_retain.setRetainSizeWhenHidden(True)
         self.login_qr.setSizePolicy(sp_retain)
         self.login_qr.clicked.connect(self.showQR)
-        return self.login_btn, self.login_qr
+
+        btns_layout.addWidget(self.login_btn)
+        btns_layout.addWidget(self.login_qr)
+        #return self.login_btn, self.login_qr
+        return btns_layout
 
     def show_login_user(self):
         self.check_login_user = Login_user('user')
@@ -703,7 +715,7 @@ class Main_Program(QWidget):
 
     def exit_message_box(self):
         box = QMessageBox()
-        box.setStyleSheet('font-size : 14px')
+        box.setStyleSheet('font-size : 16px')
         box.setIcon(QMessageBox.Question)
         box.setWindowTitle('!فرازیست')
         box.setText('از برنامه خارج می شوید؟')
@@ -711,14 +723,13 @@ class Main_Program(QWidget):
 
         buttonY = box.button(QMessageBox.Yes)
         buttonY.setText('بله')
-        buttonY.setStyleSheet('background-color: #3b8686; color: #ffffff; '
-                                      'border-radius: 6px;')
+        buttonY.setStyleSheet(button_style)
         buttonY.setMinimumSize(60,30)
         
         buttonN = box.button(QMessageBox.No)
         buttonN.setText('خیر')
-        buttonN.setStyleSheet('background-color: #D41529; color: #ffffff; '
-                                      'border-radius: 6px;')
+        buttonN.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e11c1c, stop:1 #f86565);'
+                              'color: #ffffff; padding: 3px; border: none; border-radius: 6px;')
         buttonN.setMinimumSize(60,30)
 
         box.exec_()

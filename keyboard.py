@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QPushButton, QGridLayout, QApplication
+from PyQt5.QtWidgets import QPushButton, QGridLayout, QApplication, QSizePolicy
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import Qt, QSize
 from functools import partial
@@ -16,7 +16,7 @@ class KEYBoard:
         
         # --- create numbers
         keyboard = [[0 for i in range(3)] for j in range(4)]
-        font = QFont('Times', 12, QFont.Bold)
+        font = QFont('Times', 18, QFont.Bold)
 
         for i in range(4):
             for j in range(3):
@@ -30,9 +30,10 @@ class KEYBoard:
                           [7, 8, 9], 
                           ['', 0, '']]
                 keyboard[i][j].setText(str(btn_num[i][j]))
-                keyboard[i][j].setFixedSize(60, 30)
-                keyboard[i][j].setStyleSheet('background-color: #3b8686; color: #ffffff; border: none; border-radius: 6px;')
-                # board[i][j].setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+                keyboard[i][j].setFixedSize(60, 60)
+                keyboard[i][j].setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #626060, stop:1 #7e7c7c);'
+                                             'color: #ffffff; border: none; border-radius: 6px;')
+                # keyboard[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 self.g_layout.addWidget(keyboard[i][j], i, j, alignment=Qt.AlignHCenter)
 
 
@@ -51,7 +52,7 @@ class KEYBoard:
         keyboard[3][1].clicked.connect(partial(self.number_show, 0))
         keyboard[3][2].clicked.connect(self.delete_number)
 
-        keyboard[3][2].setIcon(QIcon('images/sign/216103-64.png'))
+        keyboard[3][2].setIcon(QIcon('images/sign/backspace.png'))
         keyboard[3][2].setIconSize(QSize(32, 32))
         
         keyboard[3][0].hide()
