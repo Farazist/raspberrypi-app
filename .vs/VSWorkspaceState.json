@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
+    "",
+    "\\images"
+=======
     ""
+>>>>>>> 0d75168365897e1d7a027b2d00a449a9350c1663
   ],
   "SelectedNode": "\\main.py",
   "PreviewInSolutionExplorer": false

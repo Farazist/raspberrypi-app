@@ -11,77 +11,35 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from database import Database
 from functools import partial
-import pyzbar.pyzbar as pyzbar
 from app import *
 from login import Login_user
 from login import Login_pass
 from keyboard import KEYBoard
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
+import qrcode
 
+global categories_count
+global flag
+global model
+global delivery_items_flag
+global predict_item_flag
+global user_items
+global camera
+global widget_index_stack
 
-def scanQrCode():
-    global user, cap
-
-    qrcode_camera_port = LocalDataBase.selectOne('system_id')[2]
-
-    cap = cv.VideoCapture(int(qrcode_camera_port))
-    
-    detector = cv.QRCodeDetector()
-    aes = AESCipher(key)
-    print('start scan qrcode')
-
-    user = Database.signInUser('09150471487', '1234')
-    # window.show_menu()
-    return
-
-    while True:
-        _, img = cap.read()
-        decodedObjects = pyzbar.decode(img)
-
-        for obj in decodedObjects:
-            print('Type:', obj.type)
-            print('Data:', obj.data)
-
-            try:
-                decrypted_data = aes.decrypt(obj.data)
-
-                print("QR Code decrypted data:", decrypted_data)
-
-                splited_decrypted_data = decrypted_data.split(' ')
-                mobile_number = splited_decrypted_data[0]
-                password = splited_decrypted_data[1]
-
-                user = Database.signinUser(mobile_number, password)
-
-                if user:
-                    print(user)
-                    window.show_menu()
-                    return
-                else:
-                    print('user not found')
-
-            except:
-                print('QRCode data is not valid')
+camera = None
+widget_index_stack = []
 
 
 def loadModel():
-    global model
-    # model = tf.keras.models.load_model('../farazist.h5')
+    # model = tf.keras.models.load_model('farazist.h5')
     print('model successfully loaded')
 
 
 def detectItem():
-    global categories_count
-    global flag
-    global model
-    global delivery_items_flag
-    global predict_item_flag
-    global user_items
 
-    item_camera_port = LocalDataBase.selectOne('item_camera_port')[2]
-
-    cap = cv.VideoCapture(int(item_camera_port))
+    camera = cv.VideoCapture(0)
     
     predict_item_list = []
     categories_count = np.zeros(len(categories), np.uint8)
@@ -96,7 +54,7 @@ def detectItem():
             if time == 30:
                 time = 0
 
-                _, frame = cap.read()
+                _, frame = camera.read()
                 frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
                 frame = cv.resize(frame, (299, 299))
                 frame = frame.reshape(1, 299, 299, 3)
@@ -105,7 +63,7 @@ def detectItem():
                 # prediction = model.predict([frame])
                 prediction = np.random.rand(1, 20)
 
-                if np.max(prediction) > 0.8:
+                if np.max(prediction) > 0.4:
                     predicted = np.argmax(prediction)
                     print(items[predicted])
 
@@ -136,17 +94,13 @@ def detectItem():
                     predict_item_list = []
                     predict_item_flag = False
 
-            if cv.waitKey(1) & 0XFF == ord('q'):
-                break
-
         except:
             print("error")
 
-    cap.release()
+    camera.release()
     cv.destroyAllWindows()
 
 
-cap = cv.VideoCapture(0)
 button_style = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
 
 class Main_Program(QWidget):
@@ -155,10 +109,7 @@ class Main_Program(QWidget):
         
         super(Main_Program, self).__init__()
 
-        self.detectFlag = False
-
         self.setContentsMargins(10, 10, 10, 5)
-
         self.setStyleSheet('background-color: #f6fdfa  ')
         self.setGeometry(300, 50, 10, 10)
         self.setWindowTitle('فرازیست')
@@ -180,6 +131,7 @@ class Main_Program(QWidget):
         self.btn_back = QPushButton()
         self.btn_back.setIcon(QIcon('images/sign/arrow-back-outline.png'))
         self.btn_back.setIconSize(QSize(40, 40))
+        self.btn_back.clicked.connect(self.back_window)
 
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
@@ -188,7 +140,7 @@ class Main_Program(QWidget):
         h_layout_header.addWidget(self.btn_back, alignment=Qt.AlignLeft)
 
         # --- child 2
-        logo = QPixmap('images/logo/artboard_1_0_25x_8rX_icon.ico')
+        logo = QPixmap('images/farazist.ico')
 
         lb_logo = QLabel()
         lb_logo.setPixmap(logo)
@@ -205,21 +157,7 @@ class Main_Program(QWidget):
 
         h_layout_header.addWidget(self.btn_tick, alignment=Qt.AlignRight)
 
-        # -------------------- creat stack widgets --------------------
-
         self.stacks = [QWidget() for _ in range(12)]
-
-        # self.stack0 = QWidget()  # تیزر تبلیغاتی
-        # self.stack1 = QWidget()  # qr پنجره
-        # self.stack2 = QWidget()  # صفحه اصلی - منو
-        # self.stack3 = QWidget()  # تحویل پکیج
-        # self.stack4 = QWidget()  # کیف پول
-        # self.stack5 = QWidget()  # شارژ واحد مسکونی
-        # self.stack6 = QWidget()  # واریز به بازیافت کارت
-        # self.stack7 = QWidget()  # کمک به محیط زیست
-        # self.stack8 = QWidget()  # کمک به خیریه
-        # self.stack9 = QWidget()  # خریز شارژ
-        # self.stack10 = QWidget()  # فروشگاه
 
         # -------------------- create stacks --------------------
         self.Stack = QStackedWidget(self)
@@ -280,7 +218,6 @@ class Main_Program(QWidget):
     # -------------------- qr پنجره نمایش --------------------
     def stack_1_UI(self):
         btn_setting = self.setting_button()
-        self.btn_back.clicked.connect(partial(self.back_window, 'back_to_teaser'))
 
         v_layout_s1 = QVBoxLayout()
         
@@ -294,7 +231,6 @@ class Main_Program(QWidget):
     def stack_2_UI(self):
 
         btn_setting = self.setting_button()
-        self.btn_back.clicked.connect(partial(self.back_window, 'back_to_teaser'))
         # -------------------- main window layout --------------------
         v_layout = QVBoxLayout()
         h_layout = QHBoxLayout()
@@ -352,9 +288,6 @@ class Main_Program(QWidget):
     def stack_3_UI(self):
 
         btn_setting = self.setting_button()
-
-        self.btn_back.clicked.connect(partial(self.back_window, 'back_to_menu'))
-        self.btn_tick.clicked.connect(partial(self.back_window, 'save_package'))
 
         btn_font = QFont('IRANSans', 11)
         label_font = QFont('IRANSans', 13)
@@ -458,7 +391,6 @@ class Main_Program(QWidget):
         widget_background1_s4.setLayout(v_layout1_s4)
         v_layout.addWidget(widget_background1_s4)
 
-
         widget_background2_s4 = QWidget()
         # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
         widget_background2_s4.setMinimumSize(200,200)
@@ -527,7 +459,6 @@ class Main_Program(QWidget):
         self.btn_00_s11.setStyleSheet(button_style)
         v_layout2_s11.addWidget(self.btn_00_s11, alignment=Qt.AlignCenter)
 
-
         self.btn_01_s11 = QPushButton()
         self.btn_01_s11.setText('خروج از برنامه')
         self.btn_01_s11.setFixedSize(200, 40)
@@ -535,7 +466,6 @@ class Main_Program(QWidget):
         self.btn_01_s11.clicked.connect(self.exit_message_box)
         v_layout2_s11.addWidget(self.btn_01_s11, alignment=Qt.AlignCenter)
 
-       
         # group1.setLayout(v_layout1_s10)
         group2.setLayout(v_layout2_s11)
         
@@ -615,22 +545,18 @@ class Main_Program(QWidget):
             self.Stack.setCurrentIndex(11)
 
     def showStart(self):
-        import qrcode
-
         self.btn_back.hide()
         self.btn_tick.hide()
-        # self.detect_thread.kill.set()
-        self.thread_qr = threading.Thread(target=scanQrCode)
-        self.thread_qr.start()
         self.Stack.setCurrentIndex(0)
+        widget_index_stack.append(0)
 
     def showQR(self):
-        import qrcode
-
         self.btn_back.show()
 
         data = "http://farazist.ir/"
         filename = 'images\qr\qrcode.png'
+
+        user = Database.signInUser('09150471487', '1234')
 
         img = qrcode.make(data)
         img.save(filename)
@@ -640,65 +566,65 @@ class Main_Program(QWidget):
         self.lb_1_s1.setPixmap(open_img)
 
         self.Stack.setCurrentIndex(1)
+        widget_index_stack.append(1)
 
     def show_menu(self):
         self.btn_back.show()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(2)
+        widget_index_stack.append(2)
 
     def show_delivery(self):
         self.btn_back.show()
         self.btn_tick.show()
-        # self.thread_detect = threading.Thread(target=Detect_Thread)
-        # self.thread_detect.start()
         self.detect_thread = threading.Thread(target=detectItem)
-        self.detectFlag = True
         self.detect_thread.start()
         self.Stack.setCurrentIndex(3)
+        widget_index_stack.append(3)
 
     def show_wallet(self):
         self.Stack.setCurrentIndex(4)
+        widget_index_stack.append(4)
 
     def show_charging_unit(self):
         self.Stack.setCurrentIndex(5)
+        widget_index_stack.append(5)
 
     def show_deposit_to_card(self):
         self.Stack.setCurrentIndex(6)
+        widget_index_stack.append(6)
 
     def show_helping_to_environment(self):
         self.Stack.setCurrentIndex(7)
+        widget_index_stack.append(7)
 
     def show_charity(self):
         self.Stack.setCurrentIndex(8)
+        widget_index_stack.append(8)
 
     def show_buy_credit(self):
         self.Stack.setCurrentIndex(9)
+        widget_index_stack.append(9)
 
     def show_store(self):
         self.Stack.setCurrentIndex(10)
+        widget_index_stack.append(10)
 
     def back_window(self, get_parameter):
-        global cap
-        self.get_parameter = get_parameter
 
-        if self.get_parameter == 'back_to_teaser':
-            self.detectFlag = False
+        self.delivery_items_flag = False            
+        if camera: 
+            camera.release()
+        
+        self.btn_tick.hide()
+        self.btn_back.show()    
+
+        widget_index_stack.pop()
+        
+        if widget_index_stack[-1] == 0:
             self.btn_back.hide()
-            self.Stack.setCurrentIndex(0)
 
-        if self.get_parameter == 'back_to_menu':
-            self.detectFlag = False            
-            print('22222222')
-            self.btn_tick.hide()
-            self.btn_back.show()
-            cap.release()
-            self.Stack.setCurrentIndex(2)
-
-        if self.get_parameter == 'save_package':
-            self.btn_back.hide()
-            self.btn_tick.hide()
-            self.Stack.setCurrentIndex(0)
-            self.detectFlag = False
+        self.Stack.setCurrentIndex(widget_index_stack[-1])
 
     def display(self, i):
         self.Stack.setCurrentIndex(i)
@@ -709,7 +635,6 @@ class Main_Program(QWidget):
         detect_item_flag = False
         cap.release() 
         cv.destroyAllWindows()
-       
         self.close()
         # QApplication.quit()
 
@@ -737,16 +662,6 @@ class Main_Program(QWidget):
             self.exit_program()
         elif box.clickedButton() == buttonN:
             box.close()
-    # def show_main_menu(self):
-    #     self.thread_obj.kill.set()
-    #     cv.destroyWindow('Window1')
-    #     # cv.waitKey(1)
-    #     self.Stack.setCurrentIndex(0)
-
-    # def show_garbage_page(self):
-    #     self.thread_obj = Thread_()
-    #     self.thread_obj.start()
-    #     self.Stack.setCurrentIndex(1)
 
 
 if __name__ == '__main__':
