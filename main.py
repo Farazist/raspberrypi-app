@@ -17,7 +17,7 @@ from login import Login_pass
 from keyboard import KEYBoard
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
-import qrcode
+import pyqrcode
 
 global categories_count
 global flag
@@ -28,7 +28,7 @@ global user_items
 global camera
 global widget_index_stack
 
-camera = None
+camera = cv.VideoCapture(0)
 widget_index_stack = []
 
 
@@ -38,7 +38,6 @@ def loadModel():
 
 
 def detectItem():
-
     camera = cv.VideoCapture(0)
     
     predict_item_list = []
@@ -102,6 +101,11 @@ def detectItem():
 
 
 button_style = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
+menu_font = QFont('IRANSans', 18)
+package_font = QFont('IRANSans', 16)
+label_font = QFont('IRANSans', 18)
+number_font = QFont('IRANSansFaNum', 20, QFont.Bold)
+btn_sign_font = QFont('IRANSans', 20)
 
 class Main_Program(QWidget):
     
@@ -109,52 +113,60 @@ class Main_Program(QWidget):
         
         super(Main_Program, self).__init__()
 
-        self.setContentsMargins(10, 10, 10, 5)
+        #self.setContentsMargins(10, 10, 10, 5)
         self.setStyleSheet('background-color: #f6fdfa  ')
-        self.setGeometry(300, 50, 10, 10)
+        #self.setGeometry(300, 50, 10, 10)
         self.setWindowTitle('فرازیست')
 
         v_layout = QVBoxLayout(self)
+        v_layout.setContentsMargins(0, 10, 0, 0)
 
         widget_header = QWidget()
-        widget_header.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        widget_header.getContentsMargins()
+        #widget_header.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        #widget_header.getContentsMargins()
         widget_header.setFixedHeight(100)
-        widget_header.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
+        widget_header.setStyleSheet('border: none')
         v_layout.addWidget(widget_header)
 
         h_layout_header = QHBoxLayout()
-        h_layout_header.setContentsMargins(40, 0, 40, 0)
+        h_layout_header.setContentsMargins(20, 0, 20, 0)
         widget_header.setLayout(h_layout_header)
 
         # --- child 1
         self.btn_back = QPushButton()
-        self.btn_back.setIcon(QIcon('images/sign/arrow-back-outline.png'))
-        self.btn_back.setIconSize(QSize(40, 40))
+        self.btn_back.setFont(btn_sign_font)
+        self.btn_back.setText('بازگشت')
+        self.btn_back.setIcon(QIcon('images/sign/back.png'))
+        self.btn_back.setIconSize(QSize(50, 50))
+        self.btn_back.setMinimumSize(170, 70)
+        self.btn_back.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);'
+                                    'color: #ffffff; border: none; border-radius: 6px;')
         self.btn_back.clicked.connect(self.back_window)
-
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.btn_back.setSizePolicy(sp_retain)
-
         h_layout_header.addWidget(self.btn_back, alignment=Qt.AlignLeft)
+
 
         # --- child 2
         logo = QPixmap('images/farazist.ico')
-
         lb_logo = QLabel()
         lb_logo.setPixmap(logo)
         h_layout_header.addWidget(lb_logo, alignment=Qt.AlignCenter)
 
         # --- child 3
         self.btn_tick = QPushButton()
-        self.btn_tick.setIcon(QIcon('images/sign/tick-outline.png'))
-        self.btn_tick.setIconSize(QSize(40, 40))
-
+        self.btn_tick.setFont(btn_sign_font)
+        self.btn_tick.setText('تایید')
+        self.btn_tick.setIcon(QIcon('images/sign/tick.png'))
+        self.btn_tick.setIconSize(QSize(50, 50))
+        self.btn_tick.setMinimumSize(170, 70)
+        self.btn_tick.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);'
+                                    'color: #ffffff; border: none; border-radius: 6px;')
+        self.btn_tick.clicked.connect(self.back_window)
         # sp_retain = QSizePolicy()
         # sp_retain.setRetainSizeWhenHidden(True)
         self.btn_tick.setSizePolicy(sp_retain)
-
         h_layout_header.addWidget(self.btn_tick, alignment=Qt.AlignRight)
 
         self.stacks = [QWidget() for _ in range(12)]
@@ -185,18 +197,16 @@ class Main_Program(QWidget):
     # -------------------- پنجره تیزر تبلیغاتی --------------------
     def stack_0_UI(self):
         btn_setting = self.setting_button()
-        #btn_login, btn_qr = self.login_button()
-        wwww = self.login_button()
+        btns_layout = self.login_button()
 
         v_layout_s0 = QVBoxLayout()
         h_layout_1_s0 = QHBoxLayout()
         h_layout_2_s0 = QHBoxLayout()
-        ## h_layout = QHBoxLayout()
 
         widget_background_s0 = QWidget()
-        widget_background_s0.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        #widget_background_s0.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
         # widget_background.getContentsMargins()
-        widget_background_s0.setStyleSheet('background-color: #fefcfc; border-radius: 30px;')
+        widget_background_s0.setStyleSheet('background-color: #fefcfc; border-radius: 30px; border :none;')
         widget_background_s0.setLayout(h_layout_1_s0)
         v_layout_s0.addWidget(widget_background_s0)
 
@@ -207,10 +217,8 @@ class Main_Program(QWidget):
         self.lb_1_s0.setMovie(movie)
         movie.start()
 
-        h_layout_2_s0.addWidget(btn_setting, alignment=Qt.AlignLeft)
-        #h_layout_2_s0.addWidget(btn_qr, alignment=Qt.AlignRight)
-        #h_layout_2_s0.addWidget(btn_login, alignment=Qt.AlignRight)
-        h_layout_2_s0.addLayout(wwww)
+        h_layout_2_s0.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+        h_layout_2_s0.addLayout(btns_layout)
         v_layout_s0.addLayout(h_layout_2_s0)
 
         self.stacks[0].setLayout(v_layout_s0)
@@ -219,12 +227,26 @@ class Main_Program(QWidget):
     def stack_1_UI(self):
         btn_setting = self.setting_button()
 
+        label_font = QFont('IRANSans', 19)
+
         v_layout_s1 = QVBoxLayout()
+        h_layout_s1 = QHBoxLayout()
+        h_layout_s1.setContentsMargins(0, 0, 100, 0)
         
         self.lb_1_s1 = QLabel()
-        v_layout_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignCenter)
-        v_layout_s1.addWidget(btn_setting, alignment=Qt.AlignLeft)
+        h_layout_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignCenter)
 
+        text = 'برنامه فرازیست را بر روی گوشی خود باز کنید\n'\
+               'در صفحه اصلی برنامه بر روی آیکن qr در بالای سمت راست برنامه کلید کنید\n'\
+               'و بر روی گزینه اسکن کلیک کنید'
+        self.lb_1_s2 = QLabel()
+        self.lb_1_s2.setText(text)
+        self.lb_1_s2.setFont(label_font)
+        h_layout_s1.addWidget(self.lb_1_s2, alignment=Qt.AlignCenter)
+
+        v_layout_s1.addLayout(h_layout_s1)
+        v_layout_s1.addWidget(btn_setting, alignment=Qt.AlignLeft)
+        
         self.stacks[1].setLayout(v_layout_s1)
 
     # -------------------- پنجره منو برنامه --------------------
@@ -238,20 +260,20 @@ class Main_Program(QWidget):
         # ------- child  layout
         grid_layout_s2 = QGridLayout()
         h_layout.addLayout(grid_layout_s2)
-        grid_layout_s2.setContentsMargins(0, 60, 0, 50)  # (left, top, right, bottom)
+        grid_layout_s2.setContentsMargins(10, 30, 10, 10)  # (left, top, right, bottom)
 
         main_menu_buttons = [   
             [
                 {'text': 'تحویل پسماند', 'image': 'images/green_main_menu/Package Delivery.png', 'function': self.show_delivery},
                 {'text': 'کیف پول', 'image': 'images/green_main_menu/wallet.png', 'function': self.show_wallet},
-                {'text': 'شارژ واحد مسکونی', 'image': 'images/green_main_menu/Charging Residential Unit.png', 'function': None},
-                {'text': 'واریز به بازیافت کارت', 'image': 'images/green_main_menu/Deposit to card recycling.png', 'function': None}
+                {'text': 'شارژ واحد مسکونی', 'image': 'images/green_main_menu/Charging Residential Unit.png', 'function': self.menu_message_box},
+                {'text': 'واریز به بازیافت کارت', 'image': 'images/green_main_menu/Deposit to card recycling.png', 'function': self.menu_message_box}
             ],
             [
-                {'text': 'کمک به محیط زیست', 'image': 'images/green_main_menu/Helping the environment.png', 'function': None},
-                {'text': 'کمک به خیریه', 'image': 'images/green_main_menu/Donate to charity.png', 'function': None},
-                {'text': 'خرید شارژ', 'image': 'images/green_main_menu/to buy credit.png', 'function': None},
-                {'text': 'فروشگاه', 'image': 'images/green_main_menu/Store.png', 'function': None}
+                {'text': 'کمک به محیط زیست', 'image': 'images/green_main_menu/Helping the environment.png', 'function': self.menu_message_box},
+                {'text': 'کمک به خیریه', 'image': 'images/green_main_menu/Donate to charity.png', 'function': self.menu_message_box},
+                {'text': 'خرید شارژ', 'image': 'images/green_main_menu/to buy credit.png', 'function': self.menu_message_box},
+                {'text': 'فروشگاه', 'image': 'images/green_main_menu/Store.png', 'function': self.menu_message_box}
             ]
         ]
 
@@ -260,7 +282,7 @@ class Main_Program(QWidget):
         
         for i in range(2):
             for j in range(4):
-                self.v_layouts_main_menu[i][j].setContentsMargins(10, 0, 10, 20)
+                # self.v_layouts_main_menu[i][j].setContentsMargins(20, 0, 20, 10)
                 
                 grid_layout_s2.addLayout(self.v_layouts_main_menu[i][j], i, j, Qt.AlignCenter)
 
@@ -268,7 +290,7 @@ class Main_Program(QWidget):
                 btn.setIcon(QIcon(main_menu_buttons[i][j]['image']))
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setIconSize(QSize(110, 110))
-                btn.setMaximumSize(200, 200)
+                btn.setFixedSize(200, 200)
                 btn.setStyleSheet('background-color: #ffffff; border: 3px solid #3b8686; border-radius: 30px;')
 
                 if main_menu_buttons[i][j]['function']:
@@ -277,10 +299,11 @@ class Main_Program(QWidget):
 
                 lbl = QLabel()
                 lbl.setText(main_menu_buttons[i][j]['text'])
+                lbl.setFont(menu_font)
                 self.v_layouts_main_menu[i][j].addWidget(lbl, alignment=Qt.AlignHCenter)
 
         v_layout.addLayout(h_layout)
-        v_layout.addWidget(btn_setting)
+        v_layout.addWidget(btn_setting, alignment=Qt.AlignLeft)
 
         self.stacks[2].setLayout(v_layout)
 
@@ -288,9 +311,6 @@ class Main_Program(QWidget):
     def stack_3_UI(self):
 
         btn_setting = self.setting_button()
-
-        btn_font = QFont('IRANSans', 11)
-        label_font = QFont('IRANSans', 13)
 
         v_layout = QVBoxLayout()  # main window layout
         v_layout.setSpacing(40)
@@ -314,7 +334,7 @@ class Main_Program(QWidget):
         v_layout.addWidget(widget_background_s3)
 
         h_layout2_s3 = QHBoxLayout()
-        h_layout2_s3.setContentsMargins(0, 0, 90, 20)
+        #h_layout2_s3.setContentsMargins(0, 0, 90, 20)
         v_layout.addLayout(h_layout2_s3)
 
         self.grid_widget_s3 = [[QLabel() for _ in range(len(categories))] for _ in range(3)]
@@ -333,11 +353,11 @@ class Main_Program(QWidget):
             self.grid_widget_s3[0][i].setAlignment(Qt.AlignCenter)
 
             self.grid_widget_s3[1][i].setText(categories[i]['name'])
-            self.grid_widget_s3[1][i].setFont(label_font)
+            self.grid_widget_s3[1][i].setFont(package_font)
             self.grid_widget_s3[1][i].setAlignment(Qt.AlignCenter)
 
             self.grid_widget_s3[2][i].setText('0')
-            self.grid_widget_s3[2][i].setFont(label_font)
+            self.grid_widget_s3[2][i].setFont(number_font)
             self.grid_widget_s3[2][i].setAlignment(Qt.AlignCenter)
 
         lb_1_s3 = QLabel('اعتبار')
@@ -350,22 +370,16 @@ class Main_Program(QWidget):
         self.lb_2_s3 = QLabel()
         self.lb_2_s3.getContentsMargins()
         self.lb_2_s3.setFont(label_font)
+        self.lb_2_s3.setAlignment(Qt.AlignCenter)
         self.lb_2_s3.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
-        h_layout2_s3.addWidget(self.lb_2_s3, alignment=Qt.AlignLeft)
+        h_layout2_s3.addWidget(self.lb_2_s3)
 
         btn_1_21 = QPushButton('بعدی')
-        btn_1_21.setMinimumSize(200, 40)
-        btn_1_21.setFont(btn_font)
+        btn_1_21.setMinimumSize(200, 60)
+        btn_1_21.setFont(menu_font)
         btn_1_21.clicked.connect(partial(self.changePredictItemFlag, True))
         btn_1_21.setStyleSheet(button_style)
-        h_layout2_s3.addWidget(btn_1_21, alignment=Qt.AlignRight)
-        
-        btn_1_22 = QPushButton('پایان')
-        btn_1_22.setMinimumSize(200, 40)
-        btn_1_22.setFont(btn_font)
-        # btn_1_22.clicked.connect(self.endDeliveryItems)
-        btn_1_22.setStyleSheet(button_style)
-        h_layout2_s3.addWidget(btn_1_22, alignment=Qt.AlignRight)
+        h_layout2_s3.addWidget(btn_1_21)
 
         self.stacks[3].setLayout(v_layout)
 
@@ -376,49 +390,31 @@ class Main_Program(QWidget):
         btn_setting = self.setting_button()
 
         v_layout = QVBoxLayout()
+        h_layout1_s4 = QHBoxLayout()
+        h_layout1_s4.setContentsMargins(0, 0, 100, 0)
 
-        v_layout1_s4 = QVBoxLayout()
-        # v_layout1_s3.getContentsMargins()
-        v_layout1_s4.setAlignment(Qt.AlignCenter)
+        widget_background_s4 = QWidget()
+        widget_background_s4.setFixedHeight(500)
+        widget_background_s4.setLayout(h_layout1_s4)
+        v_layout.addWidget(widget_background_s4)
 
-        v_layout2_s4 = QVBoxLayout()
-        v_layout2_s4.setAlignment(Qt.AlignCenter)
-        
-        widget_background1_s4 = QWidget()
-        widget_background1_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        # widget_background.getContentsMargins()
-        widget_background1_s4.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
-        widget_background1_s4.setLayout(v_layout1_s4)
-        v_layout.addWidget(widget_background1_s4)
-
-        widget_background2_s4 = QWidget()
-        # widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        widget_background2_s4.setMinimumSize(200,200)
-        # widget_background2_s3.getContentsMargins()
-        widget_background2_s4.setStyleSheet('background-color: #ffffff; border: 3px solid #1E5631; border-radius: 30px;')
-        widget_background2_s4.setLayout(v_layout2_s4)
-        v_layout1_s4.addWidget(widget_background2_s4)
+        movie = QMovie("animation/oie_1475355NRgGVDm8.gif")
 
         self.lb_1_s4 = QLabel()
-        self.lb_1_s4.getContentsMargins()
-        self.lb_1_s4.setText('موجودی')
-        self.lb_1_s4.setStyleSheet('border: None')
-        v_layout2_s4.addWidget(self.lb_1_s4)
+        h_layout1_s4.addWidget(self.lb_1_s4, alignment=Qt.AlignLeft)
+        self.lb_1_s4.setMovie(movie)
+        movie.start()
+
+        lb_text = "موجودی\n{}\nریال"
+
 
         self.lb_2_s4 = QLabel()
-        self.lb_2_s4.getContentsMargins()
-        # self.lb_2_s3.setText(Database.getWallet())
-        self.lb_2_s4.setStyleSheet('border: None')
-        v_layout2_s4.addWidget(self.lb_2_s4)
-
-        self.lb_3_s4 = QLabel()
-        self.lb_3_s4.getContentsMargins()
-        self.lb_3_s4.setText('ریال')
-        self.lb_3_s4.setStyleSheet('border: None')
-        self.lb_3_s4.setAlignment(Qt.AlignCenter)
-        v_layout2_s4.addWidget(self.lb_3_s4)
-
-        v_layout.addWidget(btn_setting)
+        self.lb_2_s4.setFont(label_font)
+        self.lb_2_s4.setText(lb_text.format(5015))
+        h_layout1_s4.addWidget(self.lb_2_s4, alignment=Qt.AlignRight)
+        
+        v_layout.addLayout(h_layout1_s4)
+        v_layout.addWidget(btn_setting, alignment = Qt.AlignLeft| Qt.AlignBottom)
 
         self.stacks[4].setLayout(v_layout)
 
@@ -439,7 +435,7 @@ class Main_Program(QWidget):
         # ---------- child 1 widgets ----------
         # --- create line edit
         self.lb_s11 = QLineEdit()
-        self.lb_s11.setMaximumSize(260, 50)
+        self.lb_s11.setMaximumSize(260, 60)
         self.lb_s11.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
         # lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         v_layout1_s11.addWidget(self.lb_s11)
@@ -454,14 +450,16 @@ class Main_Program(QWidget):
         v_layout2_s11.setContentsMargins(20, 0, 20, 200)
         # ---------- child 2 widgets ----------
         self.btn_00_s11 = QPushButton()
+        self.btn_00_s11.setFont(menu_font)
         self.btn_00_s11.setText('تنظیم شماره پورت')
-        self.btn_00_s11.setFixedSize(200, 40)
+        self.btn_00_s11.setFixedSize(200, 60)
         self.btn_00_s11.setStyleSheet(button_style)
         v_layout2_s11.addWidget(self.btn_00_s11, alignment=Qt.AlignCenter)
 
         self.btn_01_s11 = QPushButton()
+        self.btn_01_s11.setFont(menu_font)
         self.btn_01_s11.setText('خروج از برنامه')
-        self.btn_01_s11.setFixedSize(200, 40)
+        self.btn_01_s11.setFixedSize(200, 60)
         self.btn_01_s11.setStyleSheet(button_style)
         self.btn_01_s11.clicked.connect(self.exit_message_box)
         v_layout2_s11.addWidget(self.btn_01_s11, alignment=Qt.AlignCenter)
@@ -477,28 +475,35 @@ class Main_Program(QWidget):
     def changePredictItemFlag(self, value):
         global predict_item_flag
         predict_item_flag = value
+        self.lb_2_s3.clear()
 
     # ---------- login ----------
     def login_button(self):
+        btns_font = QFont('IRANSans', 24)
+
         btns_layout = QHBoxLayout()
 
         self.login_btn = QPushButton()
+        self.login_btn.setFont(btns_font)
+        self.login_btn.setStyleSheet("QPushButton { text-align: center; }")
         self.login_btn.setText('ورود با نام کاربری')
         self.login_btn.setIcon(QIcon('images/sign/user-outline1.png'))
-        self.login_btn.setIconSize(QSize(40, 40))
+        self.login_btn.setIconSize(QSize(50, 50))
         self.login_btn.setStyleSheet(button_style)
-        self.login_btn.setMinimumSize(200, 60)
+        self.login_btn.setMinimumSize(290, 130)
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.login_btn.setSizePolicy(sp_retain)
         self.login_btn.clicked.connect(self.show_login_user)
 
         self.login_qr = QPushButton()
+        self.login_qr.setFont(btns_font)
+        self.login_qr.setStyleSheet("QPushButton { text-align: center; }")
         self.login_qr.setText('کد qr ورود با')
         self.login_qr.setIcon(QIcon('images/sign/qr_code1.png'))
-        self.login_qr.setIconSize(QSize(40, 40))
+        self.login_qr.setIconSize(QSize(50, 50))
         self.login_qr.setStyleSheet(button_style)
-        self.login_qr.setMinimumSize(200, 60)
+        self.login_qr.setMinimumSize(290, 130)
         # sp_retain = QSizePolicy()
         # sp_retain.setRetainSizeWhenHidden(True)
         self.login_qr.setSizePolicy(sp_retain)
@@ -524,7 +529,7 @@ class Main_Program(QWidget):
         self.setting = QPushButton()
         self.setting.setIcon(QIcon('images\sign\setting.png'))
         self.setting.setStyleSheet('border: none')
-        self.setting.setIconSize(QSize(40, 40))
+        self.setting.setIconSize(QSize(60, 60))
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.setting.setSizePolicy(sp_retain)
@@ -540,9 +545,10 @@ class Main_Program(QWidget):
         self.check_setting_pass = Login_pass('admin')
         if self.check_setting_pass.exec_() == QDialog.Accepted:
             # self.show_menu()
-            self.btn_back.show()
+            self.btn_back.hide()
             self.btn_tick.show()
             self.Stack.setCurrentIndex(11)
+            widget_index_stack.append(11)
 
     def showStart(self):
         self.btn_back.hide()
@@ -553,16 +559,13 @@ class Main_Program(QWidget):
     def showQR(self):
         self.btn_back.show()
 
-        data = "http://farazist.ir/"
+        data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
         filename = 'images\qr\qrcode.png'
 
-        user = Database.signInUser('09150471487', '1234')
-
-        img = qrcode.make(data)
-        img.save(filename)
-
+        url = pyqrcode.create(data)
+        url.png(filename, scale=6, background='#f6fdfa')
+    
         open_img = QPixmap(filename)
-        
         self.lb_1_s1.setPixmap(open_img)
 
         self.Stack.setCurrentIndex(1)
@@ -575,7 +578,7 @@ class Main_Program(QWidget):
         widget_index_stack.append(2)
 
     def show_delivery(self):
-        self.btn_back.show()
+        self.btn_back.hide()
         self.btn_tick.show()
         self.detect_thread = threading.Thread(target=detectItem)
         self.detect_thread.start()
@@ -610,7 +613,7 @@ class Main_Program(QWidget):
         self.Stack.setCurrentIndex(10)
         widget_index_stack.append(10)
 
-    def back_window(self, get_parameter):
+    def back_window(self):
 
         self.delivery_items_flag = False            
         if camera: 
@@ -631,28 +634,57 @@ class Main_Program(QWidget):
 
     # ---------- exit ----------
     def exit_program(self):
-        global cap, app, detect_item_flag
+        global app, detect_item_flag
         detect_item_flag = False
-        cap.release() 
+        camera.release() 
         cv.destroyAllWindows()
         self.close()
         # QApplication.quit()
 
-    def exit_message_box(self):
+    def menu_message_box(self):
+        btn_font = QFont('IRANSans', 14)
+        lb_font = QFont('IRANSans', 18)
+
         box = QMessageBox()
-        box.setStyleSheet('font-size : 16px')
+        box.setStyleSheet("QLabel{min-width: 150px; min-height: 50px;} QPushButton{min-width: 120px; min-height: 40px;}")
+        #box.setStyleSheet('font-size : 18px')
+        box.setIcon(QMessageBox.Information)
+        #box.setWindowTitle('!خطا')
+        box.setText('به زودی!')
+        box.setFont(lb_font)
+        box.setStandardButtons(QMessageBox.Ok)
+
+        buttonOK = box.button(QMessageBox.Ok)
+        buttonOK.setText('متوجه شدم')
+        buttonOK.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);'
+                               'color: #ffffff; padding: 3px; border: none; border-radius: 6px;')
+        buttonOK.setFont(btn_font)
+        box.exec_()
+        
+        if box.clickedButton() == buttonOK:
+            box.close()
+
+    def exit_message_box(self):
+        btn_font = QFont('IRANSans', 16)
+        lb_font = QFont('IRANSans', 18)
+
+        box = QMessageBox()
+        box.setStyleSheet("QPushButton{min-width: 60px; min-height: 40px;}")
         box.setIcon(QMessageBox.Question)
         box.setWindowTitle('!فرازیست')
         box.setText('از برنامه خارج می شوید؟')
+        box.setFont(lb_font)
         box.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
 
         buttonY = box.button(QMessageBox.Yes)
         buttonY.setText('بله')
+        buttonY.setFont(btn_font)
         buttonY.setStyleSheet(button_style)
         buttonY.setMinimumSize(60,30)
         
         buttonN = box.button(QMessageBox.No)
         buttonN.setText('خیر')
+        buttonN.setFont(btn_font)
         buttonN.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e11c1c, stop:1 #f86565);'
                               'color: #ffffff; padding: 3px; border: none; border-radius: 6px;')
         buttonN.setMinimumSize(60,30)

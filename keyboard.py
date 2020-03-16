@@ -4,8 +4,10 @@ from PyQt5.QtCore import Qt, QSize
 from functools import partial
 import sys
 
+
 result = 0
 flag = True
+btn_font = QFont('IRANSansFaNum', 24, QFont.Bold)
 # ---------- keyboard ----------
 class KEYBoard:
     def __init__(self, textbox):
@@ -16,13 +18,13 @@ class KEYBoard:
         
         # --- create numbers
         keyboard = [[0 for i in range(3)] for j in range(4)]
-        font = QFont('Times', 18, QFont.Bold)
+        
 
         for i in range(4):
             for j in range(3):
                 btn = QPushButton()
                 btn.getContentsMargins()
-                btn.setFont(font)
+                btn.setFont(btn_font)
                 keyboard[i][j] = btn
 
                 btn_num = [[1, 2, 3],
@@ -30,7 +32,7 @@ class KEYBoard:
                           [7, 8, 9], 
                           ['', 0, '']]
                 keyboard[i][j].setText(str(btn_num[i][j]))
-                keyboard[i][j].setFixedSize(60, 60)
+                keyboard[i][j].setFixedSize(80, 80)
                 keyboard[i][j].setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #626060, stop:1 #7e7c7c);'
                                              'color: #ffffff; border: none; border-radius: 6px;')
                 # keyboard[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -53,7 +55,7 @@ class KEYBoard:
         keyboard[3][2].clicked.connect(self.delete_number)
 
         keyboard[3][2].setIcon(QIcon('images/sign/backspace.png'))
-        keyboard[3][2].setIconSize(QSize(32, 32))
+        keyboard[3][2].setIconSize(QSize(36, 36))
         
         keyboard[3][0].hide()
         # layout.addLayout(g_layout)

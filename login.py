@@ -5,20 +5,27 @@ from keyboard import KEYBoard
 
 textbox_style = 'background-color: #ffffff; padding: 3px; border: 1px solid #1E5631; border-radius: 6px;'
 button_style = 'background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
+hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
+btn_font = QFont('IRANSans', 20)
+lb_font = QFont('IRANSans', 18)
 
 def message_box():
+    btn_font = QFont('IRANSans', 16)
+    lb_font = QFont('IRANSans', 18)
+
     box = QtWidgets.QMessageBox()
-    box.setStyleSheet('font-size : 16px')
+    box.setStyleSheet("QPushButton{min-width: 120px; min-height: 40px;}")
     box.setIcon(QtWidgets.QMessageBox.Warning)
     box.setWindowTitle('!خطا')
+    box.setFont(lb_font)
     box.setText('اطلاعات کاربری نادرست است')
     box.setStandardButtons(QtWidgets.QMessageBox.Ok)
 
     buttonOK = box.button(QtWidgets.QMessageBox.Ok)
     buttonOK.setText('متوجه شدم')
+    buttonOK.setFont(btn_font)
     buttonOK.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);'
                            'color: #ffffff; padding: 3px; border: none; border-radius: 6px;')
-    buttonOK.setMinimumSize(80,30)
     return box
 
 class Login_user(QtWidgets.QDialog):
@@ -28,7 +35,6 @@ class Login_user(QtWidgets.QDialog):
 
         self.box = message_box()
         self.font = QFont()
-        # font.setFamily("Arial")
         self.font.setPointSize(16)
         self.setFont(self.font)
 
@@ -40,7 +46,8 @@ class Login_user(QtWidgets.QDialog):
         #self.btn_keyboard.setIconSize(QSize(24, 24))
 
         self.username = QtWidgets.QLineEdit(self)
-        self.username.setMinimumHeight(60)
+        self.username.setFont(hoderText_font)
+        self.username.setFixedHeight(60)
         self.username.setStyleSheet(textbox_style)
 
         self.get_parameter()
@@ -48,7 +55,8 @@ class Login_user(QtWidgets.QDialog):
         self.key_layout = self.key_widget.output()
 
         self.buttonLogin = QtWidgets.QPushButton('ورود', self)
-        self.buttonLogin.setMinimumHeight(60)
+        self.buttonLogin.setFont(btn_font)
+        self.buttonLogin.setFixedHeight(60)
         self.buttonLogin.clicked.connect(self.handleLogin)
         self.buttonLogin.setStyleSheet(button_style)
 
@@ -65,11 +73,13 @@ class Login_user(QtWidgets.QDialog):
         if self.prt == 'user':
             self.setWindowTitle('ورود کاربر')
             self.lb_user = QtWidgets.QLabel('شماره موبایل')
+            self.lb_user.setFont(lb_font)
             self.username.setPlaceholderText("09*********")
 
         elif self.prt == 'admin':
             self.setWindowTitle('ورود مدیر')
             self.lb_user = QtWidgets.QLabel('نام کاربری')
+            self.lb_user.setFont(lb_font)
             self.username.setPlaceholderText("12***")
 
     def handleLogin(self):
@@ -80,7 +90,6 @@ class Login_user(QtWidgets.QDialog):
         else:
             self.box.exec_()
             self.username.clear()
-            # QtWidgets.QMessageBox.warning(self, 'خطا', 'اطلاعات کاربری نادرست است')
 
 
 class Login_pass(QtWidgets.QDialog):
@@ -89,7 +98,6 @@ class Login_pass(QtWidgets.QDialog):
         super(Login_pass, self).__init__()
         self.box = message_box()
         self.font = QFont()
-        # font.setFamily("Arial")
         self.font.setPointSize(16)
         self.setFont(self.font)
 
@@ -98,10 +106,12 @@ class Login_pass(QtWidgets.QDialog):
         self.password = QtWidgets.QLineEdit(self)
 
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.password.setMinimumHeight(60)
+        self.password.setFixedHeight(60)
         self.password.setStyleSheet(textbox_style)
 
         self.buttonLogin = QtWidgets.QPushButton('ورود', self)
+        self.buttonLogin.setFont(btn_font)
+        self.buttonLogin.setFixedHeight(60)
         self.buttonLogin.clicked.connect(self.handleLogin)
         self.buttonLogin.setStyleSheet(button_style)
 
@@ -121,11 +131,13 @@ class Login_pass(QtWidgets.QDialog):
         if self.prt == 'user':
             self.setWindowTitle('ورود کاربر')
             self.lb_password = QtWidgets.QLabel('رمز عبور')
+            self.lb_password.setFont(lb_font)
             self.password.setPlaceholderText("***********")
 
         elif self.prt == 'admin':
             self.setWindowTitle('ورود مدیر')
             self.lb_password = QtWidgets.QLabel('رمز عبور')
+            self.lb_password.setFont(lb_font)
             self.password.setPlaceholderText("***********")
 
     def handleLogin(self):
@@ -136,4 +148,3 @@ class Login_pass(QtWidgets.QDialog):
         else:
             self.box.exec_()
             self.password.clear()
-            # QtWidgets.QMessageBox.warning(self, 'خطا', 'اطلاعات کاربری نادرست است')
