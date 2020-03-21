@@ -18,6 +18,8 @@ from keyboard import KEYBoard
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
 import pyqrcode
+import time
+
 
 global categories_count
 global flag
@@ -33,9 +35,9 @@ widget_index_stack = []
 
 
 def loadModel():
-    # model = tf.keras.models.load_model('farazist.h5')
+    model = tf.keras.models.load_model('farazist.h5')
     print('model successfully loaded')
-
+    window.showStart()
 
 def detectItem():
     camera = cv.VideoCapture(0)
@@ -59,14 +61,14 @@ def detectItem():
                 frame = frame.reshape(1, 299, 299, 3)
                 frame = frame / 255.0
 
-                # prediction = model.predict([frame])
-                prediction = np.random.rand(1, 20)
+                prediction = model.predict([frame])
+                #prediction = np.random.rand(1, 20)
 
                 if np.max(prediction) > 0.4:
                     predicted = np.argmax(prediction)
                     print(items[predicted])
 
-                    window.lb_2_s3.setText(items[predicted]['name'])
+                    window.lb_2_s4.setText(items[predicted]['name'])
 
                 if predict_item_flag == False:
                     predict_item_list.append(predicted)
@@ -80,7 +82,7 @@ def detectItem():
                     categories_count[category_index] += 1
 
                     for i in range(len(categories_count)):
-                        window.grid_widget_s3[2][i].setText(str(categories_count[i]))
+                        window.grid_widget_s4[2][i].setText(str(categories_count[i]))
 
                     for item in user_items:
                         if item['id'] == items[most_probability_item]['id']:
@@ -169,7 +171,7 @@ class Main_Program(QWidget):
         self.btn_tick.setSizePolicy(sp_retain)
         h_layout_header.addWidget(self.btn_tick, alignment=Qt.AlignRight)
 
-        self.stacks = [QWidget() for _ in range(12)]
+        self.stacks = [QWidget() for _ in range(13)]
 
         # -------------------- create stacks --------------------
         self.Stack = QStackedWidget(self)
@@ -183,7 +185,8 @@ class Main_Program(QWidget):
         self.stack_2_UI()
         self.stack_3_UI()
         self.stack_4_UI()
-        self.stack_11_UI()
+        self.stack_5_UI()
+        self.stack_12_UI()
 
         # -------------------- add stack to main layout --------------------
         v_layout.addWidget(self.Stack)
@@ -194,63 +197,86 @@ class Main_Program(QWidget):
         # self.setFixedSize(1000, 600)
         # self.show()
 
-    # -------------------- پنجره تیزر تبلیغاتی --------------------
+    # -------------------- پنجره بارگزاری --------------------
     def stack_0_UI(self):
+        loader_font = QFont('IRANSans', 64)
+        btn_setting = self.setting_button()
+
+        h_layout_s0 = QHBoxLayout()
+        h_layout_s0.setContentsMargins(320, 0, 320, 0)
+
+        text = 'در حال بارگزاری'
+        gif = QMovie("animation/Spinner-1.4s-200px.gif")
+
+        lb_1_s0 = QLabel()
+        lb_1_s0.setMovie(gif)
+        gif.start()
+
+        lb_2_s0 = QLabel()
+        lb_2_s0.setFont(loader_font)
+        lb_2_s0.setText(text)
+
+        h_layout_s0.addWidget(lb_1_s0)
+        h_layout_s0.addWidget(lb_2_s0)
+        self.stacks[0].setLayout(h_layout_s0)
+
+    # -------------------- پنجره تیزر تبلیغاتی --------------------
+    def stack_1_UI(self):
         btn_setting = self.setting_button()
         btns_layout = self.login_button()
 
-        v_layout_s0 = QVBoxLayout()
-        h_layout_1_s0 = QHBoxLayout()
-        h_layout_2_s0 = QHBoxLayout()
+        v_layout_s1 = QVBoxLayout()
+        h_layout_1_s1 = QHBoxLayout()
+        h_layout_2_s1 = QHBoxLayout()
 
-        widget_background_s0 = QWidget()
-        #widget_background_s0.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        widget_background_s1 = QWidget()
+        #widget_background_s1.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
         # widget_background.getContentsMargins()
-        widget_background_s0.setStyleSheet('background-color: #fefcfc; border-radius: 30px; border :none;')
-        widget_background_s0.setLayout(h_layout_1_s0)
-        v_layout_s0.addWidget(widget_background_s0)
+        widget_background_s1.setStyleSheet('background-color: #fefcfc; border-radius: 30px; border :none;')
+        widget_background_s1.setLayout(h_layout_1_s1)
+        v_layout_s1.addWidget(widget_background_s1)
 
         movie = QMovie("animation/return.gif")
 
-        self.lb_1_s0 = QLabel()
-        h_layout_1_s0.addWidget(self.lb_1_s0, alignment=Qt.AlignHCenter)
-        self.lb_1_s0.setMovie(movie)
+        self.lb_1_s1 = QLabel()
+        h_layout_1_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignHCenter)
+        self.lb_1_s1.setMovie(movie)
         movie.start()
 
-        h_layout_2_s0.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
-        h_layout_2_s0.addLayout(btns_layout)
-        v_layout_s0.addLayout(h_layout_2_s0)
+        h_layout_2_s1.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+        h_layout_2_s1.addLayout(btns_layout)
+        v_layout_s1.addLayout(h_layout_2_s1)
 
-        self.stacks[0].setLayout(v_layout_s0)
+        self.stacks[1].setLayout(v_layout_s1)
 
     # -------------------- qr پنجره نمایش --------------------
-    def stack_1_UI(self):
+    def stack_2_UI(self):
         btn_setting = self.setting_button()
 
         label_font = QFont('IRANSans', 19)
 
-        v_layout_s1 = QVBoxLayout()
-        h_layout_s1 = QHBoxLayout()
-        h_layout_s1.setContentsMargins(0, 0, 100, 0)
+        v_layout_s2 = QVBoxLayout()
+        h_layout_s2 = QHBoxLayout()
+        h_layout_s2.setContentsMargins(0, 0, 100, 0)
         
-        self.lb_1_s1 = QLabel()
-        h_layout_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignCenter)
+        self.lb_1_s2 = QLabel()
+        h_layout_s2.addWidget(self.lb_1_s2, alignment=Qt.AlignCenter)
 
         text = 'برنامه فرازیست را بر روی گوشی خود باز کنید\n'\
                'در صفحه اصلی برنامه بر روی آیکن qr در بالای سمت راست برنامه کلید کنید\n'\
                'و بر روی گزینه اسکن کلیک کنید'
-        self.lb_1_s2 = QLabel()
-        self.lb_1_s2.setText(text)
-        self.lb_1_s2.setFont(label_font)
-        h_layout_s1.addWidget(self.lb_1_s2, alignment=Qt.AlignCenter)
+        self.lb_2_s2 = QLabel()
+        self.lb_2_s2.setText(text)
+        self.lb_2_s2.setFont(label_font)
+        h_layout_s2.addWidget(self.lb_2_s2, alignment=Qt.AlignCenter)
 
-        v_layout_s1.addLayout(h_layout_s1)
-        v_layout_s1.addWidget(btn_setting, alignment=Qt.AlignLeft)
+        v_layout_s2.addLayout(h_layout_s2)
+        v_layout_s2.addWidget(btn_setting, alignment=Qt.AlignLeft)
         
-        self.stacks[1].setLayout(v_layout_s1)
+        self.stacks[2].setLayout(v_layout_s2)
 
     # -------------------- پنجره منو برنامه --------------------
-    def stack_2_UI(self):
+    def stack_3_UI(self):
 
         btn_setting = self.setting_button()
         # -------------------- main window layout --------------------
@@ -258,9 +284,9 @@ class Main_Program(QWidget):
         h_layout = QHBoxLayout()
 
         # ------- child  layout
-        grid_layout_s2 = QGridLayout()
-        h_layout.addLayout(grid_layout_s2)
-        grid_layout_s2.setContentsMargins(10, 30, 10, 10)  # (left, top, right, bottom)
+        grid_layout_s3 = QGridLayout()
+        h_layout.addLayout(grid_layout_s3)
+        grid_layout_s3.setContentsMargins(10, 30, 10, 10)  # (left, top, right, bottom)
 
         main_menu_buttons = [   
             [
@@ -284,7 +310,7 @@ class Main_Program(QWidget):
             for j in range(4):
                 # self.v_layouts_main_menu[i][j].setContentsMargins(20, 0, 20, 10)
                 
-                grid_layout_s2.addLayout(self.v_layouts_main_menu[i][j], i, j, Qt.AlignCenter)
+                grid_layout_s3.addLayout(self.v_layouts_main_menu[i][j], i, j, Qt.AlignCenter)
 
                 btn = QPushButton()
                 btn.setIcon(QIcon(main_menu_buttons[i][j]['image']))
@@ -305,10 +331,10 @@ class Main_Program(QWidget):
         v_layout.addLayout(h_layout)
         v_layout.addWidget(btn_setting, alignment=Qt.AlignLeft)
 
-        self.stacks[2].setLayout(v_layout)
+        self.stacks[3].setLayout(v_layout)
 
     # -------------------- پنجره تحویل پکیج --------------------
-    def stack_3_UI(self):
+    def stack_4_UI(self):
 
         btn_setting = self.setting_button()
 
@@ -317,31 +343,31 @@ class Main_Program(QWidget):
 
         # ------- child  layout
         # --- child 1
-        h_layout1_s3 = QHBoxLayout()
-        h_layout1_s3.setContentsMargins(0, 0, 100, 0)
+        h_layout1_s4 = QHBoxLayout()
+        h_layout1_s4.setContentsMargins(0, 0, 100, 0)
 
-        grid_layout_s3 = QGridLayout()
-        grid_layout_s3.setContentsMargins(50, 30, 70, 20)
-        grid_layout_s3.setSpacing(0)
-        h_layout1_s3.addLayout(grid_layout_s3)
+        grid_layout_s4 = QGridLayout()
+        grid_layout_s4.setContentsMargins(50, 30, 70, 20)
+        grid_layout_s4.setSpacing(0)
+        h_layout1_s4.addLayout(grid_layout_s4)
 
-        widget_background_s3 = QWidget()
-        widget_background_s3.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        widget_background_s3.getContentsMargins()
-        widget_background_s3.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
+        widget_background_s4 = QWidget()
+        widget_background_s4.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
+        widget_background_s4.getContentsMargins()
+        widget_background_s4.setStyleSheet('background-color: #ffffff; border-radius: 30px;')
         # background_1_10.setGraphicsEffect(self.shadow)
-        widget_background_s3.setLayout(h_layout1_s3)
-        v_layout.addWidget(widget_background_s3)
+        widget_background_s4.setLayout(h_layout1_s4)
+        v_layout.addWidget(widget_background_s4)
 
-        h_layout2_s3 = QHBoxLayout()
-        #h_layout2_s3.setContentsMargins(0, 0, 90, 20)
-        v_layout.addLayout(h_layout2_s3)
+        h_layout2_s4 = QHBoxLayout()
+        #h_layout2_s4.setContentsMargins(0, 0, 90, 20)
+        v_layout.addLayout(h_layout2_s4)
 
-        self.grid_widget_s3 = [[QLabel() for _ in range(len(categories))] for _ in range(3)]
+        self.grid_widget_s4 = [[QLabel() for _ in range(len(categories))] for _ in range(3)]
         for i in range(3):
             for j in range(len(categories)):
-                self.grid_widget_s3[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                grid_layout_s3.addWidget(self.grid_widget_s3[i][j], i, j)
+                self.grid_widget_s4[i][j].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                grid_layout_s4.addWidget(self.grid_widget_s4[i][j], i, j)
 
         for i in range(len(categories)):
             
@@ -349,77 +375,77 @@ class Main_Program(QWidget):
             img = img.scaledToWidth(128)
             img = img.scaledToHeight(128)
 
-            self.grid_widget_s3[0][i].setPixmap(img)
-            self.grid_widget_s3[0][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s4[0][i].setPixmap(img)
+            self.grid_widget_s4[0][i].setAlignment(Qt.AlignCenter)
 
-            self.grid_widget_s3[1][i].setText(categories[i]['name'])
-            self.grid_widget_s3[1][i].setFont(package_font)
-            self.grid_widget_s3[1][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s4[1][i].setText(categories[i]['name'])
+            self.grid_widget_s4[1][i].setFont(package_font)
+            self.grid_widget_s4[1][i].setAlignment(Qt.AlignCenter)
 
-            self.grid_widget_s3[2][i].setText('0')
-            self.grid_widget_s3[2][i].setFont(number_font)
-            self.grid_widget_s3[2][i].setAlignment(Qt.AlignCenter)
+            self.grid_widget_s4[2][i].setText('0')
+            self.grid_widget_s4[2][i].setFont(number_font)
+            self.grid_widget_s4[2][i].setAlignment(Qt.AlignCenter)
 
-        lb_1_s3 = QLabel('اعتبار')
-        lb_1_s3.setFont(label_font)
-        h_layout1_s3.addWidget(lb_1_s3, alignment=Qt.AlignCenter)
+        lb_1_s4 = QLabel('اعتبار')
+        lb_1_s4.setFont(label_font)
+        h_layout1_s4.addWidget(lb_1_s4, alignment=Qt.AlignCenter)
 
         # --- child 3
-        h_layout2_s3.addWidget(btn_setting)
+        h_layout2_s4.addWidget(btn_setting)
 
-        self.lb_2_s3 = QLabel()
-        self.lb_2_s3.getContentsMargins()
-        self.lb_2_s3.setFont(label_font)
-        self.lb_2_s3.setAlignment(Qt.AlignCenter)
-        self.lb_2_s3.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
-        h_layout2_s3.addWidget(self.lb_2_s3)
+        self.lb_2_s4 = QLabel()
+        self.lb_2_s4.getContentsMargins()
+        self.lb_2_s4.setFont(label_font)
+        self.lb_2_s4.setAlignment(Qt.AlignCenter)
+        self.lb_2_s4.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
+        h_layout2_s4.addWidget(self.lb_2_s4)
 
         btn_1_21 = QPushButton('بعدی')
         btn_1_21.setMinimumSize(200, 60)
         btn_1_21.setFont(menu_font)
         btn_1_21.clicked.connect(partial(self.changePredictItemFlag, True))
         btn_1_21.setStyleSheet(button_style)
-        h_layout2_s3.addWidget(btn_1_21)
+        h_layout2_s4.addWidget(btn_1_21)
 
-        self.stacks[3].setLayout(v_layout)
+        self.stacks[4].setLayout(v_layout)
 
     # -------------------- پنجره کیف پول --------------------
-    def stack_4_UI(self):
+    def stack_5_UI(self):
         global user
 
         btn_setting = self.setting_button()
 
         v_layout = QVBoxLayout()
-        h_layout1_s4 = QHBoxLayout()
-        h_layout1_s4.setContentsMargins(0, 0, 100, 0)
+        h_layout1_s5 = QHBoxLayout()
+        h_layout1_s5.setContentsMargins(0, 0, 100, 0)
 
-        widget_background_s4 = QWidget()
-        widget_background_s4.setFixedHeight(500)
-        widget_background_s4.setLayout(h_layout1_s4)
-        v_layout.addWidget(widget_background_s4)
+        widget_background_s5 = QWidget()
+        widget_background_s5.setFixedHeight(500)
+        widget_background_s5.setLayout(h_layout1_s5)
+        v_layout.addWidget(widget_background_s5)
 
         movie = QMovie("animation/oie_1475355NRgGVDm8.gif")
 
-        self.lb_1_s4 = QLabel()
-        h_layout1_s4.addWidget(self.lb_1_s4, alignment=Qt.AlignLeft)
-        self.lb_1_s4.setMovie(movie)
+        self.lb_1_s5 = QLabel()
+        h_layout1_s5.addWidget(self.lb_1_s5, alignment=Qt.AlignLeft)
+        self.lb_1_s5.setMovie(movie)
         movie.start()
 
         lb_text = "موجودی\n{}\nریال"
 
 
-        self.lb_2_s4 = QLabel()
-        self.lb_2_s4.setFont(label_font)
-        self.lb_2_s4.setText(lb_text.format(5015))
-        h_layout1_s4.addWidget(self.lb_2_s4, alignment=Qt.AlignRight)
+        self.lb_2_s5 = QLabel()
+        self.lb_2_s5.setFont(label_font)
+        self.lb_2_s5.setText(lb_text.format(5015))
+        h_layout1_s5.addWidget(self.lb_2_s5, alignment=Qt.AlignRight)
         
-        v_layout.addLayout(h_layout1_s4)
+        v_layout.addLayout(h_layout1_s5)
         v_layout.addWidget(btn_setting, alignment = Qt.AlignLeft| Qt.AlignBottom)
 
-        self.stacks[4].setLayout(v_layout)
+        self.stacks[5].setLayout(v_layout)
 
     # -------------------- پنجره تنظیمات --------------------
-    def stack_11_UI(self):
+    def stack_12_UI(self):
 
         h_layout = QHBoxLayout()  # main window layout
         h_layout.setSpacing(500)
@@ -428,54 +454,54 @@ class Main_Program(QWidget):
 
         # ------- child  layout
         # --- child 1
-        v_layout1_s11 = QVBoxLayout()
-        v_layout1_s11.setSpacing(0)
-        v_layout1_s11.setContentsMargins(150, 0, 0, 0)
+        v_layout1_s12 = QVBoxLayout()
+        v_layout1_s12.setSpacing(0)
+        v_layout1_s12.setContentsMargins(150, 0, 0, 0)
         
         # ---------- child 1 widgets ----------
         # --- create line edit
-        self.lb_s11 = QLineEdit()
-        self.lb_s11.setMaximumSize(260, 60)
-        self.lb_s11.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
+        self.lb_s12 = QLineEdit()
+        self.lb_s12.setMaximumSize(260, 60)
+        self.lb_s12.setStyleSheet('padding: 3px; border: 2px solid #1E5631; border-radius: 6px;')
         # lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        v_layout1_s11.addWidget(self.lb_s11)
+        v_layout1_s12.addWidget(self.lb_s12)
 
-        self.key_widget = KEYBoard(self.lb_s11)
+        self.key_widget = KEYBoard(self.lb_s12)
         self.key_layout = self.key_widget.output()
-        v_layout1_s11.addLayout(self.key_layout)
-        self.setLayout(v_layout1_s11)
+        v_layout1_s12.addLayout(self.key_layout)
+        self.setLayout(v_layout1_s12)
 
         # --- child 2
-        v_layout2_s11 = QVBoxLayout()
-        v_layout2_s11.setContentsMargins(20, 0, 20, 200)
+        v_layout2_s12 = QVBoxLayout()
+        v_layout2_s12.setContentsMargins(20, 0, 20, 200)
         # ---------- child 2 widgets ----------
-        self.btn_00_s11 = QPushButton()
-        self.btn_00_s11.setFont(menu_font)
-        self.btn_00_s11.setText('تنظیم شماره پورت')
-        self.btn_00_s11.setFixedSize(200, 60)
-        self.btn_00_s11.setStyleSheet(button_style)
-        v_layout2_s11.addWidget(self.btn_00_s11, alignment=Qt.AlignCenter)
+        self.btn_00_s12 = QPushButton()
+        self.btn_00_s12.setFont(menu_font)
+        self.btn_00_s12.setText('تنظیم شماره پورت')
+        self.btn_00_s12.setFixedSize(200, 60)
+        self.btn_00_s12.setStyleSheet(button_style)
+        v_layout2_s12.addWidget(self.btn_00_s12, alignment=Qt.AlignCenter)
 
-        self.btn_01_s11 = QPushButton()
-        self.btn_01_s11.setFont(menu_font)
-        self.btn_01_s11.setText('خروج از برنامه')
-        self.btn_01_s11.setFixedSize(200, 60)
-        self.btn_01_s11.setStyleSheet(button_style)
-        self.btn_01_s11.clicked.connect(self.exit_message_box)
-        v_layout2_s11.addWidget(self.btn_01_s11, alignment=Qt.AlignCenter)
+        self.btn_01_s12 = QPushButton()
+        self.btn_01_s12.setFont(menu_font)
+        self.btn_01_s12.setText('خروج از برنامه')
+        self.btn_01_s12.setFixedSize(200, 60)
+        self.btn_01_s12.setStyleSheet(button_style)
+        self.btn_01_s12.clicked.connect(self.exit_message_box)
+        v_layout2_s12.addWidget(self.btn_01_s12, alignment=Qt.AlignCenter)
 
         # group1.setLayout(v_layout1_s10)
-        group2.setLayout(v_layout2_s11)
+        group2.setLayout(v_layout2_s12)
         
-        h_layout.addLayout(v_layout1_s11)
+        h_layout.addLayout(v_layout1_s12)
         h_layout.addWidget(group2)
-        self.stacks[11].setLayout(h_layout)
+        self.stacks[12].setLayout(h_layout)
     # -------------------- windows method --------------------
     # ---------- flag ----------
     def changePredictItemFlag(self, value):
         global predict_item_flag
         predict_item_flag = value
-        self.lb_2_s3.clear()
+        self.lb_2_s4.clear()
 
     # ---------- login ----------
     def login_button(self):
@@ -547,14 +573,20 @@ class Main_Program(QWidget):
             # self.show_menu()
             self.btn_back.hide()
             self.btn_tick.show()
-            self.Stack.setCurrentIndex(11)
-            widget_index_stack.append(11)
+            self.Stack.setCurrentIndex(12)
+            widget_index_stack.append(12)
 
-    def showStart(self):
+    def showIsLoading(self):
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(0)
         widget_index_stack.append(0)
+
+    def showStart(self):
+        self.btn_back.hide()
+        self.btn_tick.hide()
+        self.Stack.setCurrentIndex(1)
+        widget_index_stack.append(1)
 
     def showQR(self):
         self.btn_back.show()
@@ -566,52 +598,52 @@ class Main_Program(QWidget):
         url.png(filename, scale=6, background='#f6fdfa')
     
         open_img = QPixmap(filename)
-        self.lb_1_s1.setPixmap(open_img)
+        self.lb_1_s2.setPixmap(open_img)
 
-        self.Stack.setCurrentIndex(1)
-        widget_index_stack.append(1)
+        self.Stack.setCurrentIndex(2)
+        widget_index_stack.append(2)
 
     def show_menu(self):
         self.btn_back.show()
         self.btn_tick.hide()
-        self.Stack.setCurrentIndex(2)
-        widget_index_stack.append(2)
+        self.Stack.setCurrentIndex(3)
+        widget_index_stack.append(3)
 
     def show_delivery(self):
         self.btn_back.hide()
         self.btn_tick.show()
         self.detect_thread = threading.Thread(target=detectItem)
         self.detect_thread.start()
-        self.Stack.setCurrentIndex(3)
-        widget_index_stack.append(3)
-
-    def show_wallet(self):
         self.Stack.setCurrentIndex(4)
         widget_index_stack.append(4)
 
-    def show_charging_unit(self):
+    def show_wallet(self):
         self.Stack.setCurrentIndex(5)
         widget_index_stack.append(5)
 
-    def show_deposit_to_card(self):
+    def show_charging_unit(self):
         self.Stack.setCurrentIndex(6)
         widget_index_stack.append(6)
 
-    def show_helping_to_environment(self):
+    def show_deposit_to_card(self):
         self.Stack.setCurrentIndex(7)
         widget_index_stack.append(7)
 
-    def show_charity(self):
+    def show_helping_to_environment(self):
         self.Stack.setCurrentIndex(8)
         widget_index_stack.append(8)
 
-    def show_buy_credit(self):
+    def show_charity(self):
         self.Stack.setCurrentIndex(9)
         widget_index_stack.append(9)
 
-    def show_store(self):
+    def show_buy_credit(self):
         self.Stack.setCurrentIndex(10)
         widget_index_stack.append(10)
+
+    def show_store(self):
+        self.Stack.setCurrentIndex(11)
+        widget_index_stack.append(11)
 
     def back_window(self):
 
@@ -624,7 +656,7 @@ class Main_Program(QWidget):
 
         widget_index_stack.pop()
         
-        if widget_index_stack[-1] == 0:
+        if widget_index_stack[-1] == 1:
             self.btn_back.hide()
 
         self.Stack.setCurrentIndex(widget_index_stack[-1])
@@ -707,5 +739,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setFont(QFont('IRANSans', 13))
     window = Main_Program()
-    window.showStart()
+    window.showIsLoading()
     sys.exit(app.exec_())
