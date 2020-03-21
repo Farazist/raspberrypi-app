@@ -1,46 +1,41 @@
 import sys
-import requests
-import cv2 as cv
-import threading
+from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
+from threading import Thread
 import numpy as np
-import mysql.connector
 from scipy import stats
-import tensorflow as tf
+from tensorflow.keras.models import load_model
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from database import Database
 from functools import partial
+import pyqrcode
+import time
+
+from database import Database
 from app import *
 from login import Login_user
 from login import Login_pass
 from keyboard import KEYBoard
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
-import pyqrcode
-import time
 
 
-global categories_count
-global flag
-global model
-global delivery_items_flag
-global predict_item_flag
-global user_items
-global camera
 global widget_index_stack
 
-camera = cv.VideoCapture(0)
-widget_index_stack = []
-
-
 def loadModel():
-    model = tf.keras.models.load_model('farazist.h5')
+    global model
+    model = load_model('farazist.h5')
     print('model successfully loaded')
     window.showStart()
 
 def detectItem():
-    camera = cv.VideoCapture(0)
+    global delivery_items_flag
+    global predict_item_flag
+    global user_items
+    global categories_count
+    global camera
+
+    camera = VideoCapture(0)
     
     predict_item_list = []
     categories_count = np.zeros(len(categories), np.uint8)
@@ -56,8 +51,8 @@ def detectItem():
                 time = 0
 
                 _, frame = camera.read()
-                frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-                frame = cv.resize(frame, (299, 299))
+                frame = cvtColor(frame, COLOR_BGR2RGB)
+                frame = resize(frame, (299, 299))
                 frame = frame.reshape(1, 299, 299, 3)
                 frame = frame / 255.0
 
@@ -95,11 +90,11 @@ def detectItem():
                     predict_item_list = []
                     predict_item_flag = False
 
-        except:
-            print("error")
+        except Exception as e:
+            print("error:", e)
 
     camera.release()
-    cv.destroyAllWindows()
+    destroyAllWindows()
 
 
 button_style = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
@@ -600,8 +595,8 @@ class Main_Program(QWidget):
         open_img = QPixmap(filename)
         self.lb_1_s2.setPixmap(open_img)
 
-        self.Stack.setCurrentIndex(2)
-        widget_index_stack.append(2)
+        self.Stack.setCurrentIndex(3)
+        widget_index_stack.append(3)
 
     def show_menu(self):
         self.btn_back.show()
@@ -612,7 +607,7 @@ class Main_Program(QWidget):
     def show_delivery(self):
         self.btn_back.hide()
         self.btn_tick.show()
-        self.detect_thread = threading.Thread(target=detectItem)
+        self.detect_thread = Thread(target=detectItem)
         self.detect_thread.start()
         self.Stack.setCurrentIndex(4)
         widget_index_stack.append(4)
@@ -669,7 +664,7 @@ class Main_Program(QWidget):
         global app, detect_item_flag
         detect_item_flag = False
         camera.release() 
-        cv.destroyAllWindows()
+        destroyAllWindows()
         self.close()
         # QApplication.quit()
 
@@ -730,10 +725,12 @@ class Main_Program(QWidget):
 
 if __name__ == '__main__':
     
+    camera = 0
     user_items = []
+    widget_index_stack = []
     items = Database.getItems()
     categories = Database.getCategories()
-    thred_load_model = threading.Thread(target=loadModel)
+    thred_load_model = Thread(target=loadModel)
     thred_load_model.start()
     
     app = QApplication(sys.argv)
