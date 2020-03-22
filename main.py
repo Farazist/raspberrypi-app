@@ -196,21 +196,22 @@ class Main_Program(QWidget):
 
     # -------------------- پنجره بارگزاری --------------------
     def stack_0_UI(self):
-        loader_font = QFont('IRANSans', 16)
+        loader_font = QFont('IRANSans', 24)
         farazist_font = QFont('IRANSans', 48)
         btn_setting = self.setting_button()
 
         v_layout_s0 = QVBoxLayout()
-        v_layout_s0.setContentsMargins(0, 0, 0, 100)
+        v_layout_s0.setContentsMargins(0, 50, 0, 50)
         v_layout_s0.insertStretch(-1, -1)
 
-        logo = QPixmap('images/farazist.ico')
+        logo = QPixmap('images/farazist256px.ico')
         text = 'در حال بارگزاری'
-        gif = QMovie("animation/Spinner-1.2s-58px.gif")
+        gif = QMovie("animation/Spinner.gif")
 
         lb_1_s0 = QLabel()
+        lb_1_s0.setAlignment(Qt.AlignTop)
         lb_1_s0.setPixmap(logo)
-        lb_1_s0.setMinimumHeight(400)
+        lb_1_s0.setMinimumHeight(500)
 
         lb_2_s0 = QLabel()
         lb_2_s0.setMovie(gif)
@@ -220,7 +221,7 @@ class Main_Program(QWidget):
         lb_3_s0.setFont(loader_font)
         lb_3_s0.setText(text)
 
-        v_layout_s0.addWidget(lb_1_s0, alignment= Qt.AlignCenter)
+        v_layout_s0.addWidget(lb_1_s0, alignment= Qt.AlignCenter | Qt.AlignTop)
         v_layout_s0.addWidget(lb_2_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
         v_layout_s0.addWidget(lb_3_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
         self.stacks[0].setLayout(v_layout_s0)
