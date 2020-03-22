@@ -196,7 +196,7 @@ class Main_Program(QWidget):
 
     # -------------------- پنجره بارگزاری --------------------
     def stack_0_UI(self):
-        loader_font = QFont('IRANSans', 14)
+        loader_font = QFont('IRANSans', 16)
         farazist_font = QFont('IRANSans', 48)
         btn_setting = self.setting_button()
 
@@ -204,13 +204,13 @@ class Main_Program(QWidget):
         v_layout_s0.setContentsMargins(0, 0, 0, 100)
         v_layout_s0.insertStretch(-1, -1)
 
+        logo = QPixmap('images/farazist.ico')
         text = 'در حال بارگزاری'
-        gif = QMovie("animation/Spinner-1.2s-51px.gif")
+        gif = QMovie("animation/Spinner-1.2s-58px.gif")
 
         lb_1_s0 = QLabel()
-        lb_1_s0.setFont(farazist_font)
+        lb_1_s0.setPixmap(logo)
         lb_1_s0.setMinimumHeight(400)
-        lb_1_s0. setText('فرازیست')
 
         lb_2_s0 = QLabel()
         lb_2_s0.setMovie(gif)
