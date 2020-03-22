@@ -4,9 +4,11 @@ from threading import Thread
 import numpy as np
 from scipy import stats
 from tensorflow.keras.models import load_model
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtGui import (QFont, QIcon, QMovie, QPixmap)
+from PyQt5.QtCore import (Qt, QSize)
+from PyQt5.QtWidgets import (QApplication, QVBoxLayout, QHBoxLayout, QGridLayout, 
+                            QGraphicsDropShadowEffect, QMessageBox, QDialog, QGroupBox, QSizePolicy,
+                            QWidget, QPushButton, QLabel, QLineEdit, QStackedWidget)
 from functools import partial
 import pyqrcode
 import time
@@ -160,7 +162,7 @@ class Main_Program(QWidget):
         self.btn_tick.setMinimumSize(170, 70)
         self.btn_tick.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);'
                                     'color: #ffffff; border: none; border-radius: 6px;')
-        self.btn_tick.clicked.connect(self.back_window)
+        self.btn_tick.clicked.connect(self.tick_window)
         # sp_retain = QSizePolicy()
         # sp_retain.setRetainSizeWhenHidden(True)
         self.btn_tick.setSizePolicy(sp_retain)
@@ -595,8 +597,8 @@ class Main_Program(QWidget):
         open_img = QPixmap(filename)
         self.lb_1_s2.setPixmap(open_img)
 
-        self.Stack.setCurrentIndex(3)
-        widget_index_stack.append(3)
+        self.Stack.setCurrentIndex(2)
+        widget_index_stack.append(2)
 
     def show_menu(self):
         self.btn_back.show()
@@ -655,6 +657,29 @@ class Main_Program(QWidget):
             self.btn_back.hide()
 
         self.Stack.setCurrentIndex(widget_index_stack[-1])
+
+    def tick_window(self):
+
+        widget_index_stack.pop()
+
+        if widget_index_stack[-1] == 1:
+            self.btn_back.hide()
+            self.btn_tick.hide()
+        elif widget_index_stack[-1] == 2:
+            self.btn_back.show()
+            self.btn_tick.hide()
+        elif widget_index_stack[-1] == 3:
+            self.btn_back.show()
+            self.btn_tick.hide()
+        elif widget_index_stack[-1] == 4:
+            self.btn_back.hide()
+            self.btn_tick.show()
+        elif widget_index_stack[-1] == 5:
+            self.btn_back.show()
+            self.btn_tick.hide()
+
+        self.Stack.setCurrentIndex(widget_index_stack[-1])
+
 
     def display(self, i):
         self.Stack.setCurrentIndex(i)
