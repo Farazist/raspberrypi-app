@@ -149,9 +149,9 @@ class Main_Program(QWidget):
 
         # --- child 2
         logo = QPixmap('images/farazist.ico')
-        lb_logo = QLabel()
-        lb_logo.setPixmap(logo)
-        h_layout_header.addWidget(lb_logo, alignment=Qt.AlignCenter)
+        self.lb_logo = QLabel()
+        self.lb_logo.setPixmap(logo)
+        h_layout_header.addWidget(self.lb_logo, alignment=Qt.AlignCenter)
 
         # --- child 3
         self.btn_tick = QPushButton()
@@ -196,26 +196,34 @@ class Main_Program(QWidget):
 
     # -------------------- پنجره بارگزاری --------------------
     def stack_0_UI(self):
-        loader_font = QFont('IRANSans', 64)
+        loader_font = QFont('IRANSans', 14)
+        farazist_font = QFont('IRANSans', 48)
         btn_setting = self.setting_button()
 
-        h_layout_s0 = QHBoxLayout()
-        h_layout_s0.setContentsMargins(320, 0, 320, 0)
+        v_layout_s0 = QVBoxLayout()
+        v_layout_s0.setContentsMargins(0, 0, 0, 100)
+        v_layout_s0.insertStretch(-1, -1)
 
         text = 'در حال بارگزاری'
-        gif = QMovie("animation/Spinner-1.4s-200px.gif")
+        gif = QMovie("animation/Spinner-1.2s-51px.gif")
 
         lb_1_s0 = QLabel()
-        lb_1_s0.setMovie(gif)
-        gif.start()
+        lb_1_s0.setFont(farazist_font)
+        lb_1_s0.setMinimumHeight(400)
+        lb_1_s0. setText('فرازیست')
 
         lb_2_s0 = QLabel()
-        lb_2_s0.setFont(loader_font)
-        lb_2_s0.setText(text)
+        lb_2_s0.setMovie(gif)
+        gif.start()
 
-        h_layout_s0.addWidget(lb_1_s0)
-        h_layout_s0.addWidget(lb_2_s0)
-        self.stacks[0].setLayout(h_layout_s0)
+        lb_3_s0 = QLabel()
+        lb_3_s0.setFont(loader_font)
+        lb_3_s0.setText(text)
+
+        v_layout_s0.addWidget(lb_1_s0, alignment= Qt.AlignCenter)
+        v_layout_s0.addWidget(lb_2_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
+        v_layout_s0.addWidget(lb_3_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
+        self.stacks[0].setLayout(v_layout_s0)
 
     # -------------------- پنجره تیزر تبلیغاتی --------------------
     def stack_1_UI(self):
@@ -568,24 +576,28 @@ class Main_Program(QWidget):
         self.check_setting_pass = Login_pass('admin')
         if self.check_setting_pass.exec_() == QDialog.Accepted:
             # self.show_menu()
+            self.lb_logo.show()
             self.btn_back.hide()
             self.btn_tick.show()
             self.Stack.setCurrentIndex(12)
             widget_index_stack.append(12)
 
     def showIsLoading(self):
+        self.lb_logo.hide()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(0)
         widget_index_stack.append(0)
 
     def showStart(self):
+        self.lb_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(1)
         widget_index_stack.append(1)
 
     def showQR(self):
+        self.lb_logo.show()
         self.btn_back.show()
 
         data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
@@ -601,12 +613,14 @@ class Main_Program(QWidget):
         widget_index_stack.append(2)
 
     def show_menu(self):
+        self.lb_logo.show()
         self.btn_back.show()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(3)
         widget_index_stack.append(3)
 
     def show_delivery(self):
+        self.lb_logo.show()
         self.btn_back.hide()
         self.btn_tick.show()
         self.detect_thread = Thread(target=detectItem)
@@ -615,6 +629,9 @@ class Main_Program(QWidget):
         widget_index_stack.append(4)
 
     def show_wallet(self):
+        self.lb_logo.show()
+        self.btn_back.show()
+        self.btn_tick.hide()
         self.Stack.setCurrentIndex(5)
         widget_index_stack.append(5)
 
