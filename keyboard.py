@@ -1,15 +1,14 @@
-from PyQt5.QtWidgets import QPushButton, QGridLayout, QApplication, QSizePolicy
-from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtCore import Qt, QSize
+from PySide2.QtWidgets import QPushButton, QGridLayout, QApplication, QSizePolicy
+from PySide2.QtGui import QFont, QIcon
+from PySide2.QtCore import Qt, QSize
 from functools import partial
 import sys
-
 
 result = 0
 flag = True
 btn_font = QFont('IRANSansFaNum', 24, QFont.Bold)
 # ---------- keyboard ----------
-class KEYBoard:
+class KeyBoard:
     def __init__(self, textbox):
         self.box = textbox
 

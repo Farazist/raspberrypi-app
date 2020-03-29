@@ -1,5 +1,5 @@
 import mysql.connector
-import requests
+from requests import post
 import json
 from app import *
 
@@ -10,37 +10,52 @@ class Database:
         
         data = {'mobile_number':mobile_number, 'password':password,}
         
-        response = requests.post(url=url + '/api/signin-user', data=data)
+        response = post(url=url + '/api/signin-user', data=data)
         
         return response.json()
 
     @staticmethod
+    def getUser(user):
+        headers = {
+            'authorization': 'Bearer ' + user['access_token'], 
+            'Content-Type': 'application/json'
+        }
+
+        response = post(url=url + '/api/get-user', headers=headers)
+        return json.loads(response.text)
+        
+    @staticmethod
     def getCategories():
-        response = requests.post(url=url + '/api/get-categories')
+        response = post(url=url + '/api/get-categories')
         return json.loads(response.text)
         
     @staticmethod
     def getItems():
-        response = requests.post(url=url + '/api/get-items')
+        response = post(url=url + '/api/get-items')
         return response.json()
 
     @staticmethod
     def getSystem(system_id):
         data = {'id': system_id}
 
-        response = requests.post(url=url + '/api/get-system', data=json.dumps(data))
+        response = post(url=url + '/api/get-system', data=json.dumps(data))
         return response.json()
         
     @staticmethod
-    def addNewDelivery(user, items, system_id):
+    def addNewDelivery(user, system_id, items):
         headers = {
             'authorization': 'Bearer ' + user['access_token'], 
             'Content-Type': 'application/json'
         }
         
-        data = {'user_id': user['id'], 'system_id': system_id, 'state': 'done', 'items': items}
+        data = {
+            'user_id': user['id'], 
+            'system_id': system_id, 
+            'state': 'done', 
+            'items': items
+        }
         
-        response = requests.post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
+        response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
 
         return response.json()
 
@@ -53,6 +68,19 @@ class Database:
         
         data = {'user_id': user['id'], 'system_id': system_id, 'state': 'done', 'items': items}
         
-        response = requests.post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
+        response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
 
         return response.json()
+
+    @staticmethod
+    def transferSecure(user, system_id, amount):
+        headers = {
+            'authorization': 'Bearer ' + user['access_token'], 
+            'Content-Type': 'application/json'
+        }
+        
+        data = {'system_id': system_id, 'amount': amount}
+        
+        response = post(url=url + '/api/transfer-secure', data=json.dumps(data), headers=headers)
+
+        #return response.json()
