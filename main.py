@@ -126,45 +126,71 @@ class MainWindow(UI_MainWindow):
             self.show_setting_pass()
 
     def show_setting_pass(self):
-        self.check_setting_pass = Login_pass('admin')
-        if self.check_setting_pass.exec_() == QDialog.Accepted:
+        #self.check_setting_pass = Login_pass('admin')
+        #if self.check_setting_pass.exec_() == QDialog.Accepted:
             # self.show_menu()
-            self.lb_logo.show()
+            self.lbl_logo.show()
             self.btn_back.hide()
             self.btn_tick.show()
-            self.Stack.setCurrentIndex(12)
-            self.widget_index_stack.append(12)
+            self.Stack.setCurrentIndex(13)
+            self.widget_index_stack.append(13)
 
     def showIsLoading(self):
-        self.lb_logo.hide()
+        self.lbl_logo.hide()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(0)
         self.widget_index_stack.append(0)
 
     def showStart(self):
-        self.lb_logo.show()
+        self.lbl_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(1)
         self.widget_index_stack.append(1)
 
     def showLogin(self):
-        self.lb_logo.show()
-        self.btn_back.hide()
+        self.lbl_logo.show()
+        self.btn_back.show()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(2)
         self.widget_index_stack.append(2)
 
-    def showLoginPhoneNumber(self):
-        self.lb_logo.show()
-        self.btn_back.show()
+        if self.tb_login.text() == '09150471487':
+            self.showPassword()
+        else:
+            self.tb_login.clear()
 
-        self.Stack.setCurrentIndex(2)
-        self.widget_index_stack.append(2)
+    #def checkLoginPhoneNumber(self):
+    #    self.lbl_logo.show()
+    #    self.btn_back.show()
+    #    if self.tb_login.text() == '09150471487':
+    #        self.showPassword()
+    #    else:
+    #        self.tb_login.clear()
+
+    def showPassword(self):
+        self.lbl_logo.show()
+        self.btn_back.show()
+        self.btn_tick.hide()
+        self.Stack.setCurrentIndex(3)
+        self.widget_index_stack.append(3)
+
+        if self.tb_password.text() == '1234':
+            self.showMainMenu()
+        else:
+            self.tb_password.clear()
+
+    #def checkPassword(self):
+    #    self.lbl_logo.show()
+    #    self.btn_back.show()
+    #    if self.tb_password.text() == '1234':
+    #        self.showMainMenu()
+    #    else:
+    #        self.tb_password.clear()
 
     def showQR(self):
-        self.lb_logo.show()
+        self.lbl_logo.show()
         self.btn_back.show()
 
         data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
@@ -175,18 +201,18 @@ class MainWindow(UI_MainWindow):
     
         open_img = QPixmap(filename)
         self.lb_1_s2.setPixmap(open_img)
-        self.Stack.setCurrentIndex(3)
-        self.widget_index_stack.append(3)
-
-    def showMainMenu(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
         self.Stack.setCurrentIndex(4)
         self.widget_index_stack.append(4)
 
+    def showMainMenu(self):
+        self.lbl_logo.show()
+        self.btn_back.show()
+        self.btn_tick.hide()
+        self.Stack.setCurrentIndex(5)
+        self.widget_index_stack.append(5)
+
     def showDelivery(self):
-        self.lb_logo.show()
+        self.lbl_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
 
@@ -199,40 +225,40 @@ class MainWindow(UI_MainWindow):
 
         self.detect_thread = Thread(target=self.detectItem)
         self.detect_thread.start()
-        self.Stack.setCurrentIndex(5)
-        self.widget_index_stack.append(5)
-
-    def showWallet(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
-        self.lbl_wallet.setText(str(self.user['wallet']))
         self.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
 
-    def show_charging_unit(self):
+    def showWallet(self):
+        self.lbl_logo.show()
+        self.btn_back.show()
+        self.btn_tick.hide()
+        self.lbl_wallet.setText(str(self.user['wallet']))
         self.Stack.setCurrentIndex(7)
         self.widget_index_stack.append(7)
 
+    def show_charging_unit(self):
+        self.Stack.setCurrentIndex(8)
+        self.widget_index_stack.append(8)
+
     def show_deposit_to_card(self):
-        self.Stack.setCurrentIndex(8)
-        self.widget_index_stack.append(8)
-
-    def show_helping_to_environment(self):
-        self.Stack.setCurrentIndex(8)
-        self.widget_index_stack.append(8)
-
-    def show_charity(self):
         self.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
 
-    def show_buy_credit(self):
+    def show_helping_to_environment(self):
         self.Stack.setCurrentIndex(10)
         self.widget_index_stack.append(10)
 
-    def show_store(self):
+    def show_charity(self):
         self.Stack.setCurrentIndex(11)
         self.widget_index_stack.append(11)
+
+    def show_buy_credit(self):
+        self.Stack.setCurrentIndex(12)
+        self.widget_index_stack.append(12)
+
+    def show_store(self):
+        self.Stack.setCurrentIndex(14)
+        self.widget_index_stack.append(14)
 
     def back_window(self):
 
@@ -246,7 +272,7 @@ class MainWindow(UI_MainWindow):
         self.widget_index_stack.pop()
 
         if self.widget_index_stack[-1] == 0:
-            self.lb_logo.hide()
+            self.lbl_logo.hide()
             self.btn_back.hide()
         if self.widget_index_stack[-1] == 1:
             self.btn_back.hide()

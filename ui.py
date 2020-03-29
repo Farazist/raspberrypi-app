@@ -22,29 +22,25 @@ lb_font = QFont('IRANSans', 18)
 class UI_MainWindow(QWidget):
     
     def __init__(self):
-        
         super(UI_MainWindow, self).__init__()
 
-        #self.setContentsMargins(10, 10, 10, 5)
-        self.setStyleSheet('background-color: #f6fdfa  ')
-        #self.setGeometry(300, 50, 10, 10)
-        self.setWindowTitle('فرازیست')
+        self.setStyleSheet('background-color: #f6fdfa')
 
-        v_layout = QVBoxLayout(self)
-        v_layout.setContentsMargins(0, 10, 0, 0)
-
-        widget_header = QWidget()
-        #widget_header.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        #widget_header.getContentsMargins()
-        widget_header.setFixedHeight(100)
-        widget_header.setStyleSheet('border: none')
-        v_layout.addWidget(widget_header)
+        v_layout_UI_MainWindow = QVBoxLayout(self)
+        v_layout_UI_MainWindow.setContentsMargins(0, 10, 0, 0)
 
         h_layout_header = QHBoxLayout()
         h_layout_header.setContentsMargins(20, 0, 20, 0)
-        widget_header.setLayout(h_layout_header)
 
-        # --- child 1
+        widget_header = QWidget()
+        widget_header.setFixedHeight(100)
+        widget_header.setStyleSheet('border: none')
+        widget_header.setLayout(h_layout_header)
+        v_layout_UI_MainWindow.addWidget(widget_header)
+
+        sp_retain = QSizePolicy()
+        sp_retain.setRetainSizeWhenHidden(True)
+
         self.btn_back = QPushButton()
         self.btn_back.setFont(btn_sign_font)
         self.btn_back.setText('بازگشت')
@@ -54,19 +50,15 @@ class UI_MainWindow(QWidget):
         self.btn_back.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);'
                                     'color: #ffffff; border: none; border-radius: 6px;')
         self.btn_back.clicked.connect(self.back_window)
-        sp_retain = QSizePolicy()
-        sp_retain.setRetainSizeWhenHidden(True)
         self.btn_back.setSizePolicy(sp_retain)
         h_layout_header.addWidget(self.btn_back, alignment=Qt.AlignLeft)
 
+        pixmap_UI_MainWindow = QPixmap('images/farazist.ico')
 
-        # --- child 2
-        logo = QPixmap('images/farazist.ico')
-        self.lb_logo = QLabel()
-        self.lb_logo.setPixmap(logo)
-        h_layout_header.addWidget(self.lb_logo, alignment=Qt.AlignCenter)
+        self.lbl_logo = QLabel()
+        self.lbl_logo.setPixmap(pixmap_UI_MainWindow)
+        h_layout_header.addWidget(self.lbl_logo, alignment=Qt.AlignCenter)
 
-        # --- child 3
         self.btn_tick = QPushButton()
         self.btn_tick.setFont(btn_sign_font)
         self.btn_tick.setText('تایید')
@@ -76,27 +68,27 @@ class UI_MainWindow(QWidget):
         self.btn_tick.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);'
                                     'color: #ffffff; border: none; border-radius: 6px;')
         self.btn_tick.clicked.connect(self.tick_window)
-        # sp_retain = QSizePolicy()
-        # sp_retain.setRetainSizeWhenHidden(True)
         self.btn_tick.setSizePolicy(sp_retain)
         h_layout_header.addWidget(self.btn_tick, alignment=Qt.AlignRight)
 
         self.Stack = QStackedWidget(self)
 
-        for i in range(14):
+        for i in range(15):
             self.Stack.addWidget(QWidget())
 
         # -------------------- stacks method --------------------
         self.stackLoading()
         self.stackStart()
         self.stackLogin()
+        self.stackPassword()
         self.stackQRCode()
         self.stackMainMenu()
         self.stackDeliveryItems()
         self.stackWallet()
         self.stackSettingMenu()
+        # -------------------- end stacks method --------------------
 
-        v_layout.addWidget(self.Stack)
+        v_layout_UI_MainWindow.addWidget(self.Stack)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.showMaximized()
 
@@ -159,38 +151,87 @@ class UI_MainWindow(QWidget):
         self.Stack.widget(1).setLayout(v_layout_start_main)
 
     def stackLogin(self):
-        loader_font = QFont('IRANSans', 24)
-        farazist_font = QFont('IRANSans', 48)
+        lb_font = QFont('IRANSans', 18)
+        btn_font = QFont('IRANSans', 20)
+        hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
+
         btn_setting = self.setting_button()
+        
+        v_layout_login_main = QVBoxLayout()
 
-        v_layout = QVBoxLayout()
-        v_layout.setContentsMargins(0, 50, 0, 50)
-        v_layout.insertStretch(-1, -1)
+        v_layout_login_1 = QVBoxLayout()
+        v_layout_login_1.setContentsMargins(0, 50, 0, 300)
 
-        lbl = QLabel()
-        lbl.setAlignment(Qt.AlignTop)
-        lbl.setText('ورود')
-        lbl.setMinimumHeight(500)
-        lbl.setMinimumSize(290, 130)
+        v_layout_login_2 = QVBoxLayout()
 
-        tb_username = QLineEdit()
-        tb_username.setFont(hoderText_font)
-        tb_username.setFixedHeight(60)
-        tb_username.setStyleSheet(textbox_style)
-        tb_username.setMinimumSize(290, 130)
+        lbl_login = QLabel()
+        lbl_login.setAlignment(Qt.AlignTop)
+        lbl_login.setText('شماره موبایل')
+        lbl_login.setFont(lb_font)
+        lbl_login.setFixedSize(290, 40)
+
+        self.tb_login = QLineEdit()
+        self.tb_login.setPlaceholderText('09*********')
+        self.tb_login.setFont(hoderText_font)
+        self.tb_login.setStyleSheet(textbox_style)
+        self.tb_login.setFixedSize(290, 60)
 
         btn_login = QPushButton('ورود', self)
         btn_login.setFont(btn_font)
-        btn_login.setFixedHeight(60)
-        #btn_login.clicked.connect(self.handleLogin)
+        btn_login.clicked.connect(self.showLogin)
         btn_login.setStyleSheet(btn_style)
-        btn_login.setMinimumSize(290, 130)
+        btn_login.setFixedSize(290, 60)
 
-        v_layout.addWidget(lbl, alignment=Qt.AlignCenter)
-        v_layout.addWidget(tb_username, alignment=Qt.AlignCenter)
-        v_layout.addWidget(btn_login, alignment=Qt.AlignCenter)
+        v_layout_login_1.addWidget(lbl_login, alignment=Qt.AlignCenter)
+        v_layout_login_1.addWidget(self.tb_login, alignment=Qt.AlignCenter)
+        v_layout_login_1.addWidget(btn_login, alignment=Qt.AlignCenter)
+        v_layout_login_2.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+        v_layout_login_main.addLayout(v_layout_login_1)
+        v_layout_login_main.addLayout(v_layout_login_2)
 
-        self.Stack.widget(2).setLayout(v_layout)
+        self.Stack.widget(2).setLayout(v_layout_login_main)
+
+    def stackPassword(self):
+        lb_font = QFont('IRANSans', 18)
+        btn_font = QFont('IRANSans', 20)
+        hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
+
+        btn_setting = self.setting_button()
+
+        v_layout_password_main = QVBoxLayout()
+
+        v_layout_password_1 = QVBoxLayout()
+        v_layout_password_1.setContentsMargins(0, 50, 0, 300)
+
+        v_layout_password_2 = QHBoxLayout()
+
+        lbl_password = QLabel()
+        lbl_password.setAlignment(Qt.AlignTop)
+        lbl_password.setText('کلمه عبور')
+        lbl_password.setFont(lb_font)
+        lbl_password.setFixedSize(290, 40)
+
+        self.tb_password = QLineEdit()
+        self.tb_password.setPlaceholderText('***********')
+        self.tb_password.setEchoMode(QLineEdit.EchoMode.Password)
+        self.tb_password.setFont(hoderText_font)
+        self.tb_password.setStyleSheet(textbox_style)
+        self.tb_password.setFixedSize(290, 60)
+
+        btn_password = QPushButton('ورود', self)
+        btn_password.setFont(btn_font)
+        btn_password.clicked.connect(self.showPassword)
+        btn_password.setStyleSheet(btn_style)
+        btn_password.setFixedSize(290, 60)
+
+        v_layout_password_1.addWidget(lbl_password, alignment=Qt.AlignCenter)
+        v_layout_password_1.addWidget(self.tb_password, alignment=Qt.AlignCenter)
+        v_layout_password_1.addWidget(btn_password, alignment=Qt.AlignCenter)
+        v_layout_password_2.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+        v_layout_password_main.addLayout(v_layout_password_1)
+        v_layout_password_main.addLayout(v_layout_password_2)
+
+        self.Stack.widget(3).setLayout(v_layout_password_main)
 
     def stackQRCode(self):
         btn_setting = self.setting_button()
@@ -215,7 +256,7 @@ class UI_MainWindow(QWidget):
         v_layout_s2.addLayout(h_layout_s2)
         v_layout_s2.addWidget(btn_setting, alignment=Qt.AlignLeft)
         
-        self.Stack.widget(3).setLayout(v_layout_s2)
+        self.Stack.widget(4).setLayout(v_layout_s2)
 
     def stackMainMenu(self):
 
@@ -272,7 +313,7 @@ class UI_MainWindow(QWidget):
         v_layout.addLayout(h_layout)
         v_layout.addWidget(btn_setting, alignment=Qt.AlignLeft)
 
-        self.Stack.widget(4).setLayout(v_layout)
+        self.Stack.widget(5).setLayout(v_layout)
 
     def stackDeliveryItems(self):
 
@@ -355,7 +396,7 @@ class UI_MainWindow(QWidget):
         btn_1_21.setStyleSheet(btn_style)
         h_layout2_s4.addWidget(btn_1_21)
 
-        self.Stack.widget(5).setLayout(v_layout)
+        self.Stack.widget(6).setLayout(v_layout)
 
     def stackWallet(self):
         global user
@@ -389,7 +430,7 @@ class UI_MainWindow(QWidget):
         v_layout.addLayout(h_layout)
         v_layout.addWidget(btn_setting, alignment = Qt.AlignLeft| Qt.AlignBottom)
 
-        self.Stack.widget(6).setLayout(v_layout)
+        self.Stack.widget(7).setLayout(v_layout)
 
     def stackSettingMenu(self):
 
@@ -402,7 +443,7 @@ class UI_MainWindow(QWidget):
         # --- child 1
         v_layout1_s12 = QVBoxLayout()
         v_layout1_s12.setSpacing(0)
-        v_layout1_s12.setContentsMargins(150, 0, 0, 0)
+        v_layout1_s12.setContentsMargins(150, 0, 0, 400)
         
         # ---------- child 1 widgets ----------
         # --- create line edit
@@ -413,13 +454,13 @@ class UI_MainWindow(QWidget):
         v_layout1_s12.addWidget(self.lb_s12)
 
         self.key_widget = KeyBoard(self.lb_s12)
-        self.key_layout = self.key_widget.output()
-        v_layout1_s12.addLayout(self.key_layout)
+        #self.key_layout = self.key_widget.output()
+        #v_layout1_s12.addLayout(self.key_layout)
         self.setLayout(v_layout1_s12)
 
         # --- child 2
         v_layout2_s12 = QVBoxLayout()
-        v_layout2_s12.setContentsMargins(20, 0, 20, 200)
+        v_layout2_s12.setContentsMargins(20, 50, 20,100)
         # ---------- child 2 widgets ----------
         self.btn_00_s12 = QPushButton()
         self.btn_00_s12.setFont(menu_font)
@@ -427,6 +468,20 @@ class UI_MainWindow(QWidget):
         self.btn_00_s12.setFixedSize(200, 60)
         self.btn_00_s12.setStyleSheet(btn_style)
         v_layout2_s12.addWidget(self.btn_00_s12, alignment=Qt.AlignCenter)
+
+        self.btn_02_s12 = QPushButton()
+        self.btn_02_s12.setFont(menu_font)
+        self.btn_02_s12.setText('تنظیم مُد دستگاه')
+        self.btn_02_s12.setFixedSize(200, 60)
+        self.btn_02_s12.setStyleSheet(btn_style)
+        v_layout2_s12.addWidget(self.btn_02_s12, alignment=Qt.AlignCenter)
+
+        self.btn_03_s12 = QPushButton()
+        self.btn_03_s12.setFont(menu_font)
+        self.btn_03_s12.setText('تغییر رمز')
+        self.btn_03_s12.setFixedSize(200, 60)
+        self.btn_03_s12.setStyleSheet(btn_style)
+        v_layout2_s12.addWidget(self.btn_03_s12, alignment=Qt.AlignCenter)
 
         self.btn_01_s12 = QPushButton()
         self.btn_01_s12.setFont(menu_font)
@@ -441,7 +496,7 @@ class UI_MainWindow(QWidget):
         
         h_layout.addLayout(v_layout1_s12)
         h_layout.addWidget(group2)
-        self.Stack.widget(12).setLayout(h_layout)
+        self.Stack.widget(13).setLayout(h_layout)
 
     def login_button(self):
         btns_font = QFont('IRANSans', 24)
@@ -450,7 +505,7 @@ class UI_MainWindow(QWidget):
 
         self.btn_login_phone_number = QPushButton()
         self.btn_login_phone_number.setFont(btns_font)
-        self.btn_login_phone_number.setText('ورود با شماره همراه')
+        self.btn_login_phone_number.setText('ورود با شماره موبایل')
         self.btn_login_phone_number.setIcon(QIcon('images/sign/user-outline1.png'))
         self.btn_login_phone_number.setIconSize(QSize(50, 50))
         self.btn_login_phone_number.setStyleSheet(btn_style)
@@ -458,7 +513,7 @@ class UI_MainWindow(QWidget):
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.btn_login_phone_number.setSizePolicy(sp_retain)
-        self.btn_login_phone_number.clicked.connect(self.showLoginPhoneNumber)
+        self.btn_login_phone_number.clicked.connect(self.showLogin)
 
         self.btn_login_qrcode = QPushButton()
         self.btn_login_qrcode.setFont(btns_font)
@@ -470,10 +525,10 @@ class UI_MainWindow(QWidget):
         # sp_retain = QSizePolicy()
         # sp_retain.setRetainSizeWhenHidden(True)
         self.btn_login_qrcode.setSizePolicy(sp_retain)
-        self.btn_login_qrcode.clicked.connect(self.showQR)
+        #self.btn_login_qrcode.clicked.connect(self.showQR)
 
         btns_layout.addWidget(self.btn_login_phone_number)
-        btns_layout.addWidget(self.btn_login_qrcode)
+        #btns_layout.addWidget(self.btn_login_qrcode)
         #return self.btn_login_phone_number, self.btn_login_qrcode
         return btns_layout
 
@@ -495,7 +550,7 @@ class UI_MainWindow(QWidget):
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.setting.setSizePolicy(sp_retain)
-        self.setting.clicked.connect(self.show_setting_user)
+        self.setting.clicked.connect(self.show_setting_pass)
         return self.setting
 
     def message_box(self, text):
