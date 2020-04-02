@@ -4,13 +4,14 @@ from threading import Thread
 import numpy as np
 from scipy import stats
 from tensorflow import keras
-from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QApplication, QMessageBox
 from PySide2.QtGui import QFont
 from functools import partial
 import pyqrcode
 import time
 
 from ui import UI_MainWindow
+from ui import btn_style
 from database import Database
 from app import *
 from login import Login_user
@@ -40,8 +41,7 @@ class MainWindow(UI_MainWindow):
         print('model successfully loaded')
         self.showStart()
 
-    def detectItem(self):      
-
+    def detectItem(self):
         predict_item_list = []
         categories_count = np.zeros(len(self.categories), np.uint8)
 
@@ -72,7 +72,7 @@ class MainWindow(UI_MainWindow):
                         predicted = np.argmax(prediction)
                         print(self.items[predicted])
 
-                        window.lb_2_s4.setText(self.items[predicted]['name'])
+                        window.lbl_item.setText(self.items[predicted]['name'])
 
                     if self.predict_item_flag == False:
                         predict_item_list.append(predicted)
@@ -86,7 +86,7 @@ class MainWindow(UI_MainWindow):
                         categories_count[category_index] += 1
 
                         for i in range(len(categories_count)):
-                            window.grid_widget_s4[2][i].setText(str(categories_count[i]))
+                            window.grid_widget_DeliveryItems[2][i].setText(str(categories_count[i]))
 
                         for item in self.user_items:
                             if item['id'] == self.items[most_probability_item]['id']:
@@ -114,105 +114,102 @@ class MainWindow(UI_MainWindow):
             total_price += item['price'] * item['count']
         Database.transferSecure(self.user, system_id, total_price)
         self.user = Database.getUser(self.user)
+        
+        categories_count = np.zeros(len(self.categories), np.uint8)
+        for i in range(len(categories_count)):
+                            window.grid_widget_DeliveryItems[2][i].setText(str(0))
+        
         self.showMainMenu()    
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
-        self.lb_2_s4.clear()
-
-    def show_setting_user(self):
-        self.check_setting_user = Login_user('admin')
-        if self.check_setting_user.exec_() == QDialog.Accepted:
-            self.show_setting_pass()
-
-    def show_setting_pass(self):
-        #self.check_setting_pass = Login_pass('admin')
-        #if self.check_setting_pass.exec_() == QDialog.Accepted:
-            # self.show_menu()
-            self.lbl_logo.show()
-            self.btn_back.hide()
-            self.btn_tick.show()
-            self.Stack.setCurrentIndex(13)
-            self.widget_index_stack.append(13)
+        self.lbl_item.clear()
 
     def showIsLoading(self):
-        self.lbl_logo.hide()
+        self.lb_logo.hide()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(0)
         self.widget_index_stack.append(0)
 
-    def showStart(self):
-        self.lbl_logo.show()
+    def showAdminLogin(self):
+        self.lb_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(1)
         self.widget_index_stack.append(1)
 
-    def showLogin(self):
-        self.lbl_logo.show()
-        self.btn_back.show()
+        if self.tb_AdminLogin.text() == '09150471487':
+            self.showAdminPassword()
+        elif self.tb_AdminLogin.text() != '09150471487' and self.tb_AdminLogin.text() != '':
+            self.lbl_AdminLogin_Error.setText('نام کاربری نادرست است')
+            self.tb_AdminLogin.clear()
+    
+    def showAdminPassword(self):
+        self.lb_logo.show()
+        self.btn_back.hide()
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(2)
         self.widget_index_stack.append(2)
 
-        if self.tb_login.text() == '09150471487':
-            self.showPassword()
-        else:
-            self.tb_login.clear()
-
-    #def checkLoginPhoneNumber(self):
-    #    self.lbl_logo.show()
-    #    self.btn_back.show()
-    #    if self.tb_login.text() == '09150471487':
-    #        self.showPassword()
-    #    else:
-    #        self.tb_login.clear()
-
-    def showPassword(self):
-        self.lbl_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
+        if self.tb_AdminPassword.text() == '1234':
+            self.showSettingMenu()
+        elif self.tb_AdminPassword.text() != '1234' and self.tb_AdminPassword.text() != '':
+            self.lbl_AdminPassword_Error.setText('رمز عبور نادرست است')
+            self.tb_AdminPassword.clear()
+    
+    def showSettingMenu(self):
+        self.lb_logo.show()
+        self.btn_back.hide()
+        self.btn_tick.show()
         self.Stack.setCurrentIndex(3)
         self.widget_index_stack.append(3)
 
-        if self.tb_password.text() == '1234':
-            self.showMainMenu()
-        else:
-            self.tb_password.clear()
-
-    #def checkPassword(self):
-    #    self.lbl_logo.show()
-    #    self.btn_back.show()
-    #    if self.tb_password.text() == '1234':
-    #        self.showMainMenu()
-    #    else:
-    #        self.tb_password.clear()
-
-    def showQR(self):
-        self.lbl_logo.show()
-        self.btn_back.show()
-
-        data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
-        filename = 'images\qr\qrcode.png'
-
-        url = pyqrcode.create(data)
-        url.png(filename, scale=6, background='#f6fdfa')
-    
-        open_img = QPixmap(filename)
-        self.lb_1_s2.setPixmap(open_img)
+    def showStart(self):
+        self.lb_logo.show()
+        self.btn_back.hide()
+        self.btn_tick.hide()
         self.Stack.setCurrentIndex(4)
         self.widget_index_stack.append(4)
 
-    def showMainMenu(self):
-        self.lbl_logo.show()
+    def showUserLogin(self):
+        self.lb_logo.show()
         self.btn_back.show()
+        self.btn_back.setText('خروج')
         self.btn_tick.hide()
         self.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
 
+        if self.tb_UserLogin.text() == '09150471487':
+            self.showUserPassword()
+        elif self.tb_UserLogin.text() != '09150471487' and self.tb_UserLogin.text() != '':
+            self.lbl_UserLogin_Error.setText('نام کاربری نادرست است')
+            self.tb_UserLogin.clear()
+
+    def showUserPassword(self):
+        self.lb_logo.show()
+        self.btn_back.show()
+        self.btn_back.setText('خروج')
+        self.btn_tick.hide()
+        self.Stack.setCurrentIndex(6)
+        self.widget_index_stack.append(6)
+
+        if self.tb_UserPassword.text() == '1234':
+            self.showMainMenu()
+        elif self.tb_UserPassword.text() != '1234' and self.tb_UserPassword.text() != '':
+            self.lbl_UserPassword_Error.setText('رمز عبور نادرست است')
+            self.tb_UserPassword.clear()
+
+    def showMainMenu(self):
+        self.lb_logo.show()
+        self.btn_back.show()
+        self.btn_back.setText('خروج')
+        self.btn_tick.hide()
+        self.Stack.setCurrentIndex(7)
+        self.widget_index_stack.append(7)
+
     def showDelivery(self):
-        self.lbl_logo.show()
+        self.lb_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
 
@@ -225,94 +222,67 @@ class MainWindow(UI_MainWindow):
 
         self.detect_thread = Thread(target=self.detectItem)
         self.detect_thread.start()
-        self.Stack.setCurrentIndex(6)
-        self.widget_index_stack.append(6)
-
-    def showWallet(self):
-        self.lbl_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
-        self.lbl_wallet.setText(str(self.user['wallet']))
-        self.Stack.setCurrentIndex(7)
-        self.widget_index_stack.append(7)
-
-    def show_charging_unit(self):
         self.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
 
-    def show_deposit_to_card(self):
+    def showWallet(self):
+        self.lb_logo.show()
+        self.btn_back.show()
+        self.btn_back.setText('بازگشت')
+        self.btn_tick.hide()
+        self.lbl_wallet.setText(str(self.user['wallet']))
         self.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
 
-    def show_helping_to_environment(self):
-        self.Stack.setCurrentIndex(10)
-        self.widget_index_stack.append(10)
-
-    def show_charity(self):
-        self.Stack.setCurrentIndex(11)
-        self.widget_index_stack.append(11)
-
-    def show_buy_credit(self):
-        self.Stack.setCurrentIndex(12)
-        self.widget_index_stack.append(12)
-
-    def show_store(self):
-        self.Stack.setCurrentIndex(14)
-        self.widget_index_stack.append(14)
-
     def back_window(self):
 
-        self.delivery_items_flag = False
+        self.delivery_items_flag = False            
         if self.camera: 
             self.camera.release()
-
-        self.btn_tick.hide()
-        self.btn_back.show()    
+        
+        # self.btn_tick.hide()
+        # self.btn_back.show()    
 
         self.widget_index_stack.pop()
 
-        if self.widget_index_stack[-1] == 0:
-            self.lbl_logo.hide()
-            self.btn_back.hide()
-        if self.widget_index_stack[-1] == 1:
-            self.btn_back.hide()
-
-        self.Stack.setCurrentIndex(self.widget_index_stack[-1])
-
+        if self.Stack.currentIndex() in [5, 6]:
+            self.tb_UserLogin.setText('')
+            self.tb_UserPassword.setText('')
+            self.showStart()
+        
+        if self.Stack.currentIndex() == 7:
+            self.tb_UserLogin.setText('')
+            self.tb_UserPassword.setText('')
+            self.showStart()
+        
+        if self.Stack.currentIndex() == 9:
+            self.tb_UserLogin.setText('')
+            self.tb_UserPassword.setText('')
+            self.showMainMenu()
+        
+        # self.Stack.setCurrentIndex(self.widget_index_stack[-1])
+        
     def tick_window(self):
-
         self.widget_index_stack.pop()
 
-        if self.widget_index_stack[-1] == 1:
-            self.btn_back.hide()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 2:
-            self.btn_back.show()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 3:
-            self.btn_back.show()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 4:
-            self.btn_back.hide()
-            self.btn_tick.show()
-        elif self.widget_index_stack[-1] == 5:
-            self.btn_back.show()
-            self.btn_tick.hide()
-
-        self.Stack.setCurrentIndex(self.widget_index_stack[-1])
-
+        if self.Stack.currentIndex() == 3:
+            self.tb_AdminLogin.setText('')
+            self.tb_AdminPassword.setText('')
+            self.showStart()
+        
+        # self.Stack.setCurrentIndex(self.widget_index_stack[-1])
 
     def display(self, i):
         self.Stack.setCurrentIndex(i)
 
-    def exit_program(self):
+    def exitApp(self):
         self.delivery_items_flag = False
-        self.camera.release() 
+        if self.camera is not None:
+            self.camera.release() 
         destroyAllWindows()
         self.close()
-        # QApplication.quit()
 
-    def exit_message_box(self):
+    def showExitBox(self):
         btn_font = QFont('IRANSans', 16)
         lb_font = QFont('IRANSans', 18)
 
@@ -327,7 +297,7 @@ class MainWindow(UI_MainWindow):
         buttonY = box.button(QMessageBox.Yes)
         buttonY.setText('بله')
         buttonY.setFont(btn_font)
-        buttonY.setStyleSheet(button_style)
+        buttonY.setStyleSheet(btn_style)
         buttonY.setMinimumSize(60,30)
         
         buttonN = box.button(QMessageBox.No)
@@ -339,7 +309,7 @@ class MainWindow(UI_MainWindow):
 
         box.exec_()
         if box.clickedButton() == buttonY:
-            self.exit_program()
+            self.exitApp()
         elif box.clickedButton() == buttonN:
             box.close()
 
