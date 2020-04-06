@@ -1,4 +1,11 @@
-﻿from PySide2.QtGui import (QFont, QIcon, QMovie, QPixmap)
+﻿from PySide2.QtCore import QUrl
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import Qt
+import os
+os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
+
+
+from PySide2.QtGui import (QFont, QIcon, QMovie, QPixmap)
 from PySide2.QtCore import (Qt, QSize)
 from PySide2.QtWidgets import (QApplication, QVBoxLayout, QHBoxLayout, QGridLayout, 
                             QGraphicsDropShadowEffect, QMessageBox, QDialog, QGroupBox, QSizePolicy,
@@ -24,7 +31,6 @@ class UI_MainWindow(QWidget):
     def __init__(self):
         
         super(UI_MainWindow, self).__init__()
-
         self.setStyleSheet('background-color: #f6fdfa  ')
 
         v_layout = QVBoxLayout(self)
@@ -79,11 +85,11 @@ class UI_MainWindow(QWidget):
         # -------------------- stacks method --------------------
         self.stackLoading()
         self.stackAdminLogin()
-        self.stackAdminPassword()
+        # self.stackAdminPassword()
         self.stackSettingMenu()
         self.stackStart()
         self.stackUserLogin()
-        self.stackUserPassword()
+        # self.stackUserPassword()
         self.stackMainMenu()
         self.stackDeliveryItems()
         self.stackWallet()
@@ -125,6 +131,20 @@ class UI_MainWindow(QWidget):
         self.Stack.widget(0).setLayout(v_layout_loading_main)
 
     def stackAdminLogin(self):
+        btn_setting = self.setting_button()
+
+        qml_loading = QQuickWidget()
+        qml_file = os.path.join(os.path.dirname(__file__),"admin.qml")
+        qml_loading.setSource(QUrl.fromLocalFile(os.path.abspath(qml_file)))
+
+        v_layout_AdminLogin_main = QVBoxLayout()
+
+        v_layout_AdminLogin_main.addWidget(qml_loading, alignmet=Qt.AlignCenter)
+        v_layout_AdminLogin_main.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+
+        self.Stack.widget(1).setLayout(v_layout_AdminLogin_main)
+
+    """def stackAdminLogin(self):
         lb_font = QFont('IRANSans', 18)
         btn_font = QFont('IRANSans', 20)
         hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
@@ -134,21 +154,33 @@ class UI_MainWindow(QWidget):
         v_layout_AdminLogin_main = QVBoxLayout()
 
         v_layout_AdminLogin_1 = QVBoxLayout()
-        v_layout_AdminLogin_1.setContentsMargins(0, 50, 0, 250)
+        v_layout_AdminLogin_1.setContentsMargins(0, 50, 0, 20)
 
         v_layout_AdminLogin_2 = QVBoxLayout()
 
-        lbl_AdminLogin = QLabel()
-        lbl_AdminLogin.setAlignment(Qt.AlignTop)
-        lbl_AdminLogin.setText('نام کاربری')
-        lbl_AdminLogin.setFont(lb_font)
-        lbl_AdminLogin.setFixedSize(290, 40)
+        lbl_AdminLogin_username = QLabel()
+        lbl_AdminLogin_username.setAlignment(Qt.AlignTop)
+        lbl_AdminLogin_username.setText('نام کاربری')
+        lbl_AdminLogin_username.setFont(lb_font)
+        lbl_AdminLogin_username.setFixedSize(290, 40)
 
-        self.tb_AdminLogin = QLineEdit()
-        self.tb_AdminLogin.setPlaceholderText('12********')
-        self.tb_AdminLogin.setFont(hoderText_font)
-        self.tb_AdminLogin.setStyleSheet(textbox_style)
-        self.tb_AdminLogin.setFixedSize(290, 60)
+        self.tb_AdminLogin_username = QLineEdit()
+        self.tb_AdminLogin_username.setPlaceholderText('12********')
+        self.tb_AdminLogin_username.setFont(hoderText_font)
+        self.tb_AdminLogin_username.setStyleSheet(textbox_style)
+        self.tb_AdminLogin_username.setFixedSize(290, 60)
+
+        lbl_AdminLogin_password = QLabel()
+        lbl_AdminLogin_password.setAlignment(Qt.AlignTop)
+        lbl_AdminLogin_password.setText('رمز عبور')
+        lbl_AdminLogin_password.setFont(lb_font)
+        lbl_AdminLogin_password.setFixedSize(290, 40)
+
+        self.tb_AdminLogin_password = QLineEdit()
+        self.tb_AdminLogin_password.setPlaceholderText('**********')
+        self.tb_AdminLogin_password.setFont(hoderText_font)
+        self.tb_AdminLogin_password.setStyleSheet(textbox_style)
+        self.tb_AdminLogin_password.setFixedSize(290, 60)
 
         btn_AdminLogin = QPushButton('ورود', self)
         btn_AdminLogin.setFont(btn_font)
@@ -161,18 +193,19 @@ class UI_MainWindow(QWidget):
         self.lbl_AdminLogin_Error.setFont(lb_font)
         self.lbl_AdminLogin_Error.setFixedSize(290, 40)
 
-
-        v_layout_AdminLogin_1.addWidget(lbl_AdminLogin, alignment=Qt.AlignCenter)
-        v_layout_AdminLogin_1.addWidget(self.tb_AdminLogin, alignment=Qt.AlignCenter)
+        v_layout_AdminLogin_1.addWidget(lbl_AdminLogin_username, alignment=Qt.AlignCenter)
+        v_layout_AdminLogin_1.addWidget(self.tb_AdminLogin_username, alignment=Qt.AlignCenter)
+        v_layout_AdminLogin_1.addWidget(lbl_AdminLogin_password, alignment=Qt.AlignCenter)
+        v_layout_AdminLogin_1.addWidget(self.tb_AdminLogin_password, alignment=Qt.AlignCenter)
         v_layout_AdminLogin_1.addWidget(btn_AdminLogin, alignment=Qt.AlignCenter)
         v_layout_AdminLogin_1.addWidget(self.lbl_AdminLogin_Error, alignment=Qt.AlignCenter)
         v_layout_AdminLogin_2.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
         v_layout_AdminLogin_main.addLayout(v_layout_AdminLogin_1)
         v_layout_AdminLogin_main.addLayout(v_layout_AdminLogin_2)
 
-        self.Stack.widget(1).setLayout(v_layout_AdminLogin_main)
+        self.Stack.widget(1).setLayout(v_layout_AdminLogin_main)"""
 
-    def stackAdminPassword(self):
+    """def stackAdminPassword(self):
         lb_font = QFont('IRANSans', 18)
         btn_font = QFont('IRANSans', 20)
         hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
@@ -218,7 +251,7 @@ class UI_MainWindow(QWidget):
         v_layout_AdminPassword_main.addLayout(v_layout_AdminPassword_1)
         v_layout_AdminPassword_main.addLayout(v_layout_AdminPassword_2)
 
-        self.Stack.widget(2).setLayout(v_layout_AdminPassword_main)
+        self.Stack.widget(2).setLayout(v_layout_AdminPassword_main)"""
     
     def stackSettingMenu(self):
 
@@ -301,6 +334,20 @@ class UI_MainWindow(QWidget):
         self.Stack.widget(4).setLayout(v_layout_start_main)
 
     def stackUserLogin(self):
+        btn_setting = self.setting_button()
+
+        qml_loading = QQuickWidget()
+        qml_file = os.path.join(os.path.dirname(__file__),"user.qml")
+        qml_loading.setSource(QUrl.fromLocalFile(os.path.abspath(qml_file)))
+
+        v_layout_UserLogin_main = QVBoxLayout()
+
+        v_layout_UserLogin_main.addWidget(qml_loading, alignmet=Qt.AlignCenter)
+        v_layout_UserLogin_main.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+
+        self.Stack.widget(5).setLayout(v_layout_UserLogin_main)
+
+    """def stackUserLogin(self):
         lb_font = QFont('IRANSans', 18)
         btn_font = QFont('IRANSans', 20)
         hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
@@ -310,21 +357,34 @@ class UI_MainWindow(QWidget):
         v_layout_UserLogin_main = QVBoxLayout()
 
         v_layout_UserLogin_1 = QVBoxLayout()
-        v_layout_UserLogin_1.setContentsMargins(0, 50, 0, 250)
+        v_layout_UserLogin_1.setContentsMargins(0, 50, 0, 20)
 
         v_layout_UserLogin_2 = QVBoxLayout()
 
-        lbl_UserLogin = QLabel()
-        lbl_UserLogin.setAlignment(Qt.AlignTop)
-        lbl_UserLogin.setText('شماره موبایل')
-        lbl_UserLogin.setFont(lb_font)
-        lbl_UserLogin.setFixedSize(290, 40)
+        lbl_UserLogin_username = QLabel()
+        lbl_UserLogin_username.setAlignment(Qt.AlignTop)
+        lbl_UserLogin_username.setText('شماره موبایل')
+        lbl_UserLogin_username.setFont(lb_font)
+        lbl_UserLogin_username.setFixedSize(290, 40)
 
-        self.tb_UserLogin = QLineEdit()
-        self.tb_UserLogin.setPlaceholderText('09*********')
-        self.tb_UserLogin.setFont(hoderText_font)
-        self.tb_UserLogin.setStyleSheet(textbox_style)
-        self.tb_UserLogin.setFixedSize(290, 60)
+        self.tb_UserLogin_username = QLineEdit()
+        self.tb_UserLogin_username.setPlaceholderText('09*********')
+        self.tb_UserLogin_username.setFont(hoderText_font)
+        self.tb_UserLogin_username.setStyleSheet(textbox_style)
+        self.tb_UserLogin_username.setFixedSize(290, 60)
+
+
+        lbl_UserLogin_password = QLabel()
+        lbl_UserLogin_password.setAlignment(Qt.AlignTop)
+        lbl_UserLogin_password.setText('رمز عبور')
+        lbl_UserLogin_password.setFont(lb_font)
+        lbl_UserLogin_password.setFixedSize(290, 40)
+
+        self.tb_UserLogin_password = QLineEdit()
+        self.tb_UserLogin_password.setPlaceholderText('***********')
+        self.tb_UserLogin_password.setFont(hoderText_font)
+        self.tb_UserLogin_password.setStyleSheet(textbox_style)
+        self.tb_UserLogin_password.setFixedSize(290, 60)
 
         btn_UserLogin = QPushButton('ورود', self)
         btn_UserLogin.setFont(btn_font)
@@ -337,17 +397,19 @@ class UI_MainWindow(QWidget):
         self.lbl_UserLogin_Error.setFont(lb_font)
         self.lbl_UserLogin_Error.setFixedSize(290, 40)
 
-        v_layout_UserLogin_1.addWidget(lbl_UserLogin, alignment=Qt.AlignCenter)
-        v_layout_UserLogin_1.addWidget(self.tb_UserLogin, alignment=Qt.AlignCenter)
+        v_layout_UserLogin_1.addWidget(lbl_UserLogin_username, alignment=Qt.AlignCenter)
+        v_layout_UserLogin_1.addWidget(self.tb_UserLogin_username, alignment=Qt.AlignCenter)
+        v_layout_UserLogin_1.addWidget(lbl_UserLogin_password, alignment=Qt.AlignCenter)
+        v_layout_UserLogin_1.addWidget(self.tb_UserLogin_password, alignment=Qt.AlignCenter)
         v_layout_UserLogin_1.addWidget(btn_UserLogin, alignment=Qt.AlignCenter)
         v_layout_UserLogin_1.addWidget(self.lbl_UserLogin_Error, alignment=Qt.AlignCenter)
         v_layout_UserLogin_2.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
         v_layout_UserLogin_main.addLayout(v_layout_UserLogin_1)
         v_layout_UserLogin_main.addLayout(v_layout_UserLogin_2)
 
-        self.Stack.widget(5).setLayout(v_layout_UserLogin_main)
+        self.Stack.widget(5).setLayout(v_layout_UserLogin_main)"""
 
-    def stackUserPassword(self):
+    """def stackUserPassword(self):
         lb_font = QFont('IRANSans', 18)
         btn_font = QFont('IRANSans', 20)
         hoderText_font = QFont('IRANSansFaNum', 20, QFont.Bold)
@@ -394,7 +456,7 @@ class UI_MainWindow(QWidget):
         v_layout_UserPassword_main.addLayout(v_layout_UserPassword_2)
 
         self.Stack.widget(6).setLayout(v_layout_UserPassword_main)
-    
+    """
     def stackMainMenu(self):
 
         btn_setting = self.setting_button()

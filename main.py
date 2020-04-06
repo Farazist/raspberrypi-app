@@ -139,13 +139,14 @@ class MainWindow(UI_MainWindow):
         self.Stack.setCurrentIndex(1)
         self.widget_index_stack.append(1)
 
-        if self.tb_AdminLogin.text() == '09150471487':
-            self.showAdminPassword()
-        elif self.tb_AdminLogin.text() != '09150471487' and self.tb_AdminLogin.text() != '':
+        if self.tb_AdminLogin_username.text() == '09150471487' and self.tb_AdminLogin_password.text() == '1234':
+            self.showSettingMenu()
+        elif (self.tb_AdminLogin_username.text() != '09150471487' or self.tb_AdminLogin_password.text() != '1234')\
+                and self.tb_AdminLogin_username.text() != '':
             self.lbl_AdminLogin_Error.setText('نام کاربری نادرست است')
-            self.tb_AdminLogin.clear()
+            self.tb_AdminLogin_username.clear()
     
-    def showAdminPassword(self):
+    """def showAdminPassword(self):
         self.lb_logo.show()
         self.btn_back.hide()
         self.btn_tick.hide()
@@ -157,7 +158,7 @@ class MainWindow(UI_MainWindow):
         elif self.tb_AdminPassword.text() != '1234' and self.tb_AdminPassword.text() != '':
             self.lbl_AdminPassword_Error.setText('رمز عبور نادرست است')
             self.tb_AdminPassword.clear()
-    
+    """
     def showSettingMenu(self):
         self.lb_logo.show()
         self.btn_back.hide()
@@ -180,13 +181,14 @@ class MainWindow(UI_MainWindow):
         self.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
 
-        if self.tb_UserLogin.text() == '09150471487':
-            self.showUserPassword()
-        elif self.tb_UserLogin.text() != '09150471487' and self.tb_UserLogin.text() != '':
+        if self.tb_UserLogin_username.text() == '09150471487' and self.tb_UserLogin_password.text() == '1234':
+            self.showMainMenu()
+        elif (self.tb_UserLogin_username.text() != '09150471487' and self.tb_UserLogin_password.text() != '1234')\
+                and self.tb_UserLogin.text() != '':
             self.lbl_UserLogin_Error.setText('نام کاربری نادرست است')
             self.tb_UserLogin.clear()
 
-    def showUserPassword(self):
+    """def showUserPassword(self):
         self.lb_logo.show()
         self.btn_back.show()
         self.btn_back.setText('خروج')
@@ -199,7 +201,7 @@ class MainWindow(UI_MainWindow):
         elif self.tb_UserPassword.text() != '1234' and self.tb_UserPassword.text() != '':
             self.lbl_UserPassword_Error.setText('رمز عبور نادرست است')
             self.tb_UserPassword.clear()
-
+    """
     def showMainMenu(self):
         self.lb_logo.show()
         self.btn_back.show()
