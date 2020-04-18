@@ -1,16 +1,18 @@
 import sys
+import os
 from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
 from tensorflow import keras
-from PySide2.QtWidgets import QApplication
-from PySide2.QtGui import QFont
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy
+from PySide2.QtUiTools import QUiLoader
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QMovie, QPixmap
 from functools import partial
 import pyqrcode
 import time
 
-from ui import UI_MainWindow
 from database import Database
 from app import *
 from login import Login_user
@@ -18,22 +20,34 @@ from login import Login_pass
 from aescipher import AESCipher
 from localdatabase import LocalDataBase
 
+os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
-class MainWindow(UI_MainWindow):
+class MainWindow(QDialog):
    
     def __init__(self):
-
-        self.user = Database.signInUser('09150471487', '1234')
+        super(MainWindow, self).__init__()
+        
+        # self.user = Database.signInUser('09150471487', '1234')
         self.camera = None
         self.user_items = []
         self.widget_index_stack = []
         self.items = Database.getItems()
         self.categories = Database.getCategories()
 
-        super(MainWindow, self).__init__()
+        loader = QUiLoader()
+        self.ui = loader.load('main.ui', self)
+
+        sp_retain = QSizePolicy()
+        sp_retain.setRetainSizeWhenHidden(True)
+
+        self.ui.btnBack.setSizePolicy(sp_retain)
+        self.ui.btnTick.setSizePolicy(sp_retain)
 
         thred_load_model = Thread(target=self.loadModel)
         thred_load_model.start()
+
+        self.ui.showMaximized()
+
 
     def loadModel(self):
         self.model = keras.models.load_model('farazist.h5')
@@ -104,6 +118,82 @@ class MainWindow(UI_MainWindow):
 
         self.camera.release()
         destroyAllWindows()
+
+    def stackLoading(self):
+        self.ui.btnBack.hide()
+        self.ui.btnTick.hide()
+        self.ui.lblLogo.hide()
+
+        gif_loading = QMovie("animations/Spinner.gif")
+        self.ui.lblGifLoading.setMovie(gif_loading)
+        gif_loading.start()
+
+        self.ui.Stack.setCurrentIndex(0)
+        self.widget_index_stack.append(0)
+
+    def stackStart(self):
+        self.ui.btnBack.hide()
+        self.ui.btnTick.hide()
+
+        gif_start = QMovie("animations/return.gif")
+        self.ui.lblGifStart.setMovie(gif_start)
+        gif_start.start()
+
+        self.ui.Stack.setCurrentIndex(1)
+
+    def stackUserLogin(self):
+        self.ui.btnTick.hide()
+
+        self.ui.Stack.setCurrentIndex(2)
+
+    def stackMainMenu(self):
+        self.ui.btnTick.hide()
+
+        self.ui.Stack.setCurrentIndex(3)
+
+    def stackAdminLogin(self):
+        self.ui.btnTick.hide()
+
+        self.ui.Stack.setCurrentIndex(4)
+
+    def stackWallet(self):
+        self.ui.btnTick.hide()
+
+        gif_wallet = QMovie("animations/wallet.gif")
+        self.ui.lblGifWallet.setMovie(gif_wallet)
+        gif_wallet.start()
+
+        self.ui.Stack.setCurrentIndex(5)
+
+    def stackDeliveryItems(self):
+        self.ui.btnTick.hide()
+
+        img1 = QPixmap("images\item\category1.png")
+        img1 = img1.scaledToWidth(128)
+        img1 = img1.scaledToHeight(128)
+        self.ui.lblPixmapCategory1.setPixmap(img1)
+
+        img2 = QPixmap("images\item\category2.png")
+        img2 = img2.scaledToWidth(128)
+        img2 = img2.scaledToHeight(128)
+        self.ui.lblPixmapCategory2.setPixmap(img2)
+
+        img3 = QPixmap("images\item\category3.png")
+        img3 = img3.scaledToWidth(128)
+        img3 = img3.scaledToHeight(128)
+        self.ui.lblPixmapCategory3.setPixmap(img3)
+
+        img4 = QPixmap("images\item\category4.png")
+        img4 = img4.scaledToWidth(128)
+        img4 = img4.scaledToHeight(128)
+        self.ui.lblPixmapCategory4.setPixmap(img4)
+
+        self.ui.Stack.setCurrentIndex(6)
+
+    def stackSetting(self):
+        self.ui.btnBack.hide()
+
+        self.ui.Stack.setCurrentIndex(7)
 
     def finishDelivery(self):
         self.delivery_items_flag = False
@@ -321,7 +411,6 @@ class MainWindow(UI_MainWindow):
 if __name__ == '__main__':
     
     app = QApplication(sys.argv)
-    app.setFont(QFont('IRANSans', 13))
     window = MainWindow()
-    window.showIsLoading()
+    window.stackLoading()
     sys.exit(app.exec_())
