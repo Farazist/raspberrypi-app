@@ -99,69 +99,64 @@ class UI_MainWindow(QWidget):
         v_layout.addWidget(self.Stack)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.showMaximized()
-        
-        # self.setFixedSize(1000, 600)
-        # self.show()
 
     def stackLoading(self):
         loader_font = QFont('IRANSans', 24)
         farazist_font = QFont('IRANSans', 48)
         btn_setting = self.setting_button()
 
-        v_layout_s0 = QVBoxLayout()
-        v_layout_s0.setContentsMargins(0, 50, 0, 50)
-        v_layout_s0.insertStretch(-1, -1)
+        v_layout_loading_main = QVBoxLayout()
+        v_layout_loading_main.setContentsMargins(0, 50, 0, 50)
+        v_layout_loading_main.insertStretch(-1, -1)
 
-        logo = QPixmap('images/farazist256px.ico')
-        text = 'در حال بارگزاری'
-        gif = QMovie("animation/Spinner.gif")
+        pixmap_loading = QPixmap('images/farazist256px.ico')
+        txt_loading = 'در حال بارگزاری'
+        gif_loading = QMovie("animation/Spinner.gif")
 
-        lb_1_s0 = QLabel()
-        lb_1_s0.setAlignment(Qt.AlignTop)
-        lb_1_s0.setPixmap(logo)
-        lb_1_s0.setMinimumHeight(500)
+        lbl_pixmap_loading = QLabel()
+        lbl_pixmap_loading.setAlignment(Qt.AlignTop)
+        lbl_pixmap_loading.setPixmap(pixmap_loading)
+        lbl_pixmap_loading.setMinimumHeight(500)
 
-        lb_2_s0 = QLabel()
-        lb_2_s0.setMovie(gif)
-        gif.start()
+        lbl_gif_loading = QLabel()
+        lbl_gif_loading.setMovie(gif_loading)
+        gif_loading.start()
 
-        lb_3_s0 = QLabel()
-        lb_3_s0.setFont(loader_font)
-        lb_3_s0.setText(text)
+        lbl_txt_loading = QLabel()
+        lbl_txt_loading.setFont(loader_font)
+        lbl_txt_loading.setText(txt_loading)
 
-        v_layout_s0.addWidget(lb_1_s0, alignment= Qt.AlignCenter | Qt.AlignTop)
-        v_layout_s0.addWidget(lb_2_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
-        v_layout_s0.addWidget(lb_3_s0, alignment= Qt.AlignCenter | Qt.AlignBottom)
+        v_layout_loading_main.addWidget(lbl_pixmap_loading, alignment= Qt.AlignCenter | Qt.AlignTop)
+        v_layout_loading_main.addWidget(lbl_gif_loading, alignment= Qt.AlignCenter | Qt.AlignBottom)
+        v_layout_loading_main.addWidget(lbl_txt_loading, alignment= Qt.AlignCenter | Qt.AlignBottom)
         
-        self.Stack.widget(0).setLayout(v_layout_s0)
+        self.Stack.widget(0).setLayout(v_layout_loading_main)
 
     def stackStart(self):
         btn_setting = self.setting_button()
         btns_layout = self.login_button()
 
-        v_layout_s1 = QVBoxLayout()
-        h_layout_1_s1 = QHBoxLayout()
-        h_layout_2_s1 = QHBoxLayout()
+        v_layout_start_main = QVBoxLayout()
+        h_layout_start_1 = QHBoxLayout()
+        h_layout_start_2 = QHBoxLayout()
 
-        widget_background_s1 = QWidget()
-        #widget_background_s1.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=0.2, yOffset=0.2))
-        # widget_background.getContentsMargins()
-        widget_background_s1.setStyleSheet('background-color: #fefcfc; border-radius: 30px; border :none;')
-        widget_background_s1.setLayout(h_layout_1_s1)
-        v_layout_s1.addWidget(widget_background_s1)
+        widget_start = QWidget()
+        widget_start.setStyleSheet('background-color: #fefcfc; border-radius: 30px; border :none;')
+        widget_start.setLayout(h_layout_start_1)
+        v_layout_start_main.addWidget(widget_start)
 
-        movie = QMovie("animation/return.gif")
+        gif_start = QMovie("animation/return.gif")
 
-        self.lb_1_s1 = QLabel()
-        h_layout_1_s1.addWidget(self.lb_1_s1, alignment=Qt.AlignHCenter)
-        self.lb_1_s1.setMovie(movie)
-        movie.start()
+        lbl_gif_start = QLabel()
+        h_layout_start_1.addWidget(lbl_gif_start, alignment=Qt.AlignHCenter)
+        lbl_gif_start.setMovie(gif_start)
+        gif_start.start()
 
-        h_layout_2_s1.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
-        h_layout_2_s1.addLayout(btns_layout)
-        v_layout_s1.addLayout(h_layout_2_s1)
+        h_layout_start_2.addWidget(btn_setting, alignment=Qt.AlignLeft| Qt.AlignBottom)
+        h_layout_start_2.addLayout(btns_layout)
+        v_layout_start_main.addLayout(h_layout_start_2)
 
-        self.Stack.widget(1).setLayout(v_layout_s1)
+        self.Stack.widget(1).setLayout(v_layout_start_main)
 
     def stackLogin(self):
         loader_font = QFont('IRANSans', 24)

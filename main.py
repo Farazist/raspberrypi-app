@@ -236,15 +236,18 @@ class MainWindow(UI_MainWindow):
 
     def back_window(self):
 
-        self.delivery_items_flag = False            
+        self.delivery_items_flag = False
         if self.camera: 
             self.camera.release()
-        
+
         self.btn_tick.hide()
         self.btn_back.show()    
 
         self.widget_index_stack.pop()
-        
+
+        if self.widget_index_stack[-1] == 0:
+            self.lb_logo.hide()
+            self.btn_back.hide()
         if self.widget_index_stack[-1] == 1:
             self.btn_back.hide()
 
