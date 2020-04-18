@@ -31,7 +31,7 @@ class Database:
         
     @staticmethod
     def getItems():
-        response = post(url=url + '/api/get-items')
+        response = post(url=url + '/api/get-default-items')
         return response.json()
 
     @staticmethod
