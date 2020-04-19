@@ -10,9 +10,12 @@ class Database:
         
         data = {'mobile_number':mobile_number, 'password':password,}
         
-        response = post(url=url + '/api/signin-user', data=data)
+        response = post(url=url+'/api/signin-user', data=data)
         
-        return response.json()
+        try:
+            return json.loads(response.text)
+        except:
+            return None
 
     @staticmethod
     def getUser(user):

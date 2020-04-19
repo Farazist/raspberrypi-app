@@ -113,7 +113,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -365,7 +365,7 @@ text-align: center;</string>
         </widget>
        </item>
        <item alignment="Qt::AlignHCenter">
-        <widget class="QLineEdit" name="tbUserLogin">
+        <widget class="QLineEdit" name="tbUserMobileNumber">
          <property name="minimumSize">
           <size>
            <width>290</width>
@@ -381,6 +381,9 @@ text-align: center;</string>
          <property name="mouseTracking">
           <bool>true</bool>
          </property>
+         <property name="statusTip">
+          <string/>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: #ffffff; 
 font: 18pt &quot;IRANSans&quot;;
@@ -390,6 +393,12 @@ border: 1px solid #1E5631;
          </property>
          <property name="inputMethodHints">
           <set>Qt::ImhDigitsOnly</set>
+         </property>
+         <property name="inputMask">
+          <string>0000 000 0000</string>
+         </property>
+         <property name="text">
+          <string>0915 047 1487</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -442,6 +451,9 @@ border-radius: 6px;
          </property>
          <property name="inputMethodHints">
           <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+         </property>
+         <property name="text">
+          <string>1234</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>

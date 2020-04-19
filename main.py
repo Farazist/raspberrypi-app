@@ -4,7 +4,7 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-# from tensorflow import keras
+import tflite_runtime.interpreter as tflite
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMainWindow
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt
@@ -25,7 +25,7 @@ class MainWindow(QDialog):
     def __init__(self):
         super(MainWindow, self).__init__()
         
-        # self.user = Database.signInUser('09150471487', '1234')
+
         self.camera = None
         self.user_items = []
         self.widget_index_stack = []
@@ -46,6 +46,17 @@ class MainWindow(QDialog):
 
         self.ui.showMaximized()
 
+    def loginUser(self):
+
+        mobile_number = self.ui.tbUserMobileNumber.text()
+        password = self.ui.tbUserPassword.text()
+
+        self.user = Database.signInUser(mobile_number, password)
+
+        if self.user != None:
+            self.stackMainMenu()
+        else:
+            print("mobile number or password is incurrect")
 
     def loadModel(self):
         # self.model = keras.models.load_model('farazist.h5')
@@ -151,7 +162,7 @@ class MainWindow(QDialog):
         
         self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
 
-        self.ui.btnUserLogin.clicked.connect(self.stackMainMenu)
+        self.ui.btnUserLogin.clicked.connect(self.loginUser)
 
         self.ui.Stack.setCurrentIndex(2)
         self.widget_index_stack.append(2)
