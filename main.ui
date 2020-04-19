@@ -113,7 +113,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -204,7 +204,7 @@ border-radius: 30px</string>
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <item>
+         <item alignment="Qt::AlignLeft|Qt::AlignBottom">
           <widget class="QPushButton" name="btnSettingStart">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -233,7 +233,7 @@ border-radius: 30px</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignRight|Qt::AlignBottom">
           <widget class="QPushButton" name="btnLoginMobileNumber">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -243,13 +243,13 @@ border-radius: 30px</string>
            </property>
            <property name="minimumSize">
             <size>
-             <width>350</width>
+             <width>320</width>
              <height>130</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>450</width>
+             <width>350</width>
              <height>130</height>
             </size>
            </property>
@@ -271,6 +271,53 @@ text-align: center;</string>
            <property name="icon">
             <iconset>
              <normaloff>images/sign/user-outline1.png</normaloff>images/sign/user-outline1.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>50</width>
+             <height>50</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignBottom">
+          <widget class="QPushButton" name="btnLoginQrCode">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>320</width>
+             <height>130</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>320</width>
+             <height>130</height>
+            </size>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 24pt &quot;IRANSans&quot;;
+color: rgb(255, 255, 255);
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+text-align: center;</string>
+           </property>
+           <property name="text">
+            <string>ورود با Qr کد</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>images/sign/qr_code1.png</normaloff>images/sign/qr_code1.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -330,6 +377,9 @@ text-align: center;</string>
            <width>290</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="mouseTracking">
+          <bool>true</bool>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: #ffffff; 
@@ -1536,6 +1586,69 @@ border-radius: 6px;</string>
        </item>
        <item alignment="Qt::AlignLeft|Qt::AlignBottom">
         <widget class="QPushButton" name="pushButton_6">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageQrLogin">
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <property name="leftMargin">
+          <number>30</number>
+         </property>
+         <property name="topMargin">
+          <number>50</number>
+         </property>
+         <property name="rightMargin">
+          <number>30</number>
+         </property>
+         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+          <widget class="QLabel" name="lblPixmapQr">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+          <widget class="QLabel" name="lblQrText">
+           <property name="styleSheet">
+            <string notr="true">font: 19pt &quot;IRANSans&quot;;</string>
+           </property>
+           <property name="text">
+            <string>برنامه فرازیست را بر روی گوشی خود باز کنید
+در صفحه اصلی برنامه بر روی آیکن qr در بالای سمت راست برنامه کلید کنید
+و بر روی گزینه اسکن کلیک کنید
+</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+        <widget class="QPushButton" name="btnSettingQr">
+         <property name="styleSheet">
+          <string notr="true">border: none;</string>
+         </property>
          <property name="text">
           <string/>
          </property>

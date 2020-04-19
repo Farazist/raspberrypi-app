@@ -137,22 +137,43 @@ class MainWindow(QDialog):
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
 
+        self.ui.btnSettingStart.clicked.connect(self.stackAdminLogin)
+
+        self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
+
+        self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
+
         self.ui.Stack.setCurrentIndex(1)
+        self.widget_index_stack.append(1)
 
     def stackUserLogin(self):
         self.ui.btnTick.hide()
+        
+        self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
+
+        self.ui.btnUserLogin.clicked.connect(self.stackMainMenu)
 
         self.ui.Stack.setCurrentIndex(2)
+        self.widget_index_stack.append(2)
 
     def stackMainMenu(self):
         self.ui.btnTick.hide()
+        
+        self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
+
+        self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
+        self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
 
         self.ui.Stack.setCurrentIndex(3)
+        self.widget_index_stack.append(3)
 
     def stackAdminLogin(self):
         self.ui.btnTick.hide()
 
+        self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
+
         self.ui.Stack.setCurrentIndex(4)
+        self.widget_index_stack.append(4)
 
     def stackWallet(self):
         self.ui.btnTick.hide()
@@ -161,7 +182,10 @@ class MainWindow(QDialog):
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
 
+        # self.ui.lblWallet.setText(str(self.user['wallet']))
+
         self.ui.Stack.setCurrentIndex(5)
+        self.widget_index_stack.append(5)
 
     def stackDeliveryItems(self):
         self.ui.btnTick.hide()
@@ -186,12 +210,41 @@ class MainWindow(QDialog):
         img4 = img4.scaledToHeight(128)
         self.ui.lblPixmapCategory4.setPixmap(img4)
 
+        self.camera = VideoCapture(0)
+        
+        if self.camera is None or not self.camera.isOpened():
+            print("error: camera not found")
+            # self.message_box('دوربین پیدا نشد')    
+            return      
+
+        self.detect_thread = Thread(target=self.detectItem)
+        self.detect_thread.start()
+
+        self.ui.btnDeliveryItemsNext.clicked.connect(partial(self.changePredictItemFlag, True))
+
         self.ui.Stack.setCurrentIndex(6)
+        self.widget_index_stack.append(6)
 
     def stackSetting(self):
         self.ui.btnBack.hide()
 
         self.ui.Stack.setCurrentIndex(7)
+
+    def stackQR(self):
+
+        data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
+        filename = 'images\qr\qrcode.png'
+
+        url = pyqrcode.create(data)
+        url.png(filename, scale=6, background='#f6fdfa')
+    
+        open_img = QPixmap(filename)
+        self.ui.lblPixmapQr.setPixmap(open_img)
+
+        self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
+
+        self.ui.Stack.setCurrentIndex(8)
+        self.widget_index_stack.append(8)
 
     def finishDelivery(self):
         self.delivery_items_flag = False
@@ -206,7 +259,7 @@ class MainWindow(QDialog):
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
-        self.lb_2_s4.clear()
+        self.ui.lblDeliveryItems.clear()
 
     def show_setting_user(self):
         self.check_setting_user = Login_user('admin')
@@ -251,21 +304,6 @@ class MainWindow(QDialog):
         self.Stack.setCurrentIndex(2)
         self.widget_index_stack.append(2)
 
-    def showQR(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-
-        data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
-        filename = 'images\qr\qrcode.png'
-
-        url = pyqrcode.create(data)
-        url.png(filename, scale=6, background='#f6fdfa')
-    
-        open_img = QPixmap(filename)
-        self.lb_1_s2.setPixmap(open_img)
-        self.Stack.setCurrentIndex(3)
-        self.widget_index_stack.append(3)
-
     def showDelivery(self):
         self.lb_logo.show()
         self.btn_back.hide()
@@ -282,30 +320,6 @@ class MainWindow(QDialog):
         self.detect_thread.start()
         self.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
-
-    def show_charging_unit(self):
-        self.Stack.setCurrentIndex(7)
-        self.widget_index_stack.append(7)
-
-    def show_deposit_to_card(self):
-        self.Stack.setCurrentIndex(8)
-        self.widget_index_stack.append(8)
-
-    def show_helping_to_environment(self):
-        self.Stack.setCurrentIndex(8)
-        self.widget_index_stack.append(8)
-
-    def show_charity(self):
-        self.Stack.setCurrentIndex(9)
-        self.widget_index_stack.append(9)
-
-    def show_buy_credit(self):
-        self.Stack.setCurrentIndex(10)
-        self.widget_index_stack.append(10)
-
-    def show_store(self):
-        self.Stack.setCurrentIndex(11)
-        self.widget_index_stack.append(11)
 
     def back_window(self):
 
