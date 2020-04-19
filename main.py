@@ -4,7 +4,7 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-import tflite_runtime.interpreter as tflite
+#import tflite_runtime.interpreter as tflite
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMainWindow
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt
@@ -55,6 +55,7 @@ class MainWindow(QDialog):
             self.stackMainMenu()
         else:
             print("mobile number or password is incurrect")
+            self.ui.lblErrorUser.show()
 
     def detectItem(self):      
 
@@ -152,6 +153,8 @@ class MainWindow(QDialog):
 
     def stackUserLogin(self):
         self.ui.btnTick.hide()
+
+        self.ui.lblErrorUser.hide()
         
         self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
 
