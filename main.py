@@ -4,8 +4,8 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-from tensorflow import keras
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy
+# from tensorflow import keras
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMainWindow
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QMovie, QPixmap
@@ -29,7 +29,7 @@ class MainWindow(QDialog):
         self.camera = None
         self.user_items = []
         self.widget_index_stack = []
-        self.items = Database.getItems()
+        # self.items = Database.getItems()
         self.categories = Database.getCategories()
 
         loader = QUiLoader()
@@ -41,16 +41,16 @@ class MainWindow(QDialog):
         self.ui.btnBack.setSizePolicy(sp_retain)
         self.ui.btnTick.setSizePolicy(sp_retain)
 
-        thred_load_model = Thread(target=self.loadModel)
-        thred_load_model.start()
+#        thred_load_model = Thread(target=self.loadModel)
+#        thred_load_model.start()
 
         self.ui.showMaximized()
 
 
     def loadModel(self):
-        self.model = keras.models.load_model('farazist.h5')
+        # self.model = keras.models.load_model('farazist.h5')
         print('model successfully loaded')
-        self.showStart()
+        self.stackStart()
 
     def detectItem(self):      
 
@@ -266,13 +266,6 @@ class MainWindow(QDialog):
         self.Stack.setCurrentIndex(3)
         self.widget_index_stack.append(3)
 
-    def showMainMenu(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
-        self.Stack.setCurrentIndex(4)
-        self.widget_index_stack.append(4)
-
     def showDelivery(self):
         self.lb_logo.show()
         self.btn_back.hide()
@@ -289,14 +282,6 @@ class MainWindow(QDialog):
         self.detect_thread.start()
         self.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
-
-    def showWallet(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-        self.btn_tick.hide()
-        self.lbl_wallet.setText(str(self.user['wallet']))
-        self.Stack.setCurrentIndex(6)
-        self.widget_index_stack.append(6)
 
     def show_charging_unit(self):
         self.Stack.setCurrentIndex(7)
@@ -363,10 +348,6 @@ class MainWindow(QDialog):
 
         self.Stack.setCurrentIndex(self.widget_index_stack[-1])
 
-
-    def display(self, i):
-        self.Stack.setCurrentIndex(i)
-
     def exit_program(self):
         self.delivery_items_flag = False
         self.camera.release() 
@@ -410,5 +391,5 @@ if __name__ == '__main__':
     
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.stackLoading()
+    window.stackStart()
     sys.exit(app.exec_())

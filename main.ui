@@ -204,7 +204,7 @@ border-radius: 30px</string>
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+         <item>
           <widget class="QPushButton" name="btnSettingStart">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -233,8 +233,8 @@ border-radius: 30px</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignRight">
-          <widget class="QPushButton" name="btnLogin">
+         <item>
+          <widget class="QPushButton" name="btnLoginMobileNumber">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>

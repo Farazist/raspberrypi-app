@@ -3,3 +3,13 @@
 ################################################################################
 
 /farazist.h5
+__pycache__/localdatabase.cpython-37.pyc
+__pycache__/database.cpython-37.pyc
+__pycache__/app.cpython-37.pyc
+__pycache__/aescipher.cpython-37.pyc
+.vs/raspberrypi-app/v16/.suo
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite
+.vs/PythonSettings.json
+main.pyproject.user
+.vs/slnx.sqlite
