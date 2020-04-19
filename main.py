@@ -16,7 +16,8 @@ import time
 from database import Database
 from app import *
 from aescipher import AESCipher
-from localdatabase import LocalDataBase
+from local_database import LocalDataBase
+from image_classifier import ImageClassifier
 
 os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
@@ -25,7 +26,6 @@ class MainWindow(QDialog):
     def __init__(self):
         super(MainWindow, self).__init__()
         
-
         self.camera = None
         self.user_items = []
         self.widget_index_stack = []
@@ -41,13 +41,11 @@ class MainWindow(QDialog):
         self.ui.btnBack.setSizePolicy(sp_retain)
         self.ui.btnTick.setSizePolicy(sp_retain)
 
-#        thred_load_model = Thread(target=self.loadModel)
-#        thred_load_model.start()
+        self.image_classifier = ImageClassifier()
 
         self.ui.showMaximized()
 
     def loginUser(self):
-
         mobile_number = self.ui.tbUserMobileNumber.text()
         password = self.ui.tbUserPassword.text()
 
@@ -57,11 +55,6 @@ class MainWindow(QDialog):
             self.stackMainMenu()
         else:
             print("mobile number or password is incurrect")
-
-    def loadModel(self):
-        # self.model = keras.models.load_model('farazist.h5')
-        print('model successfully loaded')
-        self.stackStart()
 
     def detectItem(self):      
 
