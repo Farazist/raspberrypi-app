@@ -9,6 +9,7 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont
 from functools import partial
 import pyqrcode
+from escpos import printer
 
 from database import Database
 from app import *
@@ -42,6 +43,19 @@ class MainWindow(QDialog):
         # self.items = Database.getItems()
         self.categories = Database.getCategories()
         self.image_classifier = ImageClassifier()
+
+    def afterDelivery(self):
+        
+        try:
+            printer = printer.Usb(idVendor=0x0416, idProduct=0x5011)
+            printer.image("logo.png")
+            printer.text("فرازیست\n")
+            printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
+            printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
+            printer.cut()
+        except:
+            print("Printer not found")
+
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
@@ -228,9 +242,6 @@ class MainWindow(QDialog):
 
         self.ui.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
-
-
-
 
     def stackSetting(self):
         self.ui.btnBack.hide()
