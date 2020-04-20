@@ -4,13 +4,11 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMainWindow
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import Qt
-from PySide2.QtGui import QMovie, QPixmap
+from PySide2.QtGui import QMovie, QPixmap, QFont
 from functools import partial
 import pyqrcode
-import time
 
 from database import Database
 from app import *
@@ -57,7 +55,6 @@ class MainWindow(QDialog):
             self.ui.lblErrorUser.show()
 
     def detectItem(self):      
-
         predict_item_list = []
         categories_count = np.zeros(len(self.categories), np.uint8)
 
@@ -135,6 +132,7 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(1)
 
     def stackUserLogin(self):
+        self.ui.btnBack.show()
         self.ui.btnTick.hide()
 
         self.ui.lblErrorUser.hide()
@@ -147,6 +145,7 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(2)
 
     def stackMainMenu(self):
+        self.ui.btnBack.show()
         self.ui.btnTick.hide()
         
         self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
@@ -158,6 +157,7 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(3)
 
     def stackAdminLogin(self):
+        self.ui.btnBack.show()
         self.ui.btnTick.hide()
 
         self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
@@ -166,18 +166,20 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(4)
 
     def stackWallet(self):
+        self.ui.btnBack.show()
         self.ui.btnTick.hide()
 
         gif_wallet = QMovie("animations/wallet.gif")
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
 
-        # self.ui.lblWallet.setText(str(self.user['wallet']))
+        self.ui.lblWallet.setText(str(self.user['wallet'])+ ' ' +'تومان')
 
         self.ui.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
 
     def stackDeliveryItems(self):
+        self.ui.btnBack.hide()
         self.ui.btnTick.hide()
 
         img1 = QPixmap("images\item\category1.png")
@@ -217,10 +219,15 @@ class MainWindow(QDialog):
 
     def stackSetting(self):
         self.ui.btnBack.hide()
+        self.ui.btnTick.show()
+
+        self.ui.pushButton_8.clicked.connect(self.exitMessageBox)
 
         self.ui.Stack.setCurrentIndex(7)
 
     def stackQR(self):
+        self.ui.btnBack.show()
+        self.ui.btnTick.hide()
 
         data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
         filename = 'images\qr\qrcode.png'
@@ -250,21 +257,6 @@ class MainWindow(QDialog):
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
         self.ui.lblDeliveryItems.clear()
-
-    def show_setting_user(self):
-        self.check_setting_user = Login_user('admin')
-        if self.check_setting_user.exec_() == QDialog.Accepted:
-            self.show_setting_pass()
-
-    def show_setting_pass(self):
-        self.check_setting_pass = Login_pass('admin')
-        if self.check_setting_pass.exec_() == QDialog.Accepted:
-            # self.show_menu()
-            self.lb_logo.show()
-            self.btn_back.hide()
-            self.btn_tick.show()
-            self.Stack.setCurrentIndex(12)
-            self.widget_index_stack.append(12)
 
     def showIsLoading(self):
         self.lb_logo.hide()
@@ -312,7 +304,6 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(5)
 
     def back_window(self):
-
         self.delivery_items_flag = False
         if self.camera: 
             self.camera.release()
@@ -331,7 +322,6 @@ class MainWindow(QDialog):
         self.Stack.setCurrentIndex(self.widget_index_stack[-1])
 
     def tick_window(self):
-
         self.widget_index_stack.pop()
 
         if self.widget_index_stack[-1] == 1:
@@ -359,29 +349,30 @@ class MainWindow(QDialog):
         self.close()
         # QApplication.quit()
 
-    def exit_message_box(self):
-        btn_font = QFont('IRANSans', 16)
-        lb_font = QFont('IRANSans', 18)
+    def exitMessageBox(self):
+        btnFont = QFont('IRANSans', 16)
+        lblFont = QFont('IRANSans', 18)
+        btnOkStyle = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
+        btnNoStyle = 'background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e11c1c, stop:1 #f86565);color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
 
         box = QMessageBox()
         box.setStyleSheet("QPushButton{min-width: 60px; min-height: 40px;}")
         box.setIcon(QMessageBox.Question)
         box.setWindowTitle('!فرازیست')
         box.setText('از برنامه خارج می شوید؟')
-        box.setFont(lb_font)
+        box.setFont(lblFont)
         box.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
 
         buttonY = box.button(QMessageBox.Yes)
         buttonY.setText('بله')
-        buttonY.setFont(btn_font)
-        buttonY.setStyleSheet(button_style)
+        buttonY.setFont(btnFont)
+        buttonY.setStyleSheet(btnOkStyle)
         buttonY.setMinimumSize(60,30)
         
         buttonN = box.button(QMessageBox.No)
         buttonN.setText('خیر')
-        buttonN.setFont(btn_font)
-        buttonN.setStyleSheet('background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e11c1c, stop:1 #f86565);'
-                              'color: #ffffff; padding: 3px; border: none; border-radius: 6px;')
+        buttonN.setFont(btnFont)
+        buttonN.setStyleSheet(btnNoStyle)
         buttonN.setMinimumSize(60,30)
 
         box.exec_()

@@ -113,7 +113,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -1119,7 +1119,7 @@ border-radius: 6px;</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignRight|Qt::AlignVCenter">
           <widget class="QLabel" name="lblWallet">
            <property name="styleSheet">
             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
@@ -1132,7 +1132,7 @@ border-radius: 6px;</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
           <widget class="QLabel" name="lblTxtWallet">
            <property name="styleSheet">
             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
@@ -1149,6 +1149,9 @@ border-radius: 6px;</string>
        </item>
        <item alignment="Qt::AlignLeft|Qt::AlignBottom">
         <widget class="QPushButton" name="btnSettingWallet">
+         <property name="styleSheet">
+          <string notr="true">border: none;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
