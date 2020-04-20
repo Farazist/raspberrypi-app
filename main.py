@@ -221,7 +221,8 @@ class MainWindow(QDialog):
         self.ui.btnBack.hide()
         self.ui.btnTick.show()
 
-        self.ui.pushButton_8.clicked.connect(self.exitMessageBox)
+        self.ui.pushButton1.clicked.connect(self.stackDeviceMode)
+        self.ui.pushButton2.clicked.connect(self.stackPort)
 
         self.ui.Stack.setCurrentIndex(7)
 
@@ -242,6 +243,21 @@ class MainWindow(QDialog):
 
         self.ui.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
+
+    def stackDeviceMode(self): 
+        self.ui.btnAutoDevice.toggled.connect(self.test)
+
+        self.ui.StackSetting.setCurrentIndex(1)
+    
+    def test(self):
+        if self.ui.btnManualDevice.isChecked()==True:
+            print('دستی')
+        if self.ui.btnAutoDevice.isChecked() == True:
+            print('اتومات')
+
+    def stackPort(self):
+        print('aksdshdsfghghdsdstd')
+        self.ui.StackSetting.setCurrentIndex(1)
 
     def finishDelivery(self):
         self.delivery_items_flag = False

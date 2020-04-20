@@ -1442,174 +1442,241 @@ border-radius: 6px;</string>
         <number>50</number>
        </property>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <property name="topMargin">
-          <number>100</number>
-         </property>
-         <property name="verticalSpacing">
-          <number>50</number>
-         </property>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QStackedWidget" name="StackSetting">
            <property name="minimumSize">
             <size>
-             <width>250</width>
-             <height>60</height>
+             <width>500</width>
+             <height>0</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
-font: 18pt &quot;IRANSans&quot;;
-color: #ffffff; 
-padding: 3px; 
-border: none; 
-border-radius: 6px;</string>
+           <property name="maximumSize">
+            <size>
+             <width>550</width>
+             <height>16777215</height>
+            </size>
            </property>
-           <property name="text">
-            <string>تنظیم حالت دستگاه</string>
-           </property>
+           <widget class="QWidget" name="pageEmpty">
+            <layout class="QVBoxLayout" name="verticalLayout_13"/>
+           </widget>
+           <widget class="QWidget" name="pageDeviceMode">
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="label">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>60</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color: #000000;</string>
+               </property>
+               <property name="text">
+                <string>تنظیم حالت دستگاه</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <widget class="QRadioButton" name="btnManualDevice">
+                 <property name="styleSheet">
+                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
+coor: #000000;</string>
+                 </property>
+                 <property name="text">
+                  <string>دستی</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <widget class="QRadioButton" name="btnAutoDevice">
+                 <property name="styleSheet">
+                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
+coor: #000000;</string>
+                 </property>
+                 <property name="text">
+                  <string>اتومات</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
+         <item>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="2" column="1">
+            <widget class="QPushButton" name="pushButton3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
 font: 18pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>خروج از برنامه</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
+             </property>
+             <property name="text">
+              <string>ثبت آیتم جدید</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
 font: 18pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>تنظیم شماره پورت</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="pushButton_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
+             </property>
+             <property name="text">
+              <string>تنظیم حالت دستگاه</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButton2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
 font: 18pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>ثبت آیتم جدید</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
+             </property>
+             <property name="text">
+              <string>تنظیم شماره پورت</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="pushButton4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
 font: 18pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>تغییر رمز دستگاه</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QPushButton" name="pushButton_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); 
+             </property>
+             <property name="text">
+              <string>تنظیم جهت حرکت رله</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="pushButton6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
 font: 18pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>تنظیم جهت حرکت رله</string>
-           </property>
-          </widget>
+             </property>
+             <property name="text">
+              <string>خروج از برنامه</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="pushButton5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>220</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444);
+font: 18pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;</string>
+             </property>
+             <property name="text">
+              <string>تغییر رمز دستگاه</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
