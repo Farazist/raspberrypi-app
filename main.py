@@ -4,7 +4,6 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-#import tflite_runtime.interpreter as tflite
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMainWindow
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt
@@ -412,5 +411,5 @@ if __name__ == '__main__':
     
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.stackStart()
+    window.stackLoading()
     sys.exit(app.exec_())

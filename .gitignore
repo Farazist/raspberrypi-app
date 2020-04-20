@@ -13,3 +13,5 @@ __pycache__/aescipher.cpython-37.pyc
 .vs/PythonSettings.json
 main.pyproject.user
 .vs/slnx.sqlite
+/model.tflite
+/.vs

@@ -5,7 +5,7 @@ import cv2 as cv
 class ImageClassifier:
 
     def __init__(self):
-        self.interpreter = tflite.Interpreter(model_path='converted_model.tflite')
+        self.interpreter = tflite.Interpreter(model_path='model.tflite')
         print('model successfully loaded')
         self.interpreter.allocate_tensors()
         _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
