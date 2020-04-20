@@ -24,25 +24,25 @@ class MainWindow(QDialog):
    
     def __init__(self):
         super(MainWindow, self).__init__()
-        
-        self.camera = None
-        self.user_items = []
+
         self.widget_index_stack = []
-        # self.items = Database.getItems()
-        self.categories = Database.getCategories()
 
         loader = QUiLoader()
         self.ui = loader.load('main.ui', self)
 
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
-
         self.ui.btnBack.setSizePolicy(sp_retain)
-        self.ui.btnTick.setSizePolicy(sp_retain)
-
-        self.image_classifier = ImageClassifier()
+        self.ui.btnTick.setSizePolicy(sp_retain)        
 
         self.ui.showMaximized()
+
+        self.camera = None
+        self.user_items = []
+        # self.items = Database.getItems()
+        self.categories = Database.getCategories()
+        self.image_classifier = ImageClassifier()
+
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
@@ -76,12 +76,8 @@ class MainWindow(QDialog):
                         return      
 
                     _, frame = self.camera.read()
-                    frame = cvtColor(frame, COLOR_BGR2RGB)
-                    frame = resize(frame, (299, 299))
-                    frame = frame.reshape(1, 299, 299, 3)
-                    frame = frame / 255.0
-
-                    prediction = self.model.predict([frame])
+      
+                    prediction = self.image_classifier.predict(frame)
                     #prediction = np.random.rand(1, 20)
 
                     if np.max(prediction) > 0.5:
@@ -120,18 +116,6 @@ class MainWindow(QDialog):
 
         self.camera.release()
         destroyAllWindows()
-
-    def stackLoading(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
-        self.ui.lblLogo.hide()
-
-        gif_loading = QMovie("animations/Spinner.gif")
-        self.ui.lblGifLoading.setMovie(gif_loading)
-        gif_loading.start()
-
-        self.ui.Stack.setCurrentIndex(0)
-        self.widget_index_stack.append(0)
 
     def stackStart(self):
         self.ui.btnBack.hide()
@@ -411,5 +395,5 @@ if __name__ == '__main__':
     
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.stackLoading()
+    window.stackStart()
     sys.exit(app.exec_())
