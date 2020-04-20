@@ -4,7 +4,7 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont
 from functools import partial
@@ -37,10 +37,11 @@ class MainWindow(QDialog):
 
         self.camera = None
         self.user_items = []
+        self.device_mode = LocalDataBase.selectOne('bottle_recognize_mode')[2]
+        print(self.device_mode)
         # self.items = Database.getItems()
         self.categories = Database.getCategories()
         self.image_classifier = ImageClassifier()
-
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
@@ -150,7 +151,8 @@ class MainWindow(QDialog):
         
         self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
 
-        self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
+        # self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
+        self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
 
         self.ui.Stack.setCurrentIndex(3)
@@ -217,6 +219,19 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
 
+
+
+    def stackManualDeliveryItems(self):
+        self.ui.btnBack.hide()
+        self.ui.btnTick.hide()
+
+
+        self.ui.Stack.setCurrentIndex(9)
+        self.widget_index_stack.append(9)
+
+
+
+
     def stackSetting(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.show()
@@ -244,6 +259,12 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
 
+    def checkDeviceMode(self):
+        if self.device_mode == 'manual':
+            self.stackManualDeliveryItems()
+        if self.device_mode == 'auto':
+            self.stackDeliveryItems()
+    
     def stackDeviceMode(self): 
         self.ui.btnAutoDevice.toggled.connect(self.test)
 
@@ -251,8 +272,10 @@ class MainWindow(QDialog):
     
     def test(self):
         if self.ui.btnManualDevice.isChecked()==True:
+            result = LocalDataBase.updateOne('bottle_recognize_mode', 'manual')
             print('دستی')
         if self.ui.btnAutoDevice.isChecked() == True:
+            result = LocalDataBase.updateOne('bottle_recognize_mode', 'auto')
             print('اتومات')
 
     def stackPort(self):
