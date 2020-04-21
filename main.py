@@ -6,7 +6,7 @@ import numpy as np
 from scipy import stats
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtGui import QMovie, QPixmap, QFont
+from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from functools import partial
 import pyqrcode
 from escpos import printer
@@ -32,6 +32,7 @@ class MainWindow(QDialog):
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.ui.btnBack.setSizePolicy(sp_retain)
+        self.ui.btnBack.clicked.connect(self.back_window)
         self.ui.btnTick.setSizePolicy(sp_retain)        
 
         self.ui.showMaximized()
@@ -45,7 +46,6 @@ class MainWindow(QDialog):
         self.image_classifier = ImageClassifier()
 
     def afterDelivery(self):
-        
         try:
             printer = printer.Usb(idVendor=0x0416, idProduct=0x5011)
             printer.image("logo.png")
@@ -148,11 +148,14 @@ class MainWindow(QDialog):
 
     def stackUserLogin(self):
         self.ui.btnBack.show()
+        self.ui.btnBack.setText('انصراف')
+        self.ui.btnBack.setIcon(QIcon('images/sign/cancle.png'))
         self.ui.btnTick.hide()
 
         self.ui.lblErrorUser.hide()
         
         self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
+        # self.ui.btnBack.clicked.connect(self.back_window)
 
         self.ui.btnUserLogin.clicked.connect(self.loginUser)
 
@@ -161,6 +164,8 @@ class MainWindow(QDialog):
 
     def stackMainMenu(self):
         self.ui.btnBack.show()
+        self.ui.btnBack.setText('خروج')
+        self.ui.btnBack.setIcon(QIcon('images/sign/cancle'))
         self.ui.btnTick.hide()
         
         self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
@@ -174,15 +179,20 @@ class MainWindow(QDialog):
 
     def stackAdminLogin(self):
         self.ui.btnBack.show()
+        self.ui.btnBack.setText('انصراف')
+        self.ui.btnBack.setIcon(QIcon('images/sign/cancle.png'))
         self.ui.btnTick.hide()
 
         self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
+        # self.ui.btnBack.clicked.connect(self.back_window)
 
         self.ui.Stack.setCurrentIndex(4)
         self.widget_index_stack.append(4)
 
     def stackWallet(self):
         self.ui.btnBack.show()
+        self.ui.btnBack.setText('بازگشت')
+        self.ui.btnBack.setIcon(QIcon('images/sign/back'))
         self.ui.btnTick.hide()
 
         gif_wallet = QMovie("animations/wallet.gif")
@@ -190,6 +200,9 @@ class MainWindow(QDialog):
         gif_wallet.start()
 
         self.ui.lblWallet.setText(str(self.user['wallet'])+ ' ' +'تومان')
+
+        self.ui.btnSettingWallet.clicked.connect(self.stackAdminLogin)
+        # self.ui.btnBack.clicked.connect(self.back_window)
 
         self.ui.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
@@ -229,16 +242,16 @@ class MainWindow(QDialog):
         self.detect_thread.start()
 
         self.ui.btnDeliveryItemsNext.clicked.connect(partial(self.changePredictItemFlag, True))
+        self.ui.btnSettingAutoDelivery.clicked.connect(self.stackAdminLogin)
 
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
-
-
 
     def stackManualDeliveryItems(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.hide()
 
+        self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
 
         self.ui.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
@@ -246,14 +259,20 @@ class MainWindow(QDialog):
     def stackSetting(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.show()
+        self.ui.btnTick.setText('تایید')
+        self.ui.btnTick.setIcon(QIcon('images/sign/tick'))
 
         self.ui.pushButton1.clicked.connect(self.stackDeviceMode)
         self.ui.pushButton2.clicked.connect(self.stackPort)
+
+        self.ui.btnTick.clicked.connect(self.tick_window)
 
         self.ui.Stack.setCurrentIndex(7)
 
     def stackQR(self):
         self.ui.btnBack.show()
+        self.ui.btnBack.setText('انصراف')
+        self.ui.btnBack.setIcon(QIcon('images/sign/cancle'))
         self.ui.btnTick.hide()
 
         data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
@@ -266,6 +285,7 @@ class MainWindow(QDialog):
         self.ui.lblPixmapQr.setPixmap(open_img)
 
         self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
+        # self.ui.btnBack.clicked.connect(self.back_window)
 
         self.ui.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
@@ -354,43 +374,24 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(5)
 
     def back_window(self):
-        self.delivery_items_flag = False
-        if self.camera: 
-            self.camera.release()
+        if self.ui.Stack.currentIndex() == 2:
+            self.stackStart()
 
-        self.btn_tick.hide()
-        self.btn_back.show()    
+        if self.ui.Stack.currentIndex() == 3:
+            self.stackStart()
 
-        self.widget_index_stack.pop()
+        if self.ui.Stack.currentIndex() == 4:
+            self.stackStart()
 
-        if self.widget_index_stack[-1] == 0:
-            self.lb_logo.hide()
-            self.btn_back.hide()
-        if self.widget_index_stack[-1] == 1:
-            self.btn_back.hide()
+        if self.ui.Stack.currentIndex() == 5:
+            self.stackMainMenu()
 
-        self.Stack.setCurrentIndex(self.widget_index_stack[-1])
-
+        if self.ui.Stack.currentIndex() == 8:
+            self.stackStart()
+        
     def tick_window(self):
-        self.widget_index_stack.pop()
-
-        if self.widget_index_stack[-1] == 1:
-            self.btn_back.hide()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 2:
-            self.btn_back.show()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 3:
-            self.btn_back.show()
-            self.btn_tick.hide()
-        elif self.widget_index_stack[-1] == 4:
-            self.btn_back.hide()
-            self.btn_tick.show()
-        elif self.widget_index_stack[-1] == 5:
-            self.btn_back.show()
-            self.btn_tick.hide()
-
-        self.Stack.setCurrentIndex(self.widget_index_stack[-1])
+        if self.ui.Stack.currentIndex() == 7:
+            self.stackStart()
 
     def exit_program(self):
         self.delivery_items_flag = False

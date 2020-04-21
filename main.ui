@@ -40,11 +40,7 @@ background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 
 border-radius: 6px;</string>
        </property>
        <property name="text">
-        <string>بازگشت</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>images/sign/back.png</normaloff>images/sign/back.png</iconset>
+        <string/>
        </property>
        <property name="iconSize">
         <size>
@@ -88,11 +84,7 @@ background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 
 border-radius: 6px;</string>
        </property>
        <property name="text">
-        <string>تایید</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>images/sign/tick.png</normaloff>images/sign/tick.png</iconset>
+        <string/>
        </property>
        <property name="iconSize">
         <size>
@@ -1374,7 +1366,7 @@ font: 18pt &quot;IRANSans&quot;;</string>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnSettingDeliveryItems">
+          <widget class="QPushButton" name="btnSettingAutoDelivery">
            <property name="text">
             <string/>
            </property>
@@ -1773,16 +1765,18 @@ border-radius: 6px;</string>
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">
+background-color: rgb(59, 171, 97);
+</string>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+         <widget class="QWidget" name="ManualDeliveryScrollArea">
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-150</y>
+            <y>0</y>
             <width>948</width>
             <height>528</height>
            </rect>
@@ -1797,12 +1791,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1818,12 +1812,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1839,12 +1833,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1860,12 +1854,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1881,12 +1875,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1902,12 +1896,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1923,12 +1917,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1944,12 +1938,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1965,12 +1959,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -1986,12 +1980,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2007,12 +2001,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2028,12 +2022,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2049,12 +2043,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2070,12 +2064,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2091,12 +2085,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2112,12 +2106,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2133,12 +2127,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2154,12 +2148,12 @@ border-radius: 6px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">padding: 3px; 
-border: 2px solid #1E5631; 
-border-radius: 6px;
-font: 18pt &quot;IRANSans&quot;;
-color: #000000; 
-border-radius: 6px;</string>
+              <string notr="true">QPushButton { background-color:   rgb(246, 253, 250)} 
+QPushButton:pressed { background-color:  #9caf9f} 
+QPushButton { color:   rgb(0, 0, 0)} 
+QPushButton {border: 2px solid #1E5631} 
+QPushButton {border-radius: 6px}
+QPushButton {font: 18pt &quot;IRANSans&quot;}</string>
              </property>
              <property name="text">
               <string>PushButton</string>
@@ -2173,7 +2167,7 @@ border-radius: 6px;</string>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnSettingManialDelivery">
+          <widget class="QPushButton" name="btnSettingManualDelivery">
            <property name="styleSheet">
             <string notr="true">border: none;</string>
            </property>
