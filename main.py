@@ -4,7 +4,7 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from functools import partial
@@ -252,6 +252,16 @@ class MainWindow(QDialog):
         self.ui.btnTick.hide()
 
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
+
+        btns =[QPushButton() for _ in range(4)]
+
+        self.layout_SArea = QVBoxLayout()
+        for j in range(4):
+            btns[j].setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px}')
+            self.layout_SArea.addWidget(btns[j])
+
+
+        self.ui.scrollAreaManual.setLayout(self.layout_SArea)
 
         self.ui.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
