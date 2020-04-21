@@ -1823,7 +1823,7 @@ border-radius: 6px;</string>
           </widget>
          </item>
          <item alignment="Qt::AlignBottom">
-          <widget class="QPushButton" name="pushButton_15">
+          <widget class="QPushButton" name="btnFinishDelivery">
            <property name="minimumSize">
             <size>
              <width>200</width>

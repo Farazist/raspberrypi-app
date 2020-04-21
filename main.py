@@ -7,11 +7,11 @@ from scipy import stats
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
-from functools import partial
+from functools.partial import Usb
 import pyqrcode
 from escpos import printer
 
-from database import Database
+from database import DataBase
 from app import *
 from aescipher import AESCipher
 from local_database import LocalDataBase
@@ -37,31 +37,21 @@ class MainWindow(QDialog):
 
         self.ui.showMaximized()
 
+        self.system_id = LocalDataBase.selectOne('system_id')[2]
+        self.system = DataBase.getSystem(self.system_id)
+
         self.camera = None
         self.user_items = []
         self.device_mode = LocalDataBase.selectOne('bottle_recognize_mode')[2]
         print(self.device_mode)
-        # self.items = Database.getItems()
-        self.categories = Database.getCategories()
+        self.categories = DataBase.getCategories()
         self.image_classifier = ImageClassifier()
-
-    def afterDelivery(self):
-        try:
-            printer = printer.Usb(idVendor=0x0416, idProduct=0x5011)
-            printer.image("logo.png")
-            printer.text("فرازیست\n")
-            printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
-            printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
-            printer.cut()
-        except:
-            print("Printer not found")
-
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
         password = self.ui.tbUserPassword.text()
 
-        self.user = Database.signInUser(mobile_number, password)
+        self.user = DataBase.signInUser(mobile_number, password)
 
         if self.user != None:
             self.stackMainMenu()
@@ -247,19 +237,24 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
 
+    def setCurrentItem(self, item_index):
+        pass
+
     def stackManualDeliveryItems(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.hide()
-
+        self.ui.btnFinishDelivery.clicked.connect(self.finishDelivery)
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
 
-        btns =[QPushButton() for _ in range(4)]
-
+        self.items = DataBase.getItems(self.system['owner_id'])
         self.layout_SArea = QVBoxLayout()
-        for j in range(4):
-            btns[j].setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px}')
-            self.layout_SArea.addWidget(btns[j])
-
+        
+        for item in self.items:
+            btn = QPushButton()
+            btn.setText(item['name'])
+            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px}')
+            btn.clicked.connect(partial(self.setCurrentItem, item['id']))
+            self.layout_SArea.addWidget(btn)
 
         self.ui.scrollAreaManual.setLayout(self.layout_SArea)
 
@@ -323,16 +318,32 @@ class MainWindow(QDialog):
         print('aksdshdsfghghdsdstd')
         self.ui.StackSetting.setCurrentIndex(1)
 
+    def printReceipt(self):
+        try:
+            print("printing...")
+            printer = Usb(idVendor=0x0416, idProduct=0x5011)
+            printer.image("images/logo.png")
+            printer.text("فرازیست\n")
+            printer.text("فاکتور نهایی لیست دریافت به همراه تعداد و قیمت\n")
+            # printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
+            # printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
+            printer.text(self.system['owner']['mobile_number'])
+            printer.text("farazist.ir\n")
+            printer.cut()
+        except:
+            print("Printer not found")
+
     def finishDelivery(self):
-        self.delivery_items_flag = False
-        system_id = LocalDataBase.selectOne('system_id')[2]
-        Database.addNewDelivery(self.user, system_id, self.user_items)    
-        total_price = 0
-        for item in self.user_items:
-            total_price += item['price'] * item['count']
-        Database.transferSecure(self.user, system_id, total_price)
-        self.user = Database.getUser(self.user)
-        self.showMainMenu()    
+        self.printReceipt()
+        # self.delivery_items_flag = False
+        
+        # DataBase.addNewDelivery(self.user, system_id, self.user_items)    
+        # total_price = 0
+        # for item in self.user_items:
+        #     total_price += item['price'] * item['count']
+        # DataBase.transferSecure(self.user, system_id, total_price)
+        # self.user = DataBase.getUser(self.user)
+        # self.showMainMenu()    
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value

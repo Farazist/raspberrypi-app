@@ -3,7 +3,7 @@ from requests import post
 import json
 from app import *
 
-class Database:
+class DataBase:
     
     @staticmethod
     def signInUser(mobile_number, password):
@@ -33,16 +33,20 @@ class Database:
         return json.loads(response.text)
         
     @staticmethod
-    def getItems():
-        response = post(url=url + '/api/get-default-items')
+    def getItems(user_id):
+        data = {'user_id': user_id}
+        response = post(url=url + '/api/get-items', data=json.dumps(data))
         return response.json()
 
     @staticmethod
     def getSystem(system_id):
         data = {'id': system_id}
-
-        response = post(url=url + '/api/get-system', data=json.dumps(data))
-        return response.json()
+        headers = {'Content-Type': 'application/json'}
+        response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers)
+        try:
+            return json.loads(response.text)
+        except:
+            return None
         
     @staticmethod
     def addNewDelivery(user, system_id, items):
