@@ -7,7 +7,8 @@ from scipy import stats
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
-from functools.partial import Usb
+# from functools.partial import Usb
+from functools import partial
 import pyqrcode
 from escpos import printer
 
@@ -58,6 +59,21 @@ class MainWindow(QDialog):
         else:
             print("mobile number or password is incurrect")
             self.ui.lblErrorUser.show()
+
+    def loginAdmin(self):
+#        mobile_number = self.ui.tbAdminLogin.text()
+#        password = self.ui.tbAdminPassword.text()
+
+#        if mobile_number == 1234 and password == 1234:
+#            self.stackSetting()
+
+#        else:
+#            self.ui.lblErrorAdmin.setText('اطلاعات کاربری نادرست است')
+        self.stackSetting()
+
+    def adminRecovery(self):
+        self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس بگیرید')
+
 
     def detectItem(self):      
         predict_item_list = []
@@ -173,8 +189,9 @@ class MainWindow(QDialog):
         self.ui.btnBack.setIcon(QIcon('images/sign/cancle.png'))
         self.ui.btnTick.hide()
 
-        self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
-        # self.ui.btnBack.clicked.connect(self.back_window)
+#        self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
+        self.ui.btnAdminLogin.clicked.connect(self.loginAdmin)
+        self.ui.btnAdminPassRecovery.clicked.connect(self.adminRecovery)
 
         self.ui.Stack.setCurrentIndex(4)
         self.widget_index_stack.append(4)
@@ -237,8 +254,8 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
 
-    def setCurrentItem(self, item_index):
-        pass
+    def setCurrentItem(self, item_name, item_index):
+        self.ui.lblSelectedItem.setText(item_name)
 
     def stackManualDeliveryItems(self):
         self.ui.btnBack.hide()
@@ -246,17 +263,20 @@ class MainWindow(QDialog):
         self.ui.btnFinishDelivery.clicked.connect(self.finishDelivery)
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
 
+
         self.items = DataBase.getItems(self.system['owner_id'])
         self.layout_SArea = QVBoxLayout()
-        
+
+
         for item in self.items:
             btn = QPushButton()
+            btn.setMinimumHeight(60)
             btn.setText(item['name'])
-            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px}')
-            btn.clicked.connect(partial(self.setCurrentItem, item['id']))
+            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 18pt "IRANSans";}')
+            btn.clicked.connect(partial(self.setCurrentItem,item['name'], item['id']))
             self.layout_SArea.addWidget(btn)
 
-        self.ui.scrollAreaManual.setLayout(self.layout_SArea)
+        self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
 
         self.ui.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
@@ -267,8 +287,9 @@ class MainWindow(QDialog):
         self.ui.btnTick.setText('تایید')
         self.ui.btnTick.setIcon(QIcon('images/sign/tick'))
 
-        self.ui.pushButton1.clicked.connect(self.stackDeviceMode)
-        self.ui.pushButton2.clicked.connect(self.stackPort)
+        self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
+        self.ui.btnSetting2.clicked.connect(self.stackPort)
+        self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
 
         self.ui.btnTick.clicked.connect(self.tick_window)
 
@@ -295,6 +316,12 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
 
+    def stackDisableDevice(self):
+        self.ui.btnBack.hide()
+        self.ui.btnTick.hide()
+
+        self.ui.Stack.setCurrentIndex(10)
+
     def checkDeviceMode(self):
         if self.device_mode == 'manual':
             self.stackManualDeliveryItems()
@@ -316,12 +343,13 @@ class MainWindow(QDialog):
 
     def stackPort(self):
         print('aksdshdsfghghdsdstd')
-        self.ui.StackSetting.setCurrentIndex(1)
+        self.ui.StackSetting.setCurrentIndex(2)
+
 
     def printReceipt(self):
         try:
             print("printing...")
-            printer = Usb(idVendor=0x0416, idProduct=0x5011)
+            # printer = Usb(idVendor=0x0416, idProduct=0x5011)
             printer.image("images/logo.png")
             printer.text("فرازیست\n")
             printer.text("فاکتور نهایی لیست دریافت به همراه تعداد و قیمت\n")
@@ -402,6 +430,7 @@ class MainWindow(QDialog):
             self.stackStart()
 
         if self.ui.Stack.currentIndex() == 4:
+            self.ui.lblErrorAdmin.clear()
             self.stackStart()
 
         if self.ui.Stack.currentIndex() == 5:

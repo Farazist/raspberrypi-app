@@ -1072,6 +1072,41 @@ border-radius: 6px;</string>
          </property>
         </widget>
        </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="btnAdminPassRecovery">
+         <property name="minimumSize">
+          <size>
+           <width>290</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>290</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 14pt &quot;IRANSans&quot;;
+color: rgb(121, 121, 121);
+border: none; 
+</string>
+         </property>
+         <property name="text">
+          <string>بازیابی رمز عبور</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="lblErrorAdmin">
+         <property name="styleSheet">
+          <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item alignment="Qt::AlignLeft|Qt::AlignBottom">
         <widget class="QPushButton" name="btnSettingAdminLogin">
          <property name="text">
@@ -1507,7 +1542,7 @@ coor: #000000;</string>
          <item>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton3">
+            <widget class="QPushButton" name="btnSetting3">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1516,7 +1551,7 @@ coor: #000000;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1534,7 +1569,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton1">
+            <widget class="QPushButton" name="btnSetting1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1543,7 +1578,7 @@ border-radius: 6px;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1561,7 +1596,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton2">
+            <widget class="QPushButton" name="btnSetting2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1570,7 +1605,7 @@ border-radius: 6px;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1588,7 +1623,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton4">
+            <widget class="QPushButton" name="btnSetting4">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1597,7 +1632,7 @@ border-radius: 6px;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1615,7 +1650,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QPushButton" name="pushButton6">
+            <widget class="QPushButton" name="btnSetting6">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1624,7 +1659,7 @@ border-radius: 6px;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1642,7 +1677,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton5">
+            <widget class="QPushButton" name="btnSetting5">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1651,7 +1686,7 @@ border-radius: 6px;</string>
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>230</width>
                <height>100</height>
               </size>
              </property>
@@ -1664,7 +1699,7 @@ border: none;
 border-radius: 6px;</string>
              </property>
              <property name="text">
-              <string>تغییر رمز دستگاه</string>
+              <string>غیر فعال سازی دستگاه</string>
              </property>
             </widget>
            </item>
@@ -1759,16 +1794,79 @@ border-radius: 6px;</string>
      </widget>
      <widget class="QWidget" name="pageManualDelivery">
       <layout class="QVBoxLayout" name="verticalLayout_14">
-       <property name="spacing">
-        <number>50</number>
-       </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <property name="spacing">
+          <number>20</number>
+         </property>
+         <property name="leftMargin">
+          <number>50</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_18">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+            <widget class="QLabel" name="lblSelectedItem">
+             <property name="styleSheet">
+              <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <widget class="QLabel" name="lblItemNum">
+             <property name="styleSheet">
+              <string notr="true">font: 75 20pt &quot;IRANSansFaNum&quot;;</string>
+             </property>
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="scrollAreaManual">
+           <property name="minimumSize">
+            <size>
+             <width>400</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>700</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetManual">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>698</width>
+              <height>382</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item alignment="Qt::AlignLeft|Qt::AlignBottom">
           <widget class="QPushButton" name="btnSettingManualDelivery">
-           <property name="styleSheet">
-            <string notr="true">border: none;</string>
-           </property>
            <property name="text">
             <string/>
            </property>
@@ -1788,45 +1886,16 @@ border-radius: 6px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QScrollArea" name="scrollAreaManual">
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>663</width>
-              <height>456</height>
-             </rect>
-            </property>
-           </widget>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-          <widget class="QLabel" name="label_14">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">padding: 3px; 
-border: 2px solid #184d26; 
-border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignBottom">
           <widget class="QPushButton" name="btnFinishDelivery">
            <property name="minimumSize">
             <size>
              <width>200</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>250</width>
              <height>60</height>
             </size>
            </property>
@@ -1844,6 +1913,43 @@ border-radius: 6px;</string>
           </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageDisableDevice">
+      <layout class="QVBoxLayout" name="verticalLayout_15">
+       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <widget class="QLabel" name="label_2">
+         <property name="styleSheet">
+          <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+        <widget class="QPushButton" name="btnSettingDisableDevice">
+         <property name="styleSheet">
+          <string notr="true">border: none;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
