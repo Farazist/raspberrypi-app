@@ -4,7 +4,8 @@ from cv2 import VideoCapture, cvtColor, resize, destroyAllWindows, COLOR_BGR2RGB
 from threading import Thread
 import numpy as np
 from scipy import stats
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
+from PySide2.QtCore import Qt, QTimer
+from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout, QLabel
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 # from functools.partial import Usb
@@ -34,8 +35,9 @@ class MainWindow(QDialog):
         sp_retain.setRetainSizeWhenHidden(True)
         self.ui.btnBack.setSizePolicy(sp_retain)
         self.ui.btnBack.clicked.connect(self.back_window)
-        self.ui.btnTick.setSizePolicy(sp_retain)        
+        self.ui.btnTick.setSizePolicy(sp_retain) 
 
+        self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
         self.system_id = LocalDataBase.selectOne('system_id')[2]
@@ -68,11 +70,11 @@ class MainWindow(QDialog):
 ##            self.stackSetting()
 
 #        else:
-#            self.ui.lblErrorAdmin.setText('اطلاعات کاربری نادرست است')
+#            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست.')
         self.stackSetting()
 
     def adminRecovery(self):
-        self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس بگیرید')
+        self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
 
 
     def detectItem(self):      
@@ -206,7 +208,7 @@ class MainWindow(QDialog):
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
 
-        self.ui.lblWallet.setText(str(self.user['wallet'])+ ' ' +'تومان')
+        self.ui.lblWallet.setText(str(self.user['wallet']))
 
         self.ui.btnSettingWallet.clicked.connect(self.stackAdminLogin)
         # self.ui.btnBack.clicked.connect(self.back_window)
@@ -257,11 +259,16 @@ class MainWindow(QDialog):
     def setCurrentItem(self, item_name, item_index):
         self.ui.lblSelectedItem.setText(item_name)
 
+    def showRecycledText(self):
+        self.ui.lblRecycledDone.show()
+
     def stackManualDeliveryItems(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.hide()
+        self.ui.lblRecycledDone.hide()
         self.ui.btnFinishDelivery.clicked.connect(self.finishDelivery)
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
+        self.ui.btnNextManual.clicked.connect(self.showRecycledText)
 
 
         self.items = DataBase.getItems(self.system['owner_id'])
@@ -272,7 +279,7 @@ class MainWindow(QDialog):
             btn = QPushButton()
             btn.setMinimumHeight(60)
             btn.setText(item['name'])
-            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 18pt "IRANSans";}')
+            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 20pt "IRANSans";}')
             btn.clicked.connect(partial(self.setCurrentItem,item['name'], item['id']))
             self.layout_SArea.addWidget(btn)
 
