@@ -64,8 +64,8 @@ class MainWindow(QDialog):
 #        mobile_number = self.ui.tbAdminLogin.text()
 #        password = self.ui.tbAdminPassword.text()
 
-#        if mobile_number == 1234 and password == 1234:
-#            self.stackSetting()
+##        if mobile_number == 1234 and password == 1234:
+##            self.stackSetting()
 
 #        else:
 #            self.ui.lblErrorAdmin.setText('اطلاعات کاربری نادرست است')
