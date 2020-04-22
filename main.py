@@ -7,10 +7,9 @@ from scipy import stats
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
-# from functools.partial import Usb
 from functools import partial
 import pyqrcode
-from escpos import printer
+from escpos.printer import Usb
 
 from database import DataBase
 from app import *
