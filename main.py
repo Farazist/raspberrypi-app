@@ -8,10 +8,9 @@ from PySide2.QtCore import Qt, QTimer
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout, QLabel
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
-# from functools.partial import Usb
 from functools import partial
 import pyqrcode
-from escpos import printer
+from escpos.printer import Usb
 
 from database import DataBase
 from app import *
@@ -356,10 +355,11 @@ class MainWindow(QDialog):
     def printReceipt(self):
         try:
             print("printing...")
-            # printer = Usb(idVendor=0x0416, idProduct=0x5011)
-            printer.image("images/logo.png")
-            printer.text("فرازیست\n")
-            printer.text("فاکتور نهایی لیست دریافت به همراه تعداد و قیمت\n")
+            printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
+            printer.image("images/logo-small.png")
+            printer.set(align=u'center')
+            printer.text("Farazist\n")
+            printer.text(str(12500) + " Rial")
             # printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
             # printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
             printer.text(self.system['owner']['mobile_number'])
