@@ -23,7 +23,7 @@
    <item>
     <layout class="QHBoxLayout" name="h_layout_header">
      <item>
-      <widget class="QPushButton" name="btnBack">
+      <widget class="QPushButton" name="btnLeft">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -73,7 +73,7 @@ border-radius: 6px;</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnTick">
+      <widget class="QPushButton" name="btnRight">
        <property name="maximumSize">
         <size>
          <width>170</width>
@@ -1966,7 +1966,7 @@ border-radius: 6px;</string>
             <number>0</number>
            </property>
            <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-            <widget class="QLabel" name="lblSelectedItem">
+            <widget class="QLabel" name="lblSelectedItemName">
              <property name="styleSheet">
               <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
              </property>
@@ -1976,7 +1976,7 @@ border-radius: 6px;</string>
             </widget>
            </item>
            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-            <widget class="QLabel" name="lblItemNum">
+            <widget class="QLabel" name="lblSelectedItemCount">
              <property name="styleSheet">
               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
              </property>
@@ -2056,7 +2056,7 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btnNextManual">
+          <widget class="QPushButton" name="btnRecycleItem">
            <property name="minimumSize">
             <size>
              <width>200</width>
@@ -2079,33 +2079,6 @@ border-radius: 6px;</string>
            </property>
            <property name="text">
             <string>بعدی</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnFinishDelivery">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>80</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>250</width>
-             <height>80</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
-padding: 3px; 
-border: none; 
-border-radius: 6px;</string>
-           </property>
-           <property name="text">
-            <string>پایان</string>
            </property>
           </widget>
          </item>
@@ -2188,7 +2161,7 @@ color: rgb(170, 0, 0);</string>
           </widget>
          </item>
          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="lblTotalPrice">
            <property name="styleSheet">
             <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
            </property>
@@ -2205,7 +2178,7 @@ color: rgb(170, 0, 0);</string>
           <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
          </property>
          <property name="text">
-          <string>به حساب شما انتقال یافت</string>
+          <string>به کیف پول شما انتقال یافت</string>
          </property>
         </widget>
        </item>
@@ -2231,7 +2204,7 @@ color: rgb(170, 0, 0);</string>
           <number>350</number>
          </property>
          <item alignment="Qt::AlignHCenter">
-          <widget class="QPushButton" name="btnYReceipt">
+          <widget class="QPushButton" name="btnPrintReceiptYes">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -2252,7 +2225,7 @@ border-radius: 6px;</string>
           </widget>
          </item>
          <item alignment="Qt::AlignHCenter">
-          <widget class="QPushButton" name="btnNReceipt">
+          <widget class="QPushButton" name="btnPrintReceiptNo">
            <property name="minimumSize">
             <size>
              <width>100</width>

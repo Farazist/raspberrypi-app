@@ -34,9 +34,9 @@ class MainWindow(QDialog):
 
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
-        self.ui.btnBack.setSizePolicy(sp_retain)
-        self.ui.btnBack.clicked.connect(self.back_window)
-        self.ui.btnTick.setSizePolicy(sp_retain) 
+        self.ui.btnLeft.setSizePolicy(sp_retain)
+        self.ui.btnLeft.clicked.connect(self.back_window)
+        self.ui.btnRight.setSizePolicy(sp_retain) 
 
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
@@ -76,7 +76,6 @@ class MainWindow(QDialog):
 
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
-
 
     def detectItem(self):      
         predict_item_list = []
@@ -139,46 +138,42 @@ class MainWindow(QDialog):
         destroyAllWindows()
 
     def stackStart(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.hide()
 
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
 
         self.ui.btnSettingStart.clicked.connect(self.stackAdminLogin)
-
         self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
-
         self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
 
         self.ui.Stack.setCurrentIndex(1)
         self.widget_index_stack.append(1)
 
     def stackUserLogin(self):
-        self.ui.btnBack.show()
-        self.ui.btnBack.setText('انصراف')
-        self.ui.btnBack.setIcon(QIcon('images/sign/cancle.png'))
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.show()
+        self.ui.btnLeft.setText('انصراف')
+        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle.png'))
+        self.ui.btnRight.hide()
 
         self.ui.lblErrorUser.hide()
         
         self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnBack.clicked.connect(self.back_window)
-
+        # self.ui.btnLeft.clicked.connect(self.back_window)
         self.ui.btnUserLogin.clicked.connect(self.loginUser)
 
         self.ui.Stack.setCurrentIndex(2)
         self.widget_index_stack.append(2)
 
     def stackMainMenu(self):
-        self.ui.btnBack.show()
-        self.ui.btnBack.setText('خروج')
-        self.ui.btnBack.setIcon(QIcon('images/sign/cancle'))
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.show()
+        self.ui.btnLeft.setText('خروج')
+        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle'))
+        self.ui.btnRight.hide()
         
         self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
-
         # self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
@@ -187,10 +182,10 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(3)
 
     def stackAdminLogin(self):
-        self.ui.btnBack.show()
-        self.ui.btnBack.setText('انصراف')
-        self.ui.btnBack.setIcon(QIcon('images/sign/cancle.png'))
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.show()
+        self.ui.btnLeft.setText('انصراف')
+        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle.png'))
+        self.ui.btnRight.hide()
 
 #        self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
         self.ui.btnAdminLogin.clicked.connect(self.loginAdmin)
@@ -200,10 +195,10 @@ class MainWindow(QDialog):
         self.widget_index_stack.append(4)
 
     def stackWallet(self):
-        self.ui.btnBack.show()
-        self.ui.btnBack.setText('بازگشت')
-        self.ui.btnBack.setIcon(QIcon('images/sign/back'))
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.show()
+        self.ui.btnLeft.setText('بازگشت')
+        self.ui.btnLeft.setIcon(QIcon('images/sign/back'))
+        self.ui.btnRight.hide()
 
         gif_wallet = QMovie("animations/wallet.gif")
         self.ui.lblGifWallet.setMovie(gif_wallet)
@@ -212,14 +207,14 @@ class MainWindow(QDialog):
         self.ui.lblWallet.setText(str(self.user['wallet']))
 
         self.ui.btnSettingWallet.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnBack.clicked.connect(self.back_window)
+        # self.ui.btnLeft.clicked.connect(self.back_window)
 
         self.ui.Stack.setCurrentIndex(5)
         self.widget_index_stack.append(5)
 
     def stackDeliveryItems(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.hide()
 
         img1 = QPixmap("images\item\category1.png")
         img1 = img1.scaledToWidth(128)
@@ -257,20 +252,68 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
 
-    def setCurrentItem(self, item_name, item_index):
-        self.ui.lblSelectedItem.setText(item_name)
-
-    def showRecycledText(self):
+    def SelectItem(self, item):
+        self.selected_item = item
+        self.ui.lblSelectedItemName.setText(self.selected_item['name'])
+        self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+        
+    def recycleItem(self):
         self.ui.lblRecycledDone.show()
+        self.selected_item['count'] += 1
+        self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+        
+        for user_item in self.user_items:
+            if self.selected_item['id'] == user_item['id']:
+                break
+        else:
+            self.user_items.append(self.selected_item)
 
     def sensorTest(self):
-        while True:
-            self.sensor.wait_for_light()
-            print("bottle detected!")
-            self.sensor.wait_for_dark()
-            sleep(1)
+        try:
+            while True:
+                self.sensor.wait_for_light()
+                print("bottle detected!")
+                self.sensor.wait_for_dark()
+                sleep(1)
+        except:
+            print('There is a problem for GPIO')
 
-    def ManualDeliveryItems(self):
+    def stackManualDeliveryItems(self):
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.show()
+        self.ui.btnRight.setText('پایان')
+        
+        try:
+            self.ui.btnRight.clicked.disconnect()
+        except:
+            pass
+
+        self.ui.btnRight.clicked.connect(self.stackAfterDelivery)
+        self.ui.lblRecycledDone.hide()
+
+        self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
+        self.ui.btnRecycleItem.clicked.connect(self.recycleItem)
+
+        self.user_items = []
+        self.items = DataBase.getItems(self.system['owner_id'])
+        self.layout_SArea = QVBoxLayout()
+
+        for item in self.items:
+            item['count'] = 0
+
+            btn = QPushButton()
+            btn.setMinimumHeight(60)
+            btn.setText(item['name'])
+            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 20pt "IRANSans";}')
+            btn.clicked.connect(partial(self.SelectItem, item))
+            self.layout_SArea.addWidget(btn)
+
+        self.SelectItem(self.items[0])  # default
+        self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
+
+        self.ui.Stack.setCurrentIndex(9)
+        self.widget_index_stack.append(9)
+
         try:
             self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
             self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
@@ -284,52 +327,26 @@ class MainWindow(QDialog):
         self.sensorTest_thread = Thread(target=self.sensorTest)
         self.sensorTest_thread.start()
 
-    def stackManualDeliveryItems(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
-        self.ui.lblRecycledDone.hide()
-        self.ui.btnFinishDelivery.clicked.connect(self.finishDelivery)
-        self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
-        self.ui.btnNextManual.clicked.connect(self.showRecycledText)
-
-        self.items = DataBase.getItems(self.system['owner_id'])
-        self.layout_SArea = QVBoxLayout()
-
-        for item in self.items:
-            btn = QPushButton()
-            btn.setMinimumHeight(60)
-            btn.setText(item['name'])
-            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 20pt "IRANSans";}')
-            btn.clicked.connect(partial(self.setCurrentItem,item['name'], item['id']))
-            self.layout_SArea.addWidget(btn)
-
-        self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
-
-        self.ui.Stack.setCurrentIndex(9)
-        self.widget_index_stack.append(9)
-
-        self.ManualDeliveryItems()
-
     def stackSetting(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.show()
-        self.ui.btnTick.setText('تایید')
-        self.ui.btnTick.setIcon(QIcon('images/sign/tick'))
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.show()
+        self.ui.btnRight.setText('پایان')
+        self.ui.btnRight.setIcon(QIcon('images/sign/tick'))
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
 
-        self.ui.btnTick.clicked.connect(self.tick_window)
+        self.ui.btnRight.clicked.connect(self.tick_window)
 
         self.ui.Stack.setCurrentIndex(7)
         self.widget_index_stack.append(7)
 
     def stackQR(self):
-        self.ui.btnBack.show()
-        self.ui.btnBack.setText('انصراف')
-        self.ui.btnBack.setIcon(QIcon('images/sign/cancle'))
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.show()
+        self.ui.btnLeft.setText('انصراف')
+        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle'))
+        self.ui.btnRight.hide()
 
         data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
         filename = 'images\qr\qrcode.png'
@@ -341,14 +358,14 @@ class MainWindow(QDialog):
         self.ui.lblPixmapQr.setPixmap(open_img)
 
         self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnBack.clicked.connect(self.back_window)
+        # self.ui.btnLeft.clicked.connect(self.back_window)
 
         self.ui.Stack.setCurrentIndex(8)
         self.widget_index_stack.append(8)
 
     def stackDisableDevice(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.hide()
 
         self.ui.Stack.setCurrentIndex(10)
         self.widget_index_stack.append(10)
@@ -360,11 +377,10 @@ class MainWindow(QDialog):
             self.stackDeliveryItems()
     
     def stackDeviceMode(self): 
-        self.ui.btnAutoDevice.toggled.connect(self.test)
-
+        self.ui.btnAutoDevice.toggled.connect(self.selectDeviceMode)
         self.ui.StackSetting.setCurrentIndex(1)
     
-    def test(self):
+    def selectDeviceMode(self):
         if self.ui.btnManualDevice.isChecked()==True:
             result = LocalDataBase.updateOne('bottle_recognize_mode', 'manual')
             print('دستی')
@@ -395,34 +411,35 @@ class MainWindow(QDialog):
             printer.cut()
         except:
             print("Printer not found")
+        
+        self.stackMainMenu()
 
     def stackAfterDelivery(self):
-        self.ui.btnBack.hide()
-        self.ui.btnTick.hide()
+        self.ui.btnLeft.hide()
+        self.ui.btnRight.hide()
 
-        self.ui.btnNReceipt.clicked.connect(self.back_window)
+        self.ui.btnPrintReceiptNo.clicked.connect(self.back_window)
+        self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnSettingAfterDelivery.clicked.connect(self.stackAdminLogin)
 
-        self.ui.Stack.setCurrentIndex(11)
-        self.widget_index_stack.append(11)
-
-    def finishDelivery(self):
-        self.printReceipt()
+        self.total_price = 0
+        for user_item in self.user_items:
+            self.total_price += user_item['price'] * user_item['count']
+        
+        self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
         
-        # DataBase.addNewDelivery(self.user, system_id, self.user_items)    
-        # total_price = 0
-        # for item in self.user_items:
-        #     total_price += item['price'] * item['count']
-        # DataBase.transferSecure(self.user, system_id, total_price)
-        # self.user = DataBase.getUser(self.user)
+        DataBase.addNewDelivery(self.user, self.system['id'], self.user_items)
+        DataBase.transferSecure(self.user, self.system['id'], self.total_price)
+        self.user = DataBase.getUser(self.user)
+       
         try:
             self.motor.off()
         except:
             print('There is a problem for GPIO')
-        
-#        self.stackMainMenu()
-        self.stackAfterDelivery()
+
+        self.ui.Stack.setCurrentIndex(11)
+        self.widget_index_stack.append(11)
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value

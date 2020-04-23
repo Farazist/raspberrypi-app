@@ -25,7 +25,10 @@ class DataBase:
         }
 
         response = post(url=url + '/api/get-user', headers=headers)
-        return json.loads(response.text)
+        try:
+            return json.loads(response.text)
+        except:
+            return None
         
     @staticmethod
     def getCategories():
@@ -35,8 +38,12 @@ class DataBase:
     @staticmethod
     def getItems(user_id):
         data = {'user_id': user_id}
-        response = post(url=url + '/api/get-items', data=json.dumps(data))
-        return response.json()
+        headers = {'Content-Type': 'application/json'}
+        response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers)
+        try:
+            return json.loads(response.text)
+        except:
+            return None
 
     @staticmethod
     def getSystem(system_id):
