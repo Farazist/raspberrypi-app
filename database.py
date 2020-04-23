@@ -9,10 +9,9 @@ class DataBase:
     def signInUser(mobile_number, password):
         
         data = {'mobile_number':mobile_number, 'password':password,}
-        
-        response = post(url=url+'/api/signin-user', data=data)
-        
-        try:
+
+        try:        
+            response = post(url=url+'/api/signin-user', data=data, verify=True)
             return json.loads(response.text)
         except:
             return None
@@ -24,8 +23,8 @@ class DataBase:
             'Content-Type': 'application/json'
         }
 
-        response = post(url=url + '/api/get-user', headers=headers)
         try:
+            response = post(url=url + '/api/get-user', headers=headers, verify=True)
             return json.loads(response.text)
         except:
             return None
@@ -39,8 +38,9 @@ class DataBase:
     def getItems(user_id):
         data = {'user_id': user_id}
         headers = {'Content-Type': 'application/json'}
-        response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers)
+
         try:
+            response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers, verify=True)
             return json.loads(response.text)
         except:
             return None
@@ -49,8 +49,9 @@ class DataBase:
     def getSystem(system_id):
         data = {'id': system_id}
         headers = {'Content-Type': 'application/json'}
-        response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers)
+        
         try:
+            response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers, verify=True)
             return json.loads(response.text)
         except:
             return None
@@ -69,9 +70,11 @@ class DataBase:
             'items': items
         }
         
-        response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
-
-        return response.json()
+        try:
+            response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
+            return json.loads(response.text)
+        except:
+            return None
 
     @staticmethod
     def transfer(user, items, system_id):
@@ -82,9 +85,11 @@ class DataBase:
         
         data = {'user_id': user['id'], 'system_id': system_id, 'state': 'done', 'items': items}
         
-        response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers)
-
-        return response.json()
+        try:
+            response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
+            return json.loads(response.text)
+        except:
+            return None
 
     @staticmethod
     def transferSecure(user, system_id, amount):
@@ -93,8 +98,10 @@ class DataBase:
             'Content-Type': 'application/json'
         }
         
-        data = {'system_id': system_id, 'amount': amount}
+        data = {'system_id': system_id, 'amount': amount, 'APP_KEY': APP_KEY, 'description': 'تحویل پسماند در دستگاه'}
         
-        response = post(url=url + '/api/transfer-secure', data=json.dumps(data), headers=headers)
-
-        #return response.json()
+        try:
+            response = post(url=url + '/api/transfer-secure', data=json.dumps(data), headers=headers, verify=True)
+            return response.json()
+        except:
+            return None
