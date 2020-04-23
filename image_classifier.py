@@ -1,6 +1,5 @@
 import tflite_runtime.interpreter as tflite
 import numpy as np
-import cv2 as cv
 
 class ImageClassifier:
 
@@ -17,8 +16,8 @@ class ImageClassifier:
         input_tensor[:, :] = image
 
     def preprocess(self, image):
-        image = cv.resize(image, (224, 224))
-        image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        # image = cv.resize(image, (224, 224))
+        # image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         image = image / 255.0
         return image
 

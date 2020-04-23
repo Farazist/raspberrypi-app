@@ -47,11 +47,13 @@ class MainWindow(QDialog):
         self.camera = None
         self.user_items = []
         self.device_mode = LocalDataBase.selectOne('bottle_recognize_mode')[2]
-        print(self.device_mode)
         self.categories = DataBase.getCategories()
         self.image_classifier = ImageClassifier()
-
-
+        
+        print('Startup Intormation:')
+        print('Device Mode:', self.device_mode)
+        print('System ID:', self.device_mode)
+        print('Device mode:', self.device_mode)
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()

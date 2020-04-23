@@ -1562,8 +1562,7 @@ color: #000000;</string>
                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                 <widget class="QRadioButton" name="btnManualDevice">
                  <property name="styleSheet">
-                  <string notr="true">font: 32pt &quot;IRANSans&quot;;
-coor: #000000;</string>
+                  <string notr="true">font: 32pt &quot;IRANSans&quot;;</string>
                  </property>
                  <property name="text">
                   <string>دستی</string>
@@ -1576,8 +1575,7 @@ coor: #000000;</string>
                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                 <widget class="QRadioButton" name="btnAutoDevice">
                  <property name="styleSheet">
-                  <string notr="true">font: 32pt &quot;IRANSans&quot;;
-coor: #000000;</string>
+                  <string notr="true">font: 32pt &quot;IRANSans&quot;;</string>
                  </property>
                  <property name="text">
                   <string>اتومات</string>

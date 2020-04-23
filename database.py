@@ -1,4 +1,3 @@
-import mysql.connector
 from requests import post
 import json
 from app import *
