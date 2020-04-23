@@ -275,10 +275,8 @@ class MainWindow(QDialog):
         try:
             self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
             self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
-
             self.motor = LED(self.motor_port)
             self.sensor = LightSensor(self.sensor_port)
-            
             print('motor on')
             self.motor.on()
         except:
