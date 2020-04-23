@@ -320,8 +320,8 @@ class MainWindow(QDialog):
         self.ui.btnTick.setIcon(QIcon('images/sign/tick'))
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
-        self.ui.btnSetting2.clicked.connect(self.stackPort)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
+        self.ui.btnSetting6.clicked.connect(self.stackExitApp)
 
         self.ui.btnTick.clicked.connect(self.tick_window)
 
@@ -373,9 +373,13 @@ class MainWindow(QDialog):
             result = LocalDataBase.updateOne('bottle_recognize_mode', 'auto')
             print('اتومات')
 
-    def stackPort(self):
-        print('aksdshdsfghghdsdstd')
+    def stackExitApp(self):
+        self.ui.btnNExitApp.clicked.connect(self.noExitApp)
+        self.ui.btnYExitApp.clicked.connect(self.exit_program)
         self.ui.StackSetting.setCurrentIndex(2)
+
+    def noExitApp(self):
+        self.ui.StackSetting.setCurrentIndex(0)
 
     def printReceipt(self):
         try:
@@ -454,7 +458,7 @@ class MainWindow(QDialog):
 
     def exit_program(self):
         self.delivery_items_flag = False
-        self.camera.release() 
+        # self.camera.release() 
         destroyAllWindows()
         self.close()
         # QApplication.quit()
