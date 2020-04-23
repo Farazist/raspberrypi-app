@@ -51,6 +51,8 @@ class MainWindow(QDialog):
         self.categories = DataBase.getCategories()
         self.image_classifier = ImageClassifier()
 
+
+
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
         password = self.ui.tbUserPassword.text()
@@ -64,15 +66,17 @@ class MainWindow(QDialog):
             self.ui.lblErrorUser.show()
 
     def loginAdmin(self):
-#        mobile_number = self.ui.tbAdminLogin.text()
-#        password = self.ui.tbAdminPassword.text()
+        sql_loginAdmin = LocalDataBase.selectOne('username')[2]
+        sql_passwordAdmin = LocalDataBase.selectOne('password')[2]
 
-##        if mobile_number == 1234 and password == 1234:
-##            self.stackSetting()
+        tb_loginAdmin = self.ui.tbAdminLogin.text()
+        tb_passwordAdmin = self.ui.tbAdminPassword.text()
 
-#        else:
-#            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست.')
-        self.stackSetting()
+        if sql_loginAdmin == tb_loginAdmin and sql_passwordAdmin == tb_passwordAdmin:
+            self.stackSetting()
+
+        else:
+            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست.')
 
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
@@ -267,6 +271,9 @@ class MainWindow(QDialog):
                 break
         else:
             self.user_items.append(self.selected_item)
+
+    def hideRecycleItem(self):
+        self.ui.lblRecycledDone.hide()
 
     def sensorTest(self):
         try:
@@ -586,4 +593,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     window.stackStart()
+    timer = QTimer()
+    timer.timeout.connect(window.hideRecycleItem)
+    timer.start(10000) #it's aboat 10 seconds
     sys.exit(app.exec_())
