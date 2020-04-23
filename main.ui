@@ -108,7 +108,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>11</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -988,8 +988,14 @@ border: 2px solid #184d26;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;</string>
          </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="inputMethodHints">
-          <set>Qt::ImhDigitsOnly</set>
+          <set>Qt::ImhNone</set>
+         </property>
+         <property name="text">
+          <string>farazist</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1040,8 +1046,14 @@ border: 2px solid #184d26;
 border-radius: 6px;
 </string>
          </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="inputMethodHints">
-          <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+          <set>Qt::ImhNone</set>
+         </property>
+         <property name="text">
+          <string>1234</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
@@ -1541,7 +1553,7 @@ border-radius: 6px;</string>
 color: #000000;</string>
                </property>
                <property name="text">
-                <string>تنظیم حالت دستگاه</string>
+                <string>لطفا نوع کارکرد دستگاه را انتخاب کنید</string>
                </property>
               </widget>
              </item>
@@ -1656,6 +1668,96 @@ border-radius: 6px;</string>
              </item>
             </layout>
            </widget>
+           <widget class="QWidget" name="pageMotorPort">
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <property name="bottomMargin">
+              <number>100</number>
+             </property>
+             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <widget class="QLabel" name="lblMotorPort">
+               <property name="styleSheet">
+                <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+               </property>
+               <property name="text">
+                <string>جهت تنظیم شماره پورت موتور، عددی بین 1 تا 40 را در کادر زیر وارد کنید</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <widget class="QLineEdit" name="tbMotorPort">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>70</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #184d26;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;</string>
+               </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhDigitsOnly</set>
+               </property>
+               <property name="maxLength">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="pageSensorPort">
+            <layout class="QVBoxLayout" name="verticalLayout_21">
+             <property name="bottomMargin">
+              <number>100</number>
+             </property>
+             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <widget class="QLabel" name="lblSensorPort">
+               <property name="styleSheet">
+                <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+               </property>
+               <property name="text">
+                <string>جهت تنظیم شماره پورت سنسور، عددی بین 1 تا 40 را در کادر زیر وارد کنید</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <widget class="QLineEdit" name="tbSensorPort">
+               <property name="styleSheet">
+                <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #184d26;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;</string>
+               </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhDigitsOnly</set>
+               </property>
+               <property name="maxLength">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
          <item>
@@ -1689,7 +1791,7 @@ border: none;
 border-radius: 6px;</string>
              </property>
              <property name="text">
-              <string>ثبت آیتم جدید</string>
+              <string>شماره پورت سنسور</string>
              </property>
             </widget>
            </item>
@@ -1722,7 +1824,7 @@ border: none;
 border-radius: 6px;</string>
              </property>
              <property name="text">
-              <string>تنظیم حالت دستگاه</string>
+              <string>حالت دستگاه</string>
              </property>
             </widget>
            </item>
@@ -1755,7 +1857,7 @@ border: none;
 border-radius: 6px;</string>
              </property>
              <property name="text">
-              <string>تنظیم شماره پورت</string>
+              <string>شماره پورت موتور</string>
              </property>
             </widget>
            </item>
@@ -1788,7 +1890,7 @@ border: none;
 border-radius: 6px;</string>
              </property>
              <property name="text">
-              <string>تنظیمات رله</string>
+              <string>ثبت آیتم جدید</string>
              </property>
             </widget>
            </item>
@@ -2024,8 +2126,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>526</width>
-              <height>368</height>
+              <width>384</width>
+              <height>16</height>
              </rect>
             </property>
            </widget>

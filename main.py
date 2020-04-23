@@ -342,6 +342,8 @@ class MainWindow(QDialog):
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
+        self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
+        self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
 
         self.ui.btnRight.clicked.connect(self.tick_window)
@@ -402,6 +404,12 @@ class MainWindow(QDialog):
 
     def noExitApp(self):
         self.ui.StackSetting.setCurrentIndex(0)
+
+    def stackMotorPort(self):
+        self.ui.StackSetting.setCurrentIndex(3)
+
+    def stackSensorPort(self):
+        self.ui.StackSetting.setCurrentIndex(4)
 
     def printReceipt(self):
         try:
@@ -491,6 +499,16 @@ class MainWindow(QDialog):
             self.stackMainMenu()
 
     def tick_window(self):
+         if self.ui.tbSensorPort.text() != '':
+            result = LocalDataBase.updateOne('sensor_port', self.ui.tbSensorPort.text())
+
+         if self.ui.tbMotorPort.text() != '':
+            result = LocalDataBase.updateOne('motor_port', self.ui.tbMotorPort.text())
+
+         self.ui.tbMotorPort.clear()
+         self.ui.tbSensorPort.clear()
+         self.noExitApp()
+
          before = self.widget_index_stack[-3]
          print(self.widget_index_stack)
          if before == 1 :
