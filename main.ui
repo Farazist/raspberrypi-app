@@ -108,7 +108,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>11</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -2128,6 +2128,164 @@ color: rgb(170, 0, 0);</string>
        </item>
        <item alignment="Qt::AlignLeft|Qt::AlignBottom">
         <widget class="QPushButton" name="btnSettingDisableDevice">
+         <property name="styleSheet">
+          <string notr="true">border: none;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageAfterDelivery">
+      <layout class="QVBoxLayout" name="verticalLayout_19">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_5">
+         <property name="styleSheet">
+          <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>مبلغ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>450</number>
+         </property>
+         <property name="rightMargin">
+          <number>450</number>
+         </property>
+         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+          <widget class="QLabel" name="label_9">
+           <property name="styleSheet">
+            <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+           </property>
+           <property name="text">
+            <string>تومان</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+          <widget class="QLabel" name="label_7">
+           <property name="styleSheet">
+            <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+           </property>
+           <property name="text">
+            <string>13258</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="label_6">
+         <property name="styleSheet">
+          <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>به حساب شما انتقال یافت</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+        <widget class="QLabel" name="label_3">
+         <property name="styleSheet">
+          <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>آیا میخواهید رسید چاپ کنید؟</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>350</number>
+         </property>
+         <property name="rightMargin">
+          <number>350</number>
+         </property>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QPushButton" name="btnYReceipt">
+           <property name="minimumSize">
+            <size>
+             <width>80</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #aa0000, stop:1 #f86565);
+font: 24pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;</string>
+           </property>
+           <property name="text">
+            <string>بله</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QPushButton" name="btnNReceipt">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
+font: 24pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;</string>
+           </property>
+           <property name="text">
+            <string>خیر</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="label_8">
+         <property name="styleSheet">
+          <string notr="true">font: 24pt &quot;IRANSans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+        <widget class="QPushButton" name="btnSettingAfterDelivery">
          <property name="styleSheet">
           <string notr="true">border: none;</string>
          </property>

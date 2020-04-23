@@ -271,7 +271,6 @@ class MainWindow(QDialog):
             sleep(1)
 
     def ManualDeliveryItems(self):
-        
         try:
             self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
             self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
@@ -324,6 +323,7 @@ class MainWindow(QDialog):
         self.ui.btnTick.clicked.connect(self.tick_window)
 
         self.ui.Stack.setCurrentIndex(7)
+        self.widget_index_stack.append(7)
 
     def stackQR(self):
         self.ui.btnBack.show()
@@ -351,6 +351,7 @@ class MainWindow(QDialog):
         self.ui.btnTick.hide()
 
         self.ui.Stack.setCurrentIndex(10)
+        self.widget_index_stack.append(10)
 
     def checkDeviceMode(self):
         if self.device_mode == 'manual':
@@ -395,6 +396,16 @@ class MainWindow(QDialog):
         except:
             print("Printer not found")
 
+    def stackAfterDelivery(self):
+        self.ui.btnBack.hide()
+        self.ui.btnTick.hide()
+
+        self.ui.btnNReceipt.clicked.connect(self.back_window)
+        self.ui.btnSettingAfterDelivery.clicked.connect(self.stackAdminLogin)
+
+        self.ui.Stack.setCurrentIndex(11)
+        self.widget_index_stack.append(11)
+
     def finishDelivery(self):
         self.printReceipt()
         # self.delivery_items_flag = False
@@ -410,7 +421,8 @@ class MainWindow(QDialog):
         except:
             print('There is a problem for GPIO')
         
-        self.stackMainMenu()    
+#        self.stackMainMenu()
+        self.stackAfterDelivery()
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
@@ -442,6 +454,7 @@ class MainWindow(QDialog):
 
         if self.ui.Stack.currentIndex() == 4:
             self.ui.lblErrorAdmin.clear()
+            self.widget_index_stack = []
             self.stackStart()
 
         if self.ui.Stack.currentIndex() == 5:
@@ -449,10 +462,68 @@ class MainWindow(QDialog):
 
         if self.ui.Stack.currentIndex() == 8:
             self.stackStart()
-        
+
+        if self.ui.Stack.currentIndex() == 11:
+            self.stackMainMenu()
+
     def tick_window(self):
-        if self.ui.Stack.currentIndex() == 7:
-            self.stackStart()
+         before = self.widget_index_stack[-3]
+         print(self.widget_index_stack)
+         if before == 1 :
+#             del(self.widget_index_stack[:-3])
+#             self.widget_index_stack.append(1)
+             self.stackStart()
+
+         if before == 2:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(2)
+            self.stackUserLogin()
+
+         if before == 3:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(3)
+            self.stackMainMenu()
+
+         if before == 4:
+#             del(self.widget_index_stack[:-3])
+#             self.widget_index_stack.append(4)
+             self.stackAdminLogin()
+
+         if before == 5:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(5)
+            self.stackWallet()
+
+         if before == 6:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(6)
+            self.stackDeliveryItems()
+
+         if before == 7:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(7)
+            self.stackSetting()
+
+         if before == 8:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(8)
+            self.stackQR()
+
+         if before == 9:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(9)
+            self.stackManualDeliveryItems()
+
+         if before == 10:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(10)
+            self.stackDisableDevice()
+
+         if before == 11:
+#            del(self.widget_index_stack[:-3])
+#            self.widget_index_stack.append(11)
+            self.stackAfterDelivery()
+
 
     def exit_program(self):
         self.delivery_items_flag = False
