@@ -51,8 +51,7 @@ class MainWindow(QDialog):
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
-        print('System ID:', self.device_mode)
-        print('Device mode:', self.device_mode)
+        print('System ID:', self.system_id)
 
     def loginUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
