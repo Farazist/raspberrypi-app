@@ -11,6 +11,8 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from functools import partial
 import pyqrcode
 from escpos.printer import Usb
+from gpiozero import LightSensor, LED
+from time import sleep
 
 from database import DataBase
 from app import *
@@ -261,6 +263,30 @@ class MainWindow(QDialog):
     def showRecycledText(self):
         self.ui.lblRecycledDone.show()
 
+    def sensorTest(self):
+        while True:
+            self.sensor.wait_for_light()
+            print("bottle detected!")
+            self.sensor.wait_for_dark()
+            sleep(1)
+
+    def ManualDeliveryItems(self):
+        
+        try:
+            self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
+            self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
+
+            self.motor = LED(self.motor_port)
+            self.sensor = LightSensor(self.sensor_port)
+            
+            print('motor on')
+            self.motor.on()
+        except:
+            print('There is a problem for GPIO')
+
+        self.sensorTest_thread = Thread(target=self.sensorTest)
+        self.sensorTest_thread.start()
+
     def stackManualDeliveryItems(self):
         self.ui.btnBack.hide()
         self.ui.btnTick.hide()
@@ -269,10 +295,8 @@ class MainWindow(QDialog):
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
         self.ui.btnNextManual.clicked.connect(self.showRecycledText)
 
-
         self.items = DataBase.getItems(self.system['owner_id'])
         self.layout_SArea = QVBoxLayout()
-
 
         for item in self.items:
             btn = QPushButton()
@@ -286,6 +310,8 @@ class MainWindow(QDialog):
 
         self.ui.Stack.setCurrentIndex(9)
         self.widget_index_stack.append(9)
+
+        self.ManualDeliveryItems()
 
     def stackSetting(self):
         self.ui.btnBack.hide()
@@ -351,7 +377,6 @@ class MainWindow(QDialog):
         print('aksdshdsfghghdsdstd')
         self.ui.StackSetting.setCurrentIndex(2)
 
-
     def printReceipt(self):
         try:
             print("printing...")
@@ -378,39 +403,16 @@ class MainWindow(QDialog):
         #     total_price += item['price'] * item['count']
         # DataBase.transferSecure(self.user, system_id, total_price)
         # self.user = DataBase.getUser(self.user)
-        # self.showMainMenu()    
+        try:
+            self.motor.off()
+        except:
+            print('There is a problem for GPIO')
+        
+        self.stackMainMenu()    
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
         self.ui.lblDeliveryItems.clear()
-
-    def showIsLoading(self):
-        self.lb_logo.hide()
-        self.btn_back.hide()
-        self.btn_tick.hide()
-        self.Stack.setCurrentIndex(0)
-        self.widget_index_stack.append(0)
-
-    def showStart(self):
-        self.lb_logo.show()
-        self.btn_back.hide()
-        self.btn_tick.hide()
-        self.Stack.setCurrentIndex(1)
-        self.widget_index_stack.append(1)
-
-    def showLogin(self):
-        self.lb_logo.show()
-        self.btn_back.hide()
-        self.btn_tick.hide()
-        self.Stack.setCurrentIndex(2)
-        self.widget_index_stack.append(2)
-
-    def showLoginPhoneNumber(self):
-        self.lb_logo.show()
-        self.btn_back.show()
-
-        self.Stack.setCurrentIndex(2)
-        self.widget_index_stack.append(2)
 
     def showDelivery(self):
         self.lb_logo.show()
@@ -488,7 +490,6 @@ class MainWindow(QDialog):
             self.exit_program()
         elif box.clickedButton() == buttonN:
             box.close()
-
 
 if __name__ == '__main__':
     
