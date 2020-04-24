@@ -401,6 +401,7 @@ class MainWindow(QDialog):
             self.stackDeliveryItems()
     
     def stackDeviceMode(self): 
+#        self.ui.btnManualDevice.setStyleSheet('QRadioButton::indicator {width: 30px; height: 30px;image:url(images/icon/cancle.png);}')
         self.ui.btnAutoDevice.toggled.connect(self.selectDeviceMode)
         self.ui.StackSetting.setCurrentIndex(1)
     
