@@ -1,5 +1,6 @@
 import tflite_runtime.interpreter as tflite
 import numpy as np
+from scipy import stats
 
 class ImageClassifier:
 

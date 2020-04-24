@@ -5,8 +5,17 @@ from app import *
 class DataBase:
     
     @staticmethod
+    def checkQrcode(qrcode_data):
+        data = {'qrcode_data':qrcode_data}
+
+        try:        
+            response = post(url=url+'/api/check-qrcode', data=data, verify=True)
+            return json.loads(response.text)
+        except:
+            return None
+
+    @staticmethod
     def signInUser(mobile_number, password):
-        
         data = {'mobile_number':mobile_number, 'password':password,}
 
         try:        

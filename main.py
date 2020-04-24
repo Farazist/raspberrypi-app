@@ -1,17 +1,18 @@
 import sys
 import os
 from threading import Thread
-import numpy as np
-from scipy import stats
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
+from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from functools import partial
-import pyqrcode
+import qrcode
+from PIL.ImageQt import ImageQt
 from escpos.printer import Usb
 from gpiozero import LightSensor, LED
-from time import sleep
+from gpiozero.pins.native import NativeFactory
+from time import sleep, time
+import json
 
 from database import DataBase
 from app import *
@@ -19,14 +20,10 @@ from aescipher import AESCipher
 from local_database import LocalDataBase
 from image_classifier import ImageClassifier
 
-os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-
 class MainWindow(QDialog):
    
     def __init__(self):
         super(MainWindow, self).__init__()
-
-        self.widget_index_stack = []
 
         loader = QUiLoader()
         self.ui = loader.load('main.ui', self)
@@ -34,7 +31,6 @@ class MainWindow(QDialog):
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
         self.ui.btnLeft.setSizePolicy(sp_retain)
-        self.ui.btnLeft.clicked.connect(self.back_window)
         self.ui.btnRight.setSizePolicy(sp_retain) 
 
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
@@ -44,7 +40,6 @@ class MainWindow(QDialog):
         self.system = DataBase.getSystem(self.system_id)
 
         self.camera = None
-        self.user_items = []
         self.device_mode = LocalDataBase.selectOne('bottle_recognize_mode')[2]
         self.categories = DataBase.getCategories()
         self.image_classifier = ImageClassifier()
@@ -53,7 +48,24 @@ class MainWindow(QDialog):
         print('Device Mode:', self.device_mode)
         print('System ID:', self.system_id)
 
-    def loginUser(self):
+    def setButton(self, button, function=None, text=None, icon=None, show=True):
+        try:
+            button.clicked.disconnect()
+        except:
+            pass
+        finally:
+            if function:
+                button.clicked.connect(function)
+        if text:
+            button.setText(text)
+        if icon:
+            button.setIcon(QIcon(icon))
+        if show:
+            button.show()
+        else:
+            button.hide()
+        
+    def signInUser(self):
         mobile_number = self.ui.tbUserMobileNumber.text()
         password = self.ui.tbUserPassword.text()
 
@@ -65,6 +77,10 @@ class MainWindow(QDialog):
             print("mobile number or password is incurrect")
             self.ui.lblErrorUser.show()
 
+    def signOutUser(self):
+        self.user = None
+        self.stackStart()
+
     def loginAdmin(self):
         sql_loginAdmin = LocalDataBase.selectOne('username')[2]
         sql_passwordAdmin = LocalDataBase.selectOne('password')[2]
@@ -74,7 +90,6 @@ class MainWindow(QDialog):
 
         if sql_loginAdmin == tb_loginAdmin and sql_passwordAdmin == tb_passwordAdmin:
             self.stackSetting()
-
         else:
             self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست.')
 
@@ -139,11 +154,10 @@ class MainWindow(QDialog):
                 print("error:", e)
 
         self.camera.release()
-        destroyAllWindows()
 
     def stackStart(self):
-        self.ui.btnLeft.hide()
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, show=False)
+        self.setButton(self.ui.btnRight, show=False)
 
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
@@ -156,7 +170,6 @@ class MainWindow(QDialog):
 #        self.ui.lblGifStart.mousePressEvent  = self.stackLoginMethod()
 
         self.ui.Stack.setCurrentIndex(1)
-        self.widget_index_stack.append(1)
 
     def stackLoginMethod(self):
         print('login method')
@@ -164,28 +177,48 @@ class MainWindow(QDialog):
         self.ui.btnLoginQrCode1.clicked.connect(self.stackQR)
 
         self.ui.Stack.setCurrentIndex(12)
-        self.widget_index_stack.append(12)
 
     def stackUserLogin(self):
-        self.ui.btnLeft.show()
-        self.ui.btnLeft.setText('انصراف')
-        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle.png'))
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
 
         self.ui.lblErrorUser.hide()
         
         self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnLeft.clicked.connect(self.back_window)
-        self.ui.btnUserLogin.clicked.connect(self.loginUser)
+        # self.ui.btnLeft.clicked.connect(self.back)
+        self.ui.btnUserLogin.clicked.connect(self.signInUser)
 
         self.ui.Stack.setCurrentIndex(2)
-        self.widget_index_stack.append(2)
+
+    def makeQRCode(self):
+        while self.qrcode_flag:
+            aes_cipher = AESCipher(APP_KEY)
+            # qrcode_data = aes_cipher.encrypt(json.dumps({'time': time(), 'system_id': self.system['id']}))
+            qrcode_data = aes_cipher.encrypt('Hello world.')
+            qrcode_img = qrcode.make(qrcode_data)
+            print(qrcode_data)
+            self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)))
+        
+            time_end = time() + 30
+            while time() < time_end:
+
+                sleep(5)
+
+    def stackQR(self):
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+
+        self.qrcode_flag = True
+        self.qrcode_thread = Thread(target=self.makeQRCode)
+        self.qrcode_thread.start()
+
+        self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
+        
+        self.ui.Stack.setCurrentIndex(8)
 
     def stackMainMenu(self):
-        self.ui.btnLeft.show()
-        self.ui.btnLeft.setText('خروج')
-        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle'))
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         
         self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
         # self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
@@ -193,26 +226,19 @@ class MainWindow(QDialog):
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
 
         self.ui.Stack.setCurrentIndex(3)
-        self.widget_index_stack.append(3)
 
     def stackAdminLogin(self):
-        self.ui.btnLeft.show()
-        self.ui.btnLeft.setText('انصراف')
-        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle.png'))
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
 
-#        self.ui.btnAdminLogin.clicked.connect(self.stackSetting)
         self.ui.btnAdminLogin.clicked.connect(self.loginAdmin)
         self.ui.btnAdminPassRecovery.clicked.connect(self.adminRecovery)
 
         self.ui.Stack.setCurrentIndex(4)
-        self.widget_index_stack.append(4)
 
     def stackWallet(self):
-        self.ui.btnLeft.show()
-        self.ui.btnLeft.setText('بازگشت')
-        self.ui.btnLeft.setIcon(QIcon('images/sign/back'))
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
 
         gif_wallet = QMovie("animations/wallet.gif")
         gif_wallet.setScaledSize(QSize().scaled(450, 450, Qt.KeepAspectRatio))
@@ -222,10 +248,9 @@ class MainWindow(QDialog):
         self.ui.lblWallet.setText(str(self.user['wallet']))
 
         self.ui.btnSettingWallet.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnLeft.clicked.connect(self.back_window)
+        # self.ui.btnLeft.clicked.connect(self.back)
 
         self.ui.Stack.setCurrentIndex(5)
-        self.widget_index_stack.append(5)
 
     def stackDeliveryItems(self):
         self.ui.btnLeft.hide()
@@ -284,7 +309,6 @@ class MainWindow(QDialog):
             self.user_items.append(self.selected_item)
 
     def hideRecycleItem(self):
-
         nowDate = QDate.currentDate()
         date = nowDate.toString(Qt.DefaultLocaleLongDate)
 
@@ -307,16 +331,9 @@ class MainWindow(QDialog):
             print('There is a problem for GPIO')
 
     def stackManualDeliveryItems(self):
-        self.ui.btnLeft.hide()
-        self.ui.btnRight.show()
-        self.ui.btnRight.setText('پایان')
-        
-        try:
-            self.ui.btnRight.clicked.disconnect()
-        except:
-            pass
-
-        self.ui.btnRight.clicked.connect(self.stackAfterDelivery)
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+     
         self.ui.lblRecycledDone.hide()
 
         self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
@@ -340,13 +357,12 @@ class MainWindow(QDialog):
         self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
 
         self.ui.Stack.setCurrentIndex(9)
-        self.widget_index_stack.append(9)
 
         try:
             self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
             self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
-            self.motor = LED(self.motor_port)
-            self.sensor = LightSensor(self.sensor_port)
+            self.motor = LED(self.motor_port, pin_factory=factory)
+            self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
             self.motor.on()
         except:
@@ -356,10 +372,8 @@ class MainWindow(QDialog):
         self.sensorTest_thread.start()
 
     def stackSetting(self):
-        self.ui.btnLeft.hide()
-        self.ui.btnRight.show()
-        self.ui.btnRight.setText('پایان')
-        self.ui.btnRight.setIcon(QIcon('images/sign/tick'))
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/log-out.png', show=True)
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
@@ -367,38 +381,13 @@ class MainWindow(QDialog):
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
 
-        self.ui.btnRight.clicked.connect(self.tick_window)
-
         self.ui.Stack.setCurrentIndex(7)
-        self.widget_index_stack.append(7)
-
-    def stackQR(self):
-        self.ui.btnLeft.show()
-        self.ui.btnLeft.setText('انصراف')
-        self.ui.btnLeft.setIcon(QIcon('images/sign/cancle'))
-        self.ui.btnRight.hide()
-
-        data = "https://farazist.ir/@ngengesenior/qr-codes-generation-with-python-377735be6c5f"
-        filename = 'images\qr\qrcode.png'
-
-        url = pyqrcode.create(data)
-        url.png(filename, scale=6, background='#f6fdfa')
-    
-        open_img = QPixmap(filename)
-        self.ui.lblPixmapQr.setPixmap(open_img)
-
-        self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
-        # self.ui.btnLeft.clicked.connect(self.back_window)
-
-        self.ui.Stack.setCurrentIndex(8)
-        self.widget_index_stack.append(8)
 
     def stackDisableDevice(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
 
         self.ui.Stack.setCurrentIndex(10)
-        self.widget_index_stack.append(10)
 
     def checkDeviceMode(self):
         if self.device_mode == 'manual':
@@ -419,17 +408,16 @@ class MainWindow(QDialog):
             print('اتومات')
 
     def stackExitApp(self):
-        self.ui.btnNExitApp.clicked.connect(self.noExitApp)
+        self.ui.btnNExitApp.clicked.connect(self.stackSetting)
         self.ui.btnYExitApp.clicked.connect(self.exit_program)
         self.ui.StackSetting.setCurrentIndex(2)
 
-    def noExitApp(self):
-        self.ui.StackSetting.setCurrentIndex(0)
-
     def stackMotorPort(self):
+        self.ui.tbMotorPort.setText(str(LocalDataBase.selectOne('motor_port')[2]))
         self.ui.StackSetting.setCurrentIndex(3)
 
     def stackSensorPort(self):
+        self.ui.tbSensorPort.setText(str(LocalDataBase.selectOne('sensor_port')[2]))
         self.ui.StackSetting.setCurrentIndex(4)
 
     def printReceipt(self):
@@ -454,7 +442,7 @@ class MainWindow(QDialog):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
 
-        self.ui.btnPrintReceiptNo.clicked.connect(self.back_window)
+        self.ui.btnPrintReceiptNo.clicked.connect(self.back)
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnSettingAfterDelivery.clicked.connect(self.stackAdminLogin)
 
@@ -481,117 +469,16 @@ class MainWindow(QDialog):
         self.predict_item_flag = value
         self.ui.lblDeliveryItems.clear()
 
-    def showDelivery(self):
-        self.lb_logo.show()
-        self.btn_back.hide()
-        self.btn_tick.hide()
-
-        self.camera = VideoCapture(0)
-        
-        if self.camera is None or not self.camera.isOpened():
-            print("error: camera not found")
-            self.message_box('دوربین پیدا نشد')    
-            return      
-
-        self.detect_thread = Thread(target=self.detectItem)
-        self.detect_thread.start()
-        self.Stack.setCurrentIndex(5)
-        self.widget_index_stack.append(5)
-
-    def back_window(self):
-        if self.ui.Stack.currentIndex() == 2:
-            self.stackStart()
-
-        if self.ui.Stack.currentIndex() == 3:
-            self.stackStart()
-
-        if self.ui.Stack.currentIndex() == 4:
-            self.ui.lblErrorAdmin.clear()
-            self.widget_index_stack = []
-            self.stackStart()
-
-        if self.ui.Stack.currentIndex() == 5:
-            self.stackMainMenu()
-
-        if self.ui.Stack.currentIndex() == 8:
-            self.stackStart()
-
-        if self.ui.Stack.currentIndex() == 11:
-            self.stackMainMenu()
-
-    def tick_window(self):
+    def saveSetting(self):
          if self.ui.tbSensorPort.text() != '':
             result = LocalDataBase.updateOne('sensor_port', self.ui.tbSensorPort.text())
 
          if self.ui.tbMotorPort.text() != '':
             result = LocalDataBase.updateOne('motor_port', self.ui.tbMotorPort.text())
 
-         self.ui.tbMotorPort.clear()
-         self.ui.tbSensorPort.clear()
-         self.noExitApp()
-
-         before = self.widget_index_stack[-3]
-         print(self.widget_index_stack)
-         if before == 1 :
-#             del(self.widget_index_stack[:-3])
-#             self.widget_index_stack.append(1)
-             self.stackStart()
-
-         if before == 2:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(2)
-            self.stackUserLogin()
-
-         if before == 3:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(3)
-            self.stackMainMenu()
-
-         if before == 4:
-#             del(self.widget_index_stack[:-3])
-#             self.widget_index_stack.append(4)
-             self.stackAdminLogin()
-
-         if before == 5:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(5)
-            self.stackWallet()
-
-         if before == 6:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(6)
-            self.stackDeliveryItems()
-
-         if before == 7:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(7)
-            self.stackSetting()
-
-         if before == 8:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(8)
-            self.stackQR()
-
-         if before == 9:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(9)
-            self.stackManualDeliveryItems()
-
-         if before == 10:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(10)
-            self.stackDisableDevice()
-
-         if before == 11:
-#            del(self.widget_index_stack[:-3])
-#            self.widget_index_stack.append(11)
-            self.stackAfterDelivery()
-
-
     def exit_program(self):
         self.delivery_items_flag = False
-        # self.camera.release() 
-        destroyAllWindows()
+        # self.camera.release()
         self.close()
         # QApplication.quit()
 
@@ -628,7 +515,12 @@ class MainWindow(QDialog):
             box.close()
 
 if __name__ == '__main__':
-    
+    os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
+    try:
+        factory = NativeFactory()
+    except Exception as e:
+        print("error:", e)
+
     app = QApplication(sys.argv)
     window = MainWindow()
     window.stackStart()
