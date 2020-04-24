@@ -39,8 +39,11 @@ class DataBase:
         
     @staticmethod
     def getCategories():
-        response = post(url=url + '/api/get-categories')
-        return json.loads(response.text)
+        try:
+            response = post(url=url + '/api/get-categories')
+            return json.loads(response.text)
+        except:
+            return None
         
     @staticmethod
     def getItems(user_id):

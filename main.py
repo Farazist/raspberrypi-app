@@ -158,21 +158,24 @@ class MainWindow(QDialog):
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
 
-        self.ui.btnSettingStart.clicked.connect(self.stackAdminLogin)
-        self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
-        self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
+#        self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
+#        self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
 
 #        self.ui.lblGifStart.mousePressEvent  = self.stackLoginMethod()
+        self.ui.btnHere.clicked.connect(self.stackLoginMethod)
 
         self.ui.Stack.setCurrentIndex(1)
 
     def stackLoginMethod(self):
-        print('login method')
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
+
         self.ui.btnLoginMobileNumber1.clicked.connect(self.stackUserLogin)
         self.ui.btnLoginQrCode1.clicked.connect(self.stackQR)
 
@@ -181,10 +184,10 @@ class MainWindow(QDialog):
     def stackUserLogin(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.lblErrorUser.hide()
         
-        self.ui.btnSettingUserLogin.clicked.connect(self.stackAdminLogin)
         # self.ui.btnLeft.clicked.connect(self.back)
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
 
@@ -207,20 +210,19 @@ class MainWindow(QDialog):
     def stackQR(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.qrcode_flag = True
         self.qrcode_thread = Thread(target=self.makeQRCode)
         self.qrcode_thread.start()
-
-        self.ui.btnSettingQr.clicked.connect(self.stackAdminLogin)
         
         self.ui.Stack.setCurrentIndex(8)
 
     def stackMainMenu(self):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        
-        self.ui.btnSettingMainMenu.clicked.connect(self.stackAdminLogin)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
+
         # self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
@@ -230,6 +232,7 @@ class MainWindow(QDialog):
     def stackAdminLogin(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.btnAdminLogin.clicked.connect(self.loginAdmin)
         self.ui.btnAdminPassRecovery.clicked.connect(self.adminRecovery)
@@ -239,6 +242,7 @@ class MainWindow(QDialog):
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         gif_wallet = QMovie("animations/wallet.gif")
         gif_wallet.setScaledSize(QSize().scaled(450, 450, Qt.KeepAspectRatio))
@@ -247,7 +251,6 @@ class MainWindow(QDialog):
 
         self.ui.lblWallet.setText(str(self.user['wallet']))
 
-        self.ui.btnSettingWallet.clicked.connect(self.stackAdminLogin)
         # self.ui.btnLeft.clicked.connect(self.back)
 
         self.ui.Stack.setCurrentIndex(5)
@@ -255,6 +258,7 @@ class MainWindow(QDialog):
     def stackDeliveryItems(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         img1 = QPixmap("images\item\category1.png")
         img1 = img1.scaledToWidth(128)
@@ -287,7 +291,6 @@ class MainWindow(QDialog):
         self.detect_thread.start()
 
         self.ui.btnDeliveryItemsNext.clicked.connect(partial(self.changePredictItemFlag, True))
-        self.ui.btnSettingAutoDelivery.clicked.connect(self.stackAdminLogin)
 
         self.ui.Stack.setCurrentIndex(6)
         self.widget_index_stack.append(6)
@@ -333,10 +336,10 @@ class MainWindow(QDialog):
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
      
         self.ui.lblRecycledDone.hide()
 
-        self.ui.btnSettingManualDelivery.clicked.connect(self.stackAdminLogin)
         self.ui.btnRecycleItem.clicked.connect(self.recycleItem)
 
         self.user_items = []
@@ -374,6 +377,7 @@ class MainWindow(QDialog):
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/log-out.png', show=True)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=False)
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
@@ -386,6 +390,7 @@ class MainWindow(QDialog):
     def stackDisableDevice(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.Stack.setCurrentIndex(10)
 
@@ -439,12 +444,12 @@ class MainWindow(QDialog):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
-        self.ui.btnLeft.hide()
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
-        self.ui.btnPrintReceiptNo.clicked.connect(self.back)
+#        self.ui.btnPrintReceiptNo.clicked.connect(self.back)
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
-        self.ui.btnSettingAfterDelivery.clicked.connect(self.stackAdminLogin)
 
         self.total_price = 0
         for user_item in self.user_items:

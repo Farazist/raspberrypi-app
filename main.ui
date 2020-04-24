@@ -114,7 +114,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -222,8 +222,14 @@ border-radius: 6px;</string>
          </item>
         </layout>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
         <widget class="QLabel" name="lblGifStart">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(254, 252, 252);
 border-radius: 30px</string>
@@ -241,128 +247,58 @@ border-radius: 30px</string>
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnSettingStart">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <property name="leftMargin">
+            <number>400</number>
            </property>
-           <property name="styleSheet">
-            <string notr="true">border:none;</string>
+           <property name="rightMargin">
+            <number>400</number>
            </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>60</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignRight|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnLoginMobileNumber">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>320</width>
-             <height>130</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>350</width>
-             <height>130</height>
-            </size>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">font: 24pt &quot;IRANSans&quot;;
-color: rgb(255, 255, 255);
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-text-align: center;</string>
-           </property>
-           <property name="text">
-            <string>ورود با شماره همراه</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>images/icon/numbers.png</normaloff>images/icon/numbers.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>50</width>
-             <height>50</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignBottom">
-          <widget class="QPushButton" name="btnLoginQrCode">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>320</width>
-             <height>130</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>320</width>
-             <height>130</height>
-            </size>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">font: 24pt &quot;IRANSans&quot;;
-color: rgb(255, 255, 255);
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-text-align: center;</string>
-           </property>
-           <property name="text">
-            <string>QR Code ورود با </string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>images/icon/qr-code.png</normaloff>images/icon/qr-code.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>50</width>
-             <height>50</height>
-            </size>
-           </property>
-          </widget>
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QLabel" name="label_10">
+             <property name="styleSheet">
+              <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>را کلیک کنید</string>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QPushButton" name="btnHere">
+             <property name="styleSheet">
+              <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color: rgb(255, 0, 0);
+border: none;</string>
+             </property>
+             <property name="text">
+              <string>اینجا</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QLabel" name="label_7">
+             <property name="styleSheet">
+              <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>برای ورود</string>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -550,26 +486,6 @@ color: rgb(170, 0, 0);</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingUserLogin">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageMainMenu">
@@ -711,6 +627,9 @@ border-radius: 30px;</string>
          </item>
          <item row="0" column="2">
           <widget class="QPushButton" name="btnMainMenu_3">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -914,6 +833,9 @@ border-radius: 30px;</string>
          </item>
          <item row="1" column="2" alignment="Qt::AlignHCenter|Qt::AlignTop">
           <widget class="QLabel" name="lblMainMenu_3">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="styleSheet">
             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
            </property>
@@ -953,26 +875,6 @@ border-radius: 30px;</string>
           </widget>
          </item>
         </layout>
-       </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingMainMenu">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -1165,26 +1067,6 @@ color: rgb(170, 0, 0);</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingAdminLogin">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageWallet">
@@ -1247,29 +1129,6 @@ color: rgb(170, 0, 0);</string>
           </widget>
          </item>
         </layout>
-       </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingWallet">
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -1474,26 +1333,6 @@ font: 24pt &quot;IRANSans&quot;;</string>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnSettingAutoDelivery">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>60</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
           <widget class="QLabel" name="lblDeliveryItems">
            <property name="minimumSize">
@@ -2045,41 +1884,32 @@ border-radius: 6px;</string>
          </item>
          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
           <widget class="QLabel" name="lblQrText">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>700</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="styleSheet">
-            <string notr="true">font: 19pt &quot;IRANSans&quot;;</string>
+            <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
            </property>
            <property name="text">
             <string>برنامه فرازیست را بر روی گوشی خود باز کنید
-در صفحه اصلی برنامه بر روی آیکن qr در بالای سمت راست برنامه کلید کنید
-و بر روی گزینه اسکن کلیک کنید
-</string>
+در صفحه اصلی برنامه  آیکن Qr Code در بالای سمت راست
+برنامه را انتخاب کرده و سپس بر روی گزینه اسکن کلیک نمایید.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingQr">
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -2188,7 +2018,7 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
               <x>0</x>
               <y>0</y>
               <width>526</width>
-              <height>380</height>
+              <height>448</height>
              </rect>
             </property>
            </widget>
@@ -2197,28 +2027,7 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-          <widget class="QPushButton" name="btnSettingManualDelivery">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>60</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QHBoxLayout" name="horizontalLayout_11"/>
        </item>
       </layout>
      </widget>
@@ -2232,29 +2041,6 @@ color: rgb(170, 0, 0);</string>
          </property>
          <property name="text">
           <string>لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید</string>
-         </property>
-        </widget>
-       </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingDisableDevice">
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -2393,36 +2179,19 @@ border-radius: 6px;</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="btnSettingAfterDelivery">
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageLoginMethod">
       <layout class="QVBoxLayout" name="verticalLayout_22">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
+         <property name="spacing">
+          <number>60</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignVCenter">
           <widget class="QPushButton" name="btnLoginMobileNumber1">
            <property name="minimumSize">
             <size>
@@ -2444,7 +2213,7 @@ text-align: center;</string>
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>images/sign/numbers.png</normaloff>images/sign/numbers.png</iconset>
+             <normaloff>images/icon/numbers.png</normaloff>images/icon/numbers.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -2454,7 +2223,7 @@ text-align: center;</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignVCenter">
           <widget class="QPushButton" name="btnLoginQrCode1">
            <property name="minimumSize">
             <size>
@@ -2475,11 +2244,11 @@ border-radius: 6px;
 text-align: center;</string>
            </property>
            <property name="text">
-            <string>ورود با Qr کد</string>
+            <string>QR Code ورود با</string>
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>images/sign/qr-code.png</normaloff>images/sign/qr-code.png</iconset>
+             <normaloff>images/icon/qr-code.png</normaloff>images/icon/qr-code.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -2491,31 +2260,32 @@ text-align: center;</string>
          </item>
         </layout>
        </item>
-       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+    <widget class="QPushButton" name="btnSetting">
+     <property name="styleSheet">
+      <string notr="true">border: none;
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/icon/setting.png</normaloff>images/icon/setting.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
   </layout>
