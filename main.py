@@ -3,7 +3,7 @@ import os
 from threading import Thread
 import numpy as np
 from scipy import stats
-from PySide2.QtCore import Qt, QTimer
+from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
 from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
@@ -153,8 +153,18 @@ class MainWindow(QDialog):
         self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
         self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
 
+#        self.ui.lblGifStart.mousePressEvent  = self.stackLoginMethod()
+
         self.ui.Stack.setCurrentIndex(1)
         self.widget_index_stack.append(1)
+
+    def stackLoginMethod(self):
+        print('login method')
+        self.ui.btnLoginMobileNumber1.clicked.connect(self.stackUserLogin)
+        self.ui.btnLoginQrCode1.clicked.connect(self.stackQR)
+
+        self.ui.Stack.setCurrentIndex(12)
+        self.widget_index_stack.append(12)
 
     def stackUserLogin(self):
         self.ui.btnLeft.show()
@@ -205,6 +215,7 @@ class MainWindow(QDialog):
         self.ui.btnRight.hide()
 
         gif_wallet = QMovie("animations/wallet.gif")
+        gif_wallet.setScaledSize(QSize().scaled(450, 450, Qt.KeepAspectRatio))
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
 
@@ -273,6 +284,16 @@ class MainWindow(QDialog):
             self.user_items.append(self.selected_item)
 
     def hideRecycleItem(self):
+
+        nowDate = QDate.currentDate()
+        date = nowDate.toString(Qt.DefaultLocaleLongDate)
+
+        nowTime = QTime.currentTime()
+        time = nowTime.toString(Qt.DefaultLocaleLongDate)
+
+        self.ui.date.setText(date)
+        self.ui.time.setText(time)
+
         self.ui.lblRecycledDone.hide()
 
     def sensorTest(self):
@@ -613,5 +634,5 @@ if __name__ == '__main__':
     window.stackStart()
     timer = QTimer()
     timer.timeout.connect(window.hideRecycleItem)
-    timer.start(10000) #it's aboat 10 seconds
+    timer.start(1000) #it's aboat 1 seconds
     sys.exit(app.exec_())
