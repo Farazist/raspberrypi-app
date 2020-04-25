@@ -204,7 +204,8 @@ border-radius: 6px;</string>
           <item alignment="Qt::AlignLeft|Qt::AlignTop">
            <widget class="QLabel" name="time">
             <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;</string>
             </property>
             <property name="text">
              <string/>
@@ -214,7 +215,8 @@ border-radius: 6px;</string>
           <item alignment="Qt::AlignRight|Qt::AlignTop">
            <widget class="QLabel" name="date">
             <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;</string>
             </property>
             <property name="text">
              <string/>
@@ -487,6 +489,17 @@ color: rgb(170, 0, 0);</string>
           </property>
           <property name="text">
            <string>نام کاربری یا رمز عبور صحیح نیست.</string>
+          </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QLabel" name="label_11">
+          <property name="styleSheet">
+           <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color: rgb(170, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
@@ -1068,6 +1081,9 @@ color: rgb(170, 0, 0);</string>
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="buddy">
+           <cstring>lblErrorAdmin</cstring>
           </property>
          </widget>
         </item>
@@ -2031,8 +2047,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>16</height>
               </rect>
              </property>
             </widget>

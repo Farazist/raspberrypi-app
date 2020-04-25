@@ -82,7 +82,16 @@ class MainWindow(QWidget):
 
     def signOutUser(self):
         self.user = None
+        self.ui.tbUserMobileNumber.setText('')
+        self.ui.tbUserPassword.setText('')
         self.stackStart()
+
+    def signOutAdmin(self):
+        self.ui.tbAdminUsername.setText('')
+        self.ui.tbAdminPassword.setText('')
+        self.ui.lblErrorAdmin.setText('')
+        self.stackStart()
+
 
     def signInAdmin(self):
         if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
@@ -156,6 +165,11 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
 
+        self.ui.tbAdminUsername.setText('')
+        self.ui.tbAdminPassword.setText('')
+        self.ui.lblErrorAdmin.setText('')
+
+
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         # self.ui.btnGifStart.setMovie(gif_start)
@@ -170,6 +184,10 @@ class MainWindow(QWidget):
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+
+        self.ui.tbUserMobileNumber.setText('')
+        self.ui.tbUserPassword.setText('')
+
 
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackQRCode)
@@ -346,7 +364,7 @@ class MainWindow(QWidget):
         self.sensorTest_thread.start()
 
     def stackSetting(self):
-        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.signOutAdmin, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
@@ -461,7 +479,7 @@ class MainWindow(QWidget):
         self.delivery_items_flag = False
         # self.camera.release()
         self.close()
-        # QApplication.quit()
+        QApplication.quit()
 
     def exitMessageBox(self):
         btnFont = QFont('IRANSans', 16)
