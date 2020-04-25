@@ -158,9 +158,10 @@ class MainWindow(QDialog):
 
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
+        # self.ui.btnGifStart.setMovie(gif_start)
         gif_start.start()
 
-#        self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
+        # self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
 
         self.ui.StackSetting.setCurrentIndex(0)

@@ -114,7 +114,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>9</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -2030,8 +2030,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>398</width>
-              <height>28</height>
+              <width>526</width>
+              <height>448</height>
              </rect>
             </property>
            </widget>
