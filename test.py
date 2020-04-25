@@ -1,8 +1,0 @@
-from database import DataBase
-
-e = DataBase.makeQrcodeSignInToken('12345678')
-print(e)
-e = "eyJpdiI6IkJpeG9ONllZN3JPSmUwKzRxdVNQNUE9PSIsInZhbHVlIjoiZGJ6eFhaZWZQSVZySTNRbE13TDNGZz09IiwibWFjIjoiNzE3NDg3MTFkMzhmZmU3YzQ2OGFhN2MyNDJhZDBhNzg1NTgzODBmOTBkMWQ5MzY1YjQwMDFlYWQzNWI2NmNhNCJ9"
-
-d = DataBase.checkQrcodeSignInToken(e)
-print(d)

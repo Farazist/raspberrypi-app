@@ -18,9 +18,9 @@ class DataBase:
         data = {'qrcode_signin_token':qrcode_signin_token}
         try:        
             response = post(url=url+'/api/check-qrcode-signin-token', data=data, verify=True)
-            return response.text
+            return json.loads(response.text)
         except:
-            return None
+            return 0
 
     @staticmethod
     def signInUser(mobile_number, password):
