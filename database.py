@@ -5,12 +5,20 @@ from app import *
 class DataBase:
     
     @staticmethod
-    def checkQrcode(qrcode_data):
-        data = {'qrcode_data':qrcode_data}
+    def makeQrcodeSignInToken(system_id):
+        data = {'system_id':system_id}
+        try:
+            response = post(url=url+'/api/make-qrcode-signin-token', data=data, verify=True)
+            return response.text
+        except:
+            return None
 
+    @staticmethod
+    def checkQrcodeSignInToken(qrcode_signin_token):
+        data = {'qrcode_signin_token':qrcode_signin_token}
         try:        
-            response = post(url=url+'/api/check-qrcode', data=data, verify=True)
-            return json.loads(response.text)
+            response = post(url=url+'/api/check-qrcode-signin-token', data=data, verify=True)
+            return response.text
         except:
             return None
 

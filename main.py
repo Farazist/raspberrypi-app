@@ -12,11 +12,8 @@ from escpos.printer import Usb
 from gpiozero import LightSensor, LED
 from gpiozero.pins.native import NativeFactory
 from time import sleep, time
-import json
 
 from database import DataBase
-from app import *
-from aescipher import AESCipher
 from local_database import LocalDataBase
 from image_classifier import ImageClassifier
 
@@ -195,17 +192,25 @@ class MainWindow(QDialog):
 
     def makeQRCode(self):
         while self.qrcode_flag:
-            aes_cipher = AESCipher(APP_KEY)
-            # qrcode_data = aes_cipher.encrypt(json.dumps({'time': time(), 'system_id': self.system['id']}))
-            qrcode_data = aes_cipher.encrypt('Hello world.')
-            qrcode_img = qrcode.make(qrcode_data)
-            print(qrcode_data)
+            qrcode_signin_token = DataBase.makeQrcodeSignInToken(self.system['id'])
+            print(self.system['id'])
+            print(qrcode_signin_token)
+            qrcode_img = qrcode.make(qrcode_signin_token)
             self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)))
         
             time_end = time() + 30
             while time() < time_end:
-
+                self.user = DataBase.checkQrcodeSignInToken(qrcode_signin_token)
+                print(self.user)
+                if self.user is not None:
+                    self.qrcode_flag = False
+                    break
                 sleep(5)
+        
+        if self.user is not None:
+            self.stackMainMenu()
+        else:
+            self.stackStart()
 
     def stackQR(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
