@@ -40,11 +40,11 @@ class MainWindow(QDialog):
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
-        self.system_id = DataBase.select('system_id')[2]
+        self.system_id = DataBase.select('system_id')
         self.system = Server.getSystem(self.system_id)
 
         self.camera = None
-        self.device_mode = DataBase.select('bottle_recognize_mode')[2]
+        self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
         
@@ -135,7 +135,7 @@ class MainWindow(QDialog):
                         categories_count[category_index] += 1
 
                         for i in range(len(categories_count)):
-                            window.grid_widget_s4[2][i].setText(str(categories_count[i]))
+                            window.grid_widget_s4[i].setText(str(categories_count[i]))
 
                         for item in self.user_items:
                             if item['id'] == self.items[most_probability_item]['id']:
@@ -161,27 +161,26 @@ class MainWindow(QDialog):
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
 
-#        self.ui.lblGifStart.mousePressEvent  = self.stackLoginMethod()
-        self.ui.btnHere.clicked.connect(self.stackLoginMethod)
+#        self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
+        self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
 
         self.ui.Stack.setCurrentIndex(1)
 
-    def stackLoginMethod(self):
+    def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
+        self.setButton(self.ui.btnRight, show=False)
 
-        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackUserLogin)
+        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackQRCode)
+        self.qrcode_flag = False
 
         self.ui.Stack.setCurrentIndex(12)
 
-    def stackUserLogin(self):
-        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+    def stackSignInUserMobileNumber(self):
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.lblErrorUser.hide()
-        # self.ui.btnLeft.clicked.connect(self.back)
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
 
         self.ui.Stack.setCurrentIndex(2)
@@ -190,9 +189,9 @@ class MainWindow(QDialog):
         while self.qrcode_flag:
             qrcode_signin_token = Server.makeQrcodeSignInToken(self.system['id'])
             qrcode_img = qrcode.make(qrcode_signin_token)
-            self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)))
+            self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
         
-            time_end = time() + 30
+            time_end = time() + 32
             while time() < time_end:
                 self.user = Server.checkQrcodeSignInToken(qrcode_signin_token)
                 if self.user:
@@ -206,9 +205,8 @@ class MainWindow(QDialog):
             self.stackStart()
 
     def stackQRCode(self):
-        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.qrcode_flag = True
         self.qrcode_thread = Thread(target=self.makeQRCode)
@@ -219,18 +217,16 @@ class MainWindow(QDialog):
     def stackMainMenu(self):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
-        # self.ui.btnMainMenu_1.clicked.connect(self.stackDeliveryItems)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
+        self.qrcode_flag = False
 
         self.ui.Stack.setCurrentIndex(3)
 
     def stackAdminLogin(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.btnAdminLogin.clicked.connect(self.signInAdmin)
         self.ui.btnAdminPassRecovery.clicked.connect(self.adminRecovery)
@@ -240,23 +236,19 @@ class MainWindow(QDialog):
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         gif_wallet = QMovie("animations/wallet.gif")
-        gif_wallet.setScaledSize(QSize().scaled(450, 450, Qt.KeepAspectRatio))
+        gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
 
         self.ui.lblWallet.setText(str(self.user['wallet']))
-
-        # self.ui.btnLeft.clicked.connect(self.back)
 
         self.ui.Stack.setCurrentIndex(5)
 
     def stackDeliveryItems(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         img1 = QPixmap("images\item\category1.png")
         img1 = img1.scaledToWidth(128)
@@ -334,7 +326,6 @@ class MainWindow(QDialog):
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
      
         self.ui.lblRecycledDone.hide()
 
@@ -360,8 +351,8 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(9)
 
         try:
-            self.motor_port = int(DataBase.select('motor_port')[2])
-            self.sensor_port = int(DataBase.select('sensor_port')[2])
+            self.motor_port = int(DataBase.select('motor_port'))
+            self.sensor_port = int(DataBase.select('sensor_port'))
             self.motor = LED(self.motor_port, pin_factory=factory)
             self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
@@ -375,7 +366,6 @@ class MainWindow(QDialog):
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=False)
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
@@ -406,10 +396,11 @@ class MainWindow(QDialog):
     def selectDeviceMode(self):
         if self.ui.btnManualDevice.isChecked()==True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
-            print('دستی')
+            print('manual')
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
-            print('اتومات')
+            print('auto')
+        self.device_mode = DataBase.select('bottle_recognize_mode')
 
     def stackExitApp(self):
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
@@ -417,11 +408,11 @@ class MainWindow(QDialog):
         self.ui.StackSetting.setCurrentIndex(2)
 
     def stackMotorPort(self):
-        self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')[2]))
+        self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')))
         self.ui.StackSetting.setCurrentIndex(3)
 
     def stackSensorPort(self):
-        self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')[2]))
+        self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')))
         self.ui.StackSetting.setCurrentIndex(4)
 
     def printReceipt(self):
@@ -431,7 +422,7 @@ class MainWindow(QDialog):
             printer.image("images/logo-small.png")
             printer.set(align=u'center')
             printer.text("Farazist\n")
-            printer.text(str(12500) + " Rial")
+            printer.text(str(self.total_price) + " Rial")
             # printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
             # printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
             printer.text(self.system['owner']['mobile_number'])
@@ -445,9 +436,8 @@ class MainWindow(QDialog):
     def stackAfterDelivery(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
-#        self.ui.btnPrintReceiptNo.clicked.connect(self.back)
+        self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
 
         self.total_price = 0

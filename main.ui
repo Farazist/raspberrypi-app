@@ -114,7 +114,7 @@ border-radius: 6px;</string>
       </size>
      </property>
      <property name="currentIndex">
-      <number>12</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="pageLoading">
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -229,6 +229,9 @@ border-radius: 6px;</string>
            <width>0</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="mouseTracking">
+          <bool>false</bool>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(254, 252, 252);
@@ -2027,8 +2030,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>526</width>
-              <height>448</height>
+              <width>398</width>
+              <height>28</height>
              </rect>
             </property>
            </widget>
@@ -2210,7 +2213,7 @@ border-radius: 6px;</string>
             </size>
            </property>
            <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
+            <enum>Qt::LeftToRight</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">font: 32pt &quot;IRANSans&quot;;
@@ -2222,7 +2225,7 @@ border-radius: 6px;
 text-align: center;</string>
            </property>
            <property name="text">
-            <string>  ورود با شماره همراه</string>
+            <string>ورود با شماره همراه</string>
            </property>
            <property name="icon">
             <iconset>
@@ -2245,7 +2248,7 @@ text-align: center;</string>
             </size>
            </property>
            <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
+            <enum>Qt::LeftToRight</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">font: 32pt &quot;IRANSans&quot;;
@@ -2257,7 +2260,7 @@ border-radius: 6px;
 text-align: center;</string>
            </property>
            <property name="text">
-            <string>  QR Code ورود با</string>
+            <string>QR Code ورود با</string>
            </property>
            <property name="icon">
             <iconset>
