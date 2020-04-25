@@ -17,6 +17,7 @@ from database import DataBase
 from local_database import LocalDataBase
 from image_classifier import ImageClassifier
 
+
 class MainWindow(QDialog):
    
     def __init__(self):
