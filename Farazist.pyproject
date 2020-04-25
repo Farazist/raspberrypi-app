@@ -1,0 +1,3 @@
+{
+    "files": ["installer.py","images/logo.png","main.py","main.ui","server.py","database.py","images/icon/back.png","images/icon/cancle.png","images/icon/checked.png","images/icon/checked-hover.png","images/icon/log-out.png","images/icon/numbers.png","images/icon/qr-code.png","images/icon/setting.png","images/icon/tick.png","images/icon/unchecked.png","images/icon/unchecked-hover.png"]
+}

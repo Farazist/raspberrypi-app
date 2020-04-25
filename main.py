@@ -13,10 +13,16 @@ from gpiozero import LightSensor, LED
 from gpiozero.pins.native import NativeFactory
 from time import sleep, time
 
+from server import Server
 from database import DataBase
-from local_database import LocalDataBase
 from image_classifier import ImageClassifier
 
+__author__ = "Sara Zarei, Sajjad Aemmi"
+__copyright__ = "Copyright 2020"
+__license__ = "GPL"
+__version__ = "1.1.5"
+__email__ = "sajjadaemmi@gmail.com"
+__status__ = "Production"
 
 class MainWindow(QDialog):
    
@@ -30,16 +36,16 @@ class MainWindow(QDialog):
         sp_retain.setRetainSizeWhenHidden(True)
         self.ui.btnLeft.setSizePolicy(sp_retain)
         self.ui.btnRight.setSizePolicy(sp_retain) 
-
+        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
-        self.system_id = LocalDataBase.selectOne('system_id')[2]
-        self.system = DataBase.getSystem(self.system_id)
+        self.system_id = DataBase.select('system_id')[2]
+        self.system = Server.getSystem(self.system_id)
 
         self.camera = None
-        self.device_mode = LocalDataBase.selectOne('bottle_recognize_mode')[2]
-        self.categories = DataBase.getCategories()
+        self.device_mode = DataBase.select('bottle_recognize_mode')[2]
+        self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
@@ -67,7 +73,7 @@ class MainWindow(QDialog):
         mobile_number = self.ui.tbUserMobileNumber.text()
         password = self.ui.tbUserPassword.text()
 
-        self.user = DataBase.signInUser(mobile_number, password)
+        self.user = Server.signInUser(mobile_number, password)
 
         if self.user != None:
             self.stackMainMenu()
@@ -79,17 +85,11 @@ class MainWindow(QDialog):
         self.user = None
         self.stackStart()
 
-    def loginAdmin(self):
-        sql_loginAdmin = LocalDataBase.selectOne('username')[2]
-        sql_passwordAdmin = LocalDataBase.selectOne('password')[2]
-
-        tb_loginAdmin = self.ui.tbAdminLogin.text()
-        tb_passwordAdmin = self.ui.tbAdminPassword.text()
-
-        if sql_loginAdmin == tb_loginAdmin and sql_passwordAdmin == tb_passwordAdmin:
+    def signInAdmin(self):
+        if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
             self.stackSetting()
         else:
-            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست.')
+            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
 
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
@@ -156,14 +156,10 @@ class MainWindow(QDialog):
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
-
-#        self.ui.btnLoginMobileNumber.clicked.connect(self.stackUserLogin)
-#        self.ui.btnLoginQrCode.clicked.connect(self.stackQR)
 
 #        self.ui.lblGifStart.mousePressEvent  = self.stackLoginMethod()
         self.ui.btnHere.clicked.connect(self.stackLoginMethod)
@@ -174,8 +170,8 @@ class MainWindow(QDialog):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
-        self.ui.btnLoginMobileNumber1.clicked.connect(self.stackUserLogin)
-        self.ui.btnLoginQrCode1.clicked.connect(self.stackQR)
+        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackUserLogin)
+        self.ui.btnSignInUserQrCode.clicked.connect(self.stackQRCode)
 
         self.ui.Stack.setCurrentIndex(12)
 
@@ -185,7 +181,6 @@ class MainWindow(QDialog):
         self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.lblErrorUser.hide()
-        
         # self.ui.btnLeft.clicked.connect(self.back)
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
 
@@ -193,13 +188,13 @@ class MainWindow(QDialog):
 
     def makeQRCode(self):
         while self.qrcode_flag:
-            qrcode_signin_token = DataBase.makeQrcodeSignInToken(self.system['id'])
+            qrcode_signin_token = Server.makeQrcodeSignInToken(self.system['id'])
             qrcode_img = qrcode.make(qrcode_signin_token)
             self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)))
         
             time_end = time() + 30
             while time() < time_end:
-                self.user = DataBase.checkQrcodeSignInToken(qrcode_signin_token)
+                self.user = Server.checkQrcodeSignInToken(qrcode_signin_token)
                 if self.user:
                     self.qrcode_flag = False
                     break
@@ -210,7 +205,7 @@ class MainWindow(QDialog):
         else:
             self.stackStart()
 
-    def stackQR(self):
+    def stackQRCode(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
@@ -237,7 +232,7 @@ class MainWindow(QDialog):
         self.setButton(self.ui.btnRight, show=False)
         self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
-        self.ui.btnAdminLogin.clicked.connect(self.loginAdmin)
+        self.ui.btnAdminLogin.clicked.connect(self.signInAdmin)
         self.ui.btnAdminPassRecovery.clicked.connect(self.adminRecovery)
 
         self.ui.Stack.setCurrentIndex(4)
@@ -346,7 +341,7 @@ class MainWindow(QDialog):
         self.ui.btnRecycleItem.clicked.connect(self.recycleItem)
 
         self.user_items = []
-        self.items = DataBase.getItems(self.system['owner_id'])
+        self.items = Server.getItems(self.system['owner_id'])
         self.layout_SArea = QVBoxLayout()
 
         for item in self.items:
@@ -365,8 +360,8 @@ class MainWindow(QDialog):
         self.ui.Stack.setCurrentIndex(9)
 
         try:
-            self.motor_port = int(LocalDataBase.selectOne('motor_port')[2])
-            self.sensor_port = int(LocalDataBase.selectOne('sensor_port')[2])
+            self.motor_port = int(DataBase.select('motor_port')[2])
+            self.sensor_port = int(DataBase.select('sensor_port')[2])
             self.motor = LED(self.motor_port, pin_factory=factory)
             self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
@@ -379,7 +374,7 @@ class MainWindow(QDialog):
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/log-out.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
         self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=False)
 
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
@@ -410,10 +405,10 @@ class MainWindow(QDialog):
     
     def selectDeviceMode(self):
         if self.ui.btnManualDevice.isChecked()==True:
-            result = LocalDataBase.updateOne('bottle_recognize_mode', 'manual')
+            result = DataBase.update('bottle_recognize_mode', 'manual')
             print('دستی')
         if self.ui.btnAutoDevice.isChecked() == True:
-            result = LocalDataBase.updateOne('bottle_recognize_mode', 'auto')
+            result = DataBase.update('bottle_recognize_mode', 'auto')
             print('اتومات')
 
     def stackExitApp(self):
@@ -422,11 +417,11 @@ class MainWindow(QDialog):
         self.ui.StackSetting.setCurrentIndex(2)
 
     def stackMotorPort(self):
-        self.ui.tbMotorPort.setText(str(LocalDataBase.selectOne('motor_port')[2]))
+        self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')[2]))
         self.ui.StackSetting.setCurrentIndex(3)
 
     def stackSensorPort(self):
-        self.ui.tbSensorPort.setText(str(LocalDataBase.selectOne('sensor_port')[2]))
+        self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')[2]))
         self.ui.StackSetting.setCurrentIndex(4)
 
     def printReceipt(self):
@@ -462,9 +457,9 @@ class MainWindow(QDialog):
         self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
         
-        DataBase.addNewDelivery(self.user, self.system['id'], self.user_items)
-        DataBase.transferSecure(self.user, self.system['id'], self.total_price)
-        self.user = DataBase.getUser(self.user)
+        Server.addNewDelivery(self.user, self.system['id'], self.user_items)
+        Server.transferSecure(self.user, self.system['id'], self.total_price)
+        self.user = Server.getUser(self.user)
        
         try:
             self.motor.off()
@@ -480,10 +475,10 @@ class MainWindow(QDialog):
 
     def saveSetting(self):
          if self.ui.tbSensorPort.text() != '':
-            result = LocalDataBase.updateOne('sensor_port', self.ui.tbSensorPort.text())
+            result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
 
          if self.ui.tbMotorPort.text() != '':
-            result = LocalDataBase.updateOne('motor_port', self.ui.tbMotorPort.text())
+            result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
 
     def exit_program(self):
         self.delivery_items_flag = False
