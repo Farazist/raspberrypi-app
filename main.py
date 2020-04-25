@@ -163,6 +163,7 @@ class MainWindow(QDialog):
 #        self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
 
+        self.ui.StackSetting.setCurrentIndex(0)
         self.ui.Stack.setCurrentIndex(1)
 
     def stackSignInUserMethods(self):
@@ -370,18 +371,14 @@ class MainWindow(QDialog):
             self.stackDeliveryItems()
     
     def stackDeviceMode(self): 
-#        self.ui.btnManualDevice.setStyleSheet('QRadioButton::indicator {width: 30px; height: 30px;image:url(images/icon/cancle.png);}')
-        self.ui.btnAutoDevice.toggled.connect(self.selectDeviceMode)
+        result = DataBase.select('bottle_recognize_mode')
+
+        if result == 'manual':
+            self.ui.btnManualDevice.setChecked(True)
+        if result == 'auto':
+            self.ui.btnAutoDevice.setChecked(True)
+
         self.ui.StackSetting.setCurrentIndex(1)
-    
-    def selectDeviceMode(self):
-        if self.ui.btnManualDevice.isChecked()==True:
-            result = DataBase.update('bottle_recognize_mode', 'manual')
-            print('manual')
-        if self.ui.btnAutoDevice.isChecked() == True:
-            result = DataBase.update('bottle_recognize_mode', 'auto')
-            print('auto')
-        self.device_mode = DataBase.select('bottle_recognize_mode')
 
     def stackExitApp(self):
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
@@ -445,10 +442,19 @@ class MainWindow(QDialog):
         self.ui.lblDeliveryItems.clear()
 
     def saveSetting(self):
-         if self.ui.tbSensorPort.text() != '':
+
+        if self.ui.btnManualDevice.isChecked()==True:
+            result = DataBase.update('bottle_recognize_mode', 'manual')
+            print('manual')
+        if self.ui.btnAutoDevice.isChecked() == True:
+            result = DataBase.update('bottle_recognize_mode', 'auto')
+            print('auto')
+        self.device_mode = DataBase.select('bottle_recognize_mode')
+        
+        if self.ui.tbSensorPort.text() != '':
             result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
 
-         if self.ui.tbMotorPort.text() != '':
+        if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
 
     def exit_program(self):
