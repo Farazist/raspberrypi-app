@@ -2,7 +2,7 @@ import sys
 import os
 from threading import Thread
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
-from PySide2.QtWidgets import QApplication, QDialog, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from functools import partial
@@ -24,13 +24,13 @@ __version__ = "1.1.5"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-class MainWindow(QDialog):
+class MainWindow(QWidget):
    
     def __init__(self):
         super(MainWindow, self).__init__()
 
         loader = QUiLoader()
-        self.ui = loader.load('main.ui', self)
+        self.ui = loader.load('main.ui', None)
 
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
