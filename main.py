@@ -15,12 +15,12 @@ from time import sleep, time
 
 from server import Server
 from database import DataBase
-from image_classifier import ImageClassifier
+# from image_classifier import ImageClassifier
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
 __license__ = "GPL"
-__version__ = "1.1.5"
+__version__ = "1.1.0"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
@@ -45,7 +45,7 @@ class MainWindow(QWidget):
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
-        self.image_classifier = ImageClassifier()
+        # self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -216,10 +216,10 @@ class MainWindow(QWidget):
     def stackMainMenu(self):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-
-        self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
-        self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-
+        
+        self.setButton(self.ui.btnMainMenu_1, function=self.checkDeviceMode)
+        self.setButton(self.ui.btnMainMenu_2, function=self.stackWallet)
+        
         self.ui.Stack.setCurrentIndex(3)
 
     def stackAdminLogin(self):
@@ -309,10 +309,9 @@ class MainWindow(QWidget):
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
      
         self.ui.lblRecycledDone.hide()
-
-        self.ui.btnRecycleItem.clicked.connect(self.recycleItem)
 
         self.user_items = []
         self.items = Server.getItems(self.system['owner_id'])
