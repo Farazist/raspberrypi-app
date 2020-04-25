@@ -43,7 +43,6 @@ class MainWindow(QDialog):
         self.system_id = DataBase.select('system_id')
         self.system = Server.getSystem(self.system_id)
 
-        self.camera = None
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -201,8 +200,6 @@ class MainWindow(QDialog):
         
         if self.user:
             self.stackMainMenu()
-        else:
-            self.stackStart()
 
     def stackQRCode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -220,7 +217,6 @@ class MainWindow(QDialog):
 
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        self.qrcode_flag = False
 
         self.ui.Stack.setCurrentIndex(3)
 
@@ -250,35 +246,20 @@ class MainWindow(QDialog):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
 
-        img1 = QPixmap("images\item\category1.png")
-        img1 = img1.scaledToWidth(128)
-        img1 = img1.scaledToHeight(128)
-        self.ui.lblPixmapCategory1.setPixmap(img1)
+        self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
+        self.ui.lblPixmapCategory2.setPixmap(QPixmap("images\item/category2.png").scaledToHeight(128))
+        self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
+        self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))
 
-        img2 = QPixmap("images\item\category2.png")
-        img2 = img2.scaledToWidth(128)
-        img2 = img2.scaledToHeight(128)
-        self.ui.lblPixmapCategory2.setPixmap(img2)
-
-        img3 = QPixmap("images\item\category3.png")
-        img3 = img3.scaledToWidth(128)
-        img3 = img3.scaledToHeight(128)
-        self.ui.lblPixmapCategory3.setPixmap(img3)
-
-        img4 = QPixmap("images\item\category4.png")
-        img4 = img4.scaledToWidth(128)
-        img4 = img4.scaledToHeight(128)
-        self.ui.lblPixmapCategory4.setPixmap(img4)
-
-        self.camera = VideoCapture(0)
+        # self.camera = VideoCapture(0)
         
-        if self.camera is None or not self.camera.isOpened():
-            print("error: camera not found")
-            # self.message_box('دوربین پیدا نشد')    
-            return      
+        # if self.camera is None or not self.camera.isOpened():
+        #     print("error: camera not found")
+        #     # self.message_box('دوربین پیدا نشد')    
+        #     return      
 
-        self.detect_thread = Thread(target=self.detectItem)
-        self.detect_thread.start()
+        # self.detect_thread = Thread(target=self.detectItem)
+        # self.detect_thread.start()
 
         self.ui.btnDeliveryItemsNext.clicked.connect(partial(self.changePredictItemFlag, True))
 
