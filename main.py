@@ -9,8 +9,8 @@ from functools import partial
 import qrcode
 from PIL.ImageQt import ImageQt
 from escpos.printer import Usb
-from gpiozero import LightSensor, LED
-from gpiozero.pins.native import NativeFactory
+# from gpiozero import LightSensor, LED
+# from gpiozero.pins.native import NativeFactory
 from time import sleep, time
 
 from server import Server
@@ -335,8 +335,8 @@ class MainWindow(QWidget):
         try:
             self.motor_port = int(DataBase.select('motor_port'))
             self.sensor_port = int(DataBase.select('sensor_port'))
-            self.motor = LED(self.motor_port, pin_factory=factory)
-            self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
+            # self.motor = LED(self.motor_port, pin_factory=factory)
+            # self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
             self.motor.on()
         except:
@@ -497,10 +497,10 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    try:
-        factory = NativeFactory()
-    except Exception as e:
-        print("error:", e)
+    # try:
+    #     factory = NativeFactory()
+    # except Exception as e:
+    #     print("error:", e)
 
     app = QApplication(sys.argv)
     window = MainWindow()

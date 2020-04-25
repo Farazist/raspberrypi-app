@@ -1,9 +1,10 @@
 import PyInstaller.__main__
 
-package_name = 'GPIO'
+package_name = 'Farazist'
 
 PyInstaller.__main__.run([
     'main.py',
+    '--hidden-import PySide2.QtXml',
     '--name=%s' % package_name,
     '--onefile',
     '--windowed',
