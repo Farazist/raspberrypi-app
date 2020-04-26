@@ -115,7 +115,7 @@ border-radius: 6px;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -193,39 +193,27 @@ border-radius: 6px;</string>
       </widget>
       <widget class="QWidget" name="pageStart">
        <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_13">
-          <property name="leftMargin">
-           <number>20</number>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item alignment="Qt::AlignRight|Qt::AlignTop">
+         <widget class="QLabel" name="datetime">
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;IRANSans&quot;;
+font: 18pt &quot;IRANSansFaNum&quot;;</string>
           </property>
-          <property name="rightMargin">
-           <number>20</number>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
-          <item alignment="Qt::AlignLeft|Qt::AlignTop">
-           <widget class="QLabel" name="time">
-            <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;
-font: 24pt &quot;IRANSansFaNum&quot;;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignRight|Qt::AlignTop">
-           <widget class="QLabel" name="date">
-            <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;
-font: 24pt &quot;IRANSansFaNum&quot;;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <item alignment="Qt::AlignHCenter|Qt::AlignTop">
          <widget class="QLabel" name="lblGifStart">
           <property name="minimumSize">
            <size>
@@ -234,79 +222,86 @@ font: 24pt &quot;IRANSansFaNum&quot;;</string>
            </size>
           </property>
           <property name="mouseTracking">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(254, 252, 252);
 border-radius: 30px</string>
           </property>
           <property name="text">
-           <string/>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="QFrame" name="frame">
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>16777215</height>
+           </size>
           </property>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_15">
-            <property name="leftMargin">
-             <number>400</number>
-            </property>
-            <property name="rightMargin">
-             <number>400</number>
-            </property>
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="label_10">
-              <property name="styleSheet">
-               <string notr="true">font: 22pt &quot;IRANSans&quot;;
-color: rgb(0, 0, 0);</string>
-              </property>
-              <property name="text">
-               <string>را کلیک کنید</string>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QPushButton" name="btnHere">
-              <property name="styleSheet">
-               <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color: rgb(255, 0, 0);
-border: none;</string>
-              </property>
-              <property name="text">
-               <string>اینجا</string>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="label_7">
-              <property name="styleSheet">
-               <string notr="true">font: 22pt &quot;IRANSans&quot;;
-color: rgb(0, 0, 0);</string>
-              </property>
-              <property name="text">
-               <string>برای ورود</string>
-              </property>
-              <property name="scaledContents">
-               <bool>false</bool>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
+border-radius: 6px;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="styleSheet">
+              <string notr="true">font: 22pt &quot;IRANSans&quot;;
+background-color: none;
+</string>
+             </property>
+             <property name="text">
+              <string>را کلیک کنید</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnHere">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(170, 0, 0);
+font: 24pt &quot;IRANSans&quot;;
+background-color: none;</string>
+             </property>
+             <property name="text">
+              <string>اینجا</string>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="styleSheet">
+              <string notr="true">font: 22pt &quot;IRANSans&quot;;
+background-color: none;</string>
+             </property>
+             <property name="text">
+              <string>برای ورود</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1075,12 +1070,19 @@ border: none;
         </item>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
          <widget class="QLabel" name="lblErrorAdmin">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">font: 32pt &quot;IRANSans&quot;;
+font: 32pt &quot;IRANSansFaNum&quot;;
 color: rgb(170, 0, 0);</string>
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
           <property name="buddy">
            <cstring>lblErrorAdmin</cstring>
@@ -1961,6 +1963,9 @@ border-radius: 6px;</string>
             <property name="spacing">
              <number>0</number>
             </property>
+            <item>
+             <layout class="QFormLayout" name="formLayout"/>
+            </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
              <widget class="QLabel" name="lblSelectedItemName">
               <property name="styleSheet">
@@ -1980,6 +1985,58 @@ border-radius: 6px;</string>
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_28">
+                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                 <widget class="QLabel" name="TotalPrice">
+                  <property name="styleSheet">
+                   <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string>جمع کل</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                 <widget class="QLabel" name="lblTotal">
+                  <property name="styleSheet">
+                   <string notr="true">font: 87 28pt &quot;IRANSansFaNum Black&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_27">
+                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                 <widget class="QLabel" name="UnitPrice">
+                  <property name="styleSheet">
+                   <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string>قیمت واحد</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                 <widget class="QLabel" name="lblUnit">
+                  <property name="styleSheet">
+                   <string notr="true">font: 87 28pt &quot;IRANSansFaNum Black&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
              <widget class="QLabel" name="lblRecycledDone">
@@ -2047,8 +2104,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
             </widget>
@@ -2067,10 +2124,14 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
          <widget class="QLabel" name="label_2">
           <property name="styleSheet">
            <string notr="true">font: 32pt &quot;IRANSans&quot;;
+font: 32pt &quot;IRANSansFaNum&quot;;
 color: rgb(170, 0, 0);</string>
           </property>
           <property name="text">
-           <string>لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید&lt;/p&gt;&lt;p&gt;0915 689 9165&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -2297,29 +2358,47 @@ text-align: center;</string>
       </widget>
      </widget>
     </item>
-    <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-     <widget class="QPushButton" name="btnSetting">
-      <property name="styleSheet">
-       <string notr="true">border: none;
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+       <widget class="QLabel" name="lblDeviceInfo">
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;IRANSans&quot;;
+font: 18pt &quot;IRANSansFaNum&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignRight|Qt::AlignBottom">
+       <widget class="QPushButton" name="btnSetting">
+        <property name="styleSheet">
+         <string notr="true">border: none;
 </string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>images/icon/setting.png</normaloff>images/icon/setting.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>60</width>
-        <height>60</height>
-       </size>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-     </widget>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/icon/setting.png</normaloff>images/icon/setting.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>60</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

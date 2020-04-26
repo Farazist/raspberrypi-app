@@ -46,9 +46,11 @@ class MainWindow(QWidget):
         self.system_id = DataBase.select('system_id')
         self.system = Server.getSystem(self.system_id)
 
+        self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
+
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
-        self.image_classifier = ImageClassifier()
+        # self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -103,7 +105,7 @@ class MainWindow(QWidget):
             self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
 
     def adminRecovery(self):
-        self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
+        self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915')
 
     def detectItem(self): 
         CAMERA_WIDTH = 640
@@ -138,6 +140,7 @@ class MainWindow(QWidget):
                 camera.stop_preview()
 
     def stackStart(self):
+        self.setButton(self.ui.lblDeviceInfo,text=self.deviceInfo, show=True)
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -158,6 +161,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(1)
 
     def stackSignInUserMethods(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -172,6 +176,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(12)
 
     def stackSignInUserMobileNumber(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -198,6 +203,7 @@ class MainWindow(QWidget):
             self.stackMainMenu()
 
     def stackQRCode(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -208,6 +214,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(8)
 
     def stackMainMenu(self):
+        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         
@@ -217,6 +224,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(3)
 
     def stackAdminLogin(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -226,6 +234,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(4)
 
     def stackWallet(self):
+        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -239,6 +248,8 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(5)
 
     def stackDeliveryItems(self):
+        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
 
@@ -265,6 +276,8 @@ class MainWindow(QWidget):
     def SelectItem(self, item):
         self.selected_item = item
         self.ui.lblSelectedItemName.setText(self.selected_item['name'])
+        self.ui.lblUnit.setText(str(self.selected_item['price']))
+
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
     def recycleItem(self):
@@ -278,6 +291,13 @@ class MainWindow(QWidget):
         else:
             self.user_items.append(self.selected_item)
 
+        self.total_price = 0
+        for user_item in self.user_items:
+            self.total_price += user_item['price'] * user_item['count']
+
+        self.ui.lblTotal.setText(str(self.total_price))
+
+
     def hideRecycleItem(self):
         nowDate = QDate.currentDate()
         date = nowDate.toString(Qt.DefaultLocaleLongDate)
@@ -285,8 +305,8 @@ class MainWindow(QWidget):
         nowTime = QTime.currentTime()
         time = nowTime.toString(Qt.DefaultLocaleLongDate)
 
-        self.ui.date.setText(date)
-        self.ui.time.setText(time)
+        self.ui.datetime.setText(date + '\n' + time)
+
 
         self.ui.lblRecycledDone.hide()
 
@@ -301,6 +321,7 @@ class MainWindow(QWidget):
             print('There is a problem for GPIO')
 
     def stackManualDeliveryItems(self):
+        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
@@ -309,6 +330,7 @@ class MainWindow(QWidget):
 
         self.user_items = []
         self.items = Server.getItems(self.system['owner_id'])
+        print(self.items)
         self.layout_SArea = QVBoxLayout()
 
         for item in self.items:
@@ -340,6 +362,7 @@ class MainWindow(QWidget):
         self.sensorTest_thread.start()
 
     def stackSetting(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.signOutAdmin, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
 
@@ -364,7 +387,7 @@ class MainWindow(QWidget):
         if self.device_mode == 'auto':
             self.stackDeliveryItems()
     
-    def stackDeviceMode(self): 
+    def stackDeviceMode(self):
         result = DataBase.select('bottle_recognize_mode')
 
         if result == 'manual':
@@ -406,6 +429,7 @@ class MainWindow(QWidget):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
+        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
