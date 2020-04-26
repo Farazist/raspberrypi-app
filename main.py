@@ -2,20 +2,23 @@ import sys
 import os
 from threading import Thread
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
-from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QMessageBox, QPushButton, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from functools import partial
 import qrcode
+import io
+from PIL import Image
 from PIL.ImageQt import ImageQt
 from escpos.printer import Usb
-# from gpiozero import LightSensor, LED
-# from gpiozero.pins.native import NativeFactory
+from gpiozero import LightSensor, LED
+from gpiozero.pins.native import NativeFactory
 from time import sleep, time
+# import picamera
 
 from server import Server
 from database import DataBase
-# from image_classifier import ImageClassifier
+from image_classifier import ImageClassifier
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -45,7 +48,7 @@ class MainWindow(QWidget):
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
-        # self.image_classifier = ImageClassifier()
+        self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -102,64 +105,37 @@ class MainWindow(QWidget):
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید')
 
-    def detectItem(self):      
-        predict_item_list = []
-        categories_count = np.zeros(len(self.categories), np.uint8)
-
-        time = 0
-    
-        self.predict_item_flag = False
-        self.delivery_items_flag = True
-        while self.delivery_items_flag:
+    def detectItem(self): 
+        CAMERA_WIDTH = 640
+        CAMERA_HEIGHT = 480     
+        
+        with picamera.PiCamera(resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
+            camera.start_preview()
             try:
-                time += 1
-                if time == 30:
-                    time = 0
+                stream = io.BytesIO()
+                annotator = Annotator(camera)
+                for _ in camera.capture_continuous(
+                    stream, format='jpeg', use_video_port=True):
+                    stream.seek(0)
+                    image = Image.open(stream).convert('RGB').resize(
+                        (input_width, input_height), Image.ANTIALIAS)
+                    start_time = time.monotonic()
+                    results = detect_objects(interpreter, image, args.threshold)
+                    elapsed_ms = (time.monotonic() - start_time) * 1000
 
-                    if self.camera is None or not self.camera.isOpened():
-                        print("error: camera not found")
-                        return      
+                    annotator.clear()
+                    annotate_objects(annotator, results, labels)
+                    annotator.text([5, 0], '%.1fms' % (elapsed_ms))
+                    annotator.update()
 
-                    _, frame = self.camera.read()
-      
-                    prediction = self.image_classifier.predict(frame)
-                    #prediction = np.random.rand(1, 20)
-
-                    if np.max(prediction) > 0.5:
-                        predicted = np.argmax(prediction)
-                        print(self.items[predicted])
-
-                        window.lb_2_s4.setText(self.items[predicted]['name'])
-
-                    if self.predict_item_flag == False:
-                        predict_item_list.append(predicted)
-
-                    if self.predict_item_flag == True:
-                        most_probability_item = stats.mode(predict_item_list).mode[0]
-
-                        print('most probability item:', most_probability_item)
-
-                        category_index = self.items[most_probability_item]['category_id'] - 1
-                        categories_count[category_index] += 1
-
-                        for i in range(len(categories_count)):
-                            window.grid_widget_s4[i].setText(str(categories_count[i]))
-
-                        for item in self.user_items:
-                            if item['id'] == self.items[most_probability_item]['id']:
-                                item['count'] += 1
-                                break
-                        else:
-                            self.user_items.append(self.items[most_probability_item])
-                            self.user_items[-1]['count'] = 1
-
-                        predict_item_list = []
-                        self.predict_item_flag = False
-
+                    stream.seek(0)
+                    stream.truncate()
+            
             except Exception as e:
                 print("error:", e)
 
-        self.camera.release()
+            finally:
+                camera.stop_preview()
 
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
@@ -477,48 +453,15 @@ class MainWindow(QWidget):
 
     def exit_program(self):
         self.delivery_items_flag = False
-        # self.camera.release()
         self.close()
         QApplication.quit()
 
-    def exitMessageBox(self):
-        btnFont = QFont('IRANSans', 16)
-        lblFont = QFont('IRANSans', 18)
-        btnOkStyle = 'background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1E5631, stop:1 #2ea444); color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
-        btnNoStyle = 'background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e11c1c, stop:1 #f86565);color: #ffffff; padding: 3px; border: none; border-radius: 6px;'
-
-        box = QMessageBox()
-        box.setStyleSheet("QPushButton{min-width: 60px; min-height: 40px;}")
-        box.setIcon(QMessageBox.Question)
-        box.setWindowTitle('!فرازیست')
-        box.setText('از برنامه خارج می شوید؟')
-        box.setFont(lblFont)
-        box.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
-
-        buttonY = box.button(QMessageBox.Yes)
-        buttonY.setText('بله')
-        buttonY.setFont(btnFont)
-        buttonY.setStyleSheet(btnOkStyle)
-        buttonY.setMinimumSize(60,30)
-        
-        buttonN = box.button(QMessageBox.No)
-        buttonN.setText('خیر')
-        buttonN.setFont(btnFont)
-        buttonN.setStyleSheet(btnNoStyle)
-        buttonN.setMinimumSize(60,30)
-
-        box.exec_()
-        if box.clickedButton() == buttonY:
-            self.exit_program()
-        elif box.clickedButton() == buttonN:
-            box.close()
-
 if __name__ == '__main__':
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    # try:
-    #     factory = NativeFactory()
-    # except Exception as e:
-    #     print("error:", e)
+    try:
+        factory = NativeFactory()
+    except Exception as e:
+        print("error:", e)
 
     app = QApplication(sys.argv)
     window = MainWindow()
