@@ -115,7 +115,7 @@ border-radius: 6px;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>10</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -331,7 +331,7 @@ background-color: none;</string>
            <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string>نام کاربری</string>
+           <string>شناسه کاربری</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -339,7 +339,7 @@ background-color: none;</string>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QLineEdit" name="tbUserMobileNumber">
+         <widget class="QLineEdit" name="tbUserId">
           <property name="minimumSize">
            <size>
             <width>290</width>
@@ -394,7 +394,7 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
            <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string>رمز عبور</string>
+           <string>گذر واژه</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -483,7 +483,7 @@ border-radius: 6px;</string>
 color: rgb(170, 0, 0);</string>
           </property>
           <property name="text">
-           <string>نام کاربری یا رمز عبور صحیح نیست.</string>
+           <string>شناسه کاربری یا گذر واژه درست نیست!</string>
           </property>
          </widget>
         </item>
@@ -2104,8 +2104,8 @@ QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, 
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
             </widget>

@@ -24,8 +24,8 @@ class Server:
             return 0
 
     @staticmethod
-    def signInUser(mobile_number, password):
-        data = {'mobile_number':mobile_number, 'password':password,}
+    def signInUser(id, password):
+        data = {'id':id, 'password':password,}
 
         try:        
             response = post(url=url+'/api/signin-user', data=data, verify=True)
