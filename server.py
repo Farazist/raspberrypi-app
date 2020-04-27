@@ -118,7 +118,7 @@ class Server:
             'Content-Type': 'application/json'
         }
         
-        data = {'system_id': system_id, 'amount': amount, 'APP_KEY': APP_KEY, 'description': 'تحویل پسماند در دستگاه'}
+        data = {'system_id': system_id, 'amount': amount, 'APP_KEY': 'base64:HYdspKrWRBm+QpdbysxRrE+CrF7PKXBLb8kf0wpgI0I=', 'description': 'تحویل پسماند در دستگاه'}
         
         try:
             response = post(url=url + '/api/transfer-secure', data=json.dumps(data), headers=headers, verify=True)

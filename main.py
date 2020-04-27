@@ -2,7 +2,6 @@ import io
 import os
 import sys
 import qrcode
-from PIL import Image
 from PIL.ImageQt import ImageQt
 from time import sleep, time
 from threading import Thread
@@ -14,7 +13,6 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout
-# import picamera
 
 from server import Server
 from database import DataBase
@@ -70,7 +68,7 @@ class MainWindow(QWidget):
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
-        # self.image_classifier = ImageClassifier()
+        self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -94,10 +92,7 @@ class MainWindow(QWidget):
             button.hide()
         
     def signInUser(self):
-        id = self.ui.tbUserId.text()
-        password = self.ui.tbUserPassword.text()
-
-        self.user = Server.signInUser(id, password)
+        self.user = Server.signInUser(self.ui.tbUserId.text(), self.ui.tbUserPassword.text())
 
         if self.user != None:
             self.stackMainMenu()
@@ -107,12 +102,6 @@ class MainWindow(QWidget):
 
     def signOutUser(self):
         self.user = None
-        self.stackStart()
-
-    def signOutAdmin(self):
-        self.ui.tbAdminUsername.setText('')
-        self.ui.tbAdminPassword.setText('')
-        self.ui.lblErrorAdmin.setText('')
         self.stackStart()
 
     def signInAdmin(self):
@@ -125,36 +114,26 @@ class MainWindow(QWidget):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915')
 
     def detectItem(self): 
-        CAMERA_WIDTH = 640
-        CAMERA_HEIGHT = 480     
-        
-        with picamera.PiCamera(resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
-            camera.start_preview()
-            try:
-                stream = io.BytesIO()
-                annotator = Annotator(camera)
-                for _ in camera.capture_continuous(
-                    stream, format='jpeg', use_video_port=True):
-                    stream.seek(0)
-                    image = Image.open(stream).convert('RGB').resize(
-                        (input_width, input_height), Image.ANTIALIAS)
-                    start_time = time.monotonic()
-                    results = detect_objects(interpreter, image, args.threshold)
-                    elapsed_ms = (time.monotonic() - start_time) * 1000
 
-                    annotator.clear()
-                    annotate_objects(annotator, results, labels)
-                    annotator.text([5, 0], '%.1fms' % (elapsed_ms))
-                    annotator.update()
-
-                    stream.seek(0)
-                    stream.truncate()
+        try:
+            import picamera
             
-            except Exception as e:
-                print("error:", e)
+            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
+                camera.start_preview()
+                try:
+                    stream = io.BytesIO()
+                    for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+                        stream.seek(0)
+                        results = self.image_classifier(stream)
+                        
+                        label_id, prob = results[0]
+                        stream.seek(0)
+                        stream.truncate()
+                finally:
+                    camera.stop_preview()
 
-            finally:
-                camera.stop_preview()
+        except Exception as e:
+                print("error:", e)
 
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
@@ -179,9 +158,6 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
-        self.ui.tbUserId.setText('')
-        self.ui.tbUserPassword.setText('')
-
         self.qrcode_flag = False
 
         self.ui.Stack.setCurrentIndex(12)
@@ -190,6 +166,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
+        self.ui.tbUserId.setText('')
+        self.ui.tbUserPassword.setText('')
         self.ui.lblErrorUser.hide()
 
         self.ui.Stack.setCurrentIndex(2)
@@ -212,7 +190,6 @@ class MainWindow(QWidget):
             self.stackMainMenu()
 
     def stackQRCode(self):
-        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -223,21 +200,24 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(8)
 
     def stackMainMenu(self):
-        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         
+        self.ui.lblDeviceInfo.setText(self.user['name'])
+
         self.ui.Stack.setCurrentIndex(3)
 
     def stackAdminLogin(self):
-        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        
+        self.ui.tbAdminUsername.setText('')
+        self.ui.tbAdminPassword.setText('')
+        self.ui.lblErrorAdmin.setText('')
 
         self.ui.Stack.setCurrentIndex(4)
 
     def stackWallet(self):
-        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
@@ -251,13 +231,11 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentIndex(5)
 
     def stackDeliveryItems(self):
-        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
-        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
 
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
-        self.ui.lblPixmapCategory2.setPixmap(QPixmap("images\item/category2.png").scaledToHeight(128))
+        self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
 
@@ -270,7 +248,6 @@ class MainWindow(QWidget):
         self.selected_item = item
         self.ui.lblSelectedItemName.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
-
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
     def recycleItem(self):
@@ -284,21 +261,12 @@ class MainWindow(QWidget):
         else:
             self.user_items.append(self.selected_item)
 
-        self.total_price = 0
-        for user_item in self.user_items:
-            self.total_price += user_item['price'] * user_item['count']
+        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
 
         self.ui.lblTotal.setText(str(self.total_price))
 
     def hideRecycleItem(self):
-        nowDate = QDate.currentDate()
-        date = nowDate.toString(Qt.DefaultLocaleLongDate)
-
-        nowTime = QTime.currentTime()
-        time = nowTime.toString(Qt.DefaultLocaleLongDate)
-
-        self.ui.datetime.setText(date + '\n' + time)
-
+        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleLongDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleLongDate))
         self.ui.lblRecycledDone.hide()
 
     def sensorTest(self):
@@ -308,11 +276,11 @@ class MainWindow(QWidget):
                 print("bottle detected!")
                 self.sensor.wait_for_dark()
                 sleep(1)
-        except:
-            print('There is a problem for GPIO')
+
+        except Exception as e:
+            print("error:", e)
 
     def stackManualDeliveryItems(self):
-        self.setButton(self.ui.lblDeviceInfo, text=self.user['name'], show=True)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
@@ -344,15 +312,15 @@ class MainWindow(QWidget):
             self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
             self.motor.on()
-        except:
-            print('There is a problem for GPIO')
+
+        except Exception as e:
+            print("error:", e)
 
         self.sensorTest_thread = Thread(target=self.sensorTest)
         self.sensorTest_thread.start()
 
     def stackSetting(self):
-        self.setButton(self.ui.lblDeviceInfo, show=False)
-        self.setButton(self.ui.btnLeft, function=self.signOutAdmin, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
 
         self.ui.Stack.setCurrentIndex(7)
@@ -360,14 +328,13 @@ class MainWindow(QWidget):
     def stackDisableDevice(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
-        self.setButton(self.ui.btnSetting, function=self.stackAdminLogin, show=True)
 
         self.ui.Stack.setCurrentIndex(10)
 
     def checkDeviceMode(self):
         if self.device_mode == 'manual':
             self.stackManualDeliveryItems()
-        if self.device_mode == 'auto':
+        elif self.device_mode == 'auto':
             self.stackDeliveryItems()
     
     def stackDeviceMode(self):
@@ -375,13 +342,12 @@ class MainWindow(QWidget):
 
         if result == 'manual':
             self.ui.btnManualDevice.setChecked(True)
-        if result == 'auto':
+        elif result == 'auto':
             self.ui.btnAutoDevice.setChecked(True)
 
         self.ui.StackSetting.setCurrentIndex(1)
 
     def stackExitApp(self):
-
         self.ui.StackSetting.setCurrentIndex(2)
 
     def stackMotorPort(self):
@@ -405,20 +371,17 @@ class MainWindow(QWidget):
             printer.text(self.system['owner']['mobile_number'])
             printer.text("farazist.ir\n")
             printer.cut()
-        except:
-            print("Printer not found")
+
+        except Exception as e:
+                print("error:", e)
         
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
-        self.setButton(self.ui.lblDeviceInfo, show=False)
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
-        self.total_price = 0
-        for user_item in self.user_items:
-            self.total_price += user_item['price'] * user_item['count']
-        
+        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
         self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
         
@@ -428,9 +391,9 @@ class MainWindow(QWidget):
        
         try:
             self.motor.off()
-        except:
-            print('There is a problem for GPIO')
-
+        except Exception as e:
+            print("error:", e)
+        
         self.ui.Stack.setCurrentIndex(11)
 
     def changePredictItemFlag(self, value):
@@ -439,12 +402,11 @@ class MainWindow(QWidget):
 
     def saveSetting(self):
 
-        if self.ui.btnManualDevice.isChecked()==True:
+        if self.ui.btnManualDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
-            print('manual')
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
-            print('auto')
+
         self.device_mode = DataBase.select('bottle_recognize_mode')
         
         if self.ui.tbSensorPort.text() != '':

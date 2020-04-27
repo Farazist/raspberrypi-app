@@ -368,17 +368,11 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
           <property name="inputMethodHints">
            <set>Qt::ImhDigitsOnly</set>
           </property>
-          <property name="inputMask">
-           <string>0000 000 0000</string>
-          </property>
           <property name="text">
-           <string>  </string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string>09*********</string>
           </property>
          </widget>
         </item>
@@ -436,7 +430,7 @@ border-radius: 6px;
            <set>Qt::AlignCenter</set>
           </property>
           <property name="placeholderText">
-           <string>***********</string>
+           <string>*****</string>
           </property>
          </widget>
         </item>
