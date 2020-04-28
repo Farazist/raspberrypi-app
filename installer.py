@@ -1,11 +1,11 @@
 import PyInstaller.__main__
 
-package_name = 'Farazist'
+package_name = ''
 
 PyInstaller.__main__.run([
     'main.py',
     '--hidden-import PySide2.QtXml',
-    '--name=%s' % package_name,
+    '--name=Farazist',
     '--onefile',
     '--windowed',
 ])
