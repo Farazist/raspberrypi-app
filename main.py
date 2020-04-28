@@ -12,7 +12,7 @@ from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
-from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
 
 from server import Server
 from database import DataBase
@@ -149,7 +149,6 @@ class MainWindow(QWidget):
         # self.ui.btnGifStart.setMovie(gif_start)
         gif_start.start()
 
-        # self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
 
         self.ui.StackSetting.setCurrentIndex(0)
         self.ui.Stack.setCurrentIndex(1)
@@ -287,21 +286,36 @@ class MainWindow(QWidget):
      
         self.ui.lblRecycledDone.hide()
 
-        self.user_items = []
-        self.items = Server.getItems(self.system['owner_id'])
-        self.layout_SArea = QVBoxLayout()
+        deliveryButtons = [
+                    [
+                        {'text': 'بطری\nشیشه ای','function': None},
+                        {'text': 'بطری پت\nشفاف ۵۰۰','function': None},
+                        {'text': 'بطری پت\nشفاف ۱۵۰۰','function': None}
+                    ],
+                    [
+                        {'text': 'بطری\nآلومینومی ۲۳۰','function': None},
+                        {'text': 'بطری پت\nرنگی ۵۰۰','function': None},
+                        {'text': 'بطری پت\nرنگی ۱۵۰۰','function': None}
+                    ],
+                    [
+                        {'text': 'بطری\nفلزی','function': None},
+                        {'text': 'بطری پلی اتیلن\n۵۰۰','function': None},
+                        {'text': 'بطری پلی  اتیلن\n۱۵۰۰','function': None}
+                    ]
+                ]
 
-        for item in self.items:
-            item['count'] = 0
-            btn = QPushButton()
-            btn.setMinimumHeight(60)
-            btn.setText(item['name'])
-            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 20pt "IRANSans";}')
-            btn.clicked.connect(partial(self.SelectItem, item))
-            self.layout_SArea.addWidget(btn)
+        self.layout_FArea = QGridLayout()
 
-        self.SelectItem(self.items[0])  # default
-        self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
+        for i in range(3):
+            for j in range(3):
+                btn = QPushButton()
+                btn.setText(deliveryButtons[i][j]['text'])
+                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setFixedSize(230, 150)
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 3px solid #184d26} QPushButton{ border-radius: 30px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"}')
+                self.layout_FArea.addWidget(btn, i, j)
+
+        self.ui.FrameDelivery.setLayout(self.layout_FArea)
 
         self.ui.Stack.setCurrentIndex(9)
 

@@ -115,7 +115,7 @@ border-radius: 6px;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -2073,36 +2073,24 @@ border-radius: 6px;</string>
            </layout>
           </item>
           <item>
-           <widget class="QScrollArea" name="scrollAreaManual">
-            <property name="minimumSize">
-             <size>
-              <width>400</width>
-              <height>0</height>
-             </size>
+           <widget class="QWidget" name="FrameDelivery" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="maximumSize">
              <size>
-              <width>700</width>
+              <width>750</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">
-QScrollBar:vertical { width: 40px;background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);; }</string>
+             <string notr="true">border-color: rgb(0, 85, 255);
+background-color: rgb(255, 170, 0);
+border-radius: 6px;</string>
             </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetManual">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>398</width>
-               <height>28</height>
-              </rect>
-             </property>
-            </widget>
            </widget>
           </item>
          </layout>
