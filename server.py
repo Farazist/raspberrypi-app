@@ -6,7 +6,7 @@ url = 'https://farazist.ir'
 class Server:
     
     @staticmethod
-    def makeQrcodeSignInToken(system_id):
+    def makeQRcodeSignInToken(system_id):
         data = {'system_id':system_id}
         try:
             response = post(url=url+'/api/make-qrcode-signin-token', data=data, verify=True)
@@ -15,7 +15,7 @@ class Server:
             return None
 
     @staticmethod
-    def checkQrcodeSignInToken(qrcode_signin_token):
+    def checkQRcodeSignInToken(qrcode_signin_token):
         data = {'qrcode_signin_token':qrcode_signin_token}
         try:        
             response = post(url=url+'/api/check-qrcode-signin-token', data=data, verify=True)
@@ -26,7 +26,6 @@ class Server:
     @staticmethod
     def signInUser(id, password):
         data = {'id':id, 'password':password,}
-
         try:        
             response = post(url=url+'/api/signin-user', data=data, verify=True)
             return json.loads(response.text)
@@ -39,7 +38,6 @@ class Server:
             'authorization': 'Bearer ' + user['access_token'], 
             'Content-Type': 'application/json'
         }
-
         try:
             response = post(url=url + '/api/get-user', headers=headers, verify=True)
             return json.loads(response.text)
@@ -58,7 +56,6 @@ class Server:
     def getItems(user_id):
         data = {'user_id': user_id}
         headers = {'Content-Type': 'application/json'}
-
         try:
             response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers, verify=True)
             return json.loads(response.text)
@@ -69,7 +66,7 @@ class Server:
     def getSystem(system_id):
         data = {'id': system_id}
         headers = {'Content-Type': 'application/json'}
-        
+
         try:
             response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers, verify=True)
             return json.loads(response.text)
@@ -82,14 +79,12 @@ class Server:
             'authorization': 'Bearer ' + user['access_token'], 
             'Content-Type': 'application/json'
         }
-        
         data = {
             'user_id': user['id'], 
             'system_id': system_id, 
             'state': 'done', 
             'items': items
         }
-        
         try:
             response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
             return json.loads(response.text)
@@ -97,31 +92,18 @@ class Server:
             return None
 
     @staticmethod
-    def transfer(user, items, system_id):
+    def transfer(owner, user, amount):
         headers = {
-            'authorization': 'Bearer ' + user['access_token'], 
+            'authorization': 'Bearer ' + owner['access_token'], 
             'Content-Type': 'application/json'
         }
-        
-        data = {'user_id': user['id'], 'system_id': system_id, 'state': 'done', 'items': items}
-        
-        try:
-            response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
-
-    @staticmethod
-    def transferSecure(user, system_id, amount):
-        headers = {
-            'authorization': 'Bearer ' + user['access_token'], 
-            'Content-Type': 'application/json'
+        data = {
+            'target_user_id': user['id'],
+            'amount': amount, 
+            'description': 'تحویل پسماند در دستگاه'
         }
-        
-        data = {'system_id': system_id, 'amount': amount, 'APP_KEY': 'base64:HYdspKrWRBm+QpdbysxRrE+CrF7PKXBLb8kf0wpgI0I=', 'description': 'تحویل پسماند در دستگاه'}
-        
         try:
-            response = post(url=url + '/api/transfer-secure', data=json.dumps(data), headers=headers, verify=True)
+            response = post(url=url + '/api/transfer', data=json.dumps(data), headers=headers, verify=True)
             return response.json()
         except:
             return None

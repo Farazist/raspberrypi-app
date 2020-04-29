@@ -117,7 +117,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -898,7 +898,7 @@ outline-style: none;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageAdminLogin">
+      <widget class="QWidget" name="pageSignInOwner">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -907,7 +907,7 @@ outline-style: none;</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="lblAdminLogin">
+         <widget class="QLabel" name="lblOwnerLogin">
           <property name="maximumSize">
            <size>
             <width>290</width>
@@ -918,7 +918,7 @@ outline-style: none;</string>
            <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string>نام کاربری</string>
+           <string>شناسه کاربری</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -926,7 +926,7 @@ outline-style: none;</string>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QLineEdit" name="tbAdminUsername">
+         <widget class="QLineEdit" name="tbOwnerUsername">
           <property name="minimumSize">
            <size>
             <width>290</width>
@@ -959,12 +959,12 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
            <set>Qt::AlignCenter</set>
           </property>
           <property name="placeholderText">
-           <string>12*********</string>
+           <string/>
           </property>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="lblAdminPassword">
+         <widget class="QLabel" name="lblOwnerPassword">
           <property name="maximumSize">
            <size>
             <width>290</width>
@@ -975,7 +975,7 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
            <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string>رمز عبور</string>
+           <string>گذر واژه</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -983,7 +983,7 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QLineEdit" name="tbAdminPassword">
+         <widget class="QLineEdit" name="tbOwnerPassword">
           <property name="minimumSize">
            <size>
             <width>290</width>
@@ -1020,12 +1020,12 @@ border-radius: 6px;
            <set>Qt::AlignCenter</set>
           </property>
           <property name="placeholderText">
-           <string>***********</string>
+           <string>*****</string>
           </property>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnAdminLogin">
+         <widget class="QPushButton" name="btnOwnerLogin">
           <property name="minimumSize">
            <size>
             <width>290</width>
@@ -1053,7 +1053,7 @@ outline-style: none;</string>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnAdminPassRecovery">
+         <widget class="QPushButton" name="btnOwnerPassRecovery">
           <property name="minimumSize">
            <size>
             <width>290</width>
@@ -1078,7 +1078,7 @@ border: none;
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-         <widget class="QLabel" name="lblErrorAdmin">
+         <widget class="QLabel" name="lblErrorOwner">
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
           </property>
@@ -1094,7 +1094,7 @@ color: rgb(170, 0, 0);</string>
            <set>Qt::AlignCenter</set>
           </property>
           <property name="buddy">
-           <cstring>lblErrorAdmin</cstring>
+           <cstring>lblErrorOwner</cstring>
           </property>
          </widget>
         </item>
@@ -1443,10 +1443,10 @@ outline-style: none;</string>
               <height>16777215</height>
              </size>
             </property>
-            <widget class="QWidget" name="pageEmpty">
+            <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13"/>
             </widget>
-            <widget class="QWidget" name="pageDeviceMode">
+            <widget class="QWidget" name="pageSettingDeviceMode">
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <item alignment="Qt::AlignHCenter">
                <widget class="QLabel" name="label">
@@ -1504,7 +1504,7 @@ QRadioButton{font: 32pt &quot;IRANSans&quot;;}
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageExit">
+            <widget class="QWidget" name="pageSettingExit">
              <layout class="QVBoxLayout" name="verticalLayout_16">
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1584,7 +1584,7 @@ border-radius: 6px;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageMotorPort">
+            <widget class="QWidget" name="pageSettingMotorPort">
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <property name="bottomMargin">
                <number>100</number>
@@ -1632,7 +1632,7 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSensorPort">
+            <widget class="QWidget" name="pageSettingSensorPort">
              <layout class="QVBoxLayout" name="verticalLayout_21">
               <property name="bottomMargin">
                <number>100</number>
@@ -1712,108 +1712,6 @@ outline-style: none;</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="btnSetting1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>حالت دستگاه</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="btnSetting2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>شماره پورت موتور</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="btnSetting4">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
-font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>ثبت آیتم جدید</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="0">
              <widget class="QPushButton" name="btnSetting6">
               <property name="sizePolicy">
@@ -1879,6 +1777,108 @@ outline-style: none;</string>
               </property>
               <property name="text">
                <string>غیر فعال سازی دستگاه</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="btnSettingStart">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
+font: 24pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+              </property>
+              <property name="text">
+               <string>شروع برنامه</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="btnSetting2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
+font: 24pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+              </property>
+              <property name="text">
+               <string>شماره پورت موتور</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QPushButton" name="btnSetting1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
+font: 24pt &quot;IRANSans&quot;;
+color: #ffffff; 
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+              </property>
+              <property name="text">
+               <string>حالت دستگاه</string>
               </property>
              </widget>
             </item>
@@ -1962,7 +1962,7 @@ outline-style: none;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageManualDelivery">
+      <widget class="QWidget" name="pageManualDeliveryItems">
        <layout class="QVBoxLayout" name="verticalLayout_14">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_12">
