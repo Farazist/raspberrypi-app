@@ -12,7 +12,7 @@ from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
-from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
 
 from server import Server
 from database import DataBase
@@ -105,10 +105,17 @@ class MainWindow(QWidget):
         self.stackStart()
 
     def signInAdmin(self):
-        if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
+        self.admin = Server.signInUser(self.ui.tbAdminUsername.text(), self.ui.tbAdminPassword.text())
+
+        if self.admin != None:
             self.stackSetting()
         else:
+            print("mobile number or password is incurrect")
             self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
+#        if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
+#            self.stackSetting()
+#        else:
+#            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
 
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915')
@@ -149,7 +156,6 @@ class MainWindow(QWidget):
         # self.ui.btnGifStart.setMovie(gif_start)
         gif_start.start()
 
-        # self.ui.lblGifStart.mousePressEvent  = self.stackSignInUserMethods()
 
         self.ui.StackSetting.setCurrentIndex(0)
         self.ui.Stack.setCurrentIndex(1)
@@ -176,7 +182,11 @@ class MainWindow(QWidget):
         while self.qrcode_flag:
             qrcode_signin_token = Server.makeQrcodeSignInToken(self.system['id'])
             qrcode_img = qrcode.make(qrcode_signin_token)
-            self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+            try:
+                self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+            except:
+                self.ui.lblPixmapQr.setText('خطا در برقراری ارتباط')
+                self.ui.lblPixmapQr.setStyleSheet('font: 32pt "IRANSans"; color: rgb(204, 0, 0);')
         
             time_end = time() + 32
             while time() < time_end:
@@ -246,7 +256,8 @@ class MainWindow(QWidget):
 
     def SelectItem(self, item):
         self.selected_item = item
-        self.ui.lblSelectedItemName.setText(self.selected_item['name'])
+        self.selected_item['text'] = item['text'].replace('\n', ' ')
+        self.ui.lblSelectedItemName.setText(self.selected_item['text'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
@@ -288,20 +299,42 @@ class MainWindow(QWidget):
         self.ui.lblRecycledDone.hide()
 
         self.user_items = []
-        self.items = Server.getItems(self.system['owner_id'])
-        self.layout_SArea = QVBoxLayout()
 
-        for item in self.items:
-            item['count'] = 0
-            btn = QPushButton()
-            btn.setMinimumHeight(60)
-            btn.setText(item['name'])
-            btn.setStyleSheet('QPushButton { background-color: rgb(246, 253, 250) } QPushButton:pressed { background-color: #9caf9f } QPushButton {border: 2px solid #1E5631} QPushButton {border-radius: 6px} QPushButton{font: 20pt "IRANSans";}')
-            btn.clicked.connect(partial(self.SelectItem, item))
-            self.layout_SArea.addWidget(btn)
+        self.deliveryButtons = [
+                    [
+                        {'text': 'بطری\nشیشه ای','function': self.SelectItem, 'price': 150},
+                        {'text': 'بطری پت\nشفاف ۵۰۰','function': self.SelectItem, 'price': 300},
+                        {'text': 'بطری پت\nشفاف ۱۵۰۰','function': self.SelectItem, 'price': 200}
+                    ],
+                    [
+                        {'text': 'بطری\nآلومینومی ۲۳۰','function': self.SelectItem, 'price': 50},
+                        {'text': 'بطری پت\nرنگی ۵۰۰','function': self.SelectItem, 'price': 250},
+                        {'text': 'بطری پت\nرنگی ۱۵۰۰','function': self.SelectItem, 'price': 150}
+                    ],
+                    [
+                        {'text': 'بطری\nفلزی','function': self.SelectItem, 'price': 450},
+                        {'text': 'بطری پلی اتیلن\n۵۰۰','function': self.SelectItem, 'price': 550},
+                        {'text': 'بطری پلی اتیلن\n۱۵۰۰','function': self.SelectItem, 'price': 350}
+                    ]
+                ]
 
-        self.SelectItem(self.items[0])  # default
-        self.ui.scrollAreaWidgetManual.setLayout(self.layout_SArea)
+        self.layout_FArea = QGridLayout()
+
+        for i in range(3):
+            for j in range(3):
+                btn = QPushButton()
+                self.deliveryButtons[i][j]['count'] = 0
+                btn.setText(self.deliveryButtons[i][j]['text'])
+                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setFixedSize(230, 150)
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 3px solid #184d26} QPushButton{ border-radius: 30px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                if self.deliveryButtons[i][j]['function']:
+                    btn.clicked.connect(partial(self.deliveryButtons[i][j]['function'], self.deliveryButtons[i][j]))
+                self.layout_FArea.addWidget(btn, i, j)
+
+        self.SelectItem(self.deliveryButtons[0][0])
+        
+        self.ui.FrameDelivery.setLayout(self.layout_FArea)
 
         self.ui.Stack.setCurrentIndex(9)
 
