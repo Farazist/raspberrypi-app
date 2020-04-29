@@ -105,10 +105,17 @@ class MainWindow(QWidget):
         self.stackStart()
 
     def signInAdmin(self):
-        if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
+        self.admin = Server.signInUser(self.ui.tbAdminUsername.text(), self.ui.tbAdminPassword.text())
+
+        if self.admin != None:
             self.stackSetting()
         else:
+            print("mobile number or password is incurrect")
             self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
+#        if DataBase.select('username') == self.ui.tbAdminUsername.text() and DataBase.select('password') == self.ui.tbAdminPassword.text():
+#            self.stackSetting()
+#        else:
+#            self.ui.lblErrorAdmin.setText('نام کاربری یا رمز عبور صحیح نیست')
 
     def adminRecovery(self):
         self.ui.lblErrorAdmin.setText('لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915')
@@ -175,7 +182,11 @@ class MainWindow(QWidget):
         while self.qrcode_flag:
             qrcode_signin_token = Server.makeQrcodeSignInToken(self.system['id'])
             qrcode_img = qrcode.make(qrcode_signin_token)
-            self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+            try:
+                self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+            except:
+                self.ui.lblPixmapQr.setText('خطا در برقراری ارتباط')
+                self.ui.lblPixmapQr.setStyleSheet('font: 32pt "IRANSans"; color: rgb(204, 0, 0);')
         
             time_end = time() + 32
             while time() < time_end:
@@ -245,7 +256,8 @@ class MainWindow(QWidget):
 
     def SelectItem(self, item):
         self.selected_item = item
-        self.ui.lblSelectedItemName.setText(self.selected_item['name'])
+        self.selected_item['text'] = item['text'].replace('\n', ' ')
+        self.ui.lblSelectedItemName.setText(self.selected_item['text'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
@@ -286,21 +298,23 @@ class MainWindow(QWidget):
      
         self.ui.lblRecycledDone.hide()
 
-        deliveryButtons = [
+        self.user_items = []
+
+        self.deliveryButtons = [
                     [
-                        {'text': 'بطری\nشیشه ای','function': None},
-                        {'text': 'بطری پت\nشفاف ۵۰۰','function': None},
-                        {'text': 'بطری پت\nشفاف ۱۵۰۰','function': None}
+                        {'text': 'بطری\nشیشه ای','function': self.SelectItem, 'price': 150},
+                        {'text': 'بطری پت\nشفاف ۵۰۰','function': self.SelectItem, 'price': 300},
+                        {'text': 'بطری پت\nشفاف ۱۵۰۰','function': self.SelectItem, 'price': 200}
                     ],
                     [
-                        {'text': 'بطری\nآلومینومی ۲۳۰','function': None},
-                        {'text': 'بطری پت\nرنگی ۵۰۰','function': None},
-                        {'text': 'بطری پت\nرنگی ۱۵۰۰','function': None}
+                        {'text': 'بطری\nآلومینومی ۲۳۰','function': self.SelectItem, 'price': 50},
+                        {'text': 'بطری پت\nرنگی ۵۰۰','function': self.SelectItem, 'price': 250},
+                        {'text': 'بطری پت\nرنگی ۱۵۰۰','function': self.SelectItem, 'price': 150}
                     ],
                     [
-                        {'text': 'بطری\nفلزی','function': None},
-                        {'text': 'بطری پلی اتیلن\n۵۰۰','function': None},
-                        {'text': 'بطری پلی  اتیلن\n۱۵۰۰','function': None}
+                        {'text': 'بطری\nفلزی','function': self.SelectItem, 'price': 450},
+                        {'text': 'بطری پلی اتیلن\n۵۰۰','function': self.SelectItem, 'price': 550},
+                        {'text': 'بطری پلی اتیلن\n۱۵۰۰','function': self.SelectItem, 'price': 350}
                     ]
                 ]
 
@@ -309,12 +323,17 @@ class MainWindow(QWidget):
         for i in range(3):
             for j in range(3):
                 btn = QPushButton()
-                btn.setText(deliveryButtons[i][j]['text'])
+                self.deliveryButtons[i][j]['count'] = 0
+                btn.setText(self.deliveryButtons[i][j]['text'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setFixedSize(230, 150)
-                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 3px solid #184d26} QPushButton{ border-radius: 30px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"}')
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 3px solid #184d26} QPushButton{ border-radius: 30px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                if self.deliveryButtons[i][j]['function']:
+                    btn.clicked.connect(partial(self.deliveryButtons[i][j]['function'], self.deliveryButtons[i][j]))
                 self.layout_FArea.addWidget(btn, i, j)
 
+        self.SelectItem(self.deliveryButtons[0][0])
+        
         self.ui.FrameDelivery.setLayout(self.layout_FArea)
 
         self.ui.Stack.setCurrentIndex(9)

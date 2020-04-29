@@ -47,7 +47,8 @@
          <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color: rgb(255, 255, 255);
 background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
         </property>
         <property name="text">
          <string/>
@@ -91,7 +92,8 @@ border-radius: 6px;</string>
          <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color: rgb(255, 255, 255);
 background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
         </property>
         <property name="text">
          <string/>
@@ -115,7 +117,7 @@ border-radius: 6px;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -246,7 +248,7 @@ border-radius: 30px</string>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
-background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4e6bc, stop:1 #c8ffd1);
 border-radius: 6px;</string>
           </property>
           <property name="frameShape">
@@ -260,6 +262,7 @@ border-radius: 6px;</string>
             <widget class="QLabel" name="label_14">
              <property name="styleSheet">
               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color: rgb(0, 0, 0);
 background-color: none;
 </string>
              </property>
@@ -271,9 +274,10 @@ background-color: none;
            <item>
             <widget class="QPushButton" name="btnHere">
              <property name="styleSheet">
-              <string notr="true">color: rgb(170, 0, 0);
+              <string notr="true">color: rgb(204, 0, 0);
 font: 24pt &quot;IRANSans&quot;;
-background-color: none;</string>
+background-color: none;
+outline-style: none;</string>
              </property>
              <property name="text">
               <string>اینجا</string>
@@ -290,7 +294,8 @@ background-color: none;</string>
             <widget class="QLabel" name="label_13">
              <property name="styleSheet">
               <string notr="true">font: 22pt &quot;IRANSans&quot;;
-background-color: none;</string>
+background-color: none;
+color: rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>برای ورود</string>
@@ -460,7 +465,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
           </property>
           <property name="text">
            <string>ورود</string>
@@ -533,7 +539,8 @@ color: rgb(170, 0, 0);</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -580,7 +587,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -614,7 +622,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -651,7 +660,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -685,7 +695,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -719,7 +730,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -766,7 +778,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -800,7 +813,8 @@ border-radius: 30px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: #ffffff; 
 border: 3px solid #3b8686; 
-border-radius: 30px;</string>
+border-radius: 30px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string/>
@@ -1030,7 +1044,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
           </property>
           <property name="text">
            <string>ورود</string>
@@ -1338,7 +1353,8 @@ color: #ffffff;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
-font: 24pt &quot;IRANSans&quot;;</string>
+font: 24pt &quot;IRANSans&quot;;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>پایان</string>
@@ -1394,7 +1410,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>بعدی</string>
@@ -1687,7 +1704,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>شماره پورت سنسور</string>
@@ -1720,7 +1738,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>حالت دستگاه</string>
@@ -1753,7 +1772,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>شماره پورت موتور</string>
@@ -1786,7 +1806,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>ثبت آیتم جدید</string>
@@ -1819,7 +1840,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>خروج از برنامه</string>
@@ -1852,7 +1874,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>غیر فعال سازی دستگاه</string>
@@ -2063,7 +2086,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
               </property>
               <property name="text">
                <string>بعدی</string>
@@ -2088,7 +2112,8 @@ border-radius: 6px;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">border-color: rgb(0, 85, 255);
-background-color: rgb(255, 170, 0);
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4e6bc, stop:1 #c8ffd1);
+color: rgb(180, 230, 188);
 border-radius: 6px;</string>
             </property>
            </widget>
@@ -2212,7 +2237,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>بله</string>
@@ -2233,7 +2259,8 @@ font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
 border: none; 
-border-radius: 6px;</string>
+border-radius: 6px;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>خیر</string>
@@ -2282,7 +2309,8 @@ background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #2385
 padding: 3px; 
 border: none; 
 border-radius: 6px;
-text-align: center;</string>
+text-align: center;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>ورود با شماره همراه</string>
@@ -2317,7 +2345,8 @@ background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #2385
 padding: 3px; 
 border: none; 
 border-radius: 6px;
-text-align: center;</string>
+text-align: center;
+outline-style: none;</string>
             </property>
             <property name="text">
              <string>QR Code ورود با</string>
@@ -2360,7 +2389,7 @@ font: 18pt &quot;IRANSansFaNum&quot;;</string>
        <widget class="QPushButton" name="btnSetting">
         <property name="styleSheet">
          <string notr="true">border: none;
-</string>
+outline-style: none;</string>
         </property>
         <property name="text">
          <string/>
