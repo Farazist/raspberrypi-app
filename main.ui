@@ -117,7 +117,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">

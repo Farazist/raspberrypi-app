@@ -16,7 +16,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, Q
 
 from server import Server
 from database import DataBase
-from image_classifier import ImageClassifier
+# from image_classifier import ImageClassifier
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -24,6 +24,11 @@ __license__ = "GPL"
 __version__ = "1.1.0"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
+
+SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
+SIGNIN_ERROR_MESSAGE = 'شناسه کاربری یا گذر واژه درست نیست'
+SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
+RECYCLE_MESSAGE = 'پسماند دریافت شد'
 
 class MainWindow(QWidget):
    
@@ -75,7 +80,7 @@ class MainWindow(QWidget):
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
-        self.image_classifier = ImageClassifier()
+        # self.image_classifier = ImageClassifier()
         
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -100,22 +105,16 @@ class MainWindow(QWidget):
         else:
             button.hide()
 
-    def setLabel(self, label, text=None, show=True):
-        if text:
-            label.setText(text)
-        if show:
-            label.show()
-        else:
-            label.hide()
+    def showNotification(self, text):
+        self.ui.lblNotification.setText(text)
+        self.ui.lblNotification.show()
 
     def stackSignInOwner(self):
         if self.owner == None:
             self.setButton(self.ui.btnLeft, show=False)
         else:
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
-        
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
@@ -126,8 +125,7 @@ class MainWindow(QWidget):
             self.stackSetting()
         else:
             print("mobile number or password is incurrect")
-            self.setLabel(self.ui.lblNotification, text='نام کاربری یا رمز عبور صحیح نیست', show=True)
-
+            self.showNotification(SIGNIN_ERROR_MESSAGE)
 #        if DataBase.select('username') == self.ui.tbOwnerUsername.text() and DataBase.select('password') == self.ui.tbOwnerPassword.text():
 #            self.stackSetting()
 #        else:
@@ -139,20 +137,17 @@ class MainWindow(QWidget):
             self.stackMainMenu()
         else:
             print("mobile number or password is incurrect")
-            self.setLabel(self.ui.lblNotification, text='شناسه کاربری یا رمز عبور صحیح نیست', show=True)
-
+            
     def signOutUser(self):
         self.user = None
         self.stackStart()
 
     def ownerRecovery(self):
-        self.setLabel(self.ui.lblNotification, text='لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915', show=True)
+        self.showNotification(SUPPORT_ERROR_MESSAGE)
 
     def detectItem(self): 
-
         try:
-            import picamera
-            
+            # import picamera
             with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
                 camera.start_preview()
                 try:
@@ -160,66 +155,52 @@ class MainWindow(QWidget):
                     for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
                         stream.seek(0)
                         results = self.image_classifier(stream)
-                        
                         label_id, prob = results[0]
                         stream.seek(0)
                         stream.truncate()
                 finally:
                     camera.stop_preview()
-
         except Exception as e:
                 print("error:", e)
 
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
-
         gif_start = QMovie("animations/return.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         # self.ui.btnGifStart.setMovie(gif_start)
         gif_start.start()
-
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
         self.qrcode_flag = False
-
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
         self.ui.tbUserId.setText('')
         self.ui.tbUserPassword.setText('')
-
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def makeQRcode(self):
-        gif_loading = QMovie("animations/Spinner.gif")
+        gif_loading = QMovie("animations/Rolling.gif")
         self.ui.lblPixmapQr.setMovie(gif_loading)
         gif_loading.start()
-
         while self.qrcode_flag:
             try:
                 qrcode_signin_token = Server.makeQRcodeSignInToken(self.system['id'])
                 qrcode_img = qrcode.make(qrcode_signin_token)
                 self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
             except:
-                self.setLabel(self.ui.lblNotification, text= 'خطا در برقراری ارتباط',show=False)
-                #self.ui.lblPixmapQr.setText('خطا در برقراری ارتباط')
-                self.ui.lblPixmapQr.setStyleSheet('font: 32pt "IRANSans"; color: rgb(204, 0, 0);')
-        
+                self.showNotification(SERVER_ERROR_MESSAGE)
+
             time_end = time() + 32
             while time() < time_end:
                 self.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
@@ -227,84 +208,70 @@ class MainWindow(QWidget):
                     self.qrcode_flag = False
                     break
                 sleep(5)
-        
         if self.user:
             self.stackMainMenu()
 
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.qrcode_flag = True
         self.qrcode_thread = Thread(target=self.makeQRcode)
         self.qrcode_thread.start()
-        
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserQRcode)
 
     def stackMainMenu(self):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.ui.lblDeviceInfo.setText(self.user['name'])
-
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         gif_wallet = QMovie("animations/wallet.gif")
         gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
         self.ui.lblGifWallet.setMovie(gif_wallet)
         gif_wallet.start()
-
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
 
     def stackDeliveryItems(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
-
         # self.detect_thread = Thread(target=self.detectItem)
         # self.detect_thread.start()
-
         self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
 
     def SelectItem(self, item):
         self.selected_item = item
         self.selected_item['name'] = item['name']
-        self.setLabel(self.ui.lblSelectedItem, text=self.selected_item['name'], show=True)
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
     def recycleItem(self):
-        self.setLabel(self.ui.lblNotification, text='بطری بازیافت گردید', show=True)
-        #self.ui.lblRecycledDone.show()
+        self.showNotification(RECYCLE_MESSAGE)
+        self.ui.btnRight.show()
         self.selected_item['count'] += 1
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-        
         for user_item in self.user_items:
             if self.selected_item['id'] == user_item['id']:
                 break
         else:
             self.user_items.append(self.selected_item)
-
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-
         self.ui.lblTotal.setText(str(self.total_price))
 
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleLongDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleLongDate))
-        self.setLabel(self.ui.lblNotification, text = '', show=False)
+        self.ui.lblNotification.hide()
 
     def sensorTest(self):
         try:
@@ -318,15 +285,13 @@ class MainWindow(QWidget):
 
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
-     
         self.ui.lblTotal.setText("0")
         self.ui.lblRecycledDone.hide()
         self.items = Server.getItems(self.owner['id'])
         self.user_items = []
         self.layout_FArea = QGridLayout()
-
         i = 0
         row = 0
         while row < len(self.items) // 2:
@@ -339,16 +304,13 @@ class MainWindow(QWidget):
                 btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
                 btn.clicked.connect(partial(self.SelectItem, self.items[i]))
                 self.layout_FArea.addWidget(btn, row, col)
-                
                 i += 1
                 if i >= len(self.items):
                     break
             row += 1
-
         self.SelectItem(self.items[0])
         self.ui.scrollAreaWidgetDelivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
-
         try:
             self.motor_port = int(DataBase.select('motor_port'))
             self.sensor_port = int(DataBase.select('sensor_port'))
@@ -358,22 +320,20 @@ class MainWindow(QWidget):
             self.motor.on()
         except Exception as e:
             print("error:", e)
-
         self.sensorTest_thread = Thread(target=self.sensorTest)
         self.sensorTest_thread.start()
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
         self.ui.Stack.setCurrentWidget(self.ui.pageSetting)
 
     def stackDisableDevice(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
-        self.setLabel(self.ui.lblNotification, show=False)
+        self.ui.lblNotification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageDisableDevice)
 
     def checkDeviceMode(self):
@@ -384,25 +344,23 @@ class MainWindow(QWidget):
     
     def stackDeviceMode(self):
         result = DataBase.select('bottle_recognize_mode')
-
         if result == 'manual':
             self.ui.btnManualDevice.setChecked(True)
         elif result == 'auto':
             self.ui.btnAutoDevice.setChecked(True)
-
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDeviceMode)
 
     def stackExitApp(self):
-        self.setLabel(self.ui.lblNotification, show=False)
+        self.ui.lblNotification.hide()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingExit)
 
     def stackMotorPort(self):
-        self.setLabel(self.ui.lblNotification, show=False)
+        self.ui.lblNotification.hide()
         self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingMotorPort)
 
     def stackSensorPort(self):
-        self.setLabel(self.ui.lblNotification, show=False)
+        self.ui.lblNotification.hide()
         self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
 
@@ -419,30 +377,24 @@ class MainWindow(QWidget):
             printer.text(self.system['owner']['mobile_number'])
             printer.text("farazist.ir\n")
             printer.cut()
-
         except Exception as e:
                 print("error:", e)
-        
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.setLabel(self.ui.lblNotification, show=False)
-
+        self.ui.lblNotification.hide()
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
         self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
-        
         Server.addNewDelivery(self.user, self.system['id'], self.user_items)
         Server.transfer(self.owner, self.user, self.total_price)
         self.user['wallet'] += self.total_price
-       
         try:
             self.motor.off()
         except Exception as e:
             print("error:", e)
-        
         self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
     def stackCharity(self):
@@ -462,17 +414,13 @@ class MainWindow(QWidget):
         self.ui.lblDeliveryItems.clear()
 
     def saveSetting(self):
-
         if self.ui.btnManualDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
-
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        
         if self.ui.tbSensorPort.text() != '':
             result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
-
         if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
 
