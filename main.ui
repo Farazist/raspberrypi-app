@@ -117,7 +117,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -238,74 +238,31 @@ border-radius: 30px</string>
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-         <widget class="QFrame" name="frame">
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QPushButton" name="btnHere">
+          <property name="minimumSize">
+           <size>
+            <width>500</width>
+            <height>80</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>500</width>
-            <height>16777215</height>
+            <height>80</height>
            </size>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
 background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4e6bc, stop:1 #c8ffd1);
-border-radius: 6px;</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_15">
-           <item>
-            <widget class="QLabel" name="label_14">
-             <property name="styleSheet">
-              <string notr="true">font: 22pt &quot;IRANSans&quot;;
-color: rgb(0, 0, 0);
-background-color: none;
-</string>
-             </property>
-             <property name="text">
-              <string>را کلیک کنید</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnHere">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(204, 0, 0);
-font: 24pt &quot;IRANSans&quot;;
-background-color: none;
-outline-style: none;</string>
-             </property>
-             <property name="text">
-              <string>اینجا</string>
-             </property>
-             <property name="autoDefault">
-              <bool>false</bool>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_13">
-             <property name="styleSheet">
-              <string notr="true">font: 22pt &quot;IRANSans&quot;;
-background-color: none;
+border-radius: 6px;
+outline-style: none;
+font: 22pt &quot;IRANSans&quot;;
 color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>برای ورود</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          </property>
+          <property name="text">
+           <string> برای ورود اینجا را کلیک کنید</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -906,6 +863,16 @@ outline-style: none;</string>
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QLabel" name="label_7">
+          <property name="styleSheet">
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>ورود به پنل مدیریت</string>
+          </property>
+         </widget>
+        </item>
         <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="lblOwnerLogin">
           <property name="maximumSize">
@@ -1801,7 +1768,7 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #184d26, stop:1 #238535);
+               <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #003cb5, stop:1 #5286ff);
 font: 24pt &quot;IRANSans&quot;;
 color: #ffffff; 
 padding: 3px; 
@@ -2313,7 +2280,7 @@ text-align: center;
 outline-style: none;</string>
             </property>
             <property name="text">
-             <string>ورود با شماره همراه</string>
+             <string>ورود با شناسه کاربری</string>
             </property>
             <property name="icon">
              <iconset>
@@ -2367,6 +2334,9 @@ outline-style: none;</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="pageCharity"/>
+      <widget class="QWidget" name="pageProtectionOfEnvironment"/>
+      <widget class="QWidget" name="pageBuildingCharge"/>
      </widget>
     </item>
     <item>

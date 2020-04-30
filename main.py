@@ -46,6 +46,9 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
+        self.ui.btnMainMenu_3.clicked.connect(self.stackBuildingCharge)
+        self.ui.btnMainMenu_5.clicked.connect(self.stackProtectionOfEnvironment)
+        self.ui.btnMainMenu_6.clicked.connect(self.stackCharity)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -412,7 +415,16 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
         
-        self.ui.Stack.setCurrentIndex(11)
+        self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
+
+    def stackCharity(self):
+        self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
+
+    def stackProtectionOfEnvironment(self):
+        self.ui.Stack.setCurrentWidget(self.ui.pageProtectionOfEnvironment)
+
+    def stackBuildingCharge(self):
+        self.ui.Stack.setCurrentWidget(self.ui.pageBuildingCharge)
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
