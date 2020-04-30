@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.11.0, 2020-04-30T00:32:50. -->
+=======
+<!-- Written by QtCreator 4.11.1, 2020-04-30T16:13:33. -->
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -143,11 +147,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/main.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/main.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{11c98284-e084-403b-9362-9fcbb219147d}</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\main.py</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">database</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/database.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/database.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{40b01f1a-63ef-4f74-982f-e1e886513e3b}</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\database.py</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -157,7 +169,11 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
+<<<<<<< HEAD
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/Project/Farazist/raspberrypi-app</value>
+=======
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Sara/OneDrive/Farazist</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -219,11 +235,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">unchecked-hover</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/unchecked-hover.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/unchecked-hover.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\unchecked-hover.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">setting</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/setting.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/setting.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\setting.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -295,11 +319,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">tick</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/tick.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/tick.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\tick.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">cancle</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/cancle.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/cancle.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\cancle.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -371,11 +403,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">back</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/back.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/back.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\back.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">installer</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/installer.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/installer.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\installer.py</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -447,11 +487,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">checked-hover</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/checked-hover.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/checked-hover.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\checked-hover.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">tick</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/tick.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/tick.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\tick.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -523,11 +571,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">unchecked</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/unchecked.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/unchecked.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\unchecked.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">checked-hover</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/checked-hover.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/checked-hover.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\checked-hover.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -600,10 +656,17 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">numbers</value>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/numbers.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/numbers.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\numbers.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/numbers.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/numbers.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\numbers.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -675,11 +738,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qr-code</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/qr-code.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/qr-code.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\qr-code.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/main.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/main.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\main.py</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -751,11 +822,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">logo</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/logo.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/logo.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\logo.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">back</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/back.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/back.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\back.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -827,11 +906,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">setting</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/setting.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/setting.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\setting.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qr-code</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/qr-code.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/qr-code.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\qr-code.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -903,11 +990,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">cancle</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/cancle.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/cancle.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\cancle.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">log-out</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/log-out.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/log-out.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\log-out.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -979,11 +1074,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">checked</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/checked.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/checked.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\checked.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">server</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/server.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/server.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\server.py</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -1055,11 +1158,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">installer</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/installer.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/installer.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\installer.py</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">checked</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/checked.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/checked.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\checked.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -1131,11 +1242,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">server</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/server.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/server.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\server.py</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">unchecked</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/unchecked.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/unchecked.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\unchecked.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -1207,11 +1326,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">log-out</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/images/icon/log-out.png</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/images/icon/log-out.png</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\images\icon\log-out.png</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">unchecked-hover</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/icon/unchecked-hover.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/icon/unchecked-hover.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\icon\unchecked-hover.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -1283,11 +1410,19 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">database</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.D:/Project/Farazist/raspberrypi-app/database.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Project/Farazist/raspberrypi-app/database.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">D:\Project\Farazist\raspberrypi-app\database.py</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">logo</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/Sara/OneDrive/Farazist/images/logo.png</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Sara/OneDrive/Farazist/images/logo.png</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\Sara\OneDrive\Farazist\images\logo.png</value>
+>>>>>>> 5411ce6edca4c5609d045fdc0b9dd0ecfedf6bc0
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
