@@ -372,13 +372,12 @@ class MainWindow(QWidget):
             printer.set(align=u'center')
             printer.text("Farazist\n")
             printer.text(str(self.total_price) + " Rial")
-            # printer.barcode('1324354657687', 'EAN13', 64, 2, '', '')
-            # printer.qr('content', ec=0, size=3, model=2, native=False, center=False, impl=u'bitImageRaster')
+            printer.qr(str(self.total_price), size=8)
             printer.text(self.system['owner']['mobile_number'])
             printer.text("farazist.ir\n")
             printer.cut()
         except Exception as e:
-                print("error:", e)
+            print("error:", e)
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
