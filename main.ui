@@ -29,6 +29,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="h_layout_header">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
       <item>
        <widget class="QPushButton" name="btnLeft">
         <property name="minimumSize">
@@ -117,7 +123,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -179,7 +185,8 @@ outline-style: none;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>در حال بارگزاری</string>
@@ -205,7 +212,8 @@ outline-style: none;</string>
          <widget class="QLabel" name="datetime">
           <property name="styleSheet">
            <string notr="true">font: 16pt &quot;IRANSans&quot;;
-font: 18pt &quot;IRANSansFaNum&quot;;</string>
+font: 18pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -254,7 +262,7 @@ border-radius: 30px</string>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 border-radius: 6px;
 outline-style: none;
@@ -306,7 +314,8 @@ font: 22pt &quot;IRANSans&quot;;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>شناسه کاربری</string>
@@ -341,7 +350,8 @@ font: 22pt &quot;IRANSans&quot;;</string>
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;</string>
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
           </property>
           <property name="inputMethodHints">
            <set>Qt::ImhDigitsOnly</set>
@@ -363,7 +373,8 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>گذر واژه</string>
@@ -393,6 +404,7 @@ font: 26pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
+color:#000000;
 </string>
           </property>
           <property name="inputMethodHints">
@@ -433,7 +445,7 @@ border-radius: 6px;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -470,396 +482,237 @@ border: none;
       <widget class="QWidget" name="pageMainMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" rowminimumheight="0,0,0,0">
-          <property name="leftMargin">
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <property name="spacing">
            <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>70</number>
           </property>
           <property name="topMargin">
-           <number>5</number>
+           <number>70</number>
           </property>
           <property name="rightMargin">
-           <number>20</number>
+           <number>70</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>20</number>
           </property>
-          <property name="horizontalSpacing">
-           <number>10</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>5</number>
-          </property>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="btnMainMenu_7">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_26">
+            <item>
+             <widget class="QPushButton" name="btnMainMenu_1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/to buy credit.png</normaloff>images/GreenMainMenu/to buy credit.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
+outline-style: none;
+padding: 50px;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Package Delivery.png</normaloff>images/GreenMainMenu/Package Delivery.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>200</width>
+                <height>200</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblMainMenu_1">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>تحویل پسماند</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item row="1" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_2">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>کیف پول</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="btnMainMenu_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_27">
+            <item>
+             <widget class="QPushButton" name="btnMainMenu_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Helping the environment.png</normaloff>images/GreenMainMenu/Helping the environment.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
+outline-style: none;
+padding: 50px;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/wallet.png</normaloff>images/GreenMainMenu/wallet.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>200</width>
+                <height>200</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblMainMenu_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>کیف پول</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item row="0" column="3">
-           <widget class="QPushButton" name="btnMainMenu_4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_28">
+            <item>
+             <widget class="QPushButton" name="btnMainMenu_3">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Deposit to card recycling.png</normaloff>images/GreenMainMenu/Deposit to card recycling.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="btnMainMenu_3">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Charging Residential Unit.png</normaloff>images/GreenMainMenu/Charging Residential Unit.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="btnMainMenu_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Donate to charity.png</normaloff>images/GreenMainMenu/Donate to charity.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="btnMainMenu_1">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Package Delivery.png</normaloff>images/GreenMainMenu/Package Delivery.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_1">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>تحویل پسماند</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="btnMainMenu_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/wallet.png</normaloff>images/GreenMainMenu/wallet.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>100</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="btnMainMenu_8">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/GreenMainMenu/Store.png</normaloff>images/GreenMainMenu/Store.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>110</width>
-              <height>110</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_5">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>کمک به محیط زیست</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_6">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>امور خیریه</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_3">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>شارژ واحد مسکونی</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_7">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>خرید شارژ</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_4">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>واریز به کیف پول</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3" alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblMainMenu_8">
-            <property name="styleSheet">
-             <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>فروشگاه</string>
-            </property>
-           </widget>
+outline-style: none;
+padding: 50px;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Deposit to card recycling.png</normaloff>images/GreenMainMenu/Deposit to card recycling.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>200</width>
+                <height>200</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblMainMenu_3">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>شارژ سریع</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -882,7 +735,8 @@ outline-style: none;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>ورود به پنل مدیریت</string>
@@ -898,7 +752,8 @@ outline-style: none;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>شناسه کاربری</string>
@@ -927,13 +782,14 @@ outline-style: none;</string>
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;</string>
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
           </property>
           <property name="locale">
            <locale language="English" country="UnitedStates"/>
           </property>
           <property name="inputMethodHints">
-           <set>Qt::ImhNone</set>
+           <set>Qt::ImhDigitsOnly</set>
           </property>
           <property name="text">
            <string/>
@@ -955,7 +811,8 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>گذر واژه</string>
@@ -985,13 +842,13 @@ font: 26pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
-</string>
+color:#000000;</string>
           </property>
           <property name="locale">
            <locale language="English" country="UnitedStates"/>
           </property>
           <property name="inputMethodHints">
-           <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+           <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
           </property>
           <property name="text">
            <string/>
@@ -1022,7 +879,7 @@ border-radius: 6px;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1088,7 +945,8 @@ border: none;
           <item alignment="Qt::AlignRight|Qt::AlignVCenter">
            <widget class="QLabel" name="label_4">
             <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>تومان</string>
@@ -1098,7 +956,8 @@ border: none;
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblWallet">
             <property name="styleSheet">
-             <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+             <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>54224</string>
@@ -1111,7 +970,8 @@ border: none;
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblTxtWallet">
             <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>موجودی کیف پول</string>
@@ -1152,7 +1012,8 @@ border: none;
             <item row="3" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblNumCategory2">
               <property name="styleSheet">
-               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>0</string>
@@ -1162,7 +1023,8 @@ border: none;
             <item row="3" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblNumCategory3">
               <property name="styleSheet">
-               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>0</string>
@@ -1172,7 +1034,8 @@ border: none;
             <item row="3" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblNumCategory1">
               <property name="styleSheet">
-               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>0</string>
@@ -1192,7 +1055,8 @@ border: none;
             <item row="2" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblTxtCategory1">
               <property name="styleSheet">
-               <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+               <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>پت</string>
@@ -1202,7 +1066,8 @@ border: none;
             <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblTxtCategory3">
               <property name="styleSheet">
-               <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+               <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>آلومینیومی</string>
@@ -1228,7 +1093,8 @@ border: none;
             <item row="2" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblTxtCategory2">
               <property name="styleSheet">
-               <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+               <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>شیشه ای</string>
@@ -1276,7 +1142,8 @@ border: none;
             <item row="2" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblTxtCategory4">
               <property name="styleSheet">
-               <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
+               <string notr="true">font: 18pt &quot;IRANSans&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>کاغذی</string>
@@ -1286,7 +1153,8 @@ border: none;
             <item row="3" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lblNumCategory4">
               <property name="styleSheet">
-               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string>0</string>
@@ -1310,7 +1178,7 @@ border: none;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -1346,6 +1214,7 @@ outline-style: none;</string>
 border: 2px solid #28a745; 
 border-radius: 6px;
 font: 26pt &quot;IRANSans&quot;;
+color:#000000;
 </string>
             </property>
             <property name="text">
@@ -1368,7 +1237,7 @@ font: 26pt &quot;IRANSans&quot;;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1438,6 +1307,7 @@ QRadioButton::indicator::unchecked {image: url(images/icon/unchecked.png);} QRad
 QRadioButton::indicator::checked {image: url(images/icon/checked.png);}
 QRadioButton::indicator:checked:hover {image: url(images/icon/checked-hover.png);}
 QRadioButton{font: 32pt &quot;IRANSans&quot;;}
+QRadioButton{color:#000000;}
 </string>
                   </property>
                   <property name="text">
@@ -1456,6 +1326,7 @@ QRadioButton::indicator::unchecked {image: url(images/icon/unchecked.png);} QRad
 QRadioButton::indicator::checked {image: url(images/icon/checked.png);}
 QRadioButton::indicator:checked:hover {image: url(images/icon/checked-hover.png);}
 QRadioButton{font: 32pt &quot;IRANSans&quot;;}
+QRadioButton{color:#000000;}
 </string>
                   </property>
                   <property name="text">
@@ -1531,7 +1402,7 @@ border-radius: 6px;</string>
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1585,6 +1456,7 @@ padding: 3px;
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
 </string>
                 </property>
                 <property name="inputMethodHints">
@@ -1627,13 +1499,48 @@ color: #000000;</string>
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;</string>
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
                 </property>
                 <property name="inputMethodHints">
                  <set>Qt::ImhDigitsOnly</set>
                 </property>
                 <property name="maxLength">
                  <number>2</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="pageSettingConveyorPort">
+             <layout class="QVBoxLayout" name="verticalLayout_29">
+              <property name="bottomMargin">
+               <number>100</number>
+              </property>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lblConveyorPort">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>جهت تنظیم شماره پورت نوار نقاله، عددی بین 1 تا 40 را در کادر زیر وارد کنید</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLineEdit" name="tbConveyorPort">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
                 </property>
                </widget>
               </item>
@@ -1664,7 +1571,7 @@ font: 26pt &quot;IRANSansFaNum&quot;;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1698,7 +1605,7 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1732,7 +1639,7 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1741,7 +1648,7 @@ border-radius: 6px;
 outline-style: none;</string>
               </property>
               <property name="text">
-               <string>غیر فعال سازی دستگاه</string>
+               <string>شماره پورت نوار نقاله</string>
               </property>
              </widget>
             </item>
@@ -1766,13 +1673,14 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #003cb5, stop:1#5286ff,  stop:2 #6ff8ff);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #003cb5, stop:1#5286ff,  stop:2 #6ff8ff);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
-outline-style: none;</string>
+outline-style: none;
+</string>
               </property>
               <property name="text">
                <string>شروع برنامه</string>
@@ -1800,7 +1708,7 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1834,7 +1742,7 @@ outline-style: none;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1850,26 +1758,6 @@ outline-style: none;</string>
            </layout>
           </item>
          </layout>
-        </item>
-        <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/sign/setting.png</normaloff>images/sign/setting.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -1911,7 +1799,8 @@ outline-style: none;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>برنامه فرازیست را بر روی گوشی خود باز کنید
@@ -1948,7 +1837,8 @@ outline-style: none;</string>
             <item alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="lblSelectedItem">
               <property name="styleSheet">
-               <string notr="true">font: 24pt &quot;IRANSans&quot;;</string>
+               <string notr="true">font: 24pt &quot;IRANSans&quot;;
+color:#000000;</string>
               </property>
               <property name="text">
                <string/>
@@ -1972,6 +1862,7 @@ border-radius: 6px;</string>
                 <widget class="QLabel" name="lblUnit">
                  <property name="styleSheet">
                   <string notr="true">font: 87 30pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;
 </string>
                  </property>
                  <property name="text">
@@ -1985,7 +1876,8 @@ border-radius: 6px;</string>
                <item>
                 <widget class="QLabel" name="UnitPrice">
                  <property name="styleSheet">
-                  <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
                  </property>
                  <property name="text">
                   <string>قیمت واحد</string>
@@ -2015,6 +1907,7 @@ border-radius: 6px;</string>
                 <widget class="QLabel" name="lblTotal">
                  <property name="styleSheet">
                   <string notr="true">font: 87 30pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;
 </string>
                  </property>
                  <property name="text">
@@ -2028,7 +1921,8 @@ border-radius: 6px;</string>
                <item>
                 <widget class="QLabel" name="TotalPrice">
                  <property name="styleSheet">
-                  <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
                  </property>
                  <property name="text">
                   <string>جمع کل</string>
@@ -2064,6 +1958,7 @@ border-radius: 6px;</string>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">font: 87 30pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;
 </string>
                  </property>
                  <property name="text">
@@ -2077,7 +1972,8 @@ border-radius: 6px;</string>
                <item>
                 <widget class="QLabel" name="label_14">
                  <property name="styleSheet">
-                  <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
                  </property>
                  <property name="text">
                   <string>تعداد</string>
@@ -2116,7 +2012,7 @@ color: rgb(204, 0, 0);</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2146,8 +2042,7 @@ outline-style: none;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QScrollBar:vertical { width: 40px;background-color: qlineargradient( x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8); }
-</string>
+             <string notr="true">QScrollBar:vertical { width: 40px;background-color: #28a745}</string>
             </property>
             <property name="widgetResizable">
              <bool>true</bool>
@@ -2157,7 +2052,7 @@ outline-style: none;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
+               <width>577</width>
                <height>448</height>
               </rect>
              </property>
@@ -2204,7 +2099,8 @@ color: rgb(204, 0, 0);</string>
         <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="label_5">
           <property name="styleSheet">
-           <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>مبلغ</string>
@@ -2225,7 +2121,8 @@ color: rgb(204, 0, 0);</string>
           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
            <widget class="QLabel" name="label_9">
             <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>تومان</string>
@@ -2235,7 +2132,8 @@ color: rgb(204, 0, 0);</string>
           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
            <widget class="QLabel" name="lblTotalPrice">
             <property name="styleSheet">
-             <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+             <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string>13258</string>
@@ -2247,7 +2145,8 @@ color: rgb(204, 0, 0);</string>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
          <widget class="QLabel" name="label_6">
           <property name="styleSheet">
-           <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>به کیف پول شما انتقال یافت</string>
@@ -2257,7 +2156,8 @@ color: rgb(204, 0, 0);</string>
         <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
          <widget class="QLabel" name="label_3">
           <property name="styleSheet">
-           <string notr="true">font: 26pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>آیا میخواهید رسید چاپ کنید؟</string>
@@ -2306,7 +2206,7 @@ outline-style: none;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2324,7 +2224,8 @@ outline-style: none;</string>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
          <widget class="QLabel" name="label_8">
           <property name="styleSheet">
-           <string notr="true">font: 24pt &quot;IRANSans&quot;;</string>
+           <string notr="true">font: 24pt &quot;IRANSans&quot;;
+color:#000000;</string>
           </property>
           <property name="text">
            <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید</string>
@@ -2356,7 +2257,7 @@ outline-style: none;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">font: 32pt &quot;IRANSans&quot;;
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -2392,7 +2293,7 @@ outline-style: none;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">font: 32pt &quot;IRANSans&quot;;
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.9, y2:0,x3:1, y3:0, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -2421,16 +2322,23 @@ outline-style: none;</string>
       </widget>
       <widget class="QWidget" name="pageCharity"/>
       <widget class="QWidget" name="pageProtectionOfEnvironment"/>
-      <widget class="QWidget" name="pageBuildingCharge"/>
+      <widget class="QWidget" name="stackFastCharging"/>
      </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
       <item alignment="Qt::AlignLeft|Qt::AlignBottom">
        <widget class="QLabel" name="lblDeviceInfo">
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;IRANSans&quot;;
-font: 18pt &quot;IRANSansFaNum&quot;;</string>
+font: 18pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
         </property>
         <property name="text">
          <string/>

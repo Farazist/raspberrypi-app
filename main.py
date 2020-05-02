@@ -53,9 +53,7 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        self.ui.btnMainMenu_3.clicked.connect(self.stackBuildingCharge)
-        self.ui.btnMainMenu_5.clicked.connect(self.stackProtectionOfEnvironment)
-        self.ui.btnMainMenu_6.clicked.connect(self.stackCharity)
+        #self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -64,7 +62,7 @@ class MainWindow(QWidget):
         self.ui.btnYExitApp.clicked.connect(self.exit_program)
         self.ui.btnSettingStart.clicked.connect(self.stackStart)
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
-        self.ui.btnSetting5.clicked.connect(self.stackDisableDevice)
+        self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
         self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
@@ -224,7 +222,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
-        self.ui.lblDeviceInfo.setText(self.user['name'])
+        self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
     def stackWallet(self):
@@ -314,6 +312,7 @@ class MainWindow(QWidget):
         try:
             self.motor_port = int(DataBase.select('motor_port'))
             self.sensor_port = int(DataBase.select('sensor_port'))
+            self.conveyor_port = int(DataBase.select('conveyor_port'))
             self.motor = LED(self.motor_port, pin_factory=factory)
             self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
             print('motor on')
@@ -364,6 +363,11 @@ class MainWindow(QWidget):
         self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
 
+    def stackConveyorPort(self):
+        self.ui.lblNotification.hide()
+        self.ui.tbConveyorPort.setText(str(DataBase.select('conveyor_port')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorPort)
+
     def printReceipt(self):
         try:
             print("printing...")
@@ -382,7 +386,8 @@ class MainWindow(QWidget):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
-        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        #self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
@@ -398,15 +403,12 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
     def stackCharity(self):
-        self.setLabel(self.ui.lblNotification, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def stackProtectionOfEnvironment(self):
-        self.setLabel(self.ui.lblNotification, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageProtectionOfEnvironment)
 
-    def stackBuildingCharge(self):
-        self.setLabel(self.ui.lblNotification, show=False)
+    def stackFastCharging(self):
         self.ui.Stack.setCurrentWidget(self.ui.pageBuildingCharge)
 
     def changePredictItemFlag(self, value):
@@ -423,6 +425,8 @@ class MainWindow(QWidget):
             result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
         if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
+        if self.ui.tbConveyorPort.text() != '':
+            result = DataBase.update('conveyor_port', self.ui.tbConveyorPort.text())
 
     def exit_program(self):
         self.delivery_items_flag = False
