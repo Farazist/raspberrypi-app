@@ -2,7 +2,7 @@ import io
 import os
 import sys
 import qrcode
-from playsound import playsound
+from pygame import mixer
 from PIL.ImageQt import ImageQt
 from time import sleep, time
 from threading import Thread
@@ -141,7 +141,8 @@ class MainWindow(QWidget):
         try:
             path = os.path.join('sounds', path+'.mp3')
             if os.path.isfile(path):
-                playsound(path, block=False)
+                mixer.music.load(path)
+                mixer.music.play()
         except Exception as e:
             print("error:", e)
 
@@ -473,6 +474,7 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
+    mixer.init()
     try:
         factory = NativeFactory()
     except Exception as e:
