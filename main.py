@@ -228,30 +228,6 @@ class MainWindow(QWidget):
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
-<<<<<<< HEAD
-    def makeQRcode(self):
-        gif_loading = QMovie("animations/Rolling.gif")
-        self.ui.lblPixmapQr.setMovie(gif_loading)
-        gif_loading.start()
-        while self.qrcode_flag:
-            try:
-                qrcode_signin_token = Server.makeQRcodeSignInToken(self.system['id'])
-                qrcode_img = qrcode.make(qrcode_signin_token)
-                self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
-            except:
-                self.showNotification(SERVER_ERROR_MESSAGE)
-            time_end = time() + 32
-            while time() < time_end:
-                self.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
-                if self.user:
-                    self.qrcode_flag = False
-                    break
-                sleep(5)
-        if self.user:
-            self.stackMainMenu()
-
-=======
->>>>>>> d2fbf6451bb14701df2f87a7751d42bb7fa6aa06
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
