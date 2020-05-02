@@ -53,7 +53,7 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        #self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -251,6 +251,7 @@ class MainWindow(QWidget):
     def SelectItem(self, item):
         self.selected_item = item
         self.selected_item['name'] = item['name']
+        self.ui.lblSelectedItem.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
@@ -283,7 +284,7 @@ class MainWindow(QWidget):
 
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
+        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
         self.ui.lblTotal.setText("0")
         self.ui.lblRecycledDone.hide()
@@ -386,7 +387,6 @@ class MainWindow(QWidget):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
-        #self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
@@ -409,7 +409,26 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageProtectionOfEnvironment)
 
     def stackFastCharging(self):
-        self.ui.Stack.setCurrentWidget(self.ui.pageBuildingCharge)
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+
+        self.layout_SArea_FastCharging = QGridLayout()
+        for row in range(4):
+            for col in range(2):
+                btn = QPushButton()
+                #self.items[i]['count'] = 0
+                btn.setText('آهن')
+                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setMinimumSize(250, 100)
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
+                self.layout_SArea_FastCharging.addWidget(btn, row, col)
+            #    i += 1
+            #    if i >= len(self.items):
+            #        break
+            #row += 1
+        #self.SelectItem(self.items[0])
+        self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
+        self.ui.Stack.setCurrentWidget(self.ui.pageFastCharging)
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
