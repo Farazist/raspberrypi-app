@@ -2,6 +2,7 @@ import io
 import os
 import sys
 import qrcode
+from playsound import playsound
 from PIL.ImageQt import ImageQt
 from time import sleep, time
 from threading import Thread
@@ -40,6 +41,7 @@ class QRCodeThread(QThread):
         window.ui.lblPixmapQr.setMovie(gif_loading)
         gif_loading.start()
         while window.qrcode_flag:
+            print('besco')
             try:
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 qrcode_img = qrcode.make(qrcode_signin_token)
@@ -112,7 +114,8 @@ class MainWindow(QWidget):
         print('System ID:', self.system['id'])
 
         self.stackSignInOwner()
-
+        self.playSound('audio1')
+        
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
             button.clicked.disconnect()
@@ -133,6 +136,14 @@ class MainWindow(QWidget):
     def showNotification(self, text):
         self.ui.lblNotification.setText(text)
         self.ui.lblNotification.show()
+
+    def playSound(self, path):
+        try:
+            path = os.path.join('sounds', path+'.mp3')
+            if os.path.isfile(path):
+                playsound(path, block=False)
+        except Exception as e:
+            print("error:", e)
 
     def stackSignInOwner(self):
         if self.system_startup_now:
