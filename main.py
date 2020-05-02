@@ -10,7 +10,7 @@ from escpos.printer import Usb
 from gpiozero import LightSensor, LED
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize
+from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
 
@@ -29,6 +29,32 @@ SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
 SIGNIN_ERROR_MESSAGE = 'شناسه کاربری یا گذر واژه درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
+
+#Inherit from QThread
+class QRCodeThread(QThread):
+    def __init__(self):
+        QThread.__init__(self)
+
+    def run(self):
+        gif_loading = QMovie("animations/Rolling.gif")
+        window.ui.lblPixmapQr.setMovie(gif_loading)
+        gif_loading.start()
+        while window.qrcode_flag:
+            try:
+                qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
+                qrcode_img = qrcode.make(qrcode_signin_token)
+                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+            except:
+                window.showNotification(SERVER_ERROR_MESSAGE)
+            time_end = time() + 32
+            while time() < time_end:
+                window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
+                if window.user:
+                    window.qrcode_flag = False
+                    break
+                sleep(4)
+        if window.user:
+            window.stackMainMenu()
 
 class MainWindow(QWidget):
    
@@ -59,7 +85,7 @@ class MainWindow(QWidget):
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
-        self.ui.btnYExitApp.clicked.connect(self.exit_program)
+        self.ui.btnYExitApp.clicked.connect(self.exitProgram)
         self.ui.btnSettingStart.clicked.connect(self.stackStart)
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
@@ -73,13 +99,14 @@ class MainWindow(QWidget):
         self.system_id = DataBase.select('system_id')
         self.system = Server.getSystem(self.system_id)
         self.owner = None
+        self.system_startup_now = True
 
         self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
-        
+
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
         print('System ID:', self.system['id'])
@@ -108,7 +135,7 @@ class MainWindow(QWidget):
         self.ui.lblNotification.show()
 
     def stackSignInOwner(self):
-        if self.owner == None:
+        if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -120,6 +147,9 @@ class MainWindow(QWidget):
     def signInOwner(self):
         self.owner = Server.signInUser(self.ui.tbOwnerUsername.text(), self.ui.tbOwnerPassword.text())
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
+            if self.system_startup_now:
+                # Server.turnOnSystemSMS(self.owner, self.system)
+                self.system_startup_now = False
             self.stackSetting()
         else:
             print("mobile number or password is incurrect")
@@ -187,34 +217,12 @@ class MainWindow(QWidget):
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
-    def makeQRcode(self):
-        gif_loading = QMovie("animations/Rolling.gif")
-        self.ui.lblPixmapQr.setMovie(gif_loading)
-        gif_loading.start()
-        while self.qrcode_flag:
-            try:
-                qrcode_signin_token = Server.makeQRcodeSignInToken(self.system['id'])
-                qrcode_img = qrcode.make(qrcode_signin_token)
-                self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
-            except:
-                self.showNotification(SERVER_ERROR_MESSAGE)
-
-            time_end = time() + 32
-            while time() < time_end:
-                self.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
-                if self.user:
-                    self.qrcode_flag = False
-                    break
-                sleep(5)
-        if self.user:
-            self.stackMainMenu()
-
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
         self.qrcode_flag = True
-        self.qrcode_thread = Thread(target=self.makeQRcode)
+        self.qrcode_thread = QRCodeThread()
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserQRcode)
 
@@ -446,7 +454,8 @@ class MainWindow(QWidget):
         if self.ui.tbConveyorPort.text() != '':
             result = DataBase.update('conveyor_port', self.ui.tbConveyorPort.text())
 
-    def exit_program(self):
+    def exitProgram(self):
+        Server.turnOffSystemSMS(self.owner, self.system)
         self.delivery_items_flag = False
         self.close()
         QApplication.quit()
@@ -460,7 +469,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    timer = QTimer()
-    timer.timeout.connect(window.hideRecycleItem)
-    timer.start(1000) #it's aboat 1 seconds
+    # timer = QTimer()
+    # timer.timeout.connect(window.hideRecycleItem)
+    # timer.start(1000) #it's aboat 1 seconds
     sys.exit(app.exec_())

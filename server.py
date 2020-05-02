@@ -107,3 +107,29 @@ class Server:
             return response.json()
         except:
             return None
+
+    @staticmethod
+    def turnOnSystemSMS(owner, system):
+        headers = {
+            'authorization': 'Bearer ' + owner['access_token'], 
+            'Content-Type': 'application/json'
+        }
+        data = {'system_id': system['id']}
+        try:
+            response = post(url=url + '/api/turn-on-system-sms', data=json.dumps(data), headers=headers, verify=True)
+            return json.loads(response.text)
+        except:
+            return None
+
+    @staticmethod
+    def turnOffSystemSMS(owner, system):
+        headers = {
+            'authorization': 'Bearer ' + owner['access_token'], 
+            'Content-Type': 'application/json'
+        }
+        data = {'system_id': system['id']}
+        try:
+            response = post(url=url + '/api/turn-off-system-sms', data=json.dumps(data), headers=headers, verify=True)
+            return json.loads(response.text)
+        except:
+            return None
