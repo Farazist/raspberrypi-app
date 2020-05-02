@@ -200,7 +200,6 @@ class MainWindow(QWidget):
                 self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
-
             time_end = time() + 32
             while time() < time_end:
                 self.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
@@ -271,7 +270,7 @@ class MainWindow(QWidget):
 
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleLongDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleLongDate))
-        self.ui.lblNotification.hide()
+        # self.ui.lblNotification.hide()
 
     def sensorTest(self):
         try:
@@ -438,7 +437,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    timer = QTimer()
-    timer.timeout.connect(window.hideRecycleItem)
-    timer.start(1000) #it's aboat 1 seconds
+    # timer = QTimer()
+    # timer.timeout.connect(window.hideRecycleItem)
+    # timer.start(1000) #it's aboat 1 seconds
     sys.exit(app.exec_())
