@@ -114,7 +114,7 @@ class MainWindow(QWidget):
         print('System ID:', self.system['id'])
 
         self.stackSignInOwner()
-        self.playSound('audio1')
+        self.playSound('audio2')
         
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
