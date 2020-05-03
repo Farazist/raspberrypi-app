@@ -2,6 +2,7 @@ import io
 import os
 import sys
 import qrcode
+import imageio
 from pygame import mixer
 from PIL.ImageQt import ImageQt
 from time import sleep, time
@@ -27,7 +28,7 @@ __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
 SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
-SIGNIN_ERROR_MESSAGE = 'شناسه کاربری یا گذر واژه درست نیست'
+SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 
@@ -94,6 +95,7 @@ class MainWindow(QWidget):
         self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
+        self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
 
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
@@ -114,7 +116,7 @@ class MainWindow(QWidget):
         print('System ID:', self.system['id'])
 
         self.stackSignInOwner()
-        self.playSound('audio2')
+        
         
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -146,6 +148,16 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def makeGif(self):
+        pngdir = 'images/slider'
+        images = []
+        kargs = { 'duration': 5 }
+        for file_name in os.listdir(pngdir):
+            if file_name.endswith('.JPG'):
+                file_path = os.path.join(pngdir, file_name)
+                images.append(imageio.imread(file_path))
+        imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
+
     def stackSignInOwner(self):
         if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
@@ -163,6 +175,7 @@ class MainWindow(QWidget):
                 # Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
+            self.playSound('audio2')
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
@@ -175,8 +188,10 @@ class MainWindow(QWidget):
         self.user = Server.signInUser(self.ui.tbUserId.text(), self.ui.tbUserPassword.text())
         if self.user != None:
             self.stackMainMenu()
+            self.playSound('audio2')
         else:
             print("mobile number or password is incurrect")
+            self.showNotification(SIGNIN_ERROR_MESSAGE)
             
     def signOutUser(self):
         self.user = None
@@ -210,15 +225,15 @@ class MainWindow(QWidget):
         self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
-        gif_start = QMovie("animations/return.gif")
+        gif_start = QMovie("animations/slider1.gif")
         self.ui.lblGifStart.setMovie(gif_start)
-        # self.ui.btnGifStart.setMovie(gif_start)
         gif_start.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.ui.lblNotification.hide()
         self.qrcode_flag = False
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
@@ -232,6 +247,7 @@ class MainWindow(QWidget):
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.playSound('audio8')
         self.ui.lblNotification.hide()
         self.qrcode_flag = True
         self.qrcode_thread = QRCodeThread()
@@ -276,6 +292,7 @@ class MainWindow(QWidget):
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         
     def recycleItem(self):
+        self.playSound('audio3')
         self.showNotification(RECYCLE_MESSAGE)
         self.ui.btnRight.show()
         self.selected_item['count'] += 1
@@ -306,6 +323,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
+        self.playSound('audio7')
         self.ui.lblTotal.setText("0")
         self.ui.lblRecycledDone.hide()
         self.items = Server.getItems(self.owner['id'])
@@ -389,8 +407,13 @@ class MainWindow(QWidget):
         self.ui.tbConveyorPort.setText(str(DataBase.select('conveyor_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorPort)
 
+    def stackAddOpetator(self):
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingAddOperator)
+
+
     def printReceipt(self):
         try:
+            self.playSound('audio4')
             print("printing...")
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
             printer.image("images/logo-small.png")
@@ -406,6 +429,7 @@ class MainWindow(QWidget):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
+        self.playSound('audio5')
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
@@ -482,7 +506,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    # timer = QTimer()
-    # timer.timeout.connect(window.hideRecycleItem)
-    # timer.start(1000) #it's aboat 1 seconds
+    timer = QTimer()
+    timer.timeout.connect(window.hideRecycleItem)
+    timer.start(1000) #it's aboat 1 seconds
     sys.exit(app.exec_())

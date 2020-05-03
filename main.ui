@@ -123,7 +123,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -1276,7 +1276,21 @@ outline-style: none;</string>
              </size>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
-             <layout class="QVBoxLayout" name="verticalLayout_13"/>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>images/vector/setting-vector.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="pageSettingDeviceMode">
              <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -1320,6 +1334,9 @@ QRadioButton{color:#000000;}
                 </item>
                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                  <widget class="QRadioButton" name="btnAutoDevice">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QRadioButton::indicator {width: 60px;height: 60px;}
 QRadioButton::indicator::unchecked {image: url(images/icon/unchecked.png);} QRadioButton::indicator:unchecked:hover {image: url(images/icon/unchecked-hover.png);}
@@ -1546,216 +1563,193 @@ color:#000000;</string>
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="pageSettingAddOperator"/>
            </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <item row="2" column="1">
-             <widget class="QPushButton" name="btnSetting3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+           <widget class="QScrollArea" name="scrollArea_2">
+            <property name="minimumSize">
+             <size>
+              <width>450</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>750</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>524</width>
+               <height>436</height>
+              </rect>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="2" column="1">
+               <widget class="QPushButton" name="btnSetting4">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>شماره پورت سنسور</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="btnSetting6">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                </property>
+                <property name="text">
+                 <string>افزودن اپراتور</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QPushButton" name="btnSetting3">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>خروج از برنامه</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QPushButton" name="btnSetting5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                </property>
+                <property name="text">
+                 <string>شماره پورت سنسور</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="btnSetting1">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>شماره پورت نوار نقاله</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="btnSettingStart">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #003cb5, stop:1#5286ff,  stop:2 #6ff8ff);
-color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;
-</string>
-              </property>
-              <property name="text">
-               <string>شروع برنامه</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="btnSetting2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                </property>
+                <property name="text">
+                 <string>حالت دستگاه</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="btnSettingStart">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #003cb5, stop:1#5286ff,  stop:2 #6ff8ff);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>شماره پورت موتور</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="btnSetting1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                </property>
+                <property name="text">
+                 <string>شروع برنامه</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="btnSetting2">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;</string>
-              </property>
-              <property name="text">
-               <string>حالت دستگاه</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+                </property>
+                <property name="text">
+                 <string>شماره پورت موتور</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QPushButton" name="btnSetting5">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+                </property>
+                <property name="text">
+                 <string>شماره پورت نوار نقاله</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="3">
+               <widget class="QPushButton" name="btnSetting6">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+                </property>
+                <property name="text">
+                 <string>خروج از برنامه</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
           </item>
          </layout>
         </item>
@@ -2052,8 +2046,8 @@ outline-style: none;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -2096,29 +2090,21 @@ color: rgb(204, 0, 0);</string>
         <property name="spacing">
          <number>0</number>
         </property>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_5">
-          <property name="styleSheet">
-           <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color:#000000;</string>
-          </property>
-          <property name="text">
-           <string>مبلغ</string>
-          </property>
-         </widget>
-        </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0,0">
           <property name="spacing">
            <number>0</number>
           </property>
           <property name="leftMargin">
-           <number>450</number>
+           <number>330</number>
+          </property>
+          <property name="topMargin">
+           <number>20</number>
           </property>
           <property name="rightMargin">
-           <number>450</number>
+           <number>330</number>
           </property>
-          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+          <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_9">
             <property name="styleSheet">
              <string notr="true">font: 26pt &quot;IRANSans&quot;;
@@ -2129,14 +2115,25 @@ color:#000000;</string>
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+          <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="lblTotalPrice">
             <property name="styleSheet">
              <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
             </property>
             <property name="text">
-             <string>13258</string>
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_5">
+            <property name="styleSheet">
+             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+            </property>
+            <property name="text">
+             <string>مبلغ</string>
             </property>
            </widget>
           </item>
@@ -2149,11 +2146,11 @@ color:#000000;</string>
 color:#000000;</string>
           </property>
           <property name="text">
-           <string>به کیف پول شما انتقال یافت</string>
+           <string>به کیف پول شما انتقال یافت.</string>
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+        <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="label_3">
           <property name="styleSheet">
            <string notr="true">font: 26pt &quot;IRANSans&quot;;
@@ -2167,15 +2164,15 @@ color:#000000;</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <property name="spacing">
-           <number>0</number>
+           <number>50</number>
           </property>
           <property name="leftMargin">
-           <number>350</number>
+           <number>300</number>
           </property>
           <property name="rightMargin">
-           <number>350</number>
+           <number>300</number>
           </property>
-          <item alignment="Qt::AlignHCenter">
+          <item>
            <widget class="QPushButton" name="btnPrintReceiptYes">
             <property name="minimumSize">
              <size>
@@ -2197,7 +2194,7 @@ outline-style: none;</string>
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignHCenter">
+          <item>
            <widget class="QPushButton" name="btnPrintReceiptNo">
             <property name="minimumSize">
              <size>
@@ -2221,14 +2218,14 @@ outline-style: none;</string>
           </item>
          </layout>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="label_8">
           <property name="styleSheet">
            <string notr="true">font: 24pt &quot;IRANSans&quot;;
-color:#000000;</string>
+color:#28a745;</string>
           </property>
           <property name="text">
-           <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید</string>
+           <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید.</string>
           </property>
          </widget>
         </item>
@@ -2525,8 +2522,8 @@ outline-style: none;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>498</width>
-             <height>447</height>
+             <width>481</width>
+             <height>16</height>
             </rect>
            </property>
           </widget>
@@ -2549,7 +2546,8 @@ outline-style: none;</string>
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;IRANSans&quot;;
 font: 18pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
+color:#000000;
+</string>
         </property>
         <property name="text">
          <string/>
@@ -2562,8 +2560,11 @@ color:#000000;</string>
       <item alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="lblNotification">
         <property name="styleSheet">
-         <string notr="true">font: 32pt &quot;IRANSans&quot;;
-color: rgb(204, 0, 0);</string>
+         <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color: rgb(204, 0, 0);
+font: 20pt &quot;IRANSansFaNum&quot;;
+
+</string>
         </property>
         <property name="text">
          <string/>
