@@ -123,7 +123,7 @@ outline-style: none;</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -1383,7 +1383,7 @@ color: #000000;</string>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <item alignment="Qt::AlignVCenter">
                  <widget class="QPushButton" name="btnNExitApp">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -1410,7 +1410,7 @@ border-radius: 6px;</string>
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <item alignment="Qt::AlignVCenter">
                  <widget class="QPushButton" name="btnYExitApp">
                   <property name="minimumSize">
                    <size>
@@ -2046,8 +2046,8 @@ outline-style: none;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -2522,8 +2522,8 @@ outline-style: none;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>481</width>
-             <height>16</height>
+             <width>498</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
