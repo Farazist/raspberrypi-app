@@ -4,7 +4,6 @@ import sys
 import qrcode
 import imageio
 from pygame import mixer
-from PIL.ImageQt import ImageQt
 from time import sleep, time
 from threading import Thread
 from functools import partial
@@ -15,6 +14,7 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
+from PIL.ImageQt import ImageQt
 
 from server import Server
 from database import DataBase
@@ -34,28 +34,31 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 
 #Inherit from QThread
 class QRCodeThread(QThread):
+
+    signal = Signal(str)
+
     def __init__(self):
         QThread.__init__(self)
+    
+    def stop(self):
+        self.qrcode_flag = False
 
     def run(self):
-        gif_loading = QMovie("animations/Rolling.gif")
-        window.ui.lblPixmapQr.setMovie(gif_loading)
-        gif_loading.start()
-        while window.qrcode_flag:
-            print('besco')
+        self.qrcode_flag = True
+        while self.qrcode_flag:
             try:
+                print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
-                qrcode_img = qrcode.make(qrcode_signin_token)
-                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+                self.signal.emit(qrcode_signin_token)
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
             time_end = time() + 32
             while time() < time_end:
                 window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
                 if window.user:
-                    window.qrcode_flag = False
+                    self.stop()
                     break
-                sleep(4)
+                QThread.msleep(4000)
         if window.user:
             window.stackMainMenu()
 
@@ -110,6 +113,8 @@ class MainWindow(QWidget):
         self.device_mode = DataBase.select('bottle_recognize_mode')
         self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
+        self.qrcode_thread = QRCodeThread()
+        self.qrcode_thread.signal.connect(self.showQRcode) 
 
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -215,7 +220,7 @@ class MainWindow(QWidget):
                 finally:
                     camera.stop_preview()
         except Exception as e:
-                print("error:", e)
+            print("error:", e)
 
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
@@ -233,7 +238,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
-        self.qrcode_flag = False
+        self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
@@ -243,13 +248,21 @@ class MainWindow(QWidget):
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
+    def showQRcode(self, qrcode_signin_token):
+        print(qrcode_signin_token)
+        qrcode_img = qrcode.make(qrcode_signin_token)
+        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.playSound('audio8')
         self.ui.lblNotification.hide()
-        self.qrcode_flag = True
-        self.qrcode_thread = QRCodeThread()
+        
+        gif_loading = QMovie("animations/Rolling.gif")
+        self.ui.lblPixmapQr.setMovie(gif_loading)
+        gif_loading.start()
+
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserQRcode)
 
