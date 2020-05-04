@@ -85,7 +85,7 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -249,7 +249,6 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def showQRcode(self, qrcode_signin_token):
-        print(qrcode_signin_token)
         qrcode_img = qrcode.make(qrcode_signin_token)
         self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
 
