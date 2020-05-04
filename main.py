@@ -8,7 +8,7 @@ from time import sleep, time
 from threading import Thread
 from functools import partial
 from escpos.printer import Usb
-from gpiozero import LightSensor, LED
+from gpiozero import LightSensor, LED, Motor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -333,7 +333,7 @@ class MainWindow(QWidget):
 
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
@@ -365,13 +365,52 @@ class MainWindow(QWidget):
             self.sensor_port = int(DataBase.select('sensor_port'))
             self.conveyor_port = int(DataBase.select('conveyor_port'))
             self.motor = LED(self.motor_port, pin_factory=factory)
+            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
             self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
-            print('motor on')
             self.motor.on()
+            self.conveyor.on()
+            print('motor on')
         except Exception as e:
             print("error:", e)
         self.sensorTest_thread = Thread(target=self.sensorTest)
         self.sensorTest_thread.start()
+
+    def printReceipt(self):
+        try:
+            self.playSound('audio4')
+            print("printing...")
+            printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
+            printer.image("images/logo-small.png")
+            printer.set(align=u'center')
+            printer.text("Farazist" + "\n")
+            printer.text(str(self.total_price) + " Rial" + "\n")
+            printer.qr(str(self.total_price), size=8)
+            printer.text(str(self.system['owner']['mobile_number']) + "\n")
+            printer.text("farazist.ir" + "\n")
+            printer.cut()
+        except Exception as e:
+            print("error:", e)
+        self.stackMainMenu()
+
+    def stackAfterDelivery(self):
+        self.playSound('audio5')
+        self.setButton(self.ui.btnLeft, show=False)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lblNotification.hide()
+        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
+        self.ui.lblTotalPrice.setText(str(self.total_price))
+        # self.delivery_items_flag = False
+        Server.addNewDelivery(self.user, self.system['id'], self.user_items)
+        if Server.transfer(self.owner, self.user, self.total_price) == "1":
+            self.user['wallet'] += self.total_price
+        else:
+            print('not enough money in owner wallet')
+        try:
+            self.motor.off()
+            self.conveyor.off()
+        except Exception as e:
+            print("error:", e)
+        self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -421,41 +460,7 @@ class MainWindow(QWidget):
 
     def stackAddOpetator(self):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingAddOperator)
-
-    def printReceipt(self):
-        try:
-            self.playSound('audio4')
-            print("printing...")
-            printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.image("images/logo-small.png")
-            printer.set(align=u'center')
-            printer.text("Farazist" + "\n")
-            printer.text(str(self.total_price) + " Rial" + "\n")
-            printer.qr(str(self.total_price), size=8)
-            printer.text(str(self.system['owner']['mobile_number']) + "\n")
-            printer.text("farazist.ir" + "\n")
-            printer.cut()
-        except Exception as e:
-            print("error:", e)
-        self.stackMainMenu()
-
-    def stackAfterDelivery(self):
-        self.playSound('audio5')
-        self.setButton(self.ui.btnLeft, show=False)
-        self.setButton(self.ui.btnRight, show=False)
-        self.ui.lblNotification.hide()
-        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
-        self.ui.lblTotalPrice.setText(str(self.total_price))
-        # self.delivery_items_flag = False
-        Server.addNewDelivery(self.user, self.system['id'], self.user_items)
-        Server.transfer(self.owner, self.user, self.total_price)
-        self.user['wallet'] += self.total_price
-        try:
-            self.motor.off()
-        except Exception as e:
-            print("error:", e)
-        self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
-
+    
     def stackCharity(self):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 

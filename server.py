@@ -104,7 +104,7 @@ class Server:
         }
         try:
             response = post(url=url + '/api/transfer', data=json.dumps(data), headers=headers, verify=True)
-            return response.json()
+            return response.text
         except:
             return None
 
