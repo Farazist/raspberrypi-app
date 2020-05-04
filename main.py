@@ -117,7 +117,6 @@ class MainWindow(QWidget):
 
         self.stackSignInOwner()
         
-        
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
             button.clicked.disconnect()
