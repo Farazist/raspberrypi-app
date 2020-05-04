@@ -53,7 +53,7 @@ class QRCodeThread(QThread):
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
             time_end = time() + 32
-            while time() < time_end:
+            while self.qrcode_flag and time() < time_end:
                 window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
                 if window.user:
                     self.stop()
@@ -422,7 +422,6 @@ class MainWindow(QWidget):
     def stackAddOpetator(self):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingAddOperator)
 
-
     def printReceipt(self):
         try:
             self.playSound('audio4')
@@ -430,11 +429,11 @@ class MainWindow(QWidget):
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
             printer.image("images/logo-small.png")
             printer.set(align=u'center')
-            printer.text("Farazist\n")
-            printer.text(str(self.total_price) + " Rial")
+            printer.text("Farazist" + "\n")
+            printer.text(str(self.total_price) + " Rial" + "\n")
             printer.qr(str(self.total_price), size=8)
-            printer.text(self.system['owner']['mobile_number'])
-            printer.text("farazist.ir\n")
+            printer.text(str(self.system['owner']['mobile_number']) + "\n")
+            printer.text("farazist.ir" + "\n")
             printer.cut()
         except Exception as e:
             print("error:", e)
@@ -521,4 +520,4 @@ if __name__ == '__main__':
     timer = QTimer()
     timer.timeout.connect(window.hideRecycleItem)
     timer.start(1000) #it's aboat 1 seconds
-    sys.exit(app.exec_())
+    app.exec_()
