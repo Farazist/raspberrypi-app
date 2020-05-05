@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Encoding=UTF-8
+Name=Farazist
+Comment=OpenGL demotool
+Path=/home/pi/Documents/Farazist
+Icon=/home/pi/Documents/Farazist/images/logo.png
+Exec=sudo ./Farazist
+Terminal=false
+Categories=Graphics
