@@ -52,7 +52,7 @@
         <property name="styleSheet">
          <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color: rgb(255, 255, 255);
-background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
+background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #FE5858, stop:1 #EE9617);
 border-radius: 6px;
 outline-style: none;</string>
         </property>
@@ -97,7 +97,7 @@ outline-style: none;</string>
         <property name="styleSheet">
          <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color: rgb(255, 255, 255);
-background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fb5f15, stop:1 #f5834d);
+background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #FE5858, stop:1 #EE9617);
 border-radius: 6px;
 outline-style: none;</string>
         </property>
@@ -1265,7 +1265,7 @@ outline-style: none;</string>
            <widget class="QStackedWidget" name="StackSetting">
             <property name="minimumSize">
              <size>
-              <width>500</width>
+              <width>0</width>
               <height>0</height>
              </size>
             </property>
@@ -1404,9 +1404,9 @@ color: #000000;</string>
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #aa0000, stop:1 #f86565);
+                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #FF0000, stop:1#FF0055,  stop:2 #FF5500);
+color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;</string>
@@ -1470,7 +1470,7 @@ color: #000000;</string>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>70</height>
+                  <height>0</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -1550,6 +1550,9 @@ color: #000000;</string>
                 <property name="text">
                  <string>جهت تنظیم شماره پورت نوار نقاله، عددی بین 1 تا 40 را در کادر زیر وارد کنید</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                 <property name="wordWrap">
                  <bool>true</bool>
                 </property>
@@ -1576,7 +1579,7 @@ color:#000000;</string>
            <widget class="QScrollArea" name="scrollArea_2">
             <property name="minimumSize">
              <size>
-              <width>450</width>
+              <width>550</width>
               <height>0</height>
              </size>
             </property>
@@ -1594,7 +1597,7 @@ color:#000000;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>524</width>
+               <width>531</width>
                <height>436</height>
               </rect>
              </property>
@@ -1740,7 +1743,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #28a745, stop:1#20c997,  stop:2 #17a2b8);
+                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #FF0000, stop:1#FF0055,  stop:2 #FF5500);
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2187,9 +2190,9 @@ color:#000000;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #aa0000, stop:1 #f86565);
+             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.5,x3:1, y3:1, stop:0 #FF0000, stop:1#FF0055,  stop:2 #FF5500);
+color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
-color: #ffffff; 
 padding: 3px; 
 border: none; 
 border-radius: 6px;
