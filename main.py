@@ -167,6 +167,7 @@ class MainWindow(QWidget):
             self.setButton(self.ui.btnLeft, show=False)
         else:
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
+            self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
@@ -349,7 +350,7 @@ class MainWindow(QWidget):
                 btn.setText(self.items[i]['name'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setMinimumSize(250, 100)
-                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                btn.setStyleSheet('QPushButton:focus { background-color: #28a745; color:#ffffff } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000} QPushButton{outline-style: none;}')
                 btn.clicked.connect(partial(self.SelectItem, self.items[i]))
                 self.layout_FArea.addWidget(btn, row, col)
                 i += 1
@@ -415,6 +416,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
         self.ui.lblNotification.hide()
+        self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
         self.ui.Stack.setCurrentWidget(self.ui.pageSetting)
 
