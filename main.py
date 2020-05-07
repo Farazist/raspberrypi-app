@@ -298,14 +298,21 @@ class MainWindow(QWidget):
         # self.detect_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
 
-    def SelectItem(self, item):
+    def SelectItem(self, item, this_btn):
         self.selected_item = item
         self.selected_item['name'] = item['name']
         self.ui.lblSelectedItem.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+
+        # for btn in self.layout_FArea.findChildren(QPushButton):
+        #     btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
+
+        # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def recycleItem(self):
+        self.motorOn()
+        self.conveyorOn()
         self.playSound('audio3')
         #self.showNotification(RECYCLE_MESSAGE)
         self.ui.btnRight.show()
@@ -333,6 +340,40 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def motorOff(self):
+        try:
+            sleep(5)
+            self.motor.off()
+            print("motor off")
+        except Exception as e:
+            print("error:", e)
+
+    def conveyorOff(self):
+        try:
+            sleep(5)
+            self.conveyor.off()
+            print("conveyor off")
+        except Exception as e:
+            print("error:", e)
+
+    def motorOn(self):
+        try:
+            self.motor.on()
+            print('motor on')
+            self.motorOff_thread = Thread(target=self.motorOff)
+            self.motorOff_thread.start()
+        except Exception as e:
+            print("error:", e)
+    
+    def conveyorOn(self):
+        try:
+            self.conveyor.on()
+            print('conveyor on')
+            self.conveyorOff_thread = Thread(target=self.conveyorOff)
+            self.conveyorOff_thread.start()
+        except Exception as e:
+            print("error:", e)
+
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
@@ -351,31 +392,41 @@ class MainWindow(QWidget):
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
                 btn.setMinimumSize(250, 100)
-                btn.setStyleSheet('QPushButton:focus { background-color: #28a745; color:#ffffff } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000} QPushButton{outline-style: none;}')
-                btn.clicked.connect(partial(self.SelectItem, self.items[i]))
+                btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
                 self.layout_FArea.addWidget(btn, row, col)
                 i += 1
                 if i >= len(self.items):
                     break
             row += 1
-        self.SelectItem(self.items[0])
+        self.SelectItem(self.items[0], self.layout_FArea.itemAt(0))
         self.ui.scrollAreaWidgetDelivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
+        
         try:
             self.motor_port = int(DataBase.select('motor_port'))
-            self.sensor_port = int(DataBase.select('sensor_port'))
-            self.conveyor_port = int(DataBase.select('conveyor_port'))
             self.motor = LED(self.motor_port, pin_factory=factory)
-            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
-            self.sensor = LightSensor(self.sensor_port, pin_factory=factory)
-            self.motor.on()
-            self.conveyor.on()
-            print('motor on')
         except Exception as e:
             print("error:", e)
-        self.sensorTest_thread = Thread(target=self.sensorTest)
-        self.sensorTest_thread.start()
+
+        try:
+            self.conveyor_port = int(DataBase.select('conveyor_port'))
+            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
+            print('conveyor on')
+        except Exception as e:
+            print("error:", e)
+        
+        try:
+            self.sensor_port = int(DataBase.select('sensor_port'))
+            self.sensor = LED(self.sensor_port, pin_factory=factory)
+            self.sensor.on()
+            print('sensor on')
+        except Exception as e:
+            print("error:", e)
+
+        # self.sensorTest_thread = Thread(target=self.sensorTest)
+        # self.sensorTest_thread.start()
 
     def printReceipt(self):
         try:
@@ -407,11 +458,29 @@ class MainWindow(QWidget):
             self.user['wallet'] += self.total_price
         else:
             print('not enough money in owner wallet')
+        
         try:
             self.motor.off()
+        except Exception as e:
+            print("error:", e)
+        
+        try:
             self.conveyor.off()
         except Exception as e:
             print("error:", e)
+                    
+        try:
+            self.motor.close()
+            print("motor close")
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            self.conveyor.close()
+            print("conveyor close")
+        except Exception as e:
+            print("error:", e)
+
         self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
     def stackSetting(self):
