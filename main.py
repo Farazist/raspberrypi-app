@@ -121,6 +121,7 @@ class MainWindow(QWidget):
         print('System ID:', self.system['id'])
 
         self.stackSignInOwner()
+        self.playSound('audio2')
         
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -148,6 +149,7 @@ class MainWindow(QWidget):
             path = os.path.join('sounds', path+'.mp3')
             if os.path.isfile(path):
                 mixer.music.load(path)
+                # mixer.music.set_volume(1.0)
                 mixer.music.play()
         except Exception as e:
             print("error:", e)
