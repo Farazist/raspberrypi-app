@@ -2,7 +2,7 @@ import io
 import os
 import sys
 import qrcode
-import imageio
+# import imageio
 from pygame import mixer
 from time import sleep, time
 from threading import Thread
@@ -161,8 +161,8 @@ class MainWindow(QWidget):
         for file_name in os.listdir(pngdir):
             if file_name.endswith('.JPG'):
                 file_path = os.path.join(pngdir, file_name)
-                images.append(imageio.imread(file_path))
-        imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
+        #         images.append(imageio.imread(file_path))
+        # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
     def stackSignInOwner(self):
         if self.system_startup_now:
