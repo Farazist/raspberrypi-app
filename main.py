@@ -177,7 +177,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
     
     def signInOwner(self):
-        self.owner = Server.signInUser(self.ui.tbOwnerUsername.text(), self.ui.tbOwnerPassword.text())
+        self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
                 Server.turnOnSystemSMS(self.owner, self.system)
@@ -193,7 +193,7 @@ class MainWindow(QWidget):
 #            self.ui.lblErrorOwner.setText('نام کاربری یا رمز عبور صحیح نیست')
     
     def signInUser(self):
-        self.user = Server.signInUser(self.ui.tbUserId.text(), self.ui.tbUserPassword.text())
+        self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
         if self.user != None:
             self.stackMainMenu()
             self.playSound('audio2')
