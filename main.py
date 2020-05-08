@@ -179,7 +179,7 @@ class MainWindow(QWidget):
         self.owner = Server.signInUser(self.ui.tbOwnerUsername.text(), self.ui.tbOwnerPassword.text())
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                # Server.turnOnSystemSMS(self.owner, self.system)
+                Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
@@ -392,7 +392,7 @@ class MainWindow(QWidget):
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
+                btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"')
                 btn.setMinimumSize(250, 100)
                 btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
                 self.layout_FArea.addWidget(btn, row, col)

@@ -445,7 +445,7 @@ color:#000000;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+           <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -879,7 +879,7 @@ color:#000000;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+           <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1179,7 +1179,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);;
+             <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -1238,7 +1238,7 @@ color:#000000;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+             <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1401,11 +1401,11 @@ color: #000000;</string>
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
-                    <height>0</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #FF0000, stop:1 #FF0055);
+                   <string notr="true">background-color:  #FF0022;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1422,11 +1422,11 @@ border-radius: 6px;</string>
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
-                    <height>0</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                   <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1490,6 +1490,53 @@ color:#000000;
                  <number>2</number>
                 </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <item>
+                 <widget class="QPushButton" name="btnMotorOff">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:  #FF0022;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;</string>
+                  </property>
+                  <property name="text">
+                   <string>خاموش</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnMotorON">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+                  </property>
+                  <property name="text">
+                   <string>روشن</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -1569,7 +1616,58 @@ border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
                 </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <item>
+                 <widget class="QPushButton" name="btnConveryOff">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:  #FF0022;
+
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;</string>
+                  </property>
+                  <property name="text">
+                   <string>خاموش</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnConveryOn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;</string>
+                  </property>
+                  <property name="text">
+                   <string>روشن</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -1612,7 +1710,7 @@ color:#000000;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                 <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1634,7 +1732,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                 <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1656,7 +1754,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                 <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1678,10 +1776,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">
-
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #003cb5, stop:1 #5286ff);
-
+                 <string notr="true">background-color: #003cbd;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1703,7 +1798,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                 <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1712,7 +1807,7 @@ border-radius: 6px;
 outline-style: none;</string>
                 </property>
                 <property name="text">
-                 <string>شماره پورت موتور</string>
+                 <string>موتور</string>
                 </property>
                </widget>
               </item>
@@ -1725,7 +1820,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+                 <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -1734,7 +1829,7 @@ border-radius: 6px;
 outline-style: none;</string>
                 </property>
                 <property name="text">
-                 <string>شماره پورت نوار نقاله</string>
+                 <string>نوار نقاله</string>
                 </property>
                </widget>
               </item>
@@ -1747,7 +1842,7 @@ outline-style: none;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #FF0000, stop:1 #FF0055);
+                 <string notr="true">background-color:  #FF0022;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2019,7 +2114,7 @@ color: rgb(204, 0, 0);</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+               <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2194,7 +2289,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #FF0000, stop:1 #FF0055);
+             <string notr="true">background-color:  #FF0022;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2216,7 +2311,7 @@ outline-style: none;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+             <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
@@ -2267,7 +2362,7 @@ color:#28a745;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">font: 32pt &quot;IRANSans&quot;;
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+background-color: #28a745;
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -2303,7 +2398,7 @@ outline-style: none;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">font: 32pt &quot;IRANSans&quot;;
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+background-color: #28a745;
 color: rgb(255, 255, 255);
 padding: 3px; 
 border: none; 
@@ -2495,7 +2590,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+             <string notr="true">background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
 padding: 3px; 
