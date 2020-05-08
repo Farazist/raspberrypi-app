@@ -31,6 +31,7 @@ SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
+SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 #Inherit from QThread
 class QRCodeThread(QThread):
@@ -327,7 +328,7 @@ class MainWindow(QWidget):
         self.ui.lblTotal.setText(str(self.total_price))
 
     def hideRecycleItem(self):
-        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleLongDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleLongDate))
+        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
     def sensorTest(self):
@@ -342,7 +343,7 @@ class MainWindow(QWidget):
 
     def motorOff(self):
         try:
-            sleep(5)
+            sleep(10)
             self.motor.off()
             print("motor off")
         except Exception as e:
@@ -350,7 +351,7 @@ class MainWindow(QWidget):
 
     def conveyorOff(self):
         try:
-            sleep(5)
+            sleep(10)
             self.conveyor.off()
             print("conveyor off")
         except Exception as e:
@@ -433,10 +434,10 @@ class MainWindow(QWidget):
             self.playSound('audio4')
             print("printing...")
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.image("images/logo-small.png")
+            printer.image("images/logo-text-small.png")
             printer.set(align=u'center')
             printer.text("Farazist" + "\n")
-            printer.text(str(self.total_price) + " Rial" + "\n")
+            printer.text(str(self.total_price) + " Toman" + "\n")
             printer.qr(str(self.total_price), size=8)
             printer.text(str(self.system['owner']['mobile_number']) + "\n")
             printer.text("farazist.ir" + "\n")
@@ -566,6 +567,7 @@ class MainWindow(QWidget):
         self.ui.lblDeliveryItems.clear()
 
     def saveSetting(self):
+        #self.ui.lblNotification.setText(SETTING_SAVE_MESSAGE)
         if self.ui.btnManualDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
         if self.ui.btnAutoDevice.isChecked() == True:
