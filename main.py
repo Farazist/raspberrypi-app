@@ -8,7 +8,7 @@ from time import sleep, time
 from threading import Thread
 from functools import partial
 from escpos.printer import Usb
-from gpiozero import LightSensor, LED, Motor
+from gpiozero import DistanceSensor, LED, Motor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -51,6 +51,7 @@ class QRCodeThread(QThread):
             try:
                 print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
+                print(qrcode_signin_token)
                 self.signal.emit(qrcode_signin_token)
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
@@ -332,16 +333,6 @@ class MainWindow(QWidget):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
-    def sensorTest(self):
-        try:
-            while True:
-                self.sensor.wait_for_light()
-                print("bottle detected!")
-                self.sensor.wait_for_dark()
-                sleep(1)
-        except Exception as e:
-            print("error:", e)
-
     def motorOff(self):
         try:
             sleep(10)
@@ -420,12 +411,12 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            self.sensor_trig_port = int(DataBase.select('sensor_trig_port'))
-            self.sensor_echo_port = int(DataBase.select('sensor_echo_port'))
-            self.sensor_depth_threshold = int(DataBase.select('sensor_depth_threshold'))
-            self.sensor = LED(self.sensor_trig_port, pin_factory=factory)
-            self.sensor.on()
-            print('sensor on')
+            sensor_trig_port = int(DataBase.select('sensor_trig_port'))
+            sensor_echo_port = int(DataBase.select('sensor_echo_port'))
+            sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
+            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100)
+            self.sensor.when_in_range = self.recycleItem
+            print('sensor ready')
         except Exception as e:
             print("error:", e)
 
@@ -435,16 +426,18 @@ class MainWindow(QWidget):
     def printReceipt(self):
         try:
             self.playSound('audio4')
-            print("printing...")
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.image("images/logo-text-small.png")
+            printer.profile.media['width']['pixels'] = 575
+            printer.image("images/logo-text-small.png", center=True)
             printer.set(align=u'center')
             printer.text("Farazist" + "\n")
             printer.text(str(self.total_price) + " Toman" + "\n")
-            printer.qr(str(self.total_price), size=8)
+            printer.qr(str(self.total_price), size=8, center=True)
             printer.text(str(self.system['owner']['mobile_number']) + "\n")
             printer.text("farazist.ir" + "\n")
+            printer.text(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
             printer.cut()
+            print("print receipt")
         except Exception as e:
             print("error:", e)
         self.stackMainMenu()
@@ -482,6 +475,12 @@ class MainWindow(QWidget):
         try:
             self.conveyor.close()
             print("conveyor close")
+        except Exception as e:
+            print("error:", e)
+        
+        try:
+            self.sensor.close()
+            print("sensor close")
         except Exception as e:
             print("error:", e)
 
