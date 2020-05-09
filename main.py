@@ -568,7 +568,7 @@ class MainWindow(QWidget):
         self.ui.lblDeliveryItems.clear()
 
     def saveSetting(self):
-        #self.ui.lblNotification.setText(SETTING_SAVE_MESSAGE)
+        self.showNotification(SETTING_SAVE_MESSAGE)
         if self.ui.btnManualDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
         if self.ui.btnAutoDevice.isChecked() == True:
