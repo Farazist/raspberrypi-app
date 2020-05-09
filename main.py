@@ -420,8 +420,10 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            self.sensor_port = int(DataBase.select('sensor_port'))
-            self.sensor = LED(self.sensor_port, pin_factory=factory)
+            self.sensor_trig_port = int(DataBase.select('sensor_trig_port'))
+            self.sensor_echo_port = int(DataBase.select('sensor_echo_port'))
+            self.sensor_depth_threshold = int(DataBase.select('sensor_depth_threshold'))
+            self.sensor = LED(self.sensor_trig_port, pin_factory=factory)
             self.sensor.on()
             print('sensor on')
         except Exception as e:
@@ -524,7 +526,9 @@ class MainWindow(QWidget):
 
     def stackSensorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')))
+        self.ui.tb_sensor_trig_port.setText(str(DataBase.select('sensor_trig_port')))
+        self.ui.tb_sensor_echo_port.setText(str(DataBase.select('sensor_echo_port')))
+        self.ui.tb_sensor_depth_threshold.setText(str(DataBase.select('sensor_depth_threshold')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
 
     def stackConveyorPort(self):
@@ -574,8 +578,12 @@ class MainWindow(QWidget):
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        if self.ui.tbSensorPort.text() != '':
-            result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
+        if self.ui.tb_sensor_trig_port.text() != '':
+            result = DataBase.update('sensor_trig_port', self.ui.tb_sensor_trig_port.text())
+        if self.ui.tb_sensor_echo_port.text() != '':
+            result = DataBase.update('sensor_echo_port', self.ui.tb_sensor_echo_port.text())
+        if self.ui.tb_sensor_depth_threshold.text() != '':
+            result = DataBase.update('sensor_depth_threshold', self.ui.tb_sensor_depth_threshold.text())
         if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
         if self.ui.tbConveyorPort.text() != '':
