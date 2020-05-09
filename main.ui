@@ -135,7 +135,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -545,11 +545,17 @@ border: none;
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: #ffffff; 
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
 outline-style: none;
-padding: 50px;</string>
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
               </property>
               <property name="text">
                <string/>
@@ -611,11 +617,17 @@ color:#000000;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: #ffffff; 
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
 outline-style: none;
-padding: 50px;</string>
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
               </property>
               <property name="text">
                <string/>
@@ -686,11 +698,17 @@ color:#000000;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: #ffffff; 
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
 border: 3px solid #28a745; 
 border-radius: 30px;
 outline-style: none;
-padding: 50px;</string>
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
               </property>
               <property name="text">
                <string/>
@@ -2055,7 +2073,7 @@ color:#000000;</string>
             <item alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="lblSelectedItem">
               <property name="styleSheet">
-               <string notr="true">font: 24pt &quot;IRANSans&quot;;
+               <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
               </property>
               <property name="text">
@@ -2301,8 +2319,7 @@ border-style: inset;
         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
          <widget class="QLabel" name="label_2">
           <property name="styleSheet">
-           <string notr="true">font: 32pt &quot;IRANSans&quot;;
-font: 32pt &quot;IRANSansFaNum&quot;;
+           <string notr="true">font: 32pt &quot;IRANSansFaNum&quot;;
 color: rgb(204, 0, 0);</string>
           </property>
           <property name="text">

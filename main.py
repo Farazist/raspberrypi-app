@@ -31,6 +31,7 @@ SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
+RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 #Inherit from QThread
@@ -393,7 +394,7 @@ class MainWindow(QWidget):
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"')
+                btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 btn.setMinimumSize(250, 100)
                 btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
                 self.layout_FArea.addWidget(btn, row, col)
