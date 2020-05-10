@@ -36,7 +36,8 @@ SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 #Inherit from QThread
 class QRCodeThread(QThread):
 
-    signal = Signal(str)
+    change_qrcode_signal = Signal(str)
+    scan_successfully_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
@@ -62,8 +63,9 @@ class QRCodeThread(QThread):
                     break
                 QThread.msleep(4000)
         if window.user:
-            print('scan successfuly')
-            #window.stackMainMenu()
+            print('scan successfully')
+            self.scan_successfully_signal.emit()
+
 
 class MainWindow(QWidget):
    
@@ -117,7 +119,8 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
         self.qrcode_thread = QRCodeThread()
-        self.qrcode_thread.signal.connect(self.showQRcode) 
+        self.qrcode_thread.change_qrcode_signal.connect(self.showQRcode) 
+        self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu
 
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
