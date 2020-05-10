@@ -6,6 +6,6 @@ Name=Farazist
 Comment=OpenGL demotool
 Path=/home/pi/Documents/Farazist
 Icon=/home/pi/Documents/Farazist/images/logo.png
-Exec=sudo ./Farazist
+Exec=sudo ./main
 Terminal=false
 Categories=Graphics
