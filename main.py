@@ -426,12 +426,14 @@ class MainWindow(QWidget):
         try:
             self.playSound('audio4')
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.profile.media['width']['pixels'] = 575
-            printer.image("images/logo-text-small.png", center=True)
+            # printer.profile.media['width']['pixels'] = 575
+            # printer.image("images/logo-text-small.png", center=True)
+            printer.image("images/logo-text-small.png")
             printer.set(align=u'center')
             printer.text("Farazist" + "\n")
             printer.text(str(self.total_price) + " Toman" + "\n")
-            printer.qr(str(self.total_price), size=8, center=True)
+            # printer.qr(str(self.total_price), size=8, center=True)
+            printer.qr(str(self.total_price), size=8)
             printer.text(str(self.system['owner']['mobile_number']) + "\n")
             printer.text("farazist.ir" + "\n")
             printer.text(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
