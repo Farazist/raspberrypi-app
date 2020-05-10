@@ -2,13 +2,12 @@ import io
 import os
 import sys
 import qrcode
-import imageio
 from pygame import mixer
 from time import sleep, time
 from threading import Thread
 from functools import partial
 from escpos.printer import Usb
-from gpiozero import LightSensor, LED, Motor
+from gpiozero import DistanceSensor, LED, Motor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -31,6 +30,8 @@ SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
+RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
+SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 #Inherit from QThread
 class QRCodeThread(QThread):
@@ -49,6 +50,7 @@ class QRCodeThread(QThread):
             try:
                 print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
+                print(qrcode_signin_token)
                 self.signal.emit(qrcode_signin_token)
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
@@ -60,7 +62,8 @@ class QRCodeThread(QThread):
                     break
                 QThread.msleep(4000)
         if window.user:
-            window.stackMainMenu()
+            print('scan successfuly')
+            #window.stackMainMenu()
 
 class MainWindow(QWidget):
    
@@ -111,7 +114,7 @@ class MainWindow(QWidget):
         self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        self.categories = Server.getCategories()
+        # self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
         self.qrcode_thread = QRCodeThread()
         self.qrcode_thread.signal.connect(self.showQRcode) 
@@ -161,8 +164,8 @@ class MainWindow(QWidget):
         for file_name in os.listdir(pngdir):
             if file_name.endswith('.JPG'):
                 file_path = os.path.join(pngdir, file_name)
-                images.append(imageio.imread(file_path))
-        imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
+        #         images.append(imageio.imread(file_path))
+        # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
     def stackSignInOwner(self):
         if self.system_startup_now:
@@ -176,10 +179,10 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
     
     def signInOwner(self):
-        self.owner = Server.signInUser(self.ui.tbOwnerUsername.text(), self.ui.tbOwnerPassword.text())
+        self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                # Server.turnOnSystemSMS(self.owner, self.system)
+                Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
@@ -192,7 +195,7 @@ class MainWindow(QWidget):
 #            self.ui.lblErrorOwner.setText('نام کاربری یا رمز عبور صحیح نیست')
     
     def signInUser(self):
-        self.user = Server.signInUser(self.ui.tbUserId.text(), self.ui.tbUserPassword.text())
+        self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
         if self.user != None:
             self.stackMainMenu()
             self.playSound('audio2')
@@ -327,22 +330,12 @@ class MainWindow(QWidget):
         self.ui.lblTotal.setText(str(self.total_price))
 
     def hideRecycleItem(self):
-        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleLongDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleLongDate))
+        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
-
-    def sensorTest(self):
-        try:
-            while True:
-                self.sensor.wait_for_light()
-                print("bottle detected!")
-                self.sensor.wait_for_dark()
-                sleep(1)
-        except Exception as e:
-            print("error:", e)
 
     def motorOff(self):
         try:
-            sleep(5)
+            sleep(10)
             self.motor.off()
             print("motor off")
         except Exception as e:
@@ -350,7 +343,7 @@ class MainWindow(QWidget):
 
     def conveyorOff(self):
         try:
-            sleep(5)
+            sleep(10)
             self.conveyor.off()
             print("conveyor off")
         except Exception as e:
@@ -392,7 +385,7 @@ class MainWindow(QWidget):
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
+                btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 btn.setMinimumSize(250, 100)
                 btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
                 self.layout_FArea.addWidget(btn, row, col)
@@ -418,10 +411,12 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            self.sensor_port = int(DataBase.select('sensor_port'))
-            self.sensor = LED(self.sensor_port, pin_factory=factory)
-            self.sensor.on()
-            print('sensor on')
+            sensor_trig_port = int(DataBase.select('sensor_trig_port'))
+            sensor_echo_port = int(DataBase.select('sensor_echo_port'))
+            sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
+            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
+            self.sensor.when_in_range = self.recycleItem
+            print('sensor ready')
         except Exception as e:
             print("error:", e)
 
@@ -431,16 +426,20 @@ class MainWindow(QWidget):
     def printReceipt(self):
         try:
             self.playSound('audio4')
-            print("printing...")
             printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.image("images/logo-small.png")
+            # printer.profile.media['width']['pixels'] = 575
+            # printer.image("images/logo-text-small.png", center=True)
+            printer.image("images/logo-text-small.png")
             printer.set(align=u'center')
             printer.text("Farazist" + "\n")
-            printer.text(str(self.total_price) + " Rial" + "\n")
+            printer.text(str(self.total_price) + " Toman" + "\n")
+            # printer.qr(str(self.total_price), size=8, center=True)
             printer.qr(str(self.total_price), size=8)
             printer.text(str(self.system['owner']['mobile_number']) + "\n")
             printer.text("farazist.ir" + "\n")
+            printer.text(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
             printer.cut()
+            print("print receipt")
         except Exception as e:
             print("error:", e)
         self.stackMainMenu()
@@ -478,6 +477,12 @@ class MainWindow(QWidget):
         try:
             self.conveyor.close()
             print("conveyor close")
+        except Exception as e:
+            print("error:", e)
+        
+        try:
+            self.sensor.close()
+            print("sensor close")
         except Exception as e:
             print("error:", e)
 
@@ -522,7 +527,9 @@ class MainWindow(QWidget):
 
     def stackSensorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbSensorPort.setText(str(DataBase.select('sensor_port')))
+        self.ui.tb_sensor_trig_port.setText(str(DataBase.select('sensor_trig_port')))
+        self.ui.tb_sensor_echo_port.setText(str(DataBase.select('sensor_echo_port')))
+        self.ui.tb_sensor_depth_threshold.setText(str(DataBase.select('sensor_depth_threshold')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
 
     def stackConveyorPort(self):
@@ -566,13 +573,18 @@ class MainWindow(QWidget):
         self.ui.lblDeliveryItems.clear()
 
     def saveSetting(self):
+        self.showNotification(SETTING_SAVE_MESSAGE)
         if self.ui.btnManualDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        if self.ui.tbSensorPort.text() != '':
-            result = DataBase.update('sensor_port', self.ui.tbSensorPort.text())
+        if self.ui.tb_sensor_trig_port.text() != '':
+            result = DataBase.update('sensor_trig_port', self.ui.tb_sensor_trig_port.text())
+        if self.ui.tb_sensor_echo_port.text() != '':
+            result = DataBase.update('sensor_echo_port', self.ui.tb_sensor_echo_port.text())
+        if self.ui.tb_sensor_depth_threshold.text() != '':
+            result = DataBase.update('sensor_depth_threshold', self.ui.tb_sensor_depth_threshold.text())
         if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
         if self.ui.tbConveyorPort.text() != '':
