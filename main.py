@@ -62,7 +62,8 @@ class QRCodeThread(QThread):
                     break
                 QThread.msleep(4000)
         if window.user:
-            window.stackMainMenu()
+            print('scan successfuly')
+            #window.stackMainMenu()
 
 class MainWindow(QWidget):
    

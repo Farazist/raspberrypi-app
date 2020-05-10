@@ -135,7 +135,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -2149,16 +2149,17 @@ border-style: inset;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;
+             <string notr="true">font: 20pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
             </property>
             <property name="text">
-             <string>برنامه فرازیست را بر روی گوشی خود باز کنید
-در صفحه اصلی برنامه  آیکن Qr Code در بالای سمت راست
-برنامه را انتخاب کرده و سپس بر روی گزینه اسکن کلیک نمایید.</string>
+             <string> 1- برنامه فرازیست را بر روی گوشی خود باز کنید
+2- آیکن Qr Code و سپس ورود به نرم افزار دستگاه RVM را انتخاب کنید
+3- گوشی خود را مقابل این تصویر بگیرید تا آن را اسکن کند
+</string>
             </property>
             <property name="wordWrap">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
