@@ -2,7 +2,6 @@ import io
 import os
 import sys
 import qrcode
-# import imageio
 from pygame import mixer
 from time import sleep, time
 from threading import Thread
@@ -114,7 +113,7 @@ class MainWindow(QWidget):
         self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        self.categories = Server.getCategories()
+        # self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
         self.qrcode_thread = QRCodeThread()
         self.qrcode_thread.signal.connect(self.showQRcode) 
@@ -414,7 +413,7 @@ class MainWindow(QWidget):
             sensor_trig_port = int(DataBase.select('sensor_trig_port'))
             sensor_echo_port = int(DataBase.select('sensor_echo_port'))
             sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
-            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100)
+            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
             self.sensor.when_in_range = self.recycleItem
             print('sensor ready')
         except Exception as e:
