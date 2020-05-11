@@ -6,7 +6,7 @@ from pygame import mixer
 from time import sleep, time
 from threading import Thread
 from functools import partial
-from escpos.printer import Usb
+# from escpos.printer import Usb
 from gpiozero import DistanceSensor, LED, Motor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
@@ -52,7 +52,7 @@ class QRCodeThread(QThread):
                 print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
-                self.signal.emit(qrcode_signin_token)
+                self.change_qrcode_signal.emit(qrcode_signin_token)
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
             time_end = time() + 32
@@ -120,7 +120,7 @@ class MainWindow(QWidget):
         # self.image_classifier = ImageClassifier()
         self.qrcode_thread = QRCodeThread()
         self.qrcode_thread.change_qrcode_signal.connect(self.showQRcode) 
-        self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu
+        self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu)
 
         print('Startup Intormation:')
         print('Device Mode:', self.device_mode)
@@ -427,24 +427,11 @@ class MainWindow(QWidget):
         # self.sensorTest_thread.start()
 
     def printReceipt(self):
-        try:
-            self.playSound('audio4')
-            printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-            printer.profile.media['width']['pixels'] = 575
-            printer.image("images/logo-text-small.png", center=True)
-            printer.image("images/logo-text-small.png")
-            printer.set(align=u'center')
-            printer.text("Farazist" + "\n")
-            printer.text(str(self.total_price) + " Toman" + "\n")
-            printer.qr(str(self.total_price), size=8, center=True)
-            printer.qr(str(self.total_price), size=8)
-            printer.text(str(self.system['owner']['mobile_number']) + "\n")
-            printer.text("farazist.ir" + "\n")
-            printer.text(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
-            printer.cut()
-            print("print receipt")
-        except Exception as e:
-            print("error:", e)
+        self.playSound('audio4')
+        os.system('sudo python3 printer.py ' 
+        + str(self.total_price)
+        + ' --mobile_number ' + str(self.system['owner']['mobile_number'])
+        + ' --datetime "' + QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate) + '"')
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
@@ -601,7 +588,7 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    os.environ["ESCPOS_CAPABILITIES_FILE"] = "/home/pi/Documents/capabilities.json"
+    # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/home/pi/Documents/capabilities.json"
     mixer.init()
     try:
         factory = NativeFactory()
