@@ -33,7 +33,6 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
-#Inherit from QThread
 class QRCodeThread(QThread):
 
     change_qrcode_signal = Signal(str)
