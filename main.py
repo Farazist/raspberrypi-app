@@ -258,7 +258,7 @@ class MainWindow(QWidget):
 
     def showQRcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
-        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(400, 400))
 
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)

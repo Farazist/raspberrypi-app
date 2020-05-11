@@ -22,7 +22,7 @@ class DataBase:
             c.execute(f"SELECT * FROM information WHERE name='{name}'")
             result = c.fetchone()                
             con.close()
-            return result[2]
+            return result[1]
         except Error as e:
             print(e)
             
