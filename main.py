@@ -33,6 +33,12 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
+FAST_CHARGING_ITEMS = [
+                       ['(درهم (پلاستیک، کاغذ', 'آهن'],
+                       ['مس', 'چدن'],
+                       ['آلومینیوم', 'روی']
+                      ]
+
 class QRCodeThread(QThread):
 
     change_qrcode_signal = Signal(str)
@@ -89,7 +95,7 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -537,16 +543,17 @@ class MainWindow(QWidget):
 
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.ui.lblRecycledDone_FastCharging.hide()
 
         self.layout_SArea_FastCharging = QGridLayout()
-        for row in range(4):
+        for row in range(len(FAST_CHARGING_ITEMS)):
             for col in range(2):
                 btn = QPushButton()
                 #self.items[i]['count'] = 0
-                btn.setText('آهن')
+                btn.setText(FAST_CHARGING_ITEMS[row][col])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setMinimumSize(250, 100)
-                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
                 self.layout_SArea_FastCharging.addWidget(btn, row, col)
             #    i += 1

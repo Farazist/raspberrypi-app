@@ -138,7 +138,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -1911,7 +1911,7 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>524</width>
                <height>436</height>
               </rect>
              </property>
@@ -2722,7 +2722,7 @@ border-style: inset;
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_24">
           <property name="spacing">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -2730,7 +2730,21 @@ border-style: inset;
           <property name="rightMargin">
            <number>0</number>
           </property>
-          <item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_17">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="text">
+             <string>asdfsgsdfdgf</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignTop">
            <widget class="QWidget" name="widget_4" native="true">
             <property name="maximumSize">
              <size>
@@ -2743,6 +2757,74 @@ border-style: inset;
 border-radius: 6px;</string>
             </property>
             <layout class="QGridLayout" name="gridLayout">
+             <property name="topMargin">
+              <number>9</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>25</number>
+             </property>
+             <item row="1" column="0">
+              <widget class="QLineEdit" name="lineEdit_2">
+               <property name="maximumSize">
+                <size>
+                 <width>290</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+               </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhDigitsOnly</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>70</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>290</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+               </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhDigitsOnly</set>
+               </property>
+              </widget>
+             </item>
              <item row="1" column="1">
               <widget class="QLabel" name="label_13">
                <property name="styleSheet">
@@ -2777,48 +2859,6 @@ color:#000000;</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLineEdit" name="lineEdit_2">
-               <property name="maximumSize">
-                <size>
-                 <width>290</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-               </property>
-               <property name="inputMethodHints">
-                <set>Qt::ImhDigitsOnly</set>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLineEdit" name="lineEdit">
-               <property name="maximumSize">
-                <size>
-                 <width>290</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-               </property>
-               <property name="inputMethodHints">
-                <set>Qt::ImhDigitsOnly</set>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="1">
               <widget class="QLabel" name="label_11">
                <property name="styleSheet">
@@ -2833,27 +2873,21 @@ color:#000000;</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_15">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>70</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-               </property>
-               <property name="text">
-                <string>0</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
             </layout>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+           <widget class="QLabel" name="lblRecycledDone_FastCharging">
+            <property name="styleSheet">
+             <string notr="true">font: 32pt &quot;IRANSans&quot;;
+color: rgb(204, 0, 0);</string>
+            </property>
+            <property name="text">
+             <string>بازیافت انجام گردید</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -2886,7 +2920,7 @@ border-style: inset;
 }</string>
             </property>
             <property name="text">
-             <string>بعدی</string>
+             <string>بازیافت</string>
             </property>
            </widget>
           </item>
@@ -2896,13 +2930,13 @@ border-style: inset;
          <widget class="QScrollArea" name="scrollArea">
           <property name="minimumSize">
            <size>
-            <width>500</width>
+            <width>400</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>750</width>
             <height>16777215</height>
            </size>
           </property>
@@ -2917,8 +2951,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>498</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>
