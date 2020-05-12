@@ -543,6 +543,8 @@ class MainWindow(QWidget):
 
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
+        #self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
         self.ui.lblRecycledDone_FastCharging.hide()
 
         self.layout_SArea_FastCharging = QGridLayout()

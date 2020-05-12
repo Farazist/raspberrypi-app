@@ -1911,7 +1911,7 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>524</width>
+               <width>531</width>
                <height>436</height>
               </rect>
              </property>
@@ -2731,13 +2731,13 @@ border-style: inset;
            <number>0</number>
           </property>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="label_17">
+           <widget class="QLabel" name="lblSelectedItem_FastCharging">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
             </property>
             <property name="text">
-             <string>asdfsgsdfdgf</string>
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -2764,7 +2764,7 @@ border-radius: 6px;</string>
               <number>25</number>
              </property>
              <item row="1" column="0">
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="tbWeight_FastCharging">
                <property name="maximumSize">
                 <size>
                  <width>290</width>
@@ -2785,7 +2785,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_15">
+              <widget class="QLabel" name="lblTotal_FastCharging">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -2805,7 +2805,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="tbUnit_FastCharging">
                <property name="maximumSize">
                 <size>
                  <width>290</width>
@@ -2826,7 +2826,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLabel" name="label_13">
+              <widget class="QLabel" name="lblWeight_FastCharging">
                <property name="styleSheet">
                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -2840,7 +2840,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLabel" name="label_12">
+              <widget class="QLabel" name="lblTotalPrice_FastCharging">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -2860,7 +2860,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="lblUnit_FastCharging">
                <property name="styleSheet">
                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -2891,7 +2891,7 @@ color: rgb(204, 0, 0);</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="btnRecycleItem_FastCharging">
             <property name="minimumSize">
              <size>
               <width>200</width>
