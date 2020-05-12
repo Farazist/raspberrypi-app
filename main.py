@@ -40,7 +40,6 @@ FAST_CHARGING_ITEMS = [
                       ]
 
 class QRCodeThread(QThread):
-
     change_qrcode_signal = Signal(str)
     scan_successfully_signal = Signal()
 
@@ -67,6 +66,7 @@ class QRCodeThread(QThread):
                     self.stop()
                     break
                 QThread.msleep(4000)
+        print('end of loop')
         if window.user:
             print('scan successfully')
             self.scan_successfully_signal.emit()
@@ -190,7 +190,7 @@ class MainWindow(QWidget):
         self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                Server.turnOnSystemSMS(self.owner, self.system)
+                # Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
