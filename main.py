@@ -34,9 +34,9 @@ RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 FAST_CHARGING_ITEMS = [
-                       ['(درهم (پلاستیک، کاغذ', 'آهن'],
-                       ['مس', 'چدن'],
-                       ['آلومینیوم', 'روی']
+                       ['درهم', 'آهن'],
+                       ['آلومینیوم', 'چدن'],
+                       ['روی', 'مس']
                       ]
 
 class QRCodeThread(QThread):
@@ -337,6 +337,19 @@ class MainWindow(QWidget):
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
         self.ui.lblTotal.setText(str(self.total_price))
 
+    def selectFastCharging(self, item, btn):
+        self.selected_charge = item
+        self.ui.lblSelectedItem_FastCharging.setText(self.selected_charge)
+        self.ui.tbUnit_FastCharging.clear()
+        self.ui.tbWeight_FastCharging.clear()
+
+    def fastCharging(self):
+        self.ui.btnRight.show()
+        self.total += int(self.ui.tbUnit_FastCharging.text()) * float(self.ui.tbWeight_FastCharging.text())
+        self.ui.lblTotal_FastCharging.setText(str(self.total))
+
+        
+
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
@@ -544,25 +557,25 @@ class MainWindow(QWidget):
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        #self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
+        self.setButton(self.ui.btnRecycleItem_FastCharging, function=self.fastCharging)
+        self.ui.lblTotal_FastCharging.setText("0")
         self.ui.lblRecycledDone_FastCharging.hide()
-
+        self.user_items = []
+        self.total = 0
         self.layout_SArea_FastCharging = QGridLayout()
+        i = 0
+        row = 0
         for row in range(len(FAST_CHARGING_ITEMS)):
             for col in range(2):
                 btn = QPushButton()
-                #self.items[i]['count'] = 0
+                
                 btn.setText(FAST_CHARGING_ITEMS[row][col])
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setMinimumSize(250, 100)
                 btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
-                #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
+                btn.clicked.connect(partial(self.selectFastCharging, FAST_CHARGING_ITEMS[row][col], btn))
                 self.layout_SArea_FastCharging.addWidget(btn, row, col)
-            #    i += 1
-            #    if i >= len(self.items):
-            #        break
-            #row += 1
-        #self.SelectItem(self.items[0])
+        #self.selectFastCharging(FAST_CHARGING_ITEMS[0], self.layout_SArea_FastCharging.itemAt(0))
         self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastCharging)
 
