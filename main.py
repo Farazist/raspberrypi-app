@@ -70,6 +70,7 @@ class MainWindow(QWidget):
    
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.initHardwares()
 
         loader = QUiLoader()
         self.ui = loader.load('main.ui', None)
@@ -103,6 +104,10 @@ class MainWindow(QWidget):
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
+        self.ui.btnMotorOn.clicked.connect(self.motor.on)
+        self.ui.btnMotorOff.clicked.connect(self.motor.off)
+        self.ui.btnConveyorOn.clicked.connect(self.conveyor.on)
+        self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
 
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
@@ -127,7 +132,6 @@ class MainWindow(QWidget):
 
         self.stackSignInOwner()
         self.playSound('audio2')
-        self.initHardwares()
 
     def initHardwares(self):
 
@@ -367,7 +371,13 @@ class MainWindow(QWidget):
     def recycleItem(self):
         try:
             self.motorOn()
+            self.motorOff_thread = Thread(target=self.motorOff)
+            self.motorOff_thread.start()
+
             self.conveyorOn()
+            self.conveyorOff_thread = Thread(target=self.conveyorOff)
+            self.conveyorOff_thread.start()
+
             self.playSound('audio3')
             #self.showNotification(RECYCLE_MESSAGE)
             self.ui.btnRight.show()
@@ -387,17 +397,17 @@ class MainWindow(QWidget):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
-    def motorOff(self, t):
+    def motorOff(self):
         try:
-            sleep(t)
+            sleep(10)
             self.motor.off()
             print("motor off")
         except Exception as e:
             print("error:", e)
 
-    def conveyorOff(self, t):
+    def conveyorOff(self):
         try:
-            sleep(t)
+            sleep(10)
             self.conveyor.off()
             print("conveyor off")
         except Exception as e:
@@ -407,8 +417,6 @@ class MainWindow(QWidget):
         try:
             self.motor.on()
             print('motor on')
-            self.motorOff_thread = Thread(target=self.motorOff)
-            self.motorOff_thread.start()
         except Exception as e:
             print("error:", e)
     
@@ -416,8 +424,6 @@ class MainWindow(QWidget):
         try:
             self.conveyor.on()
             print('conveyor on')
-            self.conveyorOff_thread = Thread(target=self.conveyorOff)
-            self.conveyorOff_thread.start()
         except Exception as e:
             print("error:", e)
 
@@ -477,8 +483,11 @@ class MainWindow(QWidget):
         else:
             print('not enough money in owner wallet')
         
-        self.motorOff(1)
-        self.conveyorOff(1)
+        try:
+            self.motor.off()
+            self.conveyor.off()
+        except Exception as e:
+            print("error:", e)
         
         self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
