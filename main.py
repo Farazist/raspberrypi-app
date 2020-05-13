@@ -127,7 +127,56 @@ class MainWindow(QWidget):
 
         self.stackSignInOwner()
         self.playSound('audio2')
+        self.initHardwares()
+
+    def initHardwares(self):
+
+        try:
+            if hasattr(self, 'motor'):
+                self.motor.close()
+                print("motor close")
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            if hasattr(self, 'conveyor'):
+                self.conveyor.close()
+                print("conveyor close")
+        except Exception as e:
+            print("error:", e)
         
+        try:
+            if hasattr(self, 'sensor'):
+                self.sensor.close()
+                print("sensor close")
+        except Exception as e:
+            print("error:", e)
+        
+        try:
+            self.motor_port = int(DataBase.select('motor_port'))
+            self.motor = LED(self.motor_port, pin_factory=factory)
+            print('motor ready')
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            self.conveyor_port = int(DataBase.select('conveyor_port'))
+            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
+            print('conveyor ready')
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            sensor_trig_port = int(DataBase.select('sensor_trig_port'))
+            sensor_echo_port = int(DataBase.select('sensor_echo_port'))
+            sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
+            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
+            self.sensor.when_in_range = self.recycleItem
+            print('sensor ready')
+        except Exception as e:
+            print("error:", e)
+
+
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
             button.clicked.disconnect()
@@ -316,36 +365,39 @@ class MainWindow(QWidget):
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def recycleItem(self):
-        self.motorOn()
-        self.conveyorOn()
-        self.playSound('audio3')
-        #self.showNotification(RECYCLE_MESSAGE)
-        self.ui.btnRight.show()
-        self.selected_item['count'] += 1
-        self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-        for user_item in self.user_items:
-            if self.selected_item['id'] == user_item['id']:
-                break
-        else:
-            self.user_items.append(self.selected_item)
-        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-        self.ui.lblTotal.setText(str(self.total_price))
+        try:
+            self.motorOn()
+            self.conveyorOn()
+            self.playSound('audio3')
+            #self.showNotification(RECYCLE_MESSAGE)
+            self.ui.btnRight.show()
+            self.selected_item['count'] += 1
+            self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lblTotal.setText(str(self.total_price))
+        except Exception as e:
+            print("error:", e)
 
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
-    def motorOff(self):
+    def motorOff(self, t):
         try:
-            sleep(10)
+            sleep(t)
             self.motor.off()
             print("motor off")
         except Exception as e:
             print("error:", e)
 
-    def conveyorOff(self):
+    def conveyorOff(self, t):
         try:
-            sleep(10)
+            sleep(t)
             self.conveyor.off()
             print("conveyor off")
         except Exception as e:
@@ -399,32 +451,6 @@ class MainWindow(QWidget):
         self.ui.scrollAreaWidgetDelivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
         
-        try:
-            self.motor_port = int(DataBase.select('motor_port'))
-            self.motor = LED(self.motor_port, pin_factory=factory)
-        except Exception as e:
-            print("error:", e)
-
-        try:
-            self.conveyor_port = int(DataBase.select('conveyor_port'))
-            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
-            print('conveyor on')
-        except Exception as e:
-            print("error:", e)
-        
-        try:
-            sensor_trig_port = int(DataBase.select('sensor_trig_port'))
-            sensor_echo_port = int(DataBase.select('sensor_echo_port'))
-            sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
-            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
-            self.sensor.when_in_range = self.recycleItem
-            print('sensor ready')
-        except Exception as e:
-            print("error:", e)
-
-        # self.sensorTest_thread = Thread(target=self.sensorTest)
-        # self.sensorTest_thread.start()
-
     def printReceipt(self):
         self.playSound('audio4')
         os.system('sudo python3 printer.py ' 
@@ -451,34 +477,9 @@ class MainWindow(QWidget):
         else:
             print('not enough money in owner wallet')
         
-        try:
-            self.motor.off()
-        except Exception as e:
-            print("error:", e)
+        self.motorOff(1)
+        self.conveyorOff(1)
         
-        try:
-            self.conveyor.off()
-        except Exception as e:
-            print("error:", e)
-                    
-        try:
-            self.motor.close()
-            print("motor close")
-        except Exception as e:
-            print("error:", e)
-
-        try:
-            self.conveyor.close()
-            print("conveyor close")
-        except Exception as e:
-            print("error:", e)
-        
-        try:
-            self.sensor.close()
-            print("sensor close")
-        except Exception as e:
-            print("error:", e)
-
         self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
 
     def stackSetting(self):
@@ -582,6 +583,8 @@ class MainWindow(QWidget):
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
         if self.ui.tbConveyorPort.text() != '':
             result = DataBase.update('conveyor_port', self.ui.tbConveyorPort.text())
+
+        self.initHardwares()
 
     def exitProgram(self):
         Server.turnOffSystemSMS(self.owner, self.system)
