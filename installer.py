@@ -5,7 +5,7 @@ PyInstaller.__main__.run([
     '--hidden-import=PySide2.QtXml',
     # '--name=Farazist',
     '--onefile',
-    # '--windowed',
+    '--windowed',
 ])
 
 # pyinstaller --onefile --windowed --hidden-import PySide2.QtXml main.py
