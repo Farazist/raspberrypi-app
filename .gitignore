@@ -3,21 +3,11 @@
 ################################################################################
 
 /farazist.h5
-__pycache__/localdatabase.cpython-37.pyc
-__pycache__/database.cpython-37.pyc
-__pycache__/app.cpython-37.pyc
-__pycache__/aescipher.cpython-37.pyc
-.vs/raspberrypi-app/v16/.suo
-.vs/VSWorkspaceState.json
-.vs/slnx.sqlite
-.vs/PythonSettings.json
-main.pyproject.user
-.vs/slnx.sqlite
-/model.tflite
 /.vs
+/__pycache__
+main.pyproject.user
+/model.tflite
 Farazist.pyproject.user
 Farazist.pyproject.user.4e4346e
-__pycache__/server.cpython-37.pyc
-__pycache__/image_classifier.cpython-37.pyc
 Farazist
 main
