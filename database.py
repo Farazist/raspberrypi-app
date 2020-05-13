@@ -1,5 +1,4 @@
 import sqlite3
-from sqlite3 import Error
 
 database_name = 'database.db'
 
@@ -11,8 +10,8 @@ class DataBase:
             con = sqlite3.connect(database_name)
             c = con.cursor()
             c.execute(query)
-        except Error as e:
-            print(e)
+        except Exception as e:
+            print("error:", e)
             
     @staticmethod
     def select(name):
@@ -23,8 +22,8 @@ class DataBase:
             result = c.fetchone()                
             con.close()
             return result[1]
-        except Error as e:
-            print(e)
+        except Exception as e:
+            print("error:", e)
             
     @staticmethod
     def update(name, value):  
@@ -35,8 +34,8 @@ class DataBase:
             con.commit()
             con.close()
             return True
-        except Error as e:
-            print(e)
+        except Exception as e:
+            print("error:", e)
 
 #sql_create_table = "CREATE TABLE IF NOT EXISTS information (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);"
 

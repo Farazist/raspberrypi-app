@@ -1,17 +1,17 @@
-import io
+from io import BytesIO
 import os
 import sys
 import qrcode
 from pygame import mixer
 from time import sleep, time
-from threading import Thread
+from threading import Thread, Timer
 from functools import partial
 # from escpos.printer import Usb
-from gpiozero import DistanceSensor, LED, Motor
+from gpiozero import DistanceSensor, LED
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
-from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon, QImage
+from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
 from PIL.ImageQt import ImageQt
 
@@ -134,29 +134,10 @@ class MainWindow(QWidget):
         self.playSound('audio2')
 
     def initHardwares(self):
-
         try:
             if hasattr(self, 'motor'):
                 self.motor.close()
                 print("motor close")
-        except Exception as e:
-            print("error:", e)
-
-        try:
-            if hasattr(self, 'conveyor'):
-                self.conveyor.close()
-                print("conveyor close")
-        except Exception as e:
-            print("error:", e)
-        
-        try:
-            if hasattr(self, 'sensor'):
-                self.sensor.close()
-                print("sensor close")
-        except Exception as e:
-            print("error:", e)
-        
-        try:
             self.motor_port = int(DataBase.select('motor_port'))
             self.motor = LED(self.motor_port, pin_factory=factory)
             print('motor ready')
@@ -164,13 +145,19 @@ class MainWindow(QWidget):
             print("error:", e)
 
         try:
+            if hasattr(self, 'conveyor'):
+                self.conveyor.close()
+                print("conveyor close")
             self.conveyor_port = int(DataBase.select('conveyor_port'))
             self.conveyor = LED(self.conveyor_port, pin_factory=factory)
             print('conveyor ready')
         except Exception as e:
             print("error:", e)
-
+        
         try:
+            if hasattr(self, 'sensor'):
+                self.sensor.close()
+                print("sensor close")
             sensor_trig_port = int(DataBase.select('sensor_trig_port'))
             sensor_echo_port = int(DataBase.select('sensor_echo_port'))
             sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
@@ -179,7 +166,6 @@ class MainWindow(QWidget):
             print('sensor ready')
         except Exception as e:
             print("error:", e)
-
 
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -207,7 +193,6 @@ class MainWindow(QWidget):
             path = os.path.join('sounds', path+'.mp3')
             if os.path.isfile(path):
                 mixer.music.load(path)
-                # mixer.music.set_volume(1.0)
                 mixer.music.play()
         except Exception as e:
             print("error:", e)
@@ -244,11 +229,7 @@ class MainWindow(QWidget):
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
-#        if DataBase.select('username') == self.ui.tbOwnerUsername.text() and DataBase.select('password') == self.ui.tbOwnerPassword.text():
-#            self.stackSetting()
-#        else:
-#            self.ui.lblErrorOwner.setText('نام کاربری یا رمز عبور صحیح نیست')
-    
+
     def signInUser(self):
         self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
         if self.user != None:
@@ -271,7 +252,7 @@ class MainWindow(QWidget):
             with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
                 camera.start_preview()
                 try:
-                    stream = io.BytesIO()
+                    stream = BytesIO()
                     for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
                         stream.seek(0)
                         results = self.image_classifier(stream)
@@ -369,37 +350,37 @@ class MainWindow(QWidget):
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def recycleItem(self):
-        try:
-            self.motorOn()
-            self.motorOff_thread = Thread(target=self.motorOff)
-            self.motorOff_thread.start()
+        if hasattr(self, 'motor_off_timer'):
+            self.motor_off_timer.cancel()
+        self.motorOn()
+        self.motor_off_timer = Timer(10.0, self.motorOff)
+        self.motor_off_timer.start()
 
-            self.conveyorOn()
-            self.conveyorOff_thread = Thread(target=self.conveyorOff)
-            self.conveyorOff_thread.start()
+        if hasattr(self, 'conveyor_off_timer'):
+            self.conveyor_off_timer.cancel()
+        self.conveyorOn()
+        self.conveyor_off_timer = Timer(10.0, self.conveyorOff)
+        self.conveyor_off_timer.start()
 
-            self.playSound('audio3')
-            #self.showNotification(RECYCLE_MESSAGE)
-            self.ui.btnRight.show()
-            self.selected_item['count'] += 1
-            self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-            for user_item in self.user_items:
-                if self.selected_item['id'] == user_item['id']:
-                    break
-            else:
-                self.user_items.append(self.selected_item)
-            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-            self.ui.lblTotal.setText(str(self.total_price))
-        except Exception as e:
-            print("error:", e)
-
+        self.playSound('audio3')
+        #self.showNotification(RECYCLE_MESSAGE)
+        self.ui.btnRight.show()
+        self.selected_item['count'] += 1
+        self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+        for user_item in self.user_items:
+            if self.selected_item['id'] == user_item['id']:
+                break
+        else:
+            self.user_items.append(self.selected_item)
+        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+        self.ui.lblTotal.setText(str(self.total_price))
+    
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
     def motorOff(self):
         try:
-            sleep(10)
             self.motor.off()
             print("motor off")
         except Exception as e:
@@ -407,7 +388,6 @@ class MainWindow(QWidget):
 
     def conveyorOff(self):
         try:
-            sleep(10)
             self.conveyor.off()
             print("conveyor off")
         except Exception as e:
