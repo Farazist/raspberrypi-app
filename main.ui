@@ -144,7 +144,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>11</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
@@ -1610,7 +1610,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnMotorON">
+                 <widget class="QPushButton" name="btnMotorOn">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -1833,7 +1833,7 @@ color:#000000;</string>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <widget class="QPushButton" name="btnConveryOff">
+                 <widget class="QPushButton" name="btnConveyorOff">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -1861,7 +1861,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnConveryOn">
+                 <widget class="QPushButton" name="btnConveyorOn">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -1917,7 +1917,7 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>534</width>
                <height>436</height>
               </rect>
              </property>
@@ -2972,8 +2972,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>449</width>
-             <height>447</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
