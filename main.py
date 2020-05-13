@@ -33,13 +33,8 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
-FAST_CHARGING_ITEMS = [
-                       ['درهم', 'آهن'],
-                       ['آلومینیوم', 'چدن'],
-                       ['روی', 'مس']
-                      ]
-
 class QRCodeThread(QThread):
+
     change_qrcode_signal = Signal(str)
     scan_successfully_signal = Signal()
 
@@ -66,7 +61,6 @@ class QRCodeThread(QThread):
                     self.stop()
                     break
                 QThread.msleep(4000)
-        print('end of loop')
         if window.user:
             print('scan successfully')
             self.scan_successfully_signal.emit()
@@ -95,7 +89,7 @@ class MainWindow(QWidget):
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -190,7 +184,7 @@ class MainWindow(QWidget):
         self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                # Server.turnOnSystemSMS(self.owner, self.system)
+                Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
@@ -264,7 +258,7 @@ class MainWindow(QWidget):
 
     def showQRcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
-        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(400, 400))
+        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
 
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -336,19 +330,6 @@ class MainWindow(QWidget):
             self.user_items.append(self.selected_item)
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
         self.ui.lblTotal.setText(str(self.total_price))
-
-    def selectFastCharging(self, item, btn):
-        self.selected_charge = item
-        self.ui.lblSelectedItem_FastCharging.setText(self.selected_charge)
-        self.ui.tbUnit_FastCharging.clear()
-        self.ui.tbWeight_FastCharging.clear()
-
-    def fastCharging(self):
-        self.ui.btnRight.show()
-        self.total += int(self.ui.tbUnit_FastCharging.text()) * float(self.ui.tbWeight_FastCharging.text())
-        self.ui.lblTotal_FastCharging.setText(str(self.total))
-
-        
 
     def hideRecycleItem(self):
         self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
@@ -560,26 +541,23 @@ class MainWindow(QWidget):
 
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        self.setButton(self.ui.btnRecycleItem_FastCharging, function=self.fastCharging)
-        self.ui.lblTotal_FastCharging.setText("0")
-        self.ui.lblRecycledDone_FastCharging.hide()
-        self.user_items = []
-        self.total = 0
+
         self.layout_SArea_FastCharging = QGridLayout()
-        i = 0
-        row = 0
-        for row in range(len(FAST_CHARGING_ITEMS)):
+        for row in range(4):
             for col in range(2):
                 btn = QPushButton()
-                
-                btn.setText(FAST_CHARGING_ITEMS[row][col])
+                #self.items[i]['count'] = 0
+                btn.setText('آهن')
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setMinimumSize(250, 100)
-                btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
-                btn.clicked.connect(partial(self.selectFastCharging, FAST_CHARGING_ITEMS[row][col], btn))
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
                 self.layout_SArea_FastCharging.addWidget(btn, row, col)
-        #self.selectFastCharging(FAST_CHARGING_ITEMS[0], self.layout_SArea_FastCharging.itemAt(0))
+            #    i += 1
+            #    if i >= len(self.items):
+            #        break
+            #row += 1
+        #self.SelectItem(self.items[0])
         self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastCharging)
 
