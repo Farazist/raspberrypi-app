@@ -438,6 +438,10 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
+        gif_afterDelivery = QMovie("animations/earth.gif")
+        self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
+        gif_afterDelivery.start()
+
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
         self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
