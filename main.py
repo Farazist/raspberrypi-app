@@ -106,11 +106,14 @@ class MainWindow(QWidget):
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
-        self.ui.btnMotorOn.clicked.connect(self.motor.on)
-        self.ui.btnMotorOff.clicked.connect(self.motor.off)
-        self.ui.btnConveyorOn.clicked.connect(self.conveyor.on)
-        self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
-
+        try:
+            self.ui.btnMotorOn.clicked.connect(self.motor.on)
+            self.ui.btnMotorOff.clicked.connect(self.motor.off)
+            self.ui.btnConveyorOn.clicked.connect(self.conveyor.on)
+            self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
+        except Exception as e:
+            print("error:", e)
+            
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
