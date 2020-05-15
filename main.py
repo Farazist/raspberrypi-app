@@ -282,7 +282,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
-        # self.qrcode_thread.stop()
+        self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
