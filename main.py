@@ -34,7 +34,6 @@ RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 class QRCodeThread(QThread):
-    change_qrcode_signal = Signal(str)
     scan_successfully_signal = Signal()
 
     def __init__(self):
@@ -45,14 +44,13 @@ class QRCodeThread(QThread):
         self.event.set()
 
     def run(self):
-        print('run')
         self.event = Event()
         while not self.event.isSet():
             try:
-                print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
-                self.change_qrcode_signal.emit(qrcode_signin_token)
+                qrcode_img = qrcode.make(qrcode_signin_token)
+                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
 
                 counter = 0
                 while not self.event.wait(4) and counter < 4:
@@ -113,7 +111,7 @@ class MainWindow(QWidget):
             self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
         except Exception as e:
             print("error:", e)
-            
+
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
@@ -128,7 +126,6 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
         self.qrcode_thread = QRCodeThread()
-        self.qrcode_thread.change_qrcode_signal.connect(self.showQRcode) 
         self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu)
 
         print('Startup Intormation:')
@@ -294,10 +291,6 @@ class MainWindow(QWidget):
         self.ui.tbUserId.setText('')
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-
-    def showQRcode(self, qrcode_signin_token):
-        qrcode_img = qrcode.make(qrcode_signin_token)
-        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
 
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
