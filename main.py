@@ -4,7 +4,7 @@ import sys
 import qrcode
 from pygame import mixer
 from time import sleep, time
-from threading import Thread, Timer
+from threading import Thread, Timer, Event
 from functools import partial
 # from escpos.printer import Usb
 from gpiozero import DistanceSensor, LED
@@ -34,37 +34,39 @@ RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 
 class QRCodeThread(QThread):
-
     change_qrcode_signal = Signal(str)
     scan_successfully_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
+        self.event = Event()
     
     def stop(self):
-        self.qrcode_flag = False
+        self.event.set()
 
     def run(self):
-        self.qrcode_flag = True
-        while self.qrcode_flag:
+        print('run')
+        self.event = Event()
+        while not self.event.isSet():
             try:
                 print('make QRcode signin token')
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
                 self.change_qrcode_signal.emit(qrcode_signin_token)
+
+                counter = 0
+                while not self.event.wait(4) and counter < 4:
+                    counter += 1
+                    print('server request')
+                    window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
+                    if window.user:
+                        self.stop()
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
-            time_end = time() + 32
-            while self.qrcode_flag and time() < time_end:
-                window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
-                if window.user:
-                    self.stop()
-                    break
-                QThread.msleep(4000)
+        
         if window.user:
             print('scan successfully')
             self.scan_successfully_signal.emit()
-
 
 class MainWindow(QWidget):
    
@@ -222,7 +224,7 @@ class MainWindow(QWidget):
         self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                Server.turnOnSystemSMS(self.owner, self.system)
+                # Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
@@ -280,7 +282,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
-        self.qrcode_thread.stop()
+        # self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
