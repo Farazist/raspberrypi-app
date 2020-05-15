@@ -83,7 +83,10 @@ class Server:
             'user_id': user['id'], 
             'system_id': system_id, 
             'state': 'done', 
-            'items': items
+            'items': items,
+            'address': user['address'],
+            'city_id': user['city_id'],
+            'description': 'تحویل پسماند در دستگاه'
         }
         try:
             response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
