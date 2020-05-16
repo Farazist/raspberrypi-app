@@ -6,6 +6,7 @@
 /dist
 /.vs
 /__pycache__
+/.vscode
 main.pyproject.user
 model.tflite
 Farazist.pyproject.user

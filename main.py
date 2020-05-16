@@ -50,7 +50,7 @@ class QRCodeThread(QThread):
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
                 qrcode_img = qrcode.make(qrcode_signin_token)
-                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
 
                 counter = 0
                 while not self.event.wait(4) and counter < 4:
@@ -84,7 +84,8 @@ class MainWindow(QWidget):
 
         # signals
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
-        self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        #self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
@@ -213,6 +214,8 @@ class MainWindow(QWidget):
         if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
+            if self.user != None:
+                self.user = None
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
             self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.setButton(self.ui.btnRight, show=False)
@@ -286,15 +289,16 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
-        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserQRcode, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.tbUserId.setText('')
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def stackSignInUserQRcode(self):
-        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        #self.qrcode_thread.stop()
         self.playSound('audio8')
         self.ui.lblNotification.hide()
         
