@@ -2,12 +2,13 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/farazist.h5
+/build
+/dist
 /.vs
 /__pycache__
 main.pyproject.user
-/model.tflite
+model.tflite
 Farazist.pyproject.user
-Farazist.pyproject.user.4e4346e
 Farazist
 main
+main.spec
