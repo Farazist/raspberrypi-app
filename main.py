@@ -32,6 +32,7 @@ SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست 
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
+DEVICE_VERSION = 'ورژن {}'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -64,8 +65,9 @@ class QRCodeThread(QThread):
         
         if hasattr(window, 'user') and window.user:
             print('scan successfully')
+            window.playSound('audio2')
             self.scan_successfully_signal.emit()
-            self.playSound('audio2')
+            #self.playSound('audio2')
 
 class MainWindow(QWidget):
    
@@ -123,6 +125,7 @@ class MainWindow(QWidget):
         self.system_startup_now = True
 
         self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
+        self.deviceVersion = DataBase.select('app_version')
 
         self.device_mode = DataBase.select('bottle_recognize_mode')
         # self.categories = Server.getCategories()
@@ -475,6 +478,8 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.lblNotification.hide()
         self.ui.lblDeviceInfo.setText(self.deviceInfo)
+        self.ui.lbl_version.setText(DEVICE_VERSION.format(self.deviceVersion))
+        self.ui.lbl_version.show()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
         self.ui.Stack.setCurrentWidget(self.ui.pageSetting)
 
