@@ -62,9 +62,10 @@ class QRCodeThread(QThread):
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
         
-        if window.user:
+        if hasattr(window, 'user') and window.user:
             print('scan successfully')
             self.scan_successfully_signal.emit()
+            self.playSound('audio2')
 
 class MainWindow(QWidget):
    
@@ -279,20 +280,15 @@ class MainWindow(QWidget):
         gif_start = QMovie("animations/slider1.gif")
         self.ui.lblGifStart.setMovie(gif_start)
         gif_start.start()
-        self.ui.Stack.setCurrentWidget(self.ui.pageStart)
-
-    def stackSignInUserMethods(self):
-        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, show=False)
-        self.ui.lblNotification.hide()
         self.qrcode_thread.stop()
-        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
+        self.ui.Stack.setCurrentWidget(self.ui.pageStart)
 
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserQRcode, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.tbUserId.setText('')
         self.ui.tbUserPassword.setText('')
+        self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def stackSignInUserQRcode(self):
@@ -476,6 +472,7 @@ class MainWindow(QWidget):
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
+        self.qrcode_thread.stop()
         self.ui.lblNotification.hide()
         self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
