@@ -5,6 +5,7 @@
 /farazist.h5
 /.vs
 /__pycache__
+/.vscode
 main.pyproject.user
 /model.tflite
 Farazist.pyproject.user

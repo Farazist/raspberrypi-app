@@ -2123,19 +2123,25 @@ border-style: inset;
       <widget class="QWidget" name="pageSignInUserQRcode">
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <property name="leftMargin">
-         <number>50</number>
+         <number>9</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>9</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="leftMargin">
+           <number>100</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
           <item alignment="Qt::AlignVCenter">
            <widget class="QLabel" name="lblPixmapQr">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>350</height>
+              <height>400</height>
              </size>
             </property>
             <property name="text">
@@ -2143,23 +2149,28 @@ border-style: inset;
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string/>
+          <item>
+           <widget class="QLabel" name="lblQrText">
+            <property name="minimumSize">
+             <size>
+              <width>500</width>
+              <height>400</height>
+             </size>
             </property>
-            <property name="pixmap">
-             <pixmap>images/vector/qr-scan.png</pixmap>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignRight">
-           <widget class="QLabel" name="label_3">
             <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
+             <string notr="true">font: 22pt &quot;IRANSansFaNum&quot;;
+color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
-             <string>روش اول</string>
+             <string>1- برنامه فرازیست را بر روی گوشی خود باز کنید
+2- آیکن &lt;img src=&quot;images\icons\qr-code.png&quot;&gt; و سپس &quot;ورود به نرم افزار دستگاه RVM&quot; را انتخاب نمایید
+3- تصویر مقابل را اسکن کنید</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -2174,11 +2185,17 @@ border-style: inset;
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_23">
-          <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
            <widget class="QPushButton" name="btnSignInUserMobileNumber">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>80</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
-font: 26pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSans&quot;;
 background-color: #28a745;
 color: rgb(255, 255, 255);
 padding: 20px; 
@@ -2193,7 +2210,7 @@ border-style: inset;
 }</string>
             </property>
             <property name="text">
-             <string>ورود با شناسه کاربری </string>
+             <string>ورود به برنامه با شناسه کاربری </string>
             </property>
             <property name="icon">
              <iconset>
@@ -2204,16 +2221,6 @@ border-style: inset;
               <width>50</width>
               <height>50</height>
              </size>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-           <widget class="QLabel" name="label_15">
-            <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>روش دوم</string>
             </property>
            </widget>
           </item>
@@ -2463,8 +2470,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>358</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3017,7 +3024,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
+             <width>358</width>
              <height>16</height>
             </rect>
            </property>

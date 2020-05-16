@@ -32,7 +32,6 @@ SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست 
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
-QR_MESSAGE = 'images\icon\qr-code.png'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -51,7 +50,7 @@ class QRCodeThread(QThread):
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
                 qrcode_img = qrcode.make(qrcode_signin_token)
-                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(256, 256))
+                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
 
                 counter = 0
                 while not self.event.wait(4) and counter < 4:
@@ -215,6 +214,8 @@ class MainWindow(QWidget):
         if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
+            if self.user != None:
+                self.user = None
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
             self.ui.lblDeviceInfo.setText(self.deviceInfo)
         self.setButton(self.ui.btnRight, show=False)
@@ -297,6 +298,7 @@ class MainWindow(QWidget):
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        #self.qrcode_thread.stop()
         self.playSound('audio8')
         self.ui.lblNotification.hide()
         
