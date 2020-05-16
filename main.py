@@ -32,6 +32,7 @@ SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست 
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
+QR_MESSAGE = 'images\icon\qr-code.png'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -84,7 +85,8 @@ class MainWindow(QWidget):
 
         # signals
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
-        self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        #self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnUserLogin.clicked.connect(self.signInUser)
@@ -286,14 +288,14 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def stackSignInUserMobileNumber(self):
-        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserQRcode, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.tbUserId.setText('')
         self.ui.tbUserPassword.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def stackSignInUserQRcode(self):
-        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.playSound('audio8')
         self.ui.lblNotification.hide()
