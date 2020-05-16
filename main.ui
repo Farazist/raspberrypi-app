@@ -1917,7 +1917,7 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>524</width>
                <height>436</height>
               </rect>
              </property>
@@ -2162,12 +2162,15 @@ border-style: inset;
 color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
-             <string>1- برنامه فرازیست را بر روی گوشی خود باز کنید
-2- آیکن &lt;img src=&quot;images\icons\qr-code.png&quot;&gt; و سپس &quot;ورود به نرم افزار دستگاه RVM&quot; را انتخاب نمایید
-3- تصویر مقابل را اسکن کنید</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;برنامه فرازیست را بر روی گوشی خود اجرا کنید&lt;/p&gt;
+&lt;p&gt;
+آیکن &lt;img src=&quot;images\icon\small-qr-code&quot; style=&quot;vertical-align: middle;&quot;/&gt; و سپس &amp;quot;ورود به نرم افزار دستگاه&amp;quot; را انتخاب نماییید &lt;/p&gt;
+&lt;p&gt;
+تصویر مقابل را اسکن کنید&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -2470,8 +2473,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>358</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3024,8 +3027,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>358</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
