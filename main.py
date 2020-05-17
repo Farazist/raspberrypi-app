@@ -588,7 +588,7 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/home/pi/Documents/capabilities.json"
+    # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
     try:
         factory = NativeFactory()
