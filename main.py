@@ -22,7 +22,6 @@ from database import DataBase
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
 __license__ = "GPL"
-__version__ = "1.1.0"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
@@ -67,8 +66,7 @@ class QRCodeThread(QThread):
             print('scan successfully')
             window.playSound('audio2')
             self.scan_successfully_signal.emit()
-            #self.playSound('audio2')
-
+           
 class MainWindow(QWidget):
    
     def __init__(self):
@@ -87,7 +85,6 @@ class MainWindow(QWidget):
 
         # signals
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
-        #self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
         self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
@@ -232,7 +229,7 @@ class MainWindow(QWidget):
         self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
         if self.owner != None and self.owner['id'] == self.system['owner']['id']:
             if self.system_startup_now:
-                # Server.turnOnSystemSMS(self.owner, self.system)
+                Server.turnOnSystemSMS(self.owner, self.system)
                 self.system_startup_now = False
             self.stackSetting()
             self.playSound('audio2')
@@ -298,7 +295,6 @@ class MainWindow(QWidget):
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        #self.qrcode_thread.stop()
         self.playSound('audio8')
         self.ui.lblNotification.hide()
         
@@ -441,6 +437,7 @@ class MainWindow(QWidget):
         
     def printReceipt(self):
         self.playSound('audio4')
+        # printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
         os.system('sudo python3 printer.py ' 
         + str(self.total_price)
         + ' --mobile_number ' + str(self.system['owner']['mobile_number'])
