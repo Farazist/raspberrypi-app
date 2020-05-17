@@ -106,6 +106,7 @@ class MainWindow(QWidget):
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
+        self.ui.btnSetting8.clicked.connect(self.stackLicense)
         try:
             self.ui.btnMotorOn.clicked.connect(self.motor.on)
             self.ui.btnMotorOff.clicked.connect(self.motor.off)
@@ -527,6 +528,9 @@ class MainWindow(QWidget):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingHelp)
         self.ui.lbl_version.setText(DEVICE_VERSION.format(self.deviceVersion))
         self.ui.lbl_version.show()
+
+    def stackLicense(self):
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
     
     def stackCharity(self):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
