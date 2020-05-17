@@ -108,6 +108,7 @@ class MainWindow(QWidget):
         self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
+        self.ui.btnSetting7.clicked.connect(self.stackHelp)
         try:
             self.ui.btnMotorOn.clicked.connect(self.motor.on)
             self.ui.btnMotorOff.clicked.connect(self.motor.off)
@@ -218,7 +219,7 @@ class MainWindow(QWidget):
         if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
-            if self.user != None:
+            if hasattr(self, 'user') == True:
                 self.user = None
             self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
             self.ui.lblDeviceInfo.setText(self.deviceInfo)
@@ -478,8 +479,6 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.lblNotification.hide()
         self.ui.lblDeviceInfo.setText(self.deviceInfo)
-        self.ui.lbl_version.setText(DEVICE_VERSION.format(self.deviceVersion))
-        self.ui.lbl_version.show()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
         self.ui.Stack.setCurrentWidget(self.ui.pageSetting)
 
@@ -526,6 +525,11 @@ class MainWindow(QWidget):
 
     def stackAddOpetator(self):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingAddOperator)
+
+    def stackHelp(self):
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingHelp)
+        self.ui.lbl_version.setText(DEVICE_VERSION.format(self.deviceVersion))
+        self.ui.lbl_version.show()
     
     def stackCharity(self):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
