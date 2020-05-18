@@ -237,6 +237,12 @@ class MainWindow(QWidget):
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
+            self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
+            self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
+            
+
+    def hideNotification(self):
+        self.ui.lblNotification.hide()
 
     def signInUser(self):
         self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
@@ -246,6 +252,8 @@ class MainWindow(QWidget):
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
+            self.ui.tbUserId.textChanged.connect(self.hideNotification)
+            self.ui.tbUserPassword.textChanged.connect(self.hideNotification)
             
     def signOutUser(self):
         self.user = None
