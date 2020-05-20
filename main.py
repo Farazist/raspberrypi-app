@@ -107,6 +107,11 @@ class MainWindow(QWidget):
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
         self.ui.btnSetting8.clicked.connect(self.stackLicense)
+
+        self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
+        self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
+        self.ui.tbUserId.textChanged.connect(self.hideNotification)
+        self.ui.tbUserPassword.textChanged.connect(self.hideNotification)
         try:
             self.ui.btnMotorOn.clicked.connect(self.motor.on)
             self.ui.btnMotorOff.clicked.connect(self.motor.off)
@@ -194,6 +199,9 @@ class MainWindow(QWidget):
         self.ui.lblNotification.setText(text)
         self.ui.lblNotification.show()
 
+    def hideNotification(self):
+        self.ui.lblNotification.hide()
+
     def playSound(self, path):
         try:
             path = os.path.join('sounds', path+'.mp3')
@@ -237,12 +245,6 @@ class MainWindow(QWidget):
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
-            self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
-            self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
-            
-
-    def hideNotification(self):
-        self.ui.lblNotification.hide()
 
     def signInUser(self):
         self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
@@ -252,9 +254,7 @@ class MainWindow(QWidget):
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
-            self.ui.tbUserId.textChanged.connect(self.hideNotification)
-            self.ui.tbUserPassword.textChanged.connect(self.hideNotification)
-            
+
     def signOutUser(self):
         self.user = None
         self.stackStart()
