@@ -17,6 +17,7 @@ from PIL.ImageQt import ImageQt
 
 from server import Server
 from database import DataBase
+from custombutton import CustomButton
 # from image_classifier import ImageClassifier
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
@@ -32,6 +33,8 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 DEVICE_VERSION = 'ورژن {}'
+
+BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -83,6 +86,14 @@ class MainWindow(QWidget):
         self.ui.lblDeviceInfo.setSizePolicy(sp_retain)
         self.ui.btnSetting.setSizePolicy(sp_retain)
 
+        self.btnOwnerLogin = CustomButton()
+        self.btnOwnerLogin.setGif("animations/Rolling-white.gif")
+        self.btnOwnerPassRecovery = QPushButton('بازیابی رمز عبور')
+        self.btnOwnerPassRecovery.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
+        self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerLogin)
+        self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerPassRecovery)
+        self.ui.vLayoutSignInOwner.setAlignment(Qt.AlignHCenter)
+
         # signals
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
@@ -92,8 +103,9 @@ class MainWindow(QWidget):
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
-        self.ui.btnOwnerLogin.clicked.connect(self.signInOwner)
-        self.ui.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
+        self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
+        self.btnOwnerLogin.clicked.connect(self.signInOwner)
+        self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
@@ -222,6 +234,7 @@ class MainWindow(QWidget):
         # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
     def stackSignInOwner(self):
+        self.btnOwnerLogin.stop()
         if self.system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
@@ -243,6 +256,7 @@ class MainWindow(QWidget):
             self.stackSetting()
             self.playSound('audio2')
         else:
+            self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
@@ -252,6 +266,7 @@ class MainWindow(QWidget):
             self.stackMainMenu()
             self.playSound('audio2')
         else:
+            self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 

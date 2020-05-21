@@ -777,203 +777,139 @@ color:#000000;</string>
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="lblTitle">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>40</height>
-           </size>
+        <item>
+         <layout class="QVBoxLayout" name="vLayoutSignInOwner">
+          <property name="spacing">
+           <number>10</number>
           </property>
-          <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblTitle">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color:#000000;</string>
-          </property>
-          <property name="text">
-           <string>ورود به پنل مدیریت</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="lblOwnerLogin">
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;
+            </property>
+            <property name="text">
+             <string>ورود به پنل مدیریت</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblOwnerLogin">
+            <property name="maximumSize">
+             <size>
+              <width>290</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 20pt &quot;IRANSans&quot;;
 color:#000000;</string>
-          </property>
-          <property name="text">
-           <string>شناسه کاربری</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLineEdit" name="tbOwnerUsername">
-          <property name="minimumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #ffffff; 
+            </property>
+            <property name="text">
+             <string>شناسه کاربری</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLineEdit" name="tbOwnerUsername">
+            <property name="minimumSize">
+             <size>
+              <width>290</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>290</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
-          </property>
-          <property name="locale">
-           <locale language="English" country="UnitedStates"/>
-          </property>
-          <property name="inputMethodHints">
-           <set>Qt::ImhDigitsOnly</set>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="lblOwnerPassword">
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;IRANSans&quot;;
-color:#000000;</string>
-          </property>
-          <property name="text">
-           <string>گذر واژه</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLineEdit" name="tbOwnerPassword">
-          <property name="minimumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #ffffff; 
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblOwnerPassword">
+            <property name="maximumSize">
+             <size>
+              <width>290</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 20pt &quot;IRANSans&quot;;
+color:#000000;
+</string>
+            </property>
+            <property name="text">
+             <string>گذر واژه</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLineEdit" name="tbOwnerPassword">
+            <property name="minimumSize">
+             <size>
+              <width>290</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>290</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
 font: 26pt &quot;IRANSans&quot;;
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 color:#000000;</string>
-          </property>
-          <property name="locale">
-           <locale language="English" country="UnitedStates"/>
-          </property>
-          <property name="inputMethodHints">
-           <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="echoMode">
-           <enum>QLineEdit::Password</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string>*****</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnOwnerLogin">
-          <property name="minimumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{
-background-color: #28a745;
-color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-          </property>
-          <property name="text">
-           <string>ورود</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnOwnerPassRecovery">
-          <property name="minimumSize">
-           <size>
-            <width>290</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>290</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 18pt &quot;IRANSans&quot;;
-color: rgb(121, 121, 121);
-border: none; 
-outline-style: none;
-</string>
-          </property>
-          <property name="text">
-           <string>بازیابی رمز عبور</string>
-          </property>
-         </widget>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="placeholderText">
+             <string>*****</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
