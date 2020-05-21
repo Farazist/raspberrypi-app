@@ -12,7 +12,7 @@ from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
-from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 
 from server import Server
@@ -94,12 +94,21 @@ class MainWindow(QWidget):
         self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerPassRecovery)
         self.ui.vLayoutSignInOwner.setAlignment(Qt.AlignHCenter)
 
+        self.btnUserLogin = CustomButton()
+        self.btnUserLogin.setGif("animations/Rolling-white.gif")
+        self.lbl = QLabel(None)
+        self.lbl.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
+        self.ui.vLayoutSignInUser.addWidget(self.btnUserLogin)
+        self.ui.vLayoutSignInOwner.addWidget(self.lbl)
+        self.ui.vLayoutSignInUser.setAlignment(Qt.AlignHCenter)
+
         # signals
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
-        self.ui.btnUserLogin.clicked.connect(self.signInUser)
+        self.btnUserLogin.clicked.connect(self.btnUserLogin.start)
+        self.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
@@ -266,11 +275,12 @@ class MainWindow(QWidget):
             self.stackMainMenu()
             self.playSound('audio2')
         else:
-            self.btnOwnerLogin.stop()
+            self.btnUserLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
     def signOutUser(self):
+        self.btnUserLogin.stop()
         self.user = None
         self.stackStart()
 
