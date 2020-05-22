@@ -144,10 +144,10 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageLoading">
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
         <property name="spacing">
          <number>100</number>
         </property>
@@ -176,47 +176,32 @@ border-style: inset;
           </property>
          </widget>
         </item>
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QPushButton" name="btnRefresh">
+          <property name="styleSheet">
+           <string notr="true">QPushButton{background-color: #28a745; color: rgb(255, 255, 255); font: 24pt &quot;IRANSans&quot;;  padding: 15px; border: none; border-radius: 6px; outline-style: none;}
+QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
+          </property>
+          <property name="text">
+           <string>تلاش دوباره</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../Farazist-RaspberryPi-1/images/icon/refresh.png</normaloff>../Farazist-RaspberryPi-1/images/icon/refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+         </widget>
+        </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>0</number>
           </property>
-          <item alignment="Qt::AlignBottom">
-           <widget class="QLabel" name="lblGifLoading">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="lblTxtLoading">
-            <property name="font">
-             <font>
-              <family>IRANSans</family>
-              <pointsize>22</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 22pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="text">
-             <string>در حال بارگزاری</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
        </layout>

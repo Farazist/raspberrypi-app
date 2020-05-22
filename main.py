@@ -154,7 +154,7 @@ class MainWindow(QWidget):
         self.qrcode_thread = QRCodeThread()
         self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu)
 
-        self.stackSignInOwner()
+        self.stackLoading()
         self.playSound('audio2')
 
         try:
@@ -323,6 +323,11 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def stackLoading(self):
+        self.setButton(self.ui.btnLeft, show=False)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
+    
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
