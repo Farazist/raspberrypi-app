@@ -8,11 +8,8 @@ class Server:
     @staticmethod
     def makeQRcodeSignInToken(system_id):
         data = {'system_id':system_id}
-        try:
-            response = post(url=url+'/api/make-qrcode-signin-token', data=data, verify=True)
-            return response.text
-        except:
-            return None
+        response = post(url=url+'/api/make-qrcode-signin-token', data=data, verify=True)
+        return response.text
 
     @staticmethod
     def checkQRcodeSignInToken(qrcode_signin_token):
@@ -26,12 +23,9 @@ class Server:
     @staticmethod
     def signInUser(id, password):
         data = {'id':id, 'password':password,}
-        try:        
-            response = post(url=url+'/api/signin-user', data=data, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
-
+        response = post(url=url+'/api/signin-user', data=data, verify=True)
+        return json.loads(response.text)
+    
     @staticmethod
     def getUser(user):
         headers = {
@@ -56,22 +50,16 @@ class Server:
     def getItems(user_id):
         data = {'user_id': user_id}
         headers = {'Content-Type': 'application/json'}
-        try:
-            response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
-
+        response = post(url=url+'/api/get-items', data=json.dumps(data), headers=headers, verify=True)
+        return json.loads(response.text)
+    
     @staticmethod
     def getSystem(system_id):
         data = {'id': system_id}
         headers = {'Content-Type': 'application/json'}
 
-        try:
-            response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
+        response = post(url=url + '/api/get-system', data=json.dumps(data), headers=headers, verify=True)
+        return json.loads(response.text)
         
     @staticmethod
     def addNewDelivery(user, system_id, items):
@@ -118,12 +106,9 @@ class Server:
             'Content-Type': 'application/json'
         }
         data = {'system_id': system['id']}
-        try:
-            response = post(url=url + '/api/turn-on-system-sms', data=json.dumps(data), headers=headers, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
-
+        response = post(url=url + '/api/turn-on-system-sms', data=json.dumps(data), headers=headers, verify=True)
+        return json.loads(response.text)
+    
     @staticmethod
     def turnOffSystemSMS(owner, system):
         headers = {
