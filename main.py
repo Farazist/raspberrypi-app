@@ -103,6 +103,7 @@ class MainWindow(QWidget):
         self.ui.vLayoutSignInUser.setAlignment(Qt.AlignHCenter)
 
         # signals
+        self.ui.btnRefresh.clicked.connect(self.initInformation)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
@@ -157,13 +158,14 @@ class MainWindow(QWidget):
         self.stackLoading()
         self.playSound('audio2')
 
+    def initInformation(self):
         try:
             self.system = Server.getSystem(self.system_id)
             self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
             print('Startup Intormation:')
             print('Device Mode:', self.device_mode)
             print('System ID:', self.system['id'])
-
+            self.stackSignInOwner()
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
 
@@ -244,6 +246,12 @@ class MainWindow(QWidget):
         #         images.append(imageio.imread(file_path))
         # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
+    def stackLoading(self):
+        self.setButton(self.ui.btnLeft, show=False)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
+        self.initInformation()
+
     def stackSignInOwner(self):
         self.btnOwnerLogin.stop()
         if self.flag_system_startup_now:
@@ -265,7 +273,8 @@ class MainWindow(QWidget):
             self.btnOwnerLogin.stop()
             self.showNotification(SERVER_ERROR_MESSAGE)
         else:
-            if self.owner != '0' and self.owner['id'] == self.system['owner']['id']: 
+            print(self.owner)
+            if self.owner != 0 and self.owner['id'] == self.system['owner']['id']: 
                 try:
                     if self.flag_system_startup_now:                      
                         self.items = Server.getItems(self.owner['id'])
@@ -278,8 +287,7 @@ class MainWindow(QWidget):
             else:
                 self.btnOwnerLogin.stop()
                 print("mobile number or password is incurrect")
-                self.showNotification(SIGNIN_ERROR_MESSAGE)
-                  
+                self.showNotification(SIGNIN_ERROR_MESSAGE)                  
                   
     def signInUser(self):
         try:
@@ -288,11 +296,11 @@ class MainWindow(QWidget):
             self.btnOwnerLogin.stop()
             self.showNotification(SERVER_ERROR_MESSAGE)
         else:
-            try:  
+            if self.user != 0:
                 self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
                 self.stackMainMenu()
                 self.playSound('audio2')
-            except:
+            else:
                 self.btnUserLogin.stop()
                 print("mobile number or password is incurrect")
                 self.showNotification(SIGNIN_ERROR_MESSAGE)
@@ -323,11 +331,6 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
-    def stackLoading(self):
-        self.setButton(self.ui.btnLeft, show=False)
-        self.setButton(self.ui.btnRight, show=False)
-        self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
-    
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
@@ -504,6 +507,7 @@ class MainWindow(QWidget):
         self.stackMainMenu()
 
     def stackAfterDelivery(self):
+        
         self.playSound('audio5')
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
@@ -511,23 +515,26 @@ class MainWindow(QWidget):
         gif_afterDelivery = QMovie("animations/earth.gif")
         self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
         gif_afterDelivery.start()
-
         self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
         self.ui.lblTotalPrice.setText(str(self.total_price))
         # self.delivery_items_flag = False
-        Server.addNewDelivery(self.user, self.system['id'], self.user_items)
-        if Server.transfer(self.owner, self.user, self.total_price) == "1":
-            self.user['wallet'] += self.total_price
-        else:
-            print('not enough money in owner wallet')
         
+        try:
+            Server.addNewDelivery(self.user, self.system['id'], self.user_items)
+            if Server.transfer(self.owner, self.user, self.total_price) == "1":
+                self.user['wallet'] += self.total_price
+            else:
+                print('not enough money in owner wallet')
+            self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
+
+        except:
+            self.showNotification(SERVER_ERROR_MESSAGE)
+    
         try:
             self.motor.off()
             self.conveyor.off()
         except Exception as e:
-            print("error:", e)
-        
-        self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
+            print("error:", e)    
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)

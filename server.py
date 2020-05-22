@@ -76,12 +76,9 @@ class Server:
             'city_id': user['city_id'],
             'description': 'تحویل پسماند در دستگاه'
         }
-        try:
-            response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
-            return json.loads(response.text)
-        except:
-            return None
-
+        response = post(url=url + '/api/add-new-delivery', data=json.dumps(data), headers=headers, verify=True)
+        return json.loads(response.text)
+    
     @staticmethod
     def transfer(owner, user, amount):
         headers = {
@@ -93,11 +90,8 @@ class Server:
             'amount': amount, 
             'description': 'تحویل پسماند در دستگاه'
         }
-        try:
-            response = post(url=url + '/api/transfer', data=json.dumps(data), headers=headers, verify=True)
-            return response.text
-        except:
-            return None
+        response = post(url=url + '/api/transfer', data=json.dumps(data), headers=headers, verify=True)
+        return response.text
 
     @staticmethod
     def turnOnSystemSMS(owner, system):
