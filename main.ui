@@ -144,7 +144,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -214,21 +214,6 @@ QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item alignment="Qt::AlignRight|Qt::AlignTop">
-         <widget class="QLabel" name="datetime">
-          <property name="styleSheet">
-           <string notr="true">font: 16pt &quot;IRANSans&quot;;
-font: 18pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
          <widget class="QLabel" name="lblGifStart">
           <property name="minimumSize">

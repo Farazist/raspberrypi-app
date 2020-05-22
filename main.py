@@ -327,11 +327,13 @@ class MainWindow(QWidget):
         self.loading_thread.start()            
 
     def stackLoading(self):
+        self.ui.lblLogo.hide()
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
 
     def stackSignInOwner(self):
+        self.ui.lblLogo.show()
         self.qrcode_thread.stop()
         self.ui.lblNotification.hide()
         if self.flag_system_startup_now:
