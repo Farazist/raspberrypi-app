@@ -350,6 +350,7 @@ class MainWindow(QWidget):
     
     def signInOwner(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.playSound('audio8')
         self.signin_owner_thread.start()                  
 
     def afterSignInOwner(self):
@@ -433,7 +434,7 @@ class MainWindow(QWidget):
     def stackSignInUserQRcode(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.playSound('audio8')
+        self.playSound('audio10')
         self.ui.lblNotification.hide()
         
         gif_loading = QMovie("animations/Rolling.gif")
@@ -600,7 +601,7 @@ class MainWindow(QWidget):
             self.flag_delivery_items = False
 
             self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
-            self.playSound('audio5')
+            self.playSound('audio11')
             self.setButton(self.ui.btnLeft, show=False)
             self.setButton(self.ui.btnRight, show=False)
             self.ui.lblNotification.hide()
