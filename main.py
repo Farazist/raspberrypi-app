@@ -520,8 +520,8 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
-    def hideRecycleItem(self):
-        self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
+    #def hideRecycleItem(self):
+    #    self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
         # self.ui.lblNotification.hide()
 
     def motorOff(self):
