@@ -19,7 +19,7 @@ def main(total_price, mobile_number, datetime):
         printer.image("images/logo-text-small.png", center=True)
         # printer.image("images/logo-text-small.png")
         printer.set(align=u'center')
-        printer.text("Farazist" + "\n")
+        printer.text("Farazist" + "\n\n")
         printer.text(total_price + " Toman" + "\n")
         printer.qr(total_price, size=8, center=True)
         # printer.qr(str(self.total_price), size=8)

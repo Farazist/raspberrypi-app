@@ -26,18 +26,20 @@ __license__ = "GPL"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با سرور'
+SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
 SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
-RECYCLE_END_MESSAGE = 'لطفا منتظر بمانید'
+PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
+TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
+    show_qrcode_signal = Signal(str)
 
     def __init__(self):
         QThread.__init__(self)
@@ -49,14 +51,14 @@ class QRCodeThread(QThread):
     def run(self):
         self.event = Event()
         while not self.event.isSet():
+            print('while qr 1')
             try:
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
-                qrcode_img = qrcode.make(qrcode_signin_token)
-                window.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
-                window.ui.lblNotification.hide()
+                self.show_qrcode_signal.emit(qrcode_signin_token)
                 counter = 0
                 while not self.event.wait(4) and counter < 4:
+                    print('while qr 2')
                     counter += 1
                     print('server request')
                     window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
@@ -69,7 +71,75 @@ class QRCodeThread(QThread):
             print('scan successfully')
             window.playSound('audio2')
             self.scan_successfully_signal.emit()
-           
+
+
+class SigninOwnerThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.owner = Server.signInUser(int(window.ui.tbOwnerUsername.text()), int(window.ui.tbOwnerPassword.text()))
+            self.success_signal.emit()
+        except:
+            window.showNotification(SERVER_ERROR_MESSAGE)
+
+
+class SigninUserThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPassword.text()))
+            self.success_signal.emit()
+        except:
+            window.showNotification(SERVER_ERROR_MESSAGE)
+
+
+class LoadingThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.system = Server.getSystem(window.system_id)
+            window.deviceInfo = window.system['name'] + '\n' + window.system['owner']['name'] + ' ' + window.system['owner']['mobile_number']
+            print('Startup Intormation:')
+            print('Device Mode:', window.device_mode)
+            print('System ID:', window.system['id'])
+
+            self.success_signal.emit()
+        except:
+            window.showNotification(SERVER_ERROR_MESSAGE)
+
+
+class AfterDeliveryThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.total_price = sum(user_item['price'] * user_item['count'] for user_item in window.user_items) 
+   
+            Server.addNewDelivery(window.user, window.system['id'], window.user_items)
+            if Server.transfer(window.owner, window.user, window.total_price) == "1":
+                window.user['wallet'] += window.total_price
+                self.success_signal.emit()
+            else:
+                window.showNotification(TRANSFER_ERROR_MESSAGE)
+        except:
+            window.showNotification(SERVER_ERROR_MESSAGE)
+
+
 class MainWindow(QWidget):
    
     def __init__(self):
@@ -102,18 +172,35 @@ class MainWindow(QWidget):
         self.ui.vLayoutSignInOwner.addWidget(self.lbl)
         self.ui.vLayoutSignInUser.setAlignment(Qt.AlignHCenter)
 
+        # Threads
+        self.qrcode_thread = QRCodeThread()
+        self.qrcode_thread.show_qrcode_signal.connect(self.showQrcode)
+        self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu)
+
+        self.signin_owner_thread = SigninOwnerThread()
+        self.signin_owner_thread.success_signal.connect(self.afterSignInOwner)
+
+        self.signin_user_thread = SigninUserThread()
+        self.signin_user_thread.success_signal.connect(self.afterSignInUser)
+
+        self.loading_thread = LoadingThread()
+        self.loading_thread.success_signal.connect(self.stackSignInOwner)
+
+        self.after_delivery_thread = AfterDeliveryThread()
+        self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
+
         # signals
-        self.ui.btnRefresh.clicked.connect(self.initInformation)
+        self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
         self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
-        self.btnUserLogin.clicked.connect(self.btnUserLogin.start)
+        # self.btnUserLogin.clicked.connect(self.btnUserLogin.start)
         self.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
-        self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
+        # self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -146,28 +233,17 @@ class MainWindow(QWidget):
         self.ui.showMaximized()
     
         self.flag_system_startup_now = True
+        self.flag_delivery_items = False
 
         self.system_id = DataBase.select('system_id')
         self.device_version = DataBase.select('app_version')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         # self.categories = Server.getCategories()
         # self.image_classifier = ImageClassifier()
-        self.qrcode_thread = QRCodeThread()
-        self.qrcode_thread.scan_successfully_signal.connect(self.stackMainMenu)
 
         self.stackLoading()
         self.playSound('audio2')
-
-    def initInformation(self):
-        try:
-            self.system = Server.getSystem(self.system_id)
-            self.deviceInfo = self.system['name'] + '\n' + self.system['owner']['name'] + ' ' + self.system['owner']['mobile_number']
-            print('Startup Intormation:')
-            print('Device Mode:', self.device_mode)
-            print('System ID:', self.system['id'])
-            self.stackSignInOwner()
-        except:
-            self.showNotification(SERVER_ERROR_MESSAGE)
+        self.refresh()
 
     def initHardwares(self):
         try:
@@ -246,14 +322,18 @@ class MainWindow(QWidget):
         #         images.append(imageio.imread(file_path))
         # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
+    def refresh(self):
+        self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.loading_thread.start()            
+
     def stackLoading(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
-        self.initInformation()
 
     def stackSignInOwner(self):
-        self.btnOwnerLogin.stop()
+        self.qrcode_thread.stop()
+        self.ui.lblNotification.hide()
         if self.flag_system_startup_now:
             self.setButton(self.ui.btnLeft, show=False)
         else:
@@ -267,46 +347,42 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
     
     def signInOwner(self):
-        try:
-            self.owner = Server.signInUser(int(self.ui.tbOwnerUsername.text()), int(self.ui.tbOwnerPassword.text()))
-        except:
-            self.btnOwnerLogin.stop()
-            self.showNotification(SERVER_ERROR_MESSAGE)
-        else:
-            print(self.owner)
-            if self.owner != 0 and self.owner['id'] == self.system['owner']['id']: 
-                try:
-                    if self.flag_system_startup_now:                      
-                        self.items = Server.getItems(self.owner['id'])
-                        Server.turnOnSystemSMS(self.owner, self.system)
-                        self.flag_system_startup_now = False
-                    self.stackSetting()
-                    self.playSound('audio2')
-                except:
-                    self.showNotification(SERVER_ERROR_MESSAGE)
-            else:
-                self.btnOwnerLogin.stop()
-                print("mobile number or password is incurrect")
-                self.showNotification(SIGNIN_ERROR_MESSAGE)                  
-                  
-    def signInUser(self):
-        try:
-            self.user = Server.signInUser(int(self.ui.tbUserId.text()), int(self.ui.tbUserPassword.text()))
-        except:
-            self.btnOwnerLogin.stop()
-            self.showNotification(SERVER_ERROR_MESSAGE)
-        else:
-            if self.user != 0:
-                self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
-                self.stackMainMenu()
+        self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.signin_owner_thread.start()                  
+
+    def afterSignInOwner(self):
+        if self.owner != 0 and self.owner['id'] == self.system['owner']['id']: 
+            try:
+                if self.flag_system_startup_now:                      
+                    self.items = Server.getItems(self.owner['id'])
+                    Server.turnOnSystemSMS(self.owner, self.system)
+                    self.flag_system_startup_now = False
+                self.stackSetting()
                 self.playSound('audio2')
-            else:
-                self.btnUserLogin.stop()
-                print("mobile number or password is incurrect")
-                self.showNotification(SIGNIN_ERROR_MESSAGE)
+                self.hideNotification()
+            except:
+                self.showNotification(SERVER_ERROR_MESSAGE)
+        else:
+            # self.btnOwnerLogin.stop()
+            print("mobile number or password is incurrect")
+            self.showNotification(SIGNIN_ERROR_MESSAGE)    
+
+    def signInUser(self):
+        self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.signin_user_thread.start()
+
+    def afterSignInUser(self):
+        if self.user != 0:
+            self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
+            self.stackMainMenu()
+            self.playSound('audio2')
+        else:
+            # self.btnUserLogin.stop()
+            print("mobile number or password is incurrect")
+            self.showNotification(SIGNIN_ERROR_MESSAGE)
 
     def signOutUser(self):
-        self.btnUserLogin.stop()
+        # self.btnUserLogin.stop()
         self.user = None
         self.stackStart()
 
@@ -365,6 +441,11 @@ class MainWindow(QWidget):
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserQRcode)
 
+    def showQrcode(self, qrcode_signin_token):
+        qrcode_img = qrcode.make(qrcode_signin_token)
+        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
+        self.ui.lblNotification.hide()
+
     def stackMainMenu(self):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
@@ -409,30 +490,31 @@ class MainWindow(QWidget):
         
     def recycleItem(self):
         try:
-            if hasattr(self, 'motor_off_timer'):
-                self.motor_off_timer.cancel()
-            self.motorOn()
-            self.motor_off_timer = Timer(10.0, self.motorOff)
-            self.motor_off_timer.start()
+            if self.flag_delivery_items:
+                if hasattr(self, 'motor_off_timer'):
+                    self.motor_off_timer.cancel()
+                self.motorOn()
+                self.motor_off_timer = Timer(10.0, self.motorOff)
+                self.motor_off_timer.start()
 
-            if hasattr(self, 'conveyor_off_timer'):
-                self.conveyor_off_timer.cancel()
-            self.conveyorOn()
-            self.conveyor_off_timer = Timer(10.0, self.conveyorOff)
-            self.conveyor_off_timer.start()
+                if hasattr(self, 'conveyor_off_timer'):
+                    self.conveyor_off_timer.cancel()
+                self.conveyorOn()
+                self.conveyor_off_timer = Timer(10.0, self.conveyorOff)
+                self.conveyor_off_timer.start()
 
-            self.playSound('audio3')
-            #self.showNotification(RECYCLE_MESSAGE)
-            self.ui.btnRight.show()
-            self.selected_item['count'] += 1
-            self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-            for user_item in self.user_items:
-                if self.selected_item['id'] == user_item['id']:
-                    break
-            else:
-                self.user_items.append(self.selected_item)
-            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-            self.ui.lblTotal.setText(str(self.total_price))
+                self.playSound('audio3')
+                #self.showNotification(RECYCLE_MESSAGE)
+                self.ui.btnRight.show()
+                self.selected_item['count'] += 1
+                self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+                for user_item in self.user_items:
+                    if self.selected_item['id'] == user_item['id']:
+                        break
+                else:
+                    self.user_items.append(self.selected_item)
+                self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+                self.ui.lblTotal.setText(str(self.total_price))
         except Exception as e:
             print("error:", e)
 
@@ -469,8 +551,9 @@ class MainWindow(QWidget):
             print("error:", e)
 
     def stackManualDeliveryItems(self):
+        self.flag_delivery_items = True
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
+        self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
@@ -506,27 +589,24 @@ class MainWindow(QWidget):
         + ' --datetime "' + QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate) + '"')
         self.stackMainMenu()
 
-    def stackAfterDelivery(self):
-        
-        self.playSound('audio5')
-        self.setButton(self.ui.btnLeft, show=False)
-        self.setButton(self.ui.btnRight, show=False)
-        self.ui.lblNotification.hide()
-        gif_afterDelivery = QMovie("animations/earth.gif")
-        self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
-        gif_afterDelivery.start()
-        self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items) 
-        self.ui.lblTotalPrice.setText(str(self.total_price))
-        # self.delivery_items_flag = False
-        
-        try:
-            Server.addNewDelivery(self.user, self.system['id'], self.user_items)
-            if Server.transfer(self.owner, self.user, self.total_price) == "1":
-                self.user['wallet'] += self.total_price
-            else:
-                print('not enough money in owner wallet')
-            self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
+    def afterDelivery(self):
+        self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.after_delivery_thread.start()
 
+    def stackAfterDelivery(self):
+        try:
+            self.flag_delivery_items = False
+
+            self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
+            self.playSound('audio5')
+            self.setButton(self.ui.btnLeft, show=False)
+            self.setButton(self.ui.btnRight, show=False)
+            self.ui.lblNotification.hide()
+            gif_afterDelivery = QMovie("animations/earth.gif")
+            self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
+            gif_afterDelivery.start()
+            self.ui.lblTotalPrice.setText(str(self.total_price))
+        
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
     
