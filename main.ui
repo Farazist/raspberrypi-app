@@ -144,7 +144,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1816,12 +1816,12 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>524</width>
+               <width>531</width>
                <height>542</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="3" column="1">
+              <item row="4" column="3">
                <widget class="QPushButton" name="btnSetting8">
                 <property name="minimumSize">
                  <size>
@@ -1877,7 +1877,7 @@ border-style: inset;
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="2" column="1">
                <widget class="QPushButton" name="btnSetting1">
                 <property name="minimumSize">
                  <size>
@@ -1927,7 +1927,7 @@ outline-style: none;</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="3" column="1">
                <widget class="QPushButton" name="btnSetting4">
                 <property name="minimumSize">
                  <size>
@@ -1983,7 +1983,7 @@ border-style: inset;
                 </property>
                </widget>
               </item>
-              <item row="4" column="3">
+              <item row="0" column="1">
                <widget class="QPushButton" name="btnSetting6">
                 <property name="minimumSize">
                  <size>
