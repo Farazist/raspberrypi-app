@@ -95,7 +95,7 @@ class SigninUserThread(QThread):
     
     def run(self):
         try:
-            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPassword.text()))
+            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
@@ -192,9 +192,8 @@ class MainWindow(QWidget):
         # signals
         self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
-        self.ui.btnHere.clicked.connect(self.stackSignInUserQRcode)
-        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
-        self.ui.btnSignInUserQrCode.clicked.connect(self.stackSignInUserQRcode)
+        self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        self.ui.btnSignInUserIDNumber.clicked.connect(self.stackSignInUserIDNumber)
         # self.btnUserLogin.clicked.connect(self.btnUserLogin.start)
         self.btnUserLogin.clicked.connect(self.signInUser)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
@@ -220,7 +219,7 @@ class MainWindow(QWidget):
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
         self.ui.tbUserId.textChanged.connect(self.hideNotification)
-        self.ui.tbUserPassword.textChanged.connect(self.hideNotification)
+        self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
         try:
             self.ui.btnMotorOn.clicked.connect(self.motor.on)
             self.ui.btnMotorOff.clicked.connect(self.motor.off)
@@ -424,15 +423,15 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
 
-    def stackSignInUserMobileNumber(self):
-        self.setButton(self.ui.btnLeft, function=self.stackSignInUserQRcode, text='بازگشت', icon='images/icon/back.png', show=True)
+    def stackSignInUserIDNumber(self):
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.tbUserId.setText('')
-        self.ui.tbUserPassword.setText('')
+        self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
-        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
 
-    def stackSignInUserQRcode(self):
+    def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.playSound('audio10')
@@ -443,7 +442,7 @@ class MainWindow(QWidget):
         gif_loading.start()
 
         self.qrcode_thread.start()
-        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserQRcode)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def showQrcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
