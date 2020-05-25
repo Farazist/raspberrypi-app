@@ -372,6 +372,7 @@ class MainWindow(QWidget):
 
     def signInUser(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.playSound('audio8')
         self.signin_user_thread.start()
 
     def afterSignInUser(self):
@@ -749,7 +750,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    timer = QTimer()
-    timer.timeout.connect(window.hideRecycleItem)
-    timer.start(1000) #it's aboat 1 seconds
+    #timer = QTimer()
+    #timer.timeout.connect(window.hideRecycleItem)
+    #timer.start(1000) #it's aboat 1 seconds
     app.exec_()
