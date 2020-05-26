@@ -101,6 +101,20 @@ class SigninUserThread(QThread):
             window.showNotification(SERVER_ERROR_MESSAGE)
 
 
+class SigninUserMobileThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
+            self.success_signal.emit()
+        except:
+            window.showNotification(SERVER_ERROR_MESSAGE)
+
+
 class LoadingThread(QThread):
     success_signal = Signal()
     
@@ -164,13 +178,21 @@ class MainWindow(QWidget):
         self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerPassRecovery)
         self.ui.vLayoutSignInOwner.setAlignment(Qt.AlignHCenter)
 
-        self.btnUserLogin = CustomButton()
-        self.btnUserLogin.setGif("animations/Rolling-white.gif")
+        self.btnUserLoginID = CustomButton()
+        self.btnUserLoginID.setGif("animations/Rolling-white.gif")
         self.lbl = QLabel(None)
         self.lbl.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
-        self.ui.vLayoutSignInUser.addWidget(self.btnUserLogin)
-        self.ui.vLayoutSignInOwner.addWidget(self.lbl)
+        self.ui.vLayoutSignInUser.addWidget(self.btnUserLoginID)
+        self.ui.vLayoutSignInUser.addWidget(self.lbl)
         self.ui.vLayoutSignInUser.setAlignment(Qt.AlignHCenter)
+
+        self.btnUserLoginMobile = CustomButton()
+        self.btnUserLoginMobile.setGif("animations/Rolling-white.gif")
+        self.lbl = QLabel(None)
+        self.lbl.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
+        self.ui.vLayoutSignInUserMobile.addWidget(self.btnUserLoginMobile)
+        self.ui.vLayoutSignInUserMobile.addWidget(self.lbl)
+        self.ui.vLayoutSignInUserMobile.setAlignment(Qt.AlignHCenter)
 
         # Threads
         self.qrcode_thread = QRCodeThread()
@@ -183,6 +205,9 @@ class MainWindow(QWidget):
         self.signin_user_thread = SigninUserThread()
         self.signin_user_thread.success_signal.connect(self.afterSignInUser)
 
+        self.signin_user_mobile_thread = SigninUserMobileThread()
+        self.signin_user_mobile_thread.success_signal.connect(self.afterSignInUserMobile)
+
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
 
@@ -194,12 +219,15 @@ class MainWindow(QWidget):
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
         self.ui.btnSignInUserIDNumber.clicked.connect(self.stackSignInUserIDNumber)
-        # self.btnUserLogin.clicked.connect(self.btnUserLogin.start)
-        self.btnUserLogin.clicked.connect(self.signInUser)
+        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
+        #self.btnUserLoginID.clicked.connect(self.btnUserLoginID.start)
+        self.btnUserLoginID.clicked.connect(self.signInUser)
+        #self.btnUserLoginMobile.clicked.connect(self.btnUserLoginMobile.start)
+        self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
-        # self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
+        #self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -360,12 +388,12 @@ class MainWindow(QWidget):
                     Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
+                #self.btnOwnerLogin.stop()
                 self.playSound('audio2')
                 self.hideNotification()
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
         else:
-            # self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)    
 
@@ -378,14 +406,30 @@ class MainWindow(QWidget):
         if self.user != 0:
             self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
             self.stackMainMenu()
+            #self.btnUserLoginID.stop()
             self.playSound('audio2')
         else:
-            # self.btnUserLogin.stop()
+            print("mobile number or password is incurrect")
+            self.showNotification(SIGNIN_ERROR_MESSAGE)
+
+    def signInUserMobile(self):
+        self.showNotification(PLEASE_WAIT_MESSAGE)
+        self.playSound('audio8')
+        self.signin_user_mobile_thread.start()
+
+    def afterSignInUserMobile(self):
+        if self.user != 0:
+            self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
+            self.stackMainMenu()
+            #self.btnUserLoginMobile.stop()
+            self.playSound('audio2')
+        else:
+            # self.btnUserLoginID.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
     def signOutUser(self):
-        # self.btnUserLogin.stop()
+        # self.btnUserLoginID.stop()
         self.user = None
         self.stackStart()
 
@@ -430,6 +474,14 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
+
+    def stackSignInUserMobileNumber(self):
+        self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.tbUserMobile.setText('')
+        self.ui.tbUserPasswordMobile.setText('')
+        self.qrcode_thread.stop()
+        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)

@@ -416,7 +416,7 @@ color:#000000;
       <widget class="QWidget" name="pageSignInUserMobileNumber">
        <layout class="QVBoxLayout" name="verticalLayout_30">
         <item>
-         <layout class="QVBoxLayout" name="vLayoutSignInUserMobileNumber">
+         <layout class="QVBoxLayout" name="vLayoutSignInUserMobile">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_11">
             <property name="maximumSize">
@@ -429,7 +429,7 @@ color:#000000;
              <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
             </property>
             <property name="text">
-             <string>   </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -486,13 +486,13 @@ color:#000000;</string>
              <set>Qt::ImhDigitsOnly</set>
             </property>
             <property name="inputMask">
-             <string>**** *** ****</string>
+             <string/>
             </property>
             <property name="text">
-             <string>**** *** ****</string>
+             <string/>
             </property>
             <property name="maxLength">
-             <number>13</number>
+             <number>32767</number>
             </property>
             <property name="echoMode">
              <enum>QLineEdit::Normal</enum>
@@ -1968,7 +1968,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>524</width>
                <height>542</height>
               </rect>
              </property>
@@ -2640,8 +2640,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3194,8 +3194,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>449</width>
-             <height>447</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
