@@ -394,6 +394,7 @@ class MainWindow(QWidget):
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
         else:
+            #self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)    
 
@@ -409,6 +410,7 @@ class MainWindow(QWidget):
             #self.btnUserLoginID.stop()
             self.playSound('audio2')
         else:
+            #self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
@@ -424,12 +426,13 @@ class MainWindow(QWidget):
             #self.btnUserLoginMobile.stop()
             self.playSound('audio2')
         else:
-            # self.btnUserLoginID.stop()
+            #self.btnUserLoginID.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
     def signOutUser(self):
         # self.btnUserLoginID.stop()
+        print('user log out')
         self.user = None
         self.stackStart()
 
@@ -474,6 +477,9 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
+        timer.timeout.connect(self.stackStart)
+        timer.start(10000)
+        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -482,6 +488,9 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
+        timer.timeout.connect(self.stackStart)
+        timer.start(10000)
+        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -495,6 +504,9 @@ class MainWindow(QWidget):
 
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
+        timer.timeout.connect(self.stackStart)
+        timer.start(10000)
+        #QTimer.singleShot(10000, self.stackStart)
 
     def showQrcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
@@ -507,6 +519,9 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
+        timer.timeout.connect(self.signOutUser)
+        timer.start(10000)
+        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -518,6 +533,9 @@ class MainWindow(QWidget):
         gif_wallet.start()
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
+        timer.timeout.connect(self.signOutUser)
+        timer.start(10000)
+        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackDeliveryItems(self):
         self.ui.btnLeft.hide()
@@ -801,7 +819,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    #timer = QTimer()
+    timer = QTimer()
     #timer.timeout.connect(window.hideRecycleItem)
-    #timer.start(1000) #it's aboat 1 seconds
+    timer.start(10000) #it's aboat 1 seconds
     app.exec_()
