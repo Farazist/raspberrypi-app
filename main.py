@@ -35,6 +35,8 @@ SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
+stack_timer = 60000
+
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 class QRCodeThread(QThread):
@@ -478,7 +480,7 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
         timer.timeout.connect(self.stackStart)
-        timer.start(10000)
+        timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMobileNumber(self):
@@ -489,7 +491,7 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
         timer.timeout.connect(self.stackStart)
-        timer.start(10000)
+        timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMethods(self):
@@ -505,7 +507,7 @@ class MainWindow(QWidget):
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
         timer.timeout.connect(self.stackStart)
-        timer.start(10000)
+        timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def showQrcode(self, qrcode_signin_token):
@@ -520,7 +522,7 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
         timer.timeout.connect(self.signOutUser)
-        timer.start(10000)
+        timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWallet(self):
@@ -534,7 +536,7 @@ class MainWindow(QWidget):
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
         timer.timeout.connect(self.signOutUser)
-        timer.start(10000)
+        timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
     def stackDeliveryItems(self):
