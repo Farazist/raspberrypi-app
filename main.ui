@@ -144,7 +144,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>14</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -821,7 +821,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_41">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="btnMainMenu_4">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -857,7 +857,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="label_13">
+             <widget class="QLabel" name="lblMainMenu_4">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3093,9 +3093,247 @@ border-style: inset;
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="pageWalletServices">
+       <layout class="QVBoxLayout" name="verticalLayout_42">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <property name="leftMargin">
+           <number>70</number>
+          </property>
+          <property name="topMargin">
+           <number>100</number>
+          </property>
+          <property name="rightMargin">
+           <number>70</number>
+          </property>
+          <property name="bottomMargin">
+           <number>20</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_45">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnWalletServices_1">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Charging Residential Unit.png</normaloff>images/GreenMainMenu/Charging Residential Unit.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblWalletServices_1">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>شارژ واحد مسکونی</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_46">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnWalletServices_2">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Deposit to card recycling.png</normaloff>images/GreenMainMenu/Deposit to card recycling.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblWalletServices_2">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>واریز به کیف پول</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_44">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnWalletServices_3">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Donate to charity.png</normaloff>images/GreenMainMenu/Donate to charity.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblWalletServices_3">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>امور خیریه</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_43">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnWalletServices_4">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Helping the environment.png</normaloff>images/GreenMainMenu/Helping the environment.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblWalletServices_4">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>کمک به محیط زیست</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageCharity"/>
-      <widget class="QWidget" name="pageProtectionOfEnvironment"/>
-      <widget class="QWidget" name="pageFastCharging">
+      <widget class="QWidget" name="pageEnvirnmentalProtection"/>
+      <widget class="QWidget" name="pageDepositToWallet"/>
+      <widget class="QWidget" name="pageChargingResidentialUnit"/>
+      <widget class="QWidget" name="pageFastDelivery">
        <layout class="QHBoxLayout" name="horizontalLayout_18">
         <property name="spacing">
          <number>20</number>
@@ -3338,8 +3576,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>16</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>

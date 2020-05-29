@@ -229,6 +229,7 @@ class MainWindow(QWidget):
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btnMainMenu_4.clicked.connect(self.stackWalletServices)
         #self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
@@ -539,8 +540,14 @@ class MainWindow(QWidget):
         timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
+    def stackWalletServices(self):
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lblNotification.hide()
+        self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
+
     def stackAutoDeliveryItems(self):
-        self.ui.btnLeft.hide()
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.ui.btnRight.hide()
         self.ui.lblNotification.hide()
         self.ui.scrollAreaAutoDelivery.hide()
@@ -779,7 +786,7 @@ class MainWindow(QWidget):
             #row += 1
         #self.SelectItem(self.items[0])
         self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
-        self.ui.Stack.setCurrentWidget(self.ui.pageFastCharging)
+        self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
