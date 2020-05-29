@@ -539,10 +539,11 @@ class MainWindow(QWidget):
         timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
-    def stackDeliveryItems(self):
+    def stackAutoDeliveryItems(self):
         self.ui.btnLeft.hide()
         self.ui.btnRight.hide()
         self.ui.lblNotification.hide()
+        self.ui.scrollAreaAutoDelivery.hide()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
@@ -652,7 +653,7 @@ class MainWindow(QWidget):
                     break
             row += 1
         self.SelectItem(self.items[0], self.layout_FArea.itemAt(0))
-        self.ui.scrollAreaWidgetDelivery.setLayout(self.layout_FArea)
+        self.ui.scrollWidgetManualDelivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
         
     def printReceipt(self):
@@ -710,7 +711,7 @@ class MainWindow(QWidget):
         if self.device_mode == 'manual':
             self.stackManualDeliveryItems()
         elif self.device_mode == 'auto':
-            self.stackDeliveryItems()
+            self.stackAutoDeliveryItems()
     
     def stackDeviceMode(self):
         result = DataBase.select('bottle_recognize_mode')

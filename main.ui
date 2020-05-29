@@ -144,7 +144,7 @@ border-style: inset;
        </size>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -571,15 +571,12 @@ color:#000000;</string>
       <widget class="QWidget" name="pageMainMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_17">
-          <property name="spacing">
-           <number>20</number>
-          </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="leftMargin">
            <number>70</number>
           </property>
           <property name="topMargin">
-           <number>70</number>
+           <number>100</number>
           </property>
           <property name="rightMargin">
            <number>70</number>
@@ -589,10 +586,10 @@ color:#000000;</string>
           </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_26">
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QPushButton" name="btnMainMenu_1">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -631,8 +628,8 @@ border-style: inset;
               </property>
               <property name="iconSize">
                <size>
-                <width>200</width>
-                <height>200</height>
+                <width>150</width>
+                <height>150</height>
                </size>
               </property>
              </widget>
@@ -661,10 +658,10 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_27">
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QPushButton" name="btnMainMenu_2">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -703,8 +700,8 @@ border-style: inset;
               </property>
               <property name="iconSize">
                <size>
-                <width>200</width>
-                <height>200</height>
+                <width>150</width>
+                <height>150</height>
                </size>
               </property>
              </widget>
@@ -739,13 +736,13 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_28">
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QPushButton" name="btnMainMenu_3">
               <property name="enabled">
                <bool>true</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -784,8 +781,8 @@ border-style: inset;
               </property>
               <property name="iconSize">
                <size>
-                <width>200</width>
-                <height>200</height>
+                <width>150</width>
+                <height>150</height>
                </size>
               </property>
              </widget>
@@ -812,7 +809,61 @@ border-style: inset;
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>شارژ سریع</string>
+               <string>تحویل سریع</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_41">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/to buy credit.png</normaloff>images/GreenMainMenu/to buy credit.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="label_13">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>خدمات کیف پول</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1045,6 +1096,9 @@ color:#000000;</string>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="spacing">
+           <number>50</number>
+          </property>
           <property name="leftMargin">
            <number>50</number>
           </property>
@@ -1063,15 +1117,18 @@ color:#000000;</string>
 color:#000000;</string>
               </property>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QScrollArea" name="scrollArea_3">
+             <widget class="QScrollArea" name="scrollAreaAutoDelivery">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1080,14 +1137,14 @@ color:#000000;</string>
               </property>
               <property name="maximumSize">
                <size>
-                <width>400</width>
+                <width>300</width>
                 <height>16777215</height>
                </size>
               </property>
               <property name="widgetResizable">
                <bool>true</bool>
               </property>
-              <widget class="QWidget" name="scrollAreaWidgetContents_4">
+              <widget class="QWidget" name="scrollWidgetAutoDelivery">
                <property name="geometry">
                 <rect>
                  <x>0</x>
@@ -2722,7 +2779,7 @@ border-style: inset;
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
-            <widget class="QWidget" name="scrollAreaWidgetDelivery">
+            <widget class="QWidget" name="scrollWidgetManualDelivery">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -3281,7 +3338,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
+             <width>398</width>
              <height>16</height>
             </rect>
            </property>
