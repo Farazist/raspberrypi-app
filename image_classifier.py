@@ -8,23 +8,27 @@ class ImageClassifier:
 
     def __init__(self):
         try:
-            self.interpreter = tflite.Interpreter(model_path='model.tflite')
+            self.interpreter = tflite.Interpreter(model_path='model.tflite')        
+            self.interpreter.allocate_tensors()
+            _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
+            self.output_details = self.interpreter.get_output_details()
+            self.labels = self.load_labels('labels.txt')
             print('model successfully loaded')
+
         except Exception as e:
             print("error:", e)
             return
-        
-        self.interpreter.allocate_tensors()
-        _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
-        self.output_details = self.interpreter.get_output_details()
-        # self.labels = 
+
+    def load_labels(self, path):
+        with open(path, 'r') as f:
+            return {i: line.strip() for i, line in enumerate(f.readlines())}
 
     def set_input_tensor(self, interpreter, image):
         tensor_index = interpreter.get_input_details()[0]['index']
         input_tensor = interpreter.tensor(tensor_index)()[0]
         input_tensor[:, :] = image
 
-    def predict(self, stream):
+    def classify_image(self, stream):
         start_time = time.time()
 
         image = Image.open(stream).convert('RGB').resize((self.width, self.height), Image.ANTIALIAS)

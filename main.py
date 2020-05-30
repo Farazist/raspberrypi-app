@@ -18,7 +18,7 @@ from PIL.ImageQt import ImageQt
 from server import Server
 from database import DataBase
 from custombutton import CustomButton
-# from image_classifier import ImageClassifier
+from image_classifier import ImageClassifier
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -212,6 +212,9 @@ class MainWindow(QWidget):
 
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
+        # self.loading_thread.success_signal.connect(self.stackMainMenu)
+        # self.user = Server.signInUser(105, 1234)
+        # self.owner = Server.signInUser(104, 1234)
 
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
@@ -269,7 +272,7 @@ class MainWindow(QWidget):
         self.device_version = DataBase.select('app_version')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         # self.categories = Server.getCategories()
-        # self.image_classifier = ImageClassifier()
+        self.image_classifier = ImageClassifier()
 
         self.stackLoading()
         self.playSound('audio2')
@@ -819,7 +822,10 @@ class MainWindow(QWidget):
         QApplication.quit()
 
 if __name__ == '__main__':
+    os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
+    os.environ["QT_QPA_FONTDIR"] = "fonlts"
+    # os.environ["QT_QPA_PLATFORM"] = "minimalegl"
     # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
     try:
