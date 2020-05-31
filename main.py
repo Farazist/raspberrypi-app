@@ -136,6 +136,31 @@ class LoadingThread(QThread):
             window.showNotification(SERVER_ERROR_MESSAGE)
 
 
+class AutoDeliveryItemsThread(QThread):
+    success_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            import picamera
+            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
+                # camera.start_preview()
+                try:
+                    stream = BytesIO()
+                    for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+                        stream.seek(0)
+                        results = window.image_classifier(stream)
+                        
+                        stream.seek(0)
+                        stream.truncate()
+                finally:
+                    camera.stop_preview()
+        except Exception as e:
+            print("error:", e)
+
+
 class AfterDeliveryThread(QThread):
     success_signal = Signal()
     
@@ -216,6 +241,9 @@ class MainWindow(QWidget):
         # self.user = Server.signInUser(105, 1234)
         # self.owner = Server.signInUser(104, 1234)
 
+        self.auto_delivery_items_thread = AutoDeliveryItemsThread()
+        # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
+        
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
@@ -449,24 +477,6 @@ class MainWindow(QWidget):
     def ownerRecovery(self):
         self.showNotification(SUPPORT_ERROR_MESSAGE)
 
-    def detectItem(self): 
-        try:
-            # import picamera
-            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
-                camera.start_preview()
-                try:
-                    stream = BytesIO()
-                    for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                        stream.seek(0)
-                        results = self.image_classifier(stream)
-                        label_id, prob = results[0]
-                        stream.seek(0)
-                        stream.truncate()
-                finally:
-                    camera.stop_preview()
-        except Exception as e:
-            print("error:", e)
-
     def stackStart(self):
         self.setButton(self.ui.btnLeft, show=False)
         self.setButton(self.ui.btnRight, show=False)
@@ -562,8 +572,8 @@ class MainWindow(QWidget):
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
-        # self.detect_thread = Thread(target=self.detectItem)
-        # self.detect_thread.start()
+        
+        self.auto_delivery_items_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
 
     def SelectItem(self, item, this_btn):

@@ -11,7 +11,7 @@ class ImageClassifier:
             self.interpreter = tflite.Interpreter(model_path='model.tflite')        
             self.interpreter.allocate_tensors()
             _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
-            self.output_details = self.interpreter.get_output_details()
+            self.output_details = self.interpreter.get_output_details()[0]
             self.labels = self.load_labels('labels.txt')
             print('model successfully loaded')
 
@@ -28,13 +28,16 @@ class ImageClassifier:
         input_tensor = interpreter.tensor(tensor_index)()[0]
         input_tensor[:, :] = image
 
-    def classify_image(self, stream):
-        start_time = time.time()
+    def __call__(self, stream):
+        start_time = time()
 
         image = Image.open(stream).convert('RGB').resize((self.width, self.height), Image.ANTIALIAS)
         self.set_input_tensor(self.interpreter, image)
         self.interpreter.invoke()
-        output_data = self.interpreter.get_tensor(self.output_details[0]['index'])
+        output_data = self.interpreter.get_tensor(self.output_details['index'])
 
-        elapsed_ms = (time.time() - start_time) * 1000
+        elapsed_ms = (time() - start_time) * 1000
+
+        # label_id, prob = results[0]
         print(output_data)
+        return output_data
