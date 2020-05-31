@@ -729,6 +729,8 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def stackChargingResidentialUnit(self):
+        self.ui.lblUserAddress.setText(self.user['address'])
+        print(self.user['address'])
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageChargingResidentialUnit)
 

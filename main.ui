@@ -143,8 +143,11 @@ border-style: inset;
         <height>478</height>
        </size>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="currentIndex">
-       <number>14</number>
+       <number>18</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1149,8 +1152,8 @@ color:#000000;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>198</width>
-                 <height>226</height>
+                 <width>181</width>
+                 <height>16</height>
                 </rect>
                </property>
               </widget>
@@ -2784,8 +2787,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3332,7 +3335,135 @@ color:#000000;</string>
       <widget class="QWidget" name="pageCharity"/>
       <widget class="QWidget" name="pageEnvirnmentalProtection"/>
       <widget class="QWidget" name="pageDepositToWallet"/>
-      <widget class="QWidget" name="pageChargingResidentialUnit"/>
+      <widget class="QWidget" name="pageChargingResidentialUnit">
+       <layout class="QVBoxLayout" name="verticalLayout_33">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="leftMargin">
+         <number>9</number>
+        </property>
+        <property name="rightMargin">
+         <number>9</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_32">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_38">
+            <item alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblAddressTitle">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>آدرس شما</string>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblUserAddress">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="btnChangedUserAddress">
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding-left: 20px; 
+padding-right: 20px; 
+padding-top: 3px; 
+padding-bottom: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string>ویرایش آدرس</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="tbUserNewAddress">
+            <property name="focusPolicy">
+             <enum>Qt::ClickFocus</enum>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="tabChangesFocus">
+             <bool>false</bool>
+            </property>
+            <property name="placeholderText">
+             <string>آدرس را وارد نمایید</string>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignLeft">
+           <widget class="QPushButton" name="btnUserNewAddress">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding-left: 20px; 
+padding-right: 20px; 
+padding-top: 3px; 
+padding-bottom: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+            </property>
+            <property name="text">
+             <string>تغییر و ثبت آدرس</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageFastDelivery">
        <layout class="QHBoxLayout" name="horizontalLayout_18">
         <property name="spacing">
