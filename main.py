@@ -249,6 +249,10 @@ class MainWindow(QWidget):
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
         self.ui.btnSetting8.clicked.connect(self.stackLicense)
+        self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
+        self.ui.btnWalletServices_2.clicked.connect(self.stackDepositToWallet)
+        self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
+        self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
@@ -700,7 +704,45 @@ class MainWindow(QWidget):
             self.motor.off()
             self.conveyor.off()
         except Exception as e:
-            print("error:", e)    
+            print("error:", e)
+
+    def stackFastCharging(self):
+        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+
+        self.layout_SArea_FastCharging = QGridLayout()
+        for row in range(4):
+            for col in range(2):
+                btn = QPushButton()
+                #self.items[i]['count'] = 0
+                btn.setText('آهن')
+                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setMinimumSize(250, 100)
+                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
+                #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
+                self.layout_SArea_FastCharging.addWidget(btn, row, col)
+            #    i += 1
+            #    if i >= len(self.items):
+            #        break
+            #row += 1
+        #self.SelectItem(self.items[0])
+        self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
+        self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
+
+    def stackChargingResidentialUnit(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageChargingResidentialUnit)
+
+    def stackDepositToWallet(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageDepositToWallet)
+
+    def stackCharity(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
+
+    def stackEnvirnmentalProtection(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -762,34 +804,6 @@ class MainWindow(QWidget):
 
     def stackLicense(self):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
-    
-    def stackCharity(self):
-        self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
-
-    def stackProtectionOfEnvironment(self):
-        self.ui.Stack.setCurrentWidget(self.ui.pageProtectionOfEnvironment)
-
-    def stackFastCharging(self):
-        self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-
-        self.layout_SArea_FastCharging = QGridLayout()
-        for row in range(4):
-            for col in range(2):
-                btn = QPushButton()
-                #self.items[i]['count'] = 0
-                btn.setText('آهن')
-                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                btn.setMinimumSize(250, 100)
-                btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
-                #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
-                self.layout_SArea_FastCharging.addWidget(btn, row, col)
-            #    i += 1
-            #    if i >= len(self.items):
-            #        break
-            #row += 1
-        #self.SelectItem(self.items[0])
-        self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
-        self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def changePredictItemFlag(self, value):
         self.predict_item_flag = value
