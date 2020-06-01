@@ -12,7 +12,19 @@ class DataBase:
             c.execute(query)
         except Exception as e:
             print("error:", e)
-            
+
+    @staticmethod
+    def insert(name, value):
+        try:
+            con = connect(database_name)
+            c = con.cursor()
+            c.execute(f"INSERT INTO information (name, value) VALUES (%s, %s)")
+            con.commit()
+            con.close()
+            return True
+        except Exception as e:
+            print("error:", e)
+
     @staticmethod
     def select(name):
         try:
