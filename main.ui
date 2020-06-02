@@ -1153,7 +1153,7 @@ color:#000000;</string>
                  <x>0</x>
                  <y>0</y>
                  <width>198</width>
-                 <height>226</height>
+                 <height>28</height>
                 </rect>
                </property>
               </widget>
@@ -2109,7 +2109,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>524</width>
                <height>542</height>
               </rect>
              </property>
@@ -2787,8 +2787,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3336,33 +3336,164 @@ color:#000000;</string>
        <layout class="QHBoxLayout" name="horizontalLayout_25">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_34">
-          <item>
-           <widget class="QLabel" name="label_17">
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblSelectedCharity">
+            <property name="styleSheet">
+             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+            </property>
             <property name="text">
              <string>TextLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
           <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_27">
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="label_23">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>تومان</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="label_21">
+              <property name="styleSheet">
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;5248&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="label_17">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>موجودی حساب شما</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_26">
-            <item>
+            <property name="leftMargin">
+             <number>50</number>
+            </property>
+            <property name="rightMargin">
+             <number>50</number>
+            </property>
+            <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="pushButton_4">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: none;
+outline-style: none;</string>
+              </property>
               <property name="text">
-               <string>PushButton</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/icon/unchecked_minus.png</normaloff>images/icon/unchecked_minus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>80</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="label_15">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(0, 0, 0);
+font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+              </property>
               <property name="text">
-               <string>TextLabel</string>
+               <string>200</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignLeft">
              <widget class="QPushButton" name="pushButton_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: none;
+outline-style: none;
+</string>
+              </property>
               <property name="text">
-               <string>PushButton</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/icon/unchecked_plus.png</normaloff>images/icon/unchecked_plus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>80</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -3386,7 +3517,7 @@ color:#000000;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>581</width>
+             <width>460</width>
              <height>525</height>
             </rect>
            </property>
@@ -4030,8 +4161,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>

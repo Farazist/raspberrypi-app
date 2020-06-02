@@ -1932,7 +1932,28 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageConveyorPort"/>
+      <widget class="QWidget" name="pageConveyorPort">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_conveyorPort">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageMotorPort"/>
       <widget class="QWidget" name="pageSensorDepthThreshold"/>
       <widget class="QWidget" name="pageSensorTrigPort"/>
@@ -1965,7 +1986,7 @@ QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../OneDrive/Farazist-RaspberryPi/images/icon/back.png</normaloff>../../OneDrive/Farazist-RaspberryPi/images/icon/back.png</iconset>
+          <normaloff>images/icon/back.png</normaloff>images/icon/back.png</iconset>
         </property>
         <property name="iconSize">
          <size>
