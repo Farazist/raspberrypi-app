@@ -51,7 +51,7 @@ class MainWindow(QWidget):
 
         self.stackSystemId()
 
-    def setButton(self, button, function=None, show=True):
+    def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
             button.clicked.disconnect()
         except:
@@ -59,6 +59,10 @@ class MainWindow(QWidget):
         finally:
             if function:
                 button.clicked.connect(function)
+        if text:
+            button.setText(text)
+        if icon:
+            button.setIcon(QIcon(icon))
         if show:
             button.show()
         else:
@@ -106,8 +110,11 @@ class MainWindow(QWidget):
     
     def stackAppVersion(self):
         self.setButton(self.ui.btn_previous, function=self.stackSensorEchoPort, show=True)
-        self.setButton(self.ui.btn_next, show=False)
+        self.setButton(self.ui.btn_next, function=self.createDataBase, text='پایان', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageAppVersion)
+
+    def createDataBase(self):
+        pass
 
     def exitProgram(self):
         self.close()

@@ -23,20 +23,7 @@
    <string>فرازیست</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton{
-background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 6px;
-outline-style: none;
-padding: 5px;
-font: 24pt &quot;IRANSansFaNum&quot;;
-color: #000000;
-}
-QPushButton:pressed {
-background-color: #6fdc89;
-border-style: inset;
-}
-</string>
+   <string notr="true">background-color: rgb(246, 253, 250);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -658,6 +645,13 @@ color: #000000;</string>
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageTable">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout"/>
         </item>
        </layout>
       </widget>
