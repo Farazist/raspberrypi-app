@@ -678,11 +678,7 @@ color: #000000;</string>
 QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
         </property>
         <property name="text">
-         <string>مرحله قبل</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>images/icon/back.png</normaloff>images/icon/back.png</iconset>
+         <string/>
         </property>
         <property name="iconSize">
          <size>
@@ -702,11 +698,7 @@ QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
 QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
         </property>
         <property name="text">
-         <string>مرحله بعد</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>images/icon/next.png</normaloff>images/icon/next.png</iconset>
+         <string/>
         </property>
         <property name="iconSize">
          <size>
