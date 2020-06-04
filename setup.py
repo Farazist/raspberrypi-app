@@ -1,11 +1,9 @@
 from io import BytesIO
 import os
 import sys
-from pygame import mixer
-from functools import partial
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout
+from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy
 
 from database import DataBase
 
