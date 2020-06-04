@@ -14,6 +14,7 @@ from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
 from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
+from scipy import stats
 
 from server import Server
 from database import DataBase
@@ -143,6 +144,9 @@ class AutoDeliveryItemsThread(QThread):
         QThread.__init__(self)
     
     def run(self):
+        predicted_items = []
+        self.predict_item_flag = True
+        self.delivery_items_flag = True
         try:
             import picamera
             with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
@@ -150,11 +154,40 @@ class AutoDeliveryItemsThread(QThread):
                 try:
                     stream = BytesIO()
                     for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                        stream.seek(0)
-                        results = window.image_classifier(stream)
-                        
-                        stream.seek(0)
-                        stream.truncate()
+                        if self.delivery_items_flag:
+                            stream.seek(0)
+                            results = window.image_classifier(stream)
+                            label_id, prob = results[0]
+
+                            if self.predict_item_flag == True:
+                                if prob > 0.5:
+                                    predicted_items.append(label_id)
+                                    print(label_id, prob)
+
+                            if self.predict_item_flag == False:
+                                most_probability_item = stats.mode(predicted_items).mode[0]
+
+                                print('most probability item:', most_probability_item)
+
+                                category_index = self.items[most_probability_item]['category_id'] - 1
+                                categories_count[category_index] += 1
+
+                                for i in range(len(categories_count)):
+                                    window.grid_widget_s4[i].setText(str(categories_count[i]))
+
+                                for item in self.user_items:
+                                    if item['id'] == self.items[most_probability_item]['id']:
+                                        item['count'] += 1
+                                        break
+                                else:
+                                    self.user_items.append(self.items[most_probability_item])
+                                    self.user_items[-1]['count'] = 1
+
+                                predicted_items = []
+                                self.predict_item_flag = True
+
+                            stream.seek(0)
+                            stream.truncate()
                 finally:
                     camera.stop_preview()
         except Exception as e:
@@ -236,10 +269,10 @@ class MainWindow(QWidget):
         self.signin_user_mobile_thread.success_signal.connect(self.afterSignInUserMobile)
 
         self.loading_thread = LoadingThread()
-        self.loading_thread.success_signal.connect(self.stackSignInOwner)
-        # self.loading_thread.success_signal.connect(self.stackMainMenu)
-        # self.user = Server.signInUser(105, 1234)
-        # self.owner = Server.signInUser(104, 1234)
+        # self.loading_thread.success_signal.connect(self.stackSignInOwner)
+        self.loading_thread.success_signal.connect(self.stackMainMenu)
+        self.user = Server.signInUser(105, 1234)
+        self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
         # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
@@ -573,8 +606,13 @@ class MainWindow(QWidget):
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
+        self.setButton(self.ui.pageDeliveryItems.btnRecycleItem, function=self.besco)
+        
         self.auto_delivery_items_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
+
+    def besco(self):
+        print('besco')
 
     def SelectItem(self, item, this_btn):
         self.selected_item = item

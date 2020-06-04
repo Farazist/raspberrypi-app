@@ -51,21 +51,6 @@ class MainWindow(QWidget):
 
         self.stackSystemId()
 
-    def raspberry_pins(self):
-        self.rp_board = [[{} for _ in range(10)] for _ in range(4)]
-        self.rp_layout = QGridLayout()
-        number = 1
-        for i in range(4):
-            for j in range(10):
-                btn = QPushButton()
-                self.rp_board[i][j]['btn'] = btn
-                self.rp_board[i][j]['text'] = number
-                self.rp_layout.addWidget(btn, i, j)
-                number += 1
-                
-        print(self.rp_board)
-        return self.rp_layout
-
     def setButton(self, button, function=None, show=True):
         try:
             button.clicked.disconnect()
@@ -97,7 +82,6 @@ class MainWindow(QWidget):
     def stackConveyorPort(self):
         self.setButton(self.ui.btn_previous, function=self.stackpageCameraPort, show=True)
         self.setButton(self.ui.btn_next, function=self.stackMotorPort, show=True)
-        self.ui.h_layout_conveyorPort.addLayout(self.raspberry_pins())
         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorPort)
 
     def stackMotorPort(self):
