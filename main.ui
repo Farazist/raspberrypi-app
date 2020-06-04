@@ -1089,7 +1089,7 @@ color:#000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageDeliveryItems">
+      <widget class="QWidget" name="pageAutoDeliveryItems">
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <property name="spacing">
          <number>50</number>
@@ -1211,7 +1211,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnRecycleItem_2">
+             <widget class="QPushButton" name="btnAutoDeliveryRecycleItem">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -2724,7 +2724,7 @@ color: rgb(204, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnRecycleItem">
+             <widget class="QPushButton" name="btnManualDeliveryRecycleItem">
               <property name="minimumSize">
                <size>
                 <width>200</width>
