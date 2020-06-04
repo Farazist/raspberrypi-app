@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1153,7 +1153,7 @@ color:#000000;</string>
                  <x>0</x>
                  <y>0</y>
                  <width>198</width>
-                 <height>28</height>
+                 <height>226</height>
                 </rect>
                </property>
               </widget>
@@ -1211,7 +1211,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="btnRecycleItem_2">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -2787,8 +2787,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
