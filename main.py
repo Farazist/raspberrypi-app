@@ -269,10 +269,10 @@ class MainWindow(QWidget):
         self.signin_user_mobile_thread.success_signal.connect(self.afterSignInUserMobile)
 
         self.loading_thread = LoadingThread()
-        # self.loading_thread.success_signal.connect(self.stackSignInOwner)
-        self.loading_thread.success_signal.connect(self.stackMainMenu)
-        self.user = Server.signInUser(105, 1234)
-        self.owner = Server.signInUser(104, 1234)
+        self.loading_thread.success_signal.connect(self.stackSignInOwner)
+        #self.loading_thread.success_signal.connect(self.stackMainMenu)
+        #self.user = Server.signInUser(105, 1234)
+        #self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
         # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
@@ -286,15 +286,12 @@ class MainWindow(QWidget):
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
         self.ui.btnSignInUserIDNumber.clicked.connect(self.stackSignInUserIDNumber)
         self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
-        #self.btnUserLoginID.clicked.connect(self.btnUserLoginID.start)
         self.btnUserLoginID.clicked.connect(self.signInUser)
-        #self.btnUserLoginMobile.clicked.connect(self.btnUserLoginMobile.start)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
         # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnMainMenu_4.clicked.connect(self.stackWalletServices)
-        #self.btnOwnerLogin.clicked.connect(self.btnOwnerLogin.start)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
@@ -459,13 +456,11 @@ class MainWindow(QWidget):
                     Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
-                #self.btnOwnerLogin.stop()
                 self.playSound('audio2')
                 self.hideNotification()
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
         else:
-            #self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)    
 
@@ -478,10 +473,8 @@ class MainWindow(QWidget):
         if self.user != 0:
             self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
             self.stackMainMenu()
-            #self.btnUserLoginID.stop()
             self.playSound('audio2')
         else:
-            #self.btnOwnerLogin.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
@@ -494,15 +487,12 @@ class MainWindow(QWidget):
         if self.user != 0:
             self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
             self.stackMainMenu()
-            #self.btnUserLoginMobile.stop()
             self.playSound('audio2')
         else:
-            #self.btnUserLoginID.stop()
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)
 
     def signOutUser(self):
-        # self.btnUserLoginID.stop()
         print('user log out')
         self.user = None
         self.stackStart()
@@ -621,11 +611,6 @@ class MainWindow(QWidget):
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
 
-        # for btn in self.layout_FArea.findChildren(QPushButton):
-        #     btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
-
-        # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
-        
     def recycleItem(self):
         try:
             if self.flag_delivery_items:
@@ -655,10 +640,6 @@ class MainWindow(QWidget):
                 self.ui.lblTotal.setText(str(self.total_price))
         except Exception as e:
             print("error:", e)
-
-    #def hideRecycleItem(self):
-    #    self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
-        # self.ui.lblNotification.hide()
 
     def motorOff(self):
         try:
@@ -900,6 +881,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     timer = QTimer()
-    #timer.timeout.connect(window.hideRecycleItem)
     timer.start(10000) #it's aboat 1 seconds
     app.exec_()

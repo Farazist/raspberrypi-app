@@ -14,11 +14,11 @@ class DataBase:
             print("error:", e)
 
     @staticmethod
-    def insert(name, value):
+    def insert(data):
         try:
             con = connect(database_name)
             c = con.cursor()
-            c.execute(f"INSERT INTO information (name, value) VALUES (%s, %s)")
+            c.execute(f"INSERT INTO information (id, name, value) VALUES (?, ?, ?)", data)
             con.commit()
             con.close()
             return True
