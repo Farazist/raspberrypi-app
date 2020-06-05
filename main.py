@@ -37,6 +37,8 @@ TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 60000
+motor_timer = 10.0
+camera_timer = 5.0
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -128,6 +130,7 @@ class LoadingThread(QThread):
         try:
             window.system = Server.getSystem(window.system_id)
             window.deviceInfo = window.system['name'] + '\n' + window.system['owner']['name'] + ' ' + window.system['owner']['mobile_number']
+            
             print('Startup Intormation:')
             print('Device Mode:', window.device_mode)
             print('System ID:', window.system['id'])
@@ -143,56 +146,46 @@ class AutoDeliveryItemsThread(QThread):
     def __init__(self):
         QThread.__init__(self)
     
+    def stop(self):
+        self.delivery_items_flag = False
+
     def run(self):
         predicted_items = []
-        self.predict_item_flag = True
         self.delivery_items_flag = True
         try:
             import picamera
-            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera: 
-                # camera.start_preview()
-                try:
-                    stream = BytesIO()
-                    for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                        if self.delivery_items_flag:
-                            stream.seek(0)
-                            results = window.image_classifier(stream)
-                            label_id, prob = results[0]
+            camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
+            # camera.start_preview()
+                
+            stream = BytesIO()
+            for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+                if self.delivery_items_flag:
+                    stream.seek(0)
+                    results = window.image_classifier(stream)
+                    label_id, prob = results[0]
 
-                            if self.predict_item_flag == True:
-                                if prob > 0.5:
-                                    predicted_items.append(label_id)
-                                    print(label_id, prob)
+                    if prob > 0.5:
+                        predicted_items.append(label_id)
+                        print(label_id, prob)
 
-                            if self.predict_item_flag == False:
-                                most_probability_item = stats.mode(predicted_items).mode[0]
-
-                                print('most probability item:', most_probability_item)
-
-                                category_index = self.items[most_probability_item]['category_id'] - 1
-                                categories_count[category_index] += 1
-
-                                for i in range(len(categories_count)):
-                                    window.grid_widget_s4[i].setText(str(categories_count[i]))
-
-                                for item in self.user_items:
-                                    if item['id'] == self.items[most_probability_item]['id']:
-                                        item['count'] += 1
-                                        break
-                                else:
-                                    self.user_items.append(self.items[most_probability_item])
-                                    self.user_items[-1]['count'] = 1
-
-                                predicted_items = []
-                                self.predict_item_flag = True
-
-                            stream.seek(0)
-                            stream.truncate()
-                finally:
-                    camera.stop_preview()
+                    stream.seek(0)
+                    stream.truncate()
+                else:
+                    break
+        
         except Exception as e:
             print("error:", e)
 
+        else:
+            most_probability_item = stats.mode(predicted_items).mode[0]
+            window.selected_item = window.items[most_probability_item]
+            print('most probability item:', window.selected_item['name'])
+            window.endRecycleItem()
+            # category_index = self.items[most_probability_item]['category_id'] - 1
+            # categories_count[category_index] += 1
+            # for i in range(len(categories_count)):
+            #     window.grid_widget_s4[i].setText(str(categories_count[i]))
+        
 
 class AfterDeliveryThread(QThread):
     success_signal = Signal()
@@ -218,6 +211,10 @@ class MainWindow(QWidget):
    
     def __init__(self):
         super(MainWindow, self).__init__()
+        
+        self.system_id = DataBase.select('system_id')
+        self.device_version = DataBase.select('app_version')
+        self.device_mode = DataBase.select('bottle_recognize_mode')
         self.initHardwares()
 
         loader = QUiLoader()
@@ -333,9 +330,7 @@ class MainWindow(QWidget):
         self.flag_system_startup_now = True
         self.flag_delivery_items = False
 
-        self.system_id = DataBase.select('system_id')
-        self.device_version = DataBase.select('app_version')
-        self.device_mode = DataBase.select('bottle_recognize_mode')
+        
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
@@ -372,7 +367,11 @@ class MainWindow(QWidget):
             sensor_echo_port = int(DataBase.select('sensor_echo_port'))
             sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
             self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
-            self.sensor.when_in_range = self.recycleItem
+            if self.device_mode == 'manual':
+                self.sensor.when_in_range = self.manualDeliveryRecycleItem
+            if self.device_mode == 'auto':
+                self.sensor.when_in_range = self.beforeAutoDeliveryRecycleItem
+                    
             print('sensor ready')
         except Exception as e:
             print("error:", e)
@@ -454,8 +453,12 @@ class MainWindow(QWidget):
     def afterSignInOwner(self):
         if self.owner != 0 and self.owner['id'] == self.system['owner']['id']: 
             try:
-                if self.flag_system_startup_now:                      
-                    self.items = Server.getItems(self.owner['id'])
+                if self.flag_system_startup_now:
+                    if self.device_mode == 'manual':
+                        self.items = Server.getItems(self.owner['id'])
+                    elif self.device_mode == 'auto':
+                        self.items = Server.getItems(0)
+
                     Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
@@ -606,13 +609,53 @@ class MainWindow(QWidget):
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
-        self.setButton(self.ui.pageDeliveryItems.btnRecycleItem, function=self.besco)
+        self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
         
-        self.auto_delivery_items_thread.start()
+        for item in self.items:
+            item['count'] = 0
+
         self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
 
-    def besco(self):
-        print('besco')
+        
+    def startRecycleItem(self):
+        try:
+            if self.device_mode == 'auto':
+                self.auto_delivery_items_thread.start()
+                self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                self.auto_delivery_items_thread_stop_timer.start()
+
+            if hasattr(self, 'motor_off_timer'):
+                self.motor_off_timer.cancel()
+            self.motorOn()
+            self.motor_off_timer = Timer(motor_timer, self.motorOff)
+            self.motor_off_timer.start()
+
+            if hasattr(self, 'conveyor_off_timer'):
+                self.conveyor_off_timer.cancel()
+            self.conveyorOn()
+            self.conveyor_off_timer = Timer(motor_timer, self.conveyorOff)
+            self.conveyor_off_timer.start()
+        except Exception as e:
+            print("error:", e)
+
+
+    def endRecycleItem(self):
+        try:
+            self.playSound('audio3')
+            #self.showNotification(RECYCLE_MESSAGE)
+            self.ui.btnRight.show()
+            self.selected_item['count'] += 1
+            self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lblTotal.setText(str(self.total_price))
+        except Exception as e:
+            print("error:", e)
+
 
     def SelectItem(self, item, this_btn):
         self.selected_item = item
@@ -620,45 +663,15 @@ class MainWindow(QWidget):
         self.ui.lblSelectedItem.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-
         # for btn in self.layout_FArea.findChildren(QPushButton):
         #     btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
 
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
-    def recycleItem(self):
-        try:
-            if self.flag_delivery_items:
-                if hasattr(self, 'motor_off_timer'):
-                    self.motor_off_timer.cancel()
-                self.motorOn()
-                self.motor_off_timer = Timer(10.0, self.motorOff)
-                self.motor_off_timer.start()
+    def manualDeliveryRecycleItem(self):
+        self.startRecycleItem()
+        self.endRecycleItem()
 
-                if hasattr(self, 'conveyor_off_timer'):
-                    self.conveyor_off_timer.cancel()
-                self.conveyorOn()
-                self.conveyor_off_timer = Timer(10.0, self.conveyorOff)
-                self.conveyor_off_timer.start()
-
-                self.playSound('audio3')
-                #self.showNotification(RECYCLE_MESSAGE)
-                self.ui.btnRight.show()
-                self.selected_item['count'] += 1
-                self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-                for user_item in self.user_items:
-                    if self.selected_item['id'] == user_item['id']:
-                        break
-                else:
-                    self.user_items.append(self.selected_item)
-                self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-                self.ui.lblTotal.setText(str(self.total_price))
-        except Exception as e:
-            print("error:", e)
-
-    #def hideRecycleItem(self):
-    #    self.ui.datetime.setText(QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '\n' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate))
-        # self.ui.lblNotification.hide()
 
     def motorOff(self):
         try:
@@ -692,7 +705,7 @@ class MainWindow(QWidget):
         self.flag_delivery_items = True
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        self.setButton(self.ui.btnRecycleItem, function=self.recycleItem)
+        self.setButton(self.ui.btnManualDeliveryRecycleItem, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
         self.ui.lblRecycledDone.hide()
@@ -744,7 +757,6 @@ class MainWindow(QWidget):
             self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
             gif_afterDelivery.start()
             self.ui.lblTotalPrice.setText(str(self.total_price))
-        
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
     
@@ -888,7 +900,7 @@ class MainWindow(QWidget):
 if __name__ == '__main__':
     os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    os.environ["QT_QPA_FONTDIR"] = "fonlts"
+    os.environ["QT_QPA_FONTDIR"] = "fonts"
     # os.environ["QT_QPA_PLATFORM"] = "minimalegl"
     # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
@@ -900,6 +912,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     timer = QTimer()
-    #timer.timeout.connect(window.hideRecycleItem)
     timer.start(10000) #it's aboat 1 seconds
     app.exec_()

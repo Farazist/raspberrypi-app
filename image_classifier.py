@@ -11,16 +11,10 @@ class ImageClassifier:
             self.interpreter.allocate_tensors()
             _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
             self.output_details = self.interpreter.get_output_details()[0]
-            self.labels = self.load_labels('labels.txt')
             print('model successfully loaded')
-
         except Exception as e:
             print("error:", e)
             return
-
-    def load_labels(self, path):
-        with open(path, 'r') as f:
-            return {i: line.strip() for i, line in enumerate(f.readlines())}
 
     def set_input_tensor(self, interpreter, image):
         tensor_index = interpreter.get_input_details()[0]['index']
@@ -28,8 +22,7 @@ class ImageClassifier:
         input_tensor[:, :] = image
 
     def __call__(self, stream, top_k=1):
-        start_time = time()
-
+        # start_time = time()
         image = Image.open(stream).convert('RGB').resize((self.width, self.height), Image.ANTIALIAS)
         self.set_input_tensor(self.interpreter, image)
         self.interpreter.invoke()
@@ -41,8 +34,6 @@ class ImageClassifier:
             output = scale * (output - zero_point)
 
         ordered = np.argpartition(-output, top_k)
-
-        elapsed_ms = (time() - start_time) * 1000
-
+        # elapsed_ms = (time() - start_time) * 1000
         return [(i, output[i]) for i in ordered[:top_k]]
         
