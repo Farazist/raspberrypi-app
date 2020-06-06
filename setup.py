@@ -14,7 +14,7 @@ __license__ = "GPL"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-database_list = [[None for _ in range(3)] for j in range(9)]
+database_list = [[None for _ in range(2)] for j in range(8)]
 print(database_list)
 
 class MainWindow(QWidget):
@@ -66,16 +66,16 @@ class MainWindow(QWidget):
 
     def stackBottleRecognizeMode(self):
         self.setButton(self.ui.btn_previous, function=self.stackSystemId, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackpageCameraPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageBottleRecognizeMode)
 
-    def stackpageCameraPort(self):
-        self.setButton(self.ui.btn_previous,function=self.stackBottleRecognizeMode, text='مرحله قبل', icon='images/icon/back.png',  show=True)
-        self.setButton(self.ui.btn_next, function=self.stackConveyorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageCameraPort)
+    #def stackpageCameraPort(self):
+    #    self.setButton(self.ui.btn_previous,function=self.stackBottleRecognizeMode, text='مرحله قبل', icon='images/icon/back.png',  show=True)
+    #    self.setButton(self.ui.btn_next, function=self.stackConveyorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+    #    self.ui.Stack.setCurrentWidget(self.ui.pageCameraPort)
 
     def stackConveyorPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackpageCameraPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackBottleRecognizeMode, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackMotorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorPort)
 
@@ -106,41 +106,30 @@ class MainWindow(QWidget):
 
     def deviceMode(self):
         if self.ui.btn_manual_device.isChecked():
-            database_list[1][2] = 'manual'
+            database_list[1][1] = 'manual'
         elif self.ui.btn_auto_device.isChecked():
-            database_list[1][2] = 'auto'
+            database_list[1][1] = 'auto'
 
     def createDataBase(self):
-        database_list[0][0] = '1'
-        database_list[1][0] = '2'
-        database_list[2][0] = '3'
-        database_list[3][0] = '4'
-        database_list[4][0] = '5'
-        database_list[5][0] = '6'
-        database_list[6][0] = '7'
-        database_list[7][0] = '8'
-        database_list[8][0] = '9'
 
-        database_list[0][1] = 'system_id'
-        database_list[1][1] = 'bottle_recognize_mode'
-        database_list[2][1] = 'camera_port'
-        database_list[3][1] = 'conveyor_port'
-        database_list[4][1] = 'motor_port'
-        database_list[5][1] = 'sensor_depth_threshold'
-        database_list[6][1] = 'sensor_trig_port'
-        database_list[7][1] = 'sensor_echo_port'
-        database_list[8][1] = 'app_version'
+        database_list[0][0] = 'system_id'
+        database_list[1][0] = 'bottle_recognize_mode'
+        database_list[2][0] = 'conveyor_port'
+        database_list[3][0] = 'motor_port'
+        database_list[4][0] = 'sensor_depth_threshold'
+        database_list[5][0] = 'sensor_trig_port'
+        database_list[6][0] = 'sensor_echo_port'
+        database_list[7][0] = 'app_version'
 
-        database_list[0][2] = int(self.ui.tb_system_id.text())
-        database_list[2][2] = int(self.ui.tb_camera_port.text())
-        database_list[3][2] = int(self.ui.tb_conveyor_port.text())
-        database_list[4][2] = int(self.ui.tb_motor_port.text())
-        database_list[5][2] = int(self.ui.tb_sensor_depth_threshold.text())
-        database_list[6][2] = int(self.ui.tb_sensor_trig_port.text())
-        database_list[7][2] = int(self.ui.tb_sensor_echo_port.text())
-        database_list[8][2] = self.ui.tb_app_version.text()
+        database_list[0][1] = self.ui.tb_system_id.text()
+        database_list[2][1] = self.ui.tb_conveyor_port.text()
+        database_list[3][1] = self.ui.tb_motor_port.text()
+        database_list[4][1] = self.ui.tb_sensor_depth_threshold.text()
+        database_list[5][1] = self.ui.tb_sensor_trig_port.text()
+        database_list[6][1] = self.ui.tb_sensor_echo_port.text()
+        database_list[7][1] = self.ui.tb_app_version.text()
         print(database_list)
-        DataBase.createTable("CREATE TABLE IF NOT EXISTS information (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);")
+        DataBase.createTable("CREATE TABLE IF NOT EXISTS information (name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);")
         for item in database_list:
             DataBase.insert(item)
 

@@ -18,7 +18,7 @@ class DataBase:
         try:
             con = connect(database_name)
             c = con.cursor()
-            c.execute(f"INSERT INTO information (id, name, value) VALUES (?, ?, ?)", data)
+            c.execute(f"INSERT INTO information (name, value) VALUES (?, ?)", data)
             con.commit()
             con.close()
             return True

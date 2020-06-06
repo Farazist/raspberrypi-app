@@ -604,7 +604,7 @@ class MainWindow(QWidget):
         for item in self.items:
             item['count'] = 0
 
-        self.ui.Stack.setCurrentWidget(self.ui.pageDeliveryItems)
+        self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
         
     def startRecycleItem(self):
