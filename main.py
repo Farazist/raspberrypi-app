@@ -331,7 +331,7 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
-        self.stackLoading()
+        self.stackMainMenu()
         self.playSound('audio2')
         self.refresh()
 
@@ -565,8 +565,8 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
-        timer.timeout.connect(self.signOutUser)
-        timer.start(stack_timer)
+        #timer.timeout.connect(self.signOutUser)
+        #timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWallet(self):
@@ -790,6 +790,7 @@ class MainWindow(QWidget):
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        #self.ui.lblTotalPrice_charity.setText(str(self.total_price))
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def stackEnvirnmentalProtection(self):

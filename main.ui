@@ -1152,8 +1152,8 @@ color:#000000;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>198</width>
-                 <height>28</height>
+                 <width>181</width>
+                 <height>16</height>
                 </rect>
                </property>
               </widget>
@@ -2787,8 +2787,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3358,7 +3358,7 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_27">
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
              <widget class="QLabel" name="label_23">
               <property name="styleSheet">
                <string notr="true">font: 26pt &quot;IRANSans&quot;;
@@ -3373,7 +3373,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="label_21">
+             <widget class="QLabel" name="lblTotalPrice_charity">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -3411,7 +3411,7 @@ color:#000000;</string>
              <number>50</number>
             </property>
             <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="btnMinus_charity">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3447,7 +3447,7 @@ outline-style: none;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="label_15">
+             <widget class="QLabel" name="lblPayment_charity">
               <property name="styleSheet">
                <string notr="true">color: rgb(0, 0, 0);
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
@@ -3461,7 +3461,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="btnPlus_charity">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3508,6 +3508,9 @@ outline-style: none;
             <width>600</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QScrollBar:vertical { width: 40px;background-color: #28a745}</string>
           </property>
           <property name="widgetResizable">
            <bool>true</bool>
@@ -3803,6 +3806,12 @@ color:#000000;</string>
        <layout class="QHBoxLayout" name="horizontalLayout_28">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_40">
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="lblSelectedEnvirnmentalProtection">
             <property name="styleSheet">
@@ -3819,24 +3828,45 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_29">
-            <item>
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
              <widget class="QLabel" name="label_19">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
               <property name="text">
                <string>تومان</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_18">
-              <property name="text">
-               <string>TextLabel</string>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="lblTotalPrice_envirnmentalProtection">
+              <property name="styleSheet">
+               <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>25812</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="label_13">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
               <property name="text">
                <string>موجودی حساب شما</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -3844,24 +3874,65 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_30">
-            <item>
-             <widget class="QPushButton" name="pushButton_5">
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="btnMinus_envirnmentalProtection">
+              <property name="styleSheet">
+               <string notr="true">border: none;
+outline-style: none;</string>
+              </property>
               <property name="text">
-               <string>PushButton</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/icon/unchecked_minus.png</normaloff>images/icon/unchecked_minus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>80</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLabel" name="label_20">
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="lblPayment_envirnmentalProtection">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(0, 0, 0);
+font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
+              </property>
               <property name="text">
-               <string>TextLabel</string>
+               <string>200</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
+            <item alignment="Qt::AlignLeft">
+             <widget class="QPushButton" name="btnPlus_envirnmentalProtection">
+              <property name="styleSheet">
+               <string notr="true">border: none;
+outline-style: none;</string>
+              </property>
               <property name="text">
-               <string>PushButton</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/icon/unchecked_plus.png</normaloff>images/icon/unchecked_plus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>80</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -3877,15 +3948,18 @@ color:#000000;</string>
             <height>16777215</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QScrollBar:vertical { width: 40px;background-color: #28a745}</string>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <widget class="QWidget" name="scrollAreaWidgetEnvirnmentalProtection">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>581</width>
+             <width>437</width>
              <height>525</height>
             </rect>
            </property>
@@ -3893,7 +3967,7 @@ color:#000000;</string>
             <item row="0" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_49">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="btnEnvirnmentalProtection_1">
                 <property name="maximumSize">
                  <size>
                   <width>200</width>
@@ -3929,7 +4003,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="label_22">
+               <widget class="QLabel" name="lblEnvirnmentalProtection_1">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3947,7 +4021,7 @@ color:#000000;</string>
             <item row="2" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_47">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="pushButton_10">
+               <widget class="QPushButton" name="btnEnvirnmentalProtection_4">
                 <property name="maximumSize">
                  <size>
                   <width>200</width>
@@ -3983,7 +4057,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="label_26">
+               <widget class="QLabel" name="lblEnvirnmentalProtection_4">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4001,7 +4075,7 @@ color:#000000;</string>
             <item row="0" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_50">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="pushButton_8">
+               <widget class="QPushButton" name="btnEnvirnmentalProtection_2">
                 <property name="maximumSize">
                  <size>
                   <width>200</width>
@@ -4037,7 +4111,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="label_24">
+               <widget class="QLabel" name="lblEnvirnmentalProtection_2">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4062,7 +4136,7 @@ color:#000000;</string>
             <item row="2" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_48">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="pushButton_9">
+               <widget class="QPushButton" name="btnEnvirnmentalProtection_3">
                 <property name="maximumSize">
                  <size>
                   <width>200</width>
@@ -4098,7 +4172,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="label_25">
+               <widget class="QLabel" name="lblEnvirnmentalProtection_3">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4513,8 +4587,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>381</width>
+             <height>16</height>
             </rect>
            </property>
           </widget>
