@@ -153,13 +153,16 @@ class AutoDeliveryItemsThread(QThread):
         predicted_items = []
         self.delivery_items_flag = True
         try:
+            print(1)
             import picamera
             camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
             # camera.start_preview()
                 
             stream = BytesIO()
             for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+                print(2)
                 if self.delivery_items_flag:
+                    print(3)
                     stream.seek(0)
                     results = window.image_classifier(stream)
                     label_id, prob = results[0]
@@ -365,10 +368,7 @@ class MainWindow(QWidget):
             sensor_echo_port = int(DataBase.select('sensor_echo_port'))
             sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
             self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
-            if self.device_mode == 'manual':
-                self.sensor.when_in_range = self.manualDeliveryRecycleItem
-            if self.device_mode == 'auto':
-                self.sensor.when_in_range = self.beforeAutoDeliveryRecycleItem
+            self.sensor.when_in_range = self.startRecycleItem
                     
             print('sensor ready')
         except Exception as e:
