@@ -308,6 +308,7 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_2.clicked.connect(self.stackDepositToWallet)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
+        self.ui.btnPlus_charity.clicked.connect(self.depositToCharity)
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
@@ -331,7 +332,7 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
-        self.stackMainMenu()
+        self.stackLoading()
         self.playSound('audio2')
         self.refresh()
 
@@ -790,11 +791,14 @@ class MainWindow(QWidget):
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        #self.ui.lblTotalPrice_charity.setText(str(self.total_price))
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
     def stackSetting(self):

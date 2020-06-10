@@ -1152,8 +1152,8 @@ color:#000000;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>181</width>
-                 <height>16</height>
+                 <width>198</width>
+                 <height>28</height>
                 </rect>
                </property>
               </widget>
@@ -2787,8 +2787,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -4587,8 +4587,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
