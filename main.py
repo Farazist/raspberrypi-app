@@ -142,7 +142,8 @@ class LoadingThread(QThread):
 
 class AutoDeliveryItemsThread(QThread):
     success_signal = Signal()
-    
+    end_recycle_item_signal = Signal()
+
     def __init__(self):
         QThread.__init__(self)
     
@@ -153,40 +154,30 @@ class AutoDeliveryItemsThread(QThread):
         predicted_items = []
         self.delivery_items_flag = True
         try:
-            print(1)
             import picamera
-            camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
-            # camera.start_preview()
-                
-            stream = BytesIO()
-            for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                print(2)
-                if self.delivery_items_flag:
-                    print(3)
-                    stream.seek(0)
-                    results = window.image_classifier(stream)
-                    label_id, prob = results[0]
-
-                    if prob > 0.5:
-                        predicted_items.append(label_id)
-                        print(label_id, prob)
-
-                    stream.seek(0)
-                    stream.truncate()
-                else:
-                    break
-        
+            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
+                # camera.start_preview()
+                stream = BytesIO()
+                for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+                    if self.delivery_items_flag:
+                        stream.seek(0)
+                        results = window.image_classifier(stream)
+                        label_id, prob = results[0]
+                        if prob > 0.1:
+                            predicted_items.append(label_id)
+                            print(label_id, prob)
+                        stream.seek(0)
+                        stream.truncate()
+                    else:
+                        break
         except Exception as e:
             print("error:", e)
-
         else:
-            print('else')
             if len(predicted_items) > 0:
-                print('else if')
                 most_probability_item = stats.mode(predicted_items).mode[0]
                 window.selected_item = window.items[most_probability_item]
                 print('most probability item:', window.selected_item['name'])
-                window.endRecycleItem()
+                self.end_recycle_item_signal.emit()
             # category_index = self.items[most_probability_item]['category_id'] - 1
             # categories_count[category_index] += 1
             # for i in range(len(categories_count)):
@@ -278,6 +269,7 @@ class MainWindow(QWidget):
         #self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
+        self.auto_delivery_items_thread.end_recycle_item_signal.connect(self.endRecycleItem)
         # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
         
         self.after_delivery_thread = AfterDeliveryThread()
@@ -334,13 +326,15 @@ class MainWindow(QWidget):
         self.flag_system_startup_now = True
         self.flag_delivery_items = False
 
-        
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
+
+    def depositToCharity(self):
+        pass
 
     def initHardwares(self):
         try:
@@ -605,6 +599,7 @@ class MainWindow(QWidget):
         
         self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
         
+        self.user_items = []
         for item in self.items:
             item['count'] = 0
 
@@ -634,6 +629,7 @@ class MainWindow(QWidget):
 
 
     def endRecycleItem(self):
+        print('endRecycleItem')
         try:
             self.playSound('audio3')
             #self.showNotification(RECYCLE_MESSAGE)
