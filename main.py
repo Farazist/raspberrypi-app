@@ -632,7 +632,7 @@ class MainWindow(QWidget):
         print('endRecycleItem')
         try:
             self.playSound('audio3')
-            #self.showNotification(RECYCLE_MESSAGE)
+            self.showNotification(RECYCLE_MESSAGE)
             self.ui.btnRight.show()
             self.selected_item['count'] += 1
             self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
