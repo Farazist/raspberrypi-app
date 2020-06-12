@@ -36,7 +36,7 @@ SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
-stack_timer = 60000
+stack_timer = 240000
 motor_timer = 10.0
 camera_timer = 5.0
 
