@@ -643,6 +643,17 @@ class MainWindow(QWidget):
                 self.user_items.append(self.selected_item)
             self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
             self.ui.lblTotal.setText(str(self.total_price))
+
+            if self.device_mode == 'auto':
+                if self.selected_item['category_id'] == 1:
+                    self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
+                elif self.selected_item['category_id'] == 2:
+                    self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
+                elif self.selected_item['category_id'] == 3:
+                    self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
+                elif self.selected_item['category_id'] == 4:
+                    self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+
         except Exception as e:
             print("error:", e)
 
