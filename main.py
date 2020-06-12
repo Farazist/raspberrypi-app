@@ -591,7 +591,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.ui.btnRight.hide()
         self.ui.lblNotification.hide()
-        self.ui.scrollAreaAutoDelivery.hide()
+        #self.ui.scrollAreaAutoDelivery.hide()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
