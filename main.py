@@ -180,10 +180,13 @@ class AutoDeliveryItemsThread(QThread):
             print("error:", e)
 
         else:
-            most_probability_item = stats.mode(predicted_items).mode[0]
-            window.selected_item = window.items[most_probability_item]
-            print('most probability item:', window.selected_item['name'])
-            window.endRecycleItem()
+            print('else')
+            if len(predicted_items) > 0:
+                print('else if')
+                most_probability_item = stats.mode(predicted_items).mode[0]
+                window.selected_item = window.items[most_probability_item]
+                print('most probability item:', window.selected_item['name'])
+                window.endRecycleItem()
             # category_index = self.items[most_probability_item]['category_id'] - 1
             # categories_count[category_index] += 1
             # for i in range(len(categories_count)):
