@@ -1115,6 +1115,12 @@ color:#000000;</string>
            <layout class="QVBoxLayout" name="verticalLayout_31">
             <item alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="lblAutoSelectedItem">
+              <property name="maximumSize">
+               <size>
+                <width>500</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
@@ -1130,33 +1136,14 @@ color:#000000;</string>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QScrollArea" name="scrollAreaAutoDelivery">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>0</height>
-               </size>
-              </property>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QListWidget" name="listWidget">
               <property name="maximumSize">
                <size>
-                <width>300</width>
+                <width>500</width>
                 <height>16777215</height>
                </size>
               </property>
-              <property name="widgetResizable">
-               <bool>true</bool>
-              </property>
-              <widget class="QWidget" name="scrollWidgetAutoDelivery">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>198</width>
-                 <height>226</height>
-                </rect>
-               </property>
-              </widget>
              </widget>
             </item>
             <item>
