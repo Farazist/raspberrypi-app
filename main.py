@@ -454,7 +454,7 @@ class MainWindow(QWidget):
                     elif self.device_mode == 'auto':
                         self.items = Server.getItems(0)
 
-                    Server.turnOnSystemSMS(self.owner, self.system)
+                    # Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
                 self.playSound('audio2')
@@ -645,6 +645,8 @@ class MainWindow(QWidget):
             self.ui.lblTotal.setText(str(self.total_price))
 
             if self.device_mode == 'auto':
+                self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
+
                 if self.selected_item['category_id'] == 1:
                     self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
                 elif self.selected_item['category_id'] == 2:
