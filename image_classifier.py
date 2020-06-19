@@ -24,6 +24,8 @@ class ImageClassifier:
     def __call__(self, stream, top_k=1):
         # start_time = time()
         image = Image.open(stream).convert('RGB').resize((self.width, self.height), Image.ANTIALIAS)
+        image = np.array(image).astype('float') / 255.0
+
         self.set_input_tensor(self.interpreter, image)
         self.interpreter.invoke()
         output = np.squeeze(self.interpreter.get_tensor(self.output_details['index']))

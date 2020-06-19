@@ -1137,7 +1137,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QListWidget" name="listWidget">
+             <widget class="QListWidget" name="listAutoDeliveryItems">
               <property name="maximumSize">
                <size>
                 <width>500</width>
