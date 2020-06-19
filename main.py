@@ -589,8 +589,9 @@ class MainWindow(QWidget):
 
     def stackAutoDeliveryItems(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.ui.btnRight.hide()
+        self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lblNotification.hide()
+        self.ui.listAutoDeliveryItems.clear()
         #self.ui.scrollAreaAutoDelivery.hide()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))

@@ -1138,25 +1138,49 @@ color:#000000;</string>
             </item>
             <item alignment="Qt::AlignHCenter">
              <widget class="QListWidget" name="listAutoDeliveryItems">
-              <property name="maximumSize">
-               <size>
-                <width>500</width>
-                <height>16777215</height>
-               </size>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="widget_5" native="true">
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>350</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="isWrapping" stdset="0">
+               <bool>false</bool>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_5" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>350</width>
                 <height>80</height>
                </size>
               </property>
@@ -1199,6 +1223,12 @@ color:#000000;</string>
             </item>
             <item>
              <widget class="QPushButton" name="btnAutoDeliveryRecycleItem">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1207,7 +1237,7 @@ color:#000000;</string>
               </property>
               <property name="maximumSize">
                <size>
-                <width>11160</width>
+                <width>350</width>
                 <height>80</height>
                </size>
               </property>
@@ -2096,7 +2126,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>524</width>
+               <width>531</width>
                <height>542</height>
               </rect>
              </property>
