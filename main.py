@@ -37,8 +37,8 @@ TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-motor_timer = 10.0
-camera_timer = 5.0
+motor_timer = 2.0
+camera_timer = 3.0
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -163,7 +163,7 @@ class AutoDeliveryItemsThread(QThread):
                         stream.seek(0)
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
-                        if prob > 0.1:
+                        if prob > 0.7:
                             predicted_items.append(label_id)
                             print(label_id, prob)
                         stream.seek(0)
@@ -577,8 +577,8 @@ class MainWindow(QWidget):
         gif_wallet.start()
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
-        timer.timeout.connect(self.signOutUser)
-        timer.start(stack_timer)
+        # timer.timeout.connect(self.signOutUser)
+        # timer.start(stack_timer)
         #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWalletServices(self):
@@ -591,8 +591,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lblNotification.hide()
-        self.ui.listAutoDeliveryItems.clear()
-        #self.ui.scrollAreaAutoDelivery.hide()
+        # self.ui.listAutoDeliveryItems.clear()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
