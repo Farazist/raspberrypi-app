@@ -10,4 +10,11 @@ App for smart recycle waste bottles
   * gpiozero
   * qrcode
   * sqlite3
+  * escpos
+  * qtquick
+## Hardware requirements
+ * Raspberry Pi 4 (model B - 4GB RAM)
+ * Raspberry Pi NoIR Camera V2
+## Status
+This project is early in development and does not yet have a stable API.
   
