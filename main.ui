@@ -1481,6 +1481,9 @@ color:#000000;</string>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
           <item>
            <widget class="QStackedWidget" name="StackSetting">
             <property name="minimumSize">
@@ -2099,7 +2102,7 @@ color:#000000;
            <widget class="QScrollArea" name="scrollArea_2">
             <property name="minimumSize">
              <size>
-              <width>600</width>
+              <width>650</width>
               <height>0</height>
              </size>
             </property>
@@ -2129,7 +2132,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>581</width>
+               <width>631</width>
                <height>542</height>
               </rect>
              </property>
