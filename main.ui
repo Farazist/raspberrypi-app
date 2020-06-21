@@ -575,14 +575,17 @@ color:#000000;</string>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="spacing">
+           <number>20</number>
+          </property>
           <property name="leftMargin">
-           <number>70</number>
+           <number>60</number>
           </property>
           <property name="topMargin">
-           <number>100</number>
+           <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>70</number>
+           <number>60</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
@@ -2108,7 +2111,7 @@ color:#000000;
             </property>
             <property name="maximumSize">
              <size>
-              <width>750</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
@@ -3123,14 +3126,17 @@ border-style: inset;
        <layout class="QVBoxLayout" name="verticalLayout_42">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <property name="spacing">
+           <number>20</number>
+          </property>
           <property name="leftMargin">
-           <number>70</number>
+           <number>60</number>
           </property>
           <property name="topMargin">
-           <number>100</number>
+           <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>70</number>
+           <number>60</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
