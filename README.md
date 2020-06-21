@@ -1,6 +1,7 @@
 # raspberrypi-app
 App for smart recycle waste bottles
-![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/1.png)![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/2.png)
+![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/1.png =250x250)
+![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/2.png)
 ![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/3.png)
 ![image 1](https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/4.png)
 ## Requirements
