@@ -2172,8 +2172,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting5">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2200,8 +2206,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting1">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2228,8 +2240,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSettingStart">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2250,8 +2268,14 @@ outline-style: none;</string>
                <widget class="QPushButton" name="btnSetting4">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2278,8 +2302,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting2">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2306,8 +2336,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting6">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2334,8 +2370,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting3">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2362,8 +2404,14 @@ border-style: inset;
                <widget class="QPushButton" name="btnSetting7">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>230</width>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
