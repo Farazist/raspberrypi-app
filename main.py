@@ -609,9 +609,10 @@ class MainWindow(QWidget):
     def startRecycleItem(self):
         try:
             if self.device_mode == 'auto':
-                self.auto_delivery_items_thread.start()
-                self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                self.auto_delivery_items_thread_stop_timer.start()
+                #self.auto_delivery_items_thread.start()
+                #self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                #self.auto_delivery_items_thread_stop_timer.start()
+                pass
 
             if hasattr(self, 'motor_off_timer'):
                 self.motor_off_timer.cancel()
