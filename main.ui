@@ -2130,6 +2130,9 @@ color:#000000;
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <widget class="QWidget" name="scrollAreaWidgetContents">
              <property name="geometry">
               <rect>
@@ -2140,6 +2143,9 @@ color:#000000;
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
+              <property name="rightMargin">
+               <number>50</number>
+              </property>
               <item row="4" column="3">
                <widget class="QPushButton" name="btnSetting8">
                 <property name="minimumSize">
@@ -2176,12 +2182,6 @@ border-style: inset;
                   <height>100</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton{
 background-color: #28a745;
@@ -2208,12 +2208,6 @@ border-style: inset;
                  <size>
                   <width>220</width>
                   <height>100</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2244,12 +2238,6 @@ border-style: inset;
                   <height>100</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
                 <property name="styleSheet">
                  <string notr="true">background-color: #003cbd;
 color: rgb(255, 255, 255);
@@ -2270,12 +2258,6 @@ outline-style: none;</string>
                  <size>
                   <width>220</width>
                   <height>100</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2306,12 +2288,6 @@ border-style: inset;
                   <height>100</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton{
 background-color: #28a745;
@@ -2338,12 +2314,6 @@ border-style: inset;
                  <size>
                   <width>220</width>
                   <height>100</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -2374,12 +2344,6 @@ border-style: inset;
                   <height>100</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton{
 background-color: #28a745;
@@ -2406,12 +2370,6 @@ border-style: inset;
                  <size>
                   <width>220</width>
                   <height>100</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>230</width>
-                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="styleSheet">
