@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1514,6 +1514,9 @@ color:#000000;</string>
                 <property name="scaledContents">
                  <bool>true</bool>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
              </layout>
@@ -2096,7 +2099,7 @@ color:#000000;
            <widget class="QScrollArea" name="scrollArea_2">
             <property name="minimumSize">
              <size>
-              <width>550</width>
+              <width>600</width>
               <height>0</height>
              </size>
             </property>
@@ -2126,7 +2129,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>531</width>
+               <width>581</width>
                <height>542</height>
               </rect>
              </property>
