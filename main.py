@@ -521,8 +521,8 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
-        timer.timeout.connect(self.stackStart)
-        timer.start(stack_timer)
+        #timer.timeout.connect(self.stackStart)
+        #timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMobileNumber(self):
@@ -532,8 +532,8 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-        timer.timeout.connect(self.stackStart)
-        timer.start(stack_timer)
+        #timer.timeout.connect(self.stackStart)
+        #timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMethods(self):
@@ -548,8 +548,8 @@ class MainWindow(QWidget):
 
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
-        timer.timeout.connect(self.stackStart)
-        timer.start(stack_timer)
+        #timer.timeout.connect(self.stackStart)
+        #timer.start(stack_timer)
         #QTimer.singleShot(10000, self.stackStart)
 
     def showQrcode(self, qrcode_signin_token):
