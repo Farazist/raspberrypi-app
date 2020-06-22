@@ -1,7 +1,7 @@
 # raspberrypi-app
 App for smart recycle waste bottles
 
-![](./images/read_me/1.png =100x20)
+![image1](./images/read_me/1.png =100)
 <img src="https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/1.png" width="500">
 <img src="https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/2.png" width="500">
 <img src="https://github.com/Farazist/raspberrypi-app/blob/master/images/read_me/3.png" width="500">
