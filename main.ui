@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1580,7 +1580,7 @@ QRadioButton{color:#000000;}
                 <item>
                  <widget class="QRadioButton" name="btnAutoDevice">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QRadioButton::indicator {width: 60px;height: 60px;}
