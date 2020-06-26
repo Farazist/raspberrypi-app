@@ -333,8 +333,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'motor'):
                 self.motor.close()
                 print("motor close")
-            self.motor_port1 = int(DataBase.select('motor_port1'))
-            self.motor = LED(self.motor_port1, pin_factory=factory)
+            self.press_motor_port1 = int(DataBase.select('press_motor_port1'))
+            self.motor = LED(self.press_motor_port1, pin_factory=factory)
             print('motor ready')
         except Exception as e:
             print("error:", e)
@@ -870,9 +870,9 @@ class MainWindow(QWidget):
 
     def stackMotorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbMotorPort1.setText(str(DataBase.select('motor_port1')))
-        self.ui.tbMotorPort2.setText(str(DataBase.select('motor_port2')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingMotorPort)
+        self.ui.tbPressMotorPort1.setText(str(DataBase.select('press_motor_port1')))
+        self.ui.tbPressMotorPort2.setText(str(DataBase.select('press_motor_port2')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotorPort)
 
     def stackSensor1Ports(self):
         self.ui.lblNotification.hide()
@@ -930,11 +930,11 @@ class MainWindow(QWidget):
         if self.ui.tb_sensor2_depth_threshold.text() != '':
             result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
 
-        if self.ui.tbMotorPort1.text() != '':
-            result = DataBase.update('motor_port1', self.ui.tbMotorPort1.text())
+        if self.ui.tbPressMotorPort1.text() != '':
+            result = DataBase.update('press_motor_port1', self.ui.tbPressMotorPort1.text())
 
-        if self.ui.tbMotorPort2.text() != '':
-            result = DataBase.update('motor_port2', self.ui.tbMotorPort2.text())
+        if self.ui.tbPressMotorPort2.text() != '':
+            result = DataBase.update('press_motor_port2', self.ui.tbPressMotorPort2.text())
 
         if self.ui.tbConveyorPort1.text() != '':
             result = DataBase.update('conveyor_port1', self.ui.tbConveyorPort1.text())
