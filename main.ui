@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>6</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1577,7 +1577,7 @@ QRadioButton{color:#000000;}
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <item>
                  <widget class="QRadioButton" name="btnAutoDevice">
                   <property name="enabled">
                    <bool>false</bool>
@@ -1694,13 +1694,13 @@ border-style: inset;
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingMotorPort">
+            <widget class="QWidget" name="pageSettingPressMotorPort">
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <property name="bottomMargin">
                <number>100</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblMotorPort1">
+               <widget class="QLabel" name="lblPressMotorPort1">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
@@ -1718,7 +1718,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbMotorPort1">
+               <widget class="QLineEdit" name="tbPressMotorPort1">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
