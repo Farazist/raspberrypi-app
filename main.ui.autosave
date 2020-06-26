@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>6</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1707,7 +1707,7 @@ font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>پورت 1</string>
+                 <string>پورت 1 موتور</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1756,7 +1756,7 @@ font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>پورت 2</string>
+                 <string>پورت 2 موتور</string>
                 </property>
                </widget>
               </item>
@@ -2068,14 +2068,14 @@ color:#000000;</string>
                <number>100</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblConveyorPort">
+               <widget class="QLabel" name="lblConveyorPort1">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>پورت 1</string>
+                 <string>پورت 1 نوار نقاله</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -2086,7 +2086,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbConveyorPort">
+               <widget class="QLineEdit" name="tbConveyorPort1">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -2109,6 +2109,30 @@ color:#000000;</string>
                 </property>
                 <property name="inputMethodHints">
                  <set>Qt::ImhDigitsOnly</set>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lblConveyorPort2">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>پورت 2 نوار نقاله</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLineEdit" name="tbConveyorPort2">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
                 </property>
                </widget>
               </item>

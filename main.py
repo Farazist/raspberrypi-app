@@ -333,8 +333,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'motor'):
                 self.motor.close()
                 print("motor close")
-            self.motor_port = int(DataBase.select('motor_port'))
-            self.motor = LED(self.motor_port, pin_factory=factory)
+            self.motor_port1 = int(DataBase.select('motor_port1'))
+            self.motor = LED(self.motor_port1, pin_factory=factory)
             print('motor ready')
         except Exception as e:
             print("error:", e)
@@ -343,8 +343,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'conveyor'):
                 self.conveyor.close()
                 print("conveyor close")
-            self.conveyor_port = int(DataBase.select('conveyor_port'))
-            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
+            self.conveyor_port1 = int(DataBase.select('conveyor_port1'))
+            self.conveyor = LED(self.conveyor_port1, pin_factory=factory)
             print('conveyor ready')
         except Exception as e:
             print("error:", e)
@@ -863,7 +863,8 @@ class MainWindow(QWidget):
 
     def stackMotorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')))
+        self.ui.tbMotorPort1.setText(str(DataBase.select('motor_port1')))
+        self.ui.tbMotorPort2.setText(str(DataBase.select('motor_port2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingMotorPort)
 
     def stackSensor1Ports(self):
@@ -882,7 +883,8 @@ class MainWindow(QWidget):
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbConveyorPort.setText(str(DataBase.select('conveyor_port')))
+        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_port1')))
+        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_port2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorPort)
 
     def stackAddOpetator(self):
@@ -921,10 +923,17 @@ class MainWindow(QWidget):
         if self.ui.tb_sensor2_depth_threshold.text() != '':
             result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
 
-        if self.ui.tbMotorPort.text() != '':
-            result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
-        if self.ui.tbConveyorPort.text() != '':
-            result = DataBase.update('conveyor_port', self.ui.tbConveyorPort.text())
+        if self.ui.tbMotorPort1.text() != '':
+            result = DataBase.update('motor_port1', self.ui.tbMotorPort1.text())
+
+        if self.ui.tbMotorPort2.text() != '':
+            result = DataBase.update('motor_port2', self.ui.tbMotorPort2.text())
+
+        if self.ui.tbConveyorPort1.text() != '':
+            result = DataBase.update('conveyor_port1', self.ui.tbConveyorPort1.text())
+
+        if self.ui.tbConveyorPort2.text() != '':
+            result = DataBase.update('conveyor_port2', self.ui.tbConveyorPort2.text())
 
         self.initHardwares()
 
