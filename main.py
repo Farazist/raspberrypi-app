@@ -147,17 +147,17 @@ class AutoDeliveryItemsThread(QThread):
         QThread.__init__(self)
     
     def stop(self):
-        self.delivery_items_flag = False
+        self.delivery_item_flag = False
 
     def run(self):
-        self.delivery_items_flag = True
+        self.delivery_item_flag = True
         try:
             import picamera
             with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
                 # camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                    if self.delivery_items_flag:
+                    if self.delivery_item_flag:
                         stream.seek(0)
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
@@ -316,7 +316,7 @@ class MainWindow(QWidget):
         self.ui.showMaximized()
     
         self.flag_system_startup_now = True
-        self.flag_delivery_items = False
+        self.delivery_items_flag = False
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -605,6 +605,7 @@ class MainWindow(QWidget):
         
         self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
         
+        self.delivery_items_flag = True
         self.user_items = []
         for item in self.items:
             item['count'] = 0
@@ -614,24 +615,27 @@ class MainWindow(QWidget):
         
     def startRecycleItem(self):
         try:
-            if self.device_mode == 'auto':
-                self.predicted_items = []
-                self.auto_delivery_items_thread.start()
-                # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                # self.auto_delivery_items_thread_stop_timer.start()
-                # pass
+            if self.delivery_items_flag == True:
+                self.detect_item_flag = True
 
-            if hasattr(self, 'motor_off_timer'):
-                self.motor_off_timer.cancel()
-            self.motorOn()
-            self.motor_off_timer = Timer(motor_timer, self.motorOff)
-            self.motor_off_timer.start()
+                if self.device_mode == 'auto':
+                    self.predicted_items = []
+                    self.auto_delivery_items_thread.start()
+                    # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                    # self.auto_delivery_items_thread_stop_timer.start()
+                    # pass
 
-            if hasattr(self, 'conveyor_off_timer'):
-                self.conveyor_off_timer.cancel()
-            self.conveyorOn()
-            self.conveyor_off_timer = Timer(motor_timer, self.conveyorOff)
-            self.conveyor_off_timer.start()
+                if hasattr(self, 'motor_off_timer'):
+                    self.motor_off_timer.cancel()
+                self.motorOn()
+                self.motor_off_timer = Timer(motor_timer, self.motorOff)
+                self.motor_off_timer.start()
+
+                if hasattr(self, 'conveyor_off_timer'):
+                    self.conveyor_off_timer.cancel()
+                self.conveyorOn()
+                self.conveyor_off_timer = Timer(motor_timer, self.conveyorOff)
+                self.conveyor_off_timer.start()
         except Exception as e:
             print("error:", e)
 
@@ -639,37 +643,39 @@ class MainWindow(QWidget):
     def endRecycleItem(self):
         print('endRecycleItem')
         try:
-            if self.device_mode == 'auto':
-                self.auto_delivery_items_thread.stop()
+            if hasattr(self, 'detect_item_flag') and self.detect_item_flag == True:
+                self.detect_item_flag = False
+                if self.device_mode == 'auto':
+                    self.auto_delivery_items_thread.stop()
 
-                if len(self.predicted_items) > 0:
-                    most_probability_item = stats.mode(self.predicted_items).mode[0]
-                    self.selected_item = self.items[most_probability_item]
-                    print('most probability item:', window.selected_item['name'])
+                    if len(self.predicted_items) > 0:
+                        most_probability_item = stats.mode(self.predicted_items).mode[0]
+                        self.selected_item = self.items[most_probability_item]
+                        print('most probability item:', window.selected_item['name'])
 
-                    self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
+                        self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
 
-                    if self.selected_item['category_id'] == 1:
-                        self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
-                    elif self.selected_item['category_id'] == 2:
-                        self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
-                    elif self.selected_item['category_id'] == 3:
-                        self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
-                    elif self.selected_item['category_id'] == 4:
-                        self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+                        if self.selected_item['category_id'] == 1:
+                            self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
+                        elif self.selected_item['category_id'] == 2:
+                            self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
+                        elif self.selected_item['category_id'] == 3:
+                            self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
+                        elif self.selected_item['category_id'] == 4:
+                            self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
 
-            self.playSound('audio3')
-            self.showNotification(RECYCLE_MESSAGE)
-            self.ui.btnRight.show()
-            self.selected_item['count'] += 1
-            self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
-            for user_item in self.user_items:
-                if self.selected_item['id'] == user_item['id']:
-                    break
-            else:
-                self.user_items.append(self.selected_item)
-            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-            self.ui.lblTotal.setText(str(self.total_price))
+                self.playSound('audio3')
+                self.showNotification(RECYCLE_MESSAGE)
+                self.ui.btnRight.show()
+                self.selected_item['count'] += 1
+                self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+                for user_item in self.user_items:
+                    if self.selected_item['id'] == user_item['id']:
+                        break
+                else:
+                    self.user_items.append(self.selected_item)
+                self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+                self.ui.lblTotal.setText(str(self.total_price))
              
         except Exception as e:
             print("error:", e)
@@ -720,7 +726,7 @@ class MainWindow(QWidget):
             print("error:", e)
 
     def stackManualDeliveryItems(self):
-        self.flag_delivery_items = True
+        self.delivery_items_flag = True
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btnManualDeliveryRecycleItem, function=self.manualDeliveryRecycleItem)
@@ -764,7 +770,7 @@ class MainWindow(QWidget):
 
     def stackAfterDelivery(self):
         try:
-            self.flag_delivery_items = False
+            self.delivery_items_flag = False
 
             self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
             self.playSound('audio11')
@@ -939,7 +945,7 @@ class MainWindow(QWidget):
 
     def exitProgram(self):
         Server.turnOffSystemSMS(self.owner, self.system)
-        self.delivery_items_flag = False
+        self.delivery_item_flag = False
         self.close()
         QApplication.quit()
 
