@@ -288,7 +288,8 @@ class MainWindow(QWidget):
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
         self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
-        self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
+        self.ui.btnSetting3.clicked.connect(self.stackSensor1Ports)
+        self.ui.btnSetting9.clicked.connect(self.stackSensor2Ports)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
@@ -865,12 +866,19 @@ class MainWindow(QWidget):
         self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingMotorPort)
 
-    def stackSensorPort(self):
+    def stackSensor1Ports(self):
         self.ui.lblNotification.hide()
-        self.ui.tb_sensor_trig_port.setText(str(DataBase.select('sensor_trig_port')))
-        self.ui.tb_sensor_echo_port.setText(str(DataBase.select('sensor_echo_port')))
-        self.ui.tb_sensor_depth_threshold.setText(str(DataBase.select('sensor_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
+        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
+        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
+        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor1Ports)
+
+    def stackSensor2Ports(self):
+        self.ui.lblNotification.hide()
+        self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('sensor2_trig_port')))
+        self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('sensor2_echo_port')))
+        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('sensor2_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor2Ports)
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
@@ -899,12 +907,20 @@ class MainWindow(QWidget):
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        if self.ui.tb_sensor_trig_port.text() != '':
-            result = DataBase.update('sensor_trig_port', self.ui.tb_sensor_trig_port.text())
-        if self.ui.tb_sensor_echo_port.text() != '':
-            result = DataBase.update('sensor_echo_port', self.ui.tb_sensor_echo_port.text())
-        if self.ui.tb_sensor_depth_threshold.text() != '':
-            result = DataBase.update('sensor_depth_threshold', self.ui.tb_sensor_depth_threshold.text())
+        if self.ui.tb_sensor1_trig_port.text() != '':
+            result = DataBase.update('sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
+        if self.ui.tb_sensor1_echo_port.text() != '':
+            result = DataBase.update('sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
+        if self.ui.tb_sensor1_depth_threshold.text() != '':
+            result = DataBase.update('sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
+
+        if self.ui.tb_sensor2_trig_port.text() != '':
+            result = DataBase.update('sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
+        if self.ui.tb_sensor2_echo_port.text() != '':
+            result = DataBase.update('sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
+        if self.ui.tb_sensor2_depth_threshold.text() != '':
+            result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
+
         if self.ui.tbMotorPort.text() != '':
             result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
         if self.ui.tbConveyorPort.text() != '':

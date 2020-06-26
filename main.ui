@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1508,6 +1508,9 @@ color:#000000;</string>
               <height>16777215</height>
              </size>
             </property>
+            <property name="currentIndex">
+             <number>5</number>
+            </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
               <item>
@@ -1807,20 +1810,20 @@ border-style: inset;
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingSensorPort">
+            <widget class="QWidget" name="pageSettingSensor1Ports">
              <layout class="QVBoxLayout" name="verticalLayout_21">
               <property name="bottomMargin">
                <number>50</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_sensor_trig_port">
+               <widget class="QLabel" name="lbl_sensor1_trig_port">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>شماره پورت trig سنسور</string>
+                 <string>پورت trig سنسور 1</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1831,7 +1834,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLineEdit" name="tb_sensor_trig_port">
+               <widget class="QLineEdit" name="tb_sensor1_trig_port">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -1861,14 +1864,14 @@ color:#000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lbl_sensor_echo_port">
+               <widget class="QLabel" name="lbl_sensor1_echo_port">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>شماره پورت echo سنسور</string>
+                 <string>پورت echo سنسور 1</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1876,7 +1879,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLineEdit" name="tb_sensor_echo_port">
+               <widget class="QLineEdit" name="tb_sensor1_echo_port">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -1903,14 +1906,14 @@ color:#000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lbl_sensor_depth_threshold">
+               <widget class="QLabel" name="lbl_sensor1_depth_threshold">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>آستانه عمق سنجی سنسور</string>
+                 <string>آستانه عمق سنجی سنسور 1</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1918,7 +1921,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLineEdit" name="tb_sensor_depth_threshold">
+               <widget class="QLineEdit" name="tb_sensor1_depth_threshold">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -1931,6 +1934,91 @@ color: #000000;</string>
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="pageSettingSensor2Ports">
+             <layout class="QVBoxLayout" name="verticalLayout_51">
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lbl_sensor2_trig_port">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>پورت trig سنسور 2</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLineEdit" name="tb_sensor2_trig_port">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLabel" name="lbl_sensor2_echo_port">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>پورت echo سنسور 2</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLineEdit" name="tb_sensor2_echo_port">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLabel" name="lbl_sensor2_depth_threshold">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>آستانه عمق سنجی سنسور 2</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLineEdit" name="tb_sensor2_depth_threshold">
                 <property name="styleSheet">
                  <string notr="true">background-color: #ffffff; 
 padding: 3px; 
@@ -2146,7 +2234,7 @@ color:#000000;
                <x>0</x>
                <y>0</y>
                <width>631</width>
-               <height>542</height>
+               <height>648</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -2162,11 +2250,11 @@ color:#000000;
               <property name="bottomMargin">
                <number>9</number>
               </property>
-              <item row="4" column="3">
-               <widget class="QPushButton" name="btnSetting8">
+              <item row="4" column="1">
+               <widget class="QPushButton" name="btnSetting4">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
+                  <width>220</width>
                   <height>100</height>
                  </size>
                 </property>
@@ -2186,11 +2274,11 @@ border-style: inset;
 }</string>
                 </property>
                 <property name="text">
-                 <string>لایسنس</string>
+                 <string>افزودن اپراتور</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="3">
+              <item row="3" column="3">
                <widget class="QPushButton" name="btnSetting5">
                 <property name="minimumSize">
                  <size>
@@ -2218,7 +2306,63 @@ border-style: inset;
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="5" column="3">
+               <widget class="QPushButton" name="btnSetting8">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>لایسنس</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="3">
+               <widget class="QPushButton" name="btnSetting7">
+                <property name="minimumSize">
+                 <size>
+                  <width>220</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>راهنمای برنامه</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
                <widget class="QPushButton" name="btnSetting1">
                 <property name="minimumSize">
                  <size>
@@ -2268,35 +2412,7 @@ outline-style: none;</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="1">
-               <widget class="QPushButton" name="btnSetting4">
-                <property name="minimumSize">
-                 <size>
-                  <width>220</width>
-                  <height>100</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-background-color: #28a745;
-color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-                </property>
-                <property name="text">
-                 <string>افزودن اپراتور</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
+              <item row="2" column="1">
                <widget class="QPushButton" name="btnSetting2">
                 <property name="minimumSize">
                  <size>
@@ -2321,6 +2437,62 @@ border-style: inset;
                 </property>
                 <property name="text">
                  <string>موتور</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QPushButton" name="btnSetting3">
+                <property name="minimumSize">
+                 <size>
+                  <width>220</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>سنسور 1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="btnSetting9">
+                <property name="minimumSize">
+                 <size>
+                  <width>220</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>سنسور 2</string>
                 </property>
                </widget>
               </item>
@@ -2349,62 +2521,6 @@ border-style: inset;
                 </property>
                 <property name="text">
                  <string>خروج از برنامه</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QPushButton" name="btnSetting3">
-                <property name="minimumSize">
-                 <size>
-                  <width>220</width>
-                  <height>100</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-background-color: #28a745;
-color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-                </property>
-                <property name="text">
-                 <string>سنسور</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="3">
-               <widget class="QPushButton" name="btnSetting7">
-                <property name="minimumSize">
-                 <size>
-                  <width>220</width>
-                  <height>100</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-background-color: #28a745;
-color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
-border: none; 
-border-radius: 6px;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-                </property>
-                <property name="text">
-                 <string>راهنمای برنامه</string>
                 </property>
                </widget>
               </item>
@@ -4638,8 +4754,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>
