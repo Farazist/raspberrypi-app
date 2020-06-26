@@ -338,7 +338,7 @@ class MainWindow(QWidget):
                 print("press motor close")
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=press_motor_backward_port, pin_factory=factory)
+            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, pin_factory=factory)
             print('press motor ready')
         except Exception as e:
             print("error:", e)
@@ -349,7 +349,7 @@ class MainWindow(QWidget):
                 print("separation motor close")
             self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=separation_motor_backward_port, pin_factory=factory)
+            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, pin_factory=factory)
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
@@ -360,7 +360,7 @@ class MainWindow(QWidget):
                 print("conveyor motor close")
             self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=conveyor_motor_backward_port, pin_factory=factory)
+            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, pin_factory=factory)
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
@@ -732,20 +732,6 @@ class MainWindow(QWidget):
         self.startRecycleItem()
         self.endRecycleItem()
 
-
-    def motorOff(self):
-        try:
-            self.motor.off()
-            print("motor off")
-        except Exception as e:
-            print("error:", e)
-
-    def conveyorOff(self):
-        try:
-            self.conveyor.off()
-            print("conveyor off")
-        except Exception as e:
-            print("error:", e)
 
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
