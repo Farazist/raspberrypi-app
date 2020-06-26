@@ -870,7 +870,7 @@ class MainWindow(QWidget):
     def stackMotorPort(self):
         self.ui.lblNotification.hide()
         self.ui.tbPressMotorPort1.setText(str(DataBase.select('press_motor_port1')))
-        self.ui.tbMotorPort2.setText(str(DataBase.select('motor_port2')))
+        self.ui.tbPressMotorPort2.setText(str(DataBase.select('press_motor_port2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotorPort)
 
     def stackSensor1Ports(self):
@@ -932,8 +932,8 @@ class MainWindow(QWidget):
         if self.ui.tbPressMotorPort1.text() != '':
             result = DataBase.update('press_motor_port1', self.ui.tbPressMotorPort1.text())
 
-        if self.ui.tbMotorPort2.text() != '':
-            result = DataBase.update('motor_port2', self.ui.tbMotorPort2.text())
+        if self.ui.tbPressMotorPort2.text() != '':
+            result = DataBase.update('press_motor_port2', self.ui.tbPressMotorPort2.text())
 
         if self.ui.tbConveyorPort1.text() != '':
             result = DataBase.update('conveyor_port1', self.ui.tbConveyorPort1.text())
