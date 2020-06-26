@@ -287,7 +287,8 @@ class MainWindow(QWidget):
         self.ui.btnSettingStart.clicked.connect(self.stackStart)
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
-        self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
+        self.ui.btnSetting2.clicked.connect(self.stackPressMotor)
+        self.ui.btnSetting10.clicked.connect(self.stackSeparationMotor)
         self.ui.btnSetting3.clicked.connect(self.stackSensor1Ports)
         self.ui.btnSetting9.clicked.connect(self.stackSensor2Ports)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
@@ -333,8 +334,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'motor'):
                 self.motor.close()
                 print("motor close")
-            self.press_motor_port1 = int(DataBase.select('press_motor_port1'))
-            self.motor = LED(self.press_motor_port1, pin_factory=factory)
+            self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
+            self.motor = LED(self.press_motor_forward_port, pin_factory=factory)
             print('motor ready')
         except Exception as e:
             print("error:", e)
@@ -343,8 +344,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'conveyor'):
                 self.conveyor.close()
                 print("conveyor close")
-            self.conveyor_port1 = int(DataBase.select('conveyor_port1'))
-            self.conveyor = LED(self.conveyor_port1, pin_factory=factory)
+            self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
+            self.conveyor = LED(self.conveyor_motor_forward_port, pin_factory=factory)
             print('conveyor ready')
         except Exception as e:
             print("error:", e)
@@ -867,11 +868,17 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingExit)
 
-    def stackMotorPort(self):
+    def stackPressMotor(self):
         self.ui.lblNotification.hide()
-        self.ui.tbPressMotorPort1.setText(str(DataBase.select('press_motor_port1')))
-        self.ui.tbPressMotorPort2.setText(str(DataBase.select('press_motor_port2')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotorPort)
+        self.ui.tb_press_motor_forward_port.setText(str(DataBase.select('press_motor_forward_port')))
+        self.ui.tb_press_motor_backward_port.setText(str(DataBase.select('press_motor_backward_port')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotor)
+
+    def stackSeparationMotor(self):
+        self.ui.lblNotification.hide()
+        self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
+        self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
     def stackSensor1Ports(self):
         self.ui.lblNotification.hide()
@@ -889,9 +896,9 @@ class MainWindow(QWidget):
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_port1')))
-        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_port2')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorPort)
+        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_motor_forward_port')))
+        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_motor_backward_port')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingAddOperator)
@@ -929,17 +936,23 @@ class MainWindow(QWidget):
         if self.ui.tb_sensor2_depth_threshold.text() != '':
             result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
 
-        if self.ui.tbPressMotorPort1.text() != '':
-            result = DataBase.update('press_motor_port1', self.ui.tbPressMotorPort1.text())
+        if self.ui.tb_press_motor_forward_port.text() != '':
+            result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
 
-        if self.ui.tbPressMotorPort2.text() != '':
-            result = DataBase.update('press_motor_port2', self.ui.tbPressMotorPort2.text())
+        if self.ui.tb_press_motor_backward_port.text() != '':
+            result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
+
+        if self.ui.tb_separation_motor_forward_port.text() != '':
+            result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
+
+        if self.ui.tb_separation_motor_backward_port.text() != '':
+            result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
 
         if self.ui.tbConveyorPort1.text() != '':
-            result = DataBase.update('conveyor_port1', self.ui.tbConveyorPort1.text())
+            result = DataBase.update('conveyor_motor_forward_port', self.ui.tbConveyorPort1.text())
 
         if self.ui.tbConveyorPort2.text() != '':
-            result = DataBase.update('conveyor_port2', self.ui.tbConveyorPort2.text())
+            result = DataBase.update('conveyor_motor_backward_port', self.ui.tbConveyorPort2.text())
 
         self.initHardwares()
 

@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1694,20 +1694,20 @@ border-style: inset;
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingPressMotorPort">
+            <widget class="QWidget" name="pageSettingPressMotor">
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <property name="bottomMargin">
                <number>100</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblPressMotorPort1">
+               <widget class="QLabel" name="lbl_press_motor_forward_port">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>پورت 1 موتور</string>
+                 <string>پورت 1 موتور پرس</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1718,7 +1718,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbPressMotorPort1">
+               <widget class="QLineEdit" name="tb_press_motor_forward_port">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -1749,19 +1749,19 @@ color:#000000;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblMotorPort2">
+               <widget class="QLabel" name="lbl_press_motor_backward_port">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>پورت 2 موتور</string>
+                 <string>پورت 2 موتور پرس</string>
                 </property>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbPressMotorPort2">
+               <widget class="QLineEdit" name="tb_press_motor_backward_port">
                 <property name="styleSheet">
                  <string notr="true">background-color: #ffffff; 
 padding: 3px; 
@@ -1808,6 +1808,123 @@ border-style: inset;
                 </item>
                 <item>
                  <widget class="QPushButton" name="btnMotorOn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>90</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>روشن</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="pageSettingSeparationMotor">
+             <layout class="QVBoxLayout" name="verticalLayout_52">
+              <property name="bottomMargin">
+               <number>100</number>
+              </property>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lbl_separation_motor_forward_port">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>پورت 1 موتور تفکیک</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLineEdit" name="tb_separation_motor_forward_port">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
+</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lbl_separation_motor_backward_port">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>پورت 2 موتور تفکیک</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLineEdit" name="tb_separation_motor_backward_port">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_31">
+                <item>
+                 <widget class="QPushButton" name="btnSeparationMotorOff">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>90</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color:  #FF0022;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #800011;
+border-style: inset;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>خاموش</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnSeparationMotorOn">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -2062,7 +2179,7 @@ color:#000000;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingConveyorPort">
+            <widget class="QWidget" name="pageSettingConveyorMotor">
              <layout class="QVBoxLayout" name="verticalLayout_29">
               <property name="bottomMargin">
                <number>100</number>
@@ -2086,7 +2203,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbConveyorPort1">
+               <widget class="QLineEdit" name="tb_conveyor_motor_forward_port">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -2573,6 +2690,34 @@ border-style: inset;
                 </property>
                 <property name="text">
                  <string>سنسور 2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="btnSetting10">
+                <property name="minimumSize">
+                 <size>
+                  <width>220</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding: 3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>موتور تفکیک</string>
                 </property>
                </widget>
               </item>
