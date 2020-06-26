@@ -142,7 +142,6 @@ class LoadingThread(QThread):
 
 class AutoDeliveryItemsThread(QThread):
     success_signal = Signal()
-    end_recycle_item_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
@@ -151,7 +150,6 @@ class AutoDeliveryItemsThread(QThread):
         self.delivery_items_flag = False
 
     def run(self):
-        predicted_items = []
         self.delivery_items_flag = True
         try:
             import picamera
@@ -164,7 +162,7 @@ class AutoDeliveryItemsThread(QThread):
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
                         if prob > 0.7:
-                            predicted_items.append(label_id)
+                            window.predicted_items.append(label_id)
                             print(label_id, prob)
                         stream.seek(0)
                         stream.truncate()
@@ -172,12 +170,7 @@ class AutoDeliveryItemsThread(QThread):
                         break
         except Exception as e:
             print("error:", e)
-        else:
-            if len(predicted_items) > 0:
-                most_probability_item = stats.mode(predicted_items).mode[0]
-                window.selected_item = window.items[most_probability_item]
-                print('most probability item:', window.selected_item['name'])
-                self.end_recycle_item_signal.emit()
+     
             # category_index = self.items[most_probability_item]['category_id'] - 1
             # categories_count[category_index] += 1
             # for i in range(len(categories_count)):
@@ -269,9 +262,7 @@ class MainWindow(QWidget):
         #self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
-        self.auto_delivery_items_thread.end_recycle_item_signal.connect(self.endRecycleItem)
-        # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
-        
+    
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
@@ -297,7 +288,8 @@ class MainWindow(QWidget):
         self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
         self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
         self.ui.btnSetting2.clicked.connect(self.stackMotorPort)
-        self.ui.btnSetting3.clicked.connect(self.stackSensorPort)
+        self.ui.btnSetting3.clicked.connect(self.stackSensor1Ports)
+        self.ui.btnSetting9.clicked.connect(self.stackSensor2Ports)
         self.ui.btnSetting6.clicked.connect(self.stackExitApp)
         self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
@@ -341,8 +333,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'motor'):
                 self.motor.close()
                 print("motor close")
-            self.motor_port = int(DataBase.select('motor_port'))
-            self.motor = LED(self.motor_port, pin_factory=factory)
+            self.motor_port1 = int(DataBase.select('motor_port1'))
+            self.motor = LED(self.motor_port1, pin_factory=factory)
             print('motor ready')
         except Exception as e:
             print("error:", e)
@@ -351,8 +343,8 @@ class MainWindow(QWidget):
             if hasattr(self, 'conveyor'):
                 self.conveyor.close()
                 print("conveyor close")
-            self.conveyor_port = int(DataBase.select('conveyor_port'))
-            self.conveyor = LED(self.conveyor_port, pin_factory=factory)
+            self.conveyor_port1 = int(DataBase.select('conveyor_port1'))
+            self.conveyor = LED(self.conveyor_port1, pin_factory=factory)
             print('conveyor ready')
         except Exception as e:
             print("error:", e)
@@ -623,10 +615,11 @@ class MainWindow(QWidget):
     def startRecycleItem(self):
         try:
             if self.device_mode == 'auto':
+                self.predicted_items = []
                 self.auto_delivery_items_thread.start()
-                self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                self.auto_delivery_items_thread_stop_timer.start()
-                pass
+                # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                # self.auto_delivery_items_thread_stop_timer.start()
+                # pass
 
             if hasattr(self, 'motor_off_timer'):
                 self.motor_off_timer.cancel()
@@ -646,6 +639,25 @@ class MainWindow(QWidget):
     def endRecycleItem(self):
         print('endRecycleItem')
         try:
+            if self.device_mode == 'auto':
+                self.auto_delivery_items_thread.stop()
+
+                if len(self.predicted_items) > 0:
+                    most_probability_item = stats.mode(self.predicted_items).mode[0]
+                    self.selected_item = self.items[most_probability_item]
+                    print('most probability item:', window.selected_item['name'])
+
+                    self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
+
+                    if self.selected_item['category_id'] == 1:
+                        self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
+                    elif self.selected_item['category_id'] == 2:
+                        self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
+                    elif self.selected_item['category_id'] == 3:
+                        self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
+                    elif self.selected_item['category_id'] == 4:
+                        self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+
             self.playSound('audio3')
             self.showNotification(RECYCLE_MESSAGE)
             self.ui.btnRight.show()
@@ -658,19 +670,7 @@ class MainWindow(QWidget):
                 self.user_items.append(self.selected_item)
             self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
             self.ui.lblTotal.setText(str(self.total_price))
-
-            if self.device_mode == 'auto':
-                self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
-
-                if self.selected_item['category_id'] == 1:
-                    self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
-                elif self.selected_item['category_id'] == 2:
-                    self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
-                elif self.selected_item['category_id'] == 3:
-                    self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
-                elif self.selected_item['category_id'] == 4:
-                    self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
-
+             
         except Exception as e:
             print("error:", e)
 
@@ -863,19 +863,28 @@ class MainWindow(QWidget):
 
     def stackMotorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbMotorPort.setText(str(DataBase.select('motor_port')))
+        self.ui.tbMotorPort1.setText(str(DataBase.select('motor_port1')))
+        self.ui.tbMotorPort2.setText(str(DataBase.select('motor_port2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingMotorPort)
 
-    def stackSensorPort(self):
+    def stackSensor1Ports(self):
         self.ui.lblNotification.hide()
-        self.ui.tb_sensor_trig_port.setText(str(DataBase.select('sensor_trig_port')))
-        self.ui.tb_sensor_echo_port.setText(str(DataBase.select('sensor_echo_port')))
-        self.ui.tb_sensor_depth_threshold.setText(str(DataBase.select('sensor_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensorPort)
+        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
+        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
+        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor1Ports)
+
+    def stackSensor2Ports(self):
+        self.ui.lblNotification.hide()
+        self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('sensor2_trig_port')))
+        self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('sensor2_echo_port')))
+        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('sensor2_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor2Ports)
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbConveyorPort.setText(str(DataBase.select('conveyor_port')))
+        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_port1')))
+        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_port2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorPort)
 
     def stackAddOpetator(self):
@@ -900,16 +909,31 @@ class MainWindow(QWidget):
         if self.ui.btnAutoDevice.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        if self.ui.tb_sensor_trig_port.text() != '':
-            result = DataBase.update('sensor_trig_port', self.ui.tb_sensor_trig_port.text())
-        if self.ui.tb_sensor_echo_port.text() != '':
-            result = DataBase.update('sensor_echo_port', self.ui.tb_sensor_echo_port.text())
-        if self.ui.tb_sensor_depth_threshold.text() != '':
-            result = DataBase.update('sensor_depth_threshold', self.ui.tb_sensor_depth_threshold.text())
-        if self.ui.tbMotorPort.text() != '':
-            result = DataBase.update('motor_port', self.ui.tbMotorPort.text())
-        if self.ui.tbConveyorPort.text() != '':
-            result = DataBase.update('conveyor_port', self.ui.tbConveyorPort.text())
+        if self.ui.tb_sensor1_trig_port.text() != '':
+            result = DataBase.update('sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
+        if self.ui.tb_sensor1_echo_port.text() != '':
+            result = DataBase.update('sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
+        if self.ui.tb_sensor1_depth_threshold.text() != '':
+            result = DataBase.update('sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
+
+        if self.ui.tb_sensor2_trig_port.text() != '':
+            result = DataBase.update('sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
+        if self.ui.tb_sensor2_echo_port.text() != '':
+            result = DataBase.update('sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
+        if self.ui.tb_sensor2_depth_threshold.text() != '':
+            result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
+
+        if self.ui.tbMotorPort1.text() != '':
+            result = DataBase.update('motor_port1', self.ui.tbMotorPort1.text())
+
+        if self.ui.tbMotorPort2.text() != '':
+            result = DataBase.update('motor_port2', self.ui.tbMotorPort2.text())
+
+        if self.ui.tbConveyorPort1.text() != '':
+            result = DataBase.update('conveyor_port1', self.ui.tbConveyorPort1.text())
+
+        if self.ui.tbConveyorPort2.text() != '':
+            result = DataBase.update('conveyor_port2', self.ui.tbConveyorPort2.text())
 
         self.initHardwares()
 
