@@ -142,7 +142,6 @@ class LoadingThread(QThread):
 
 class AutoDeliveryItemsThread(QThread):
     success_signal = Signal()
-    end_recycle_item_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
@@ -151,7 +150,6 @@ class AutoDeliveryItemsThread(QThread):
         self.delivery_items_flag = False
 
     def run(self):
-        predicted_items = []
         self.delivery_items_flag = True
         try:
             import picamera
@@ -164,7 +162,7 @@ class AutoDeliveryItemsThread(QThread):
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
                         if prob > 0.7:
-                            predicted_items.append(label_id)
+                            window.predicted_items.append(label_id)
                             print(label_id, prob)
                         stream.seek(0)
                         stream.truncate()
@@ -172,12 +170,7 @@ class AutoDeliveryItemsThread(QThread):
                         break
         except Exception as e:
             print("error:", e)
-        else:
-            if len(predicted_items) > 0:
-                most_probability_item = stats.mode(predicted_items).mode[0]
-                window.selected_item = window.items[most_probability_item]
-                print('most probability item:', window.selected_item['name'])
-                self.end_recycle_item_signal.emit()
+     
             # category_index = self.items[most_probability_item]['category_id'] - 1
             # categories_count[category_index] += 1
             # for i in range(len(categories_count)):
@@ -269,9 +262,7 @@ class MainWindow(QWidget):
         #self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
-        self.auto_delivery_items_thread.end_recycle_item_signal.connect(self.endRecycleItem)
-        # self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
-        
+    
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
@@ -623,10 +614,11 @@ class MainWindow(QWidget):
     def startRecycleItem(self):
         try:
             if self.device_mode == 'auto':
+                self.predicted_items = []
                 self.auto_delivery_items_thread.start()
-                self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                self.auto_delivery_items_thread_stop_timer.start()
-                pass
+                # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                # self.auto_delivery_items_thread_stop_timer.start()
+                # pass
 
             if hasattr(self, 'motor_off_timer'):
                 self.motor_off_timer.cancel()
@@ -646,6 +638,25 @@ class MainWindow(QWidget):
     def endRecycleItem(self):
         print('endRecycleItem')
         try:
+            if self.device_mode == 'auto':
+                self.auto_delivery_items_thread.stop()
+
+                if len(self.predicted_items) > 0:
+                    most_probability_item = stats.mode(self.predicted_items).mode[0]
+                    self.selected_item = self.items[most_probability_item]
+                    print('most probability item:', window.selected_item['name'])
+
+                    self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
+
+                    if self.selected_item['category_id'] == 1:
+                        self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
+                    elif self.selected_item['category_id'] == 2:
+                        self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
+                    elif self.selected_item['category_id'] == 3:
+                        self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
+                    elif self.selected_item['category_id'] == 4:
+                        self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+
             self.playSound('audio3')
             self.showNotification(RECYCLE_MESSAGE)
             self.ui.btnRight.show()
@@ -658,19 +669,7 @@ class MainWindow(QWidget):
                 self.user_items.append(self.selected_item)
             self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
             self.ui.lblTotal.setText(str(self.total_price))
-
-            if self.device_mode == 'auto':
-                self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
-
-                if self.selected_item['category_id'] == 1:
-                    self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
-                elif self.selected_item['category_id'] == 2:
-                    self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
-                elif self.selected_item['category_id'] == 3:
-                    self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
-                elif self.selected_item['category_id'] == 4:
-                    self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
-
+             
         except Exception as e:
             print("error:", e)
 
