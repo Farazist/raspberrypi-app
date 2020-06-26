@@ -358,16 +358,30 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            if hasattr(self, 'sensor'):
-                self.sensor.close()
-                print("sensor close")
-            sensor_trig_port = int(DataBase.select('sensor_trig_port'))
-            sensor_echo_port = int(DataBase.select('sensor_echo_port'))
-            sensor_depth_threshold = float(DataBase.select('sensor_depth_threshold'))
-            self.sensor = DistanceSensor(sensor_trig_port, sensor_echo_port, max_distance=1, threshold_distance=sensor_depth_threshold/100, pin_factory=factory)
-            self.sensor.when_in_range = self.startRecycleItem
+            if hasattr(self, 'sensor1'):
+                self.sensor1.close()
+                print("sensor1 close")
+            sensor1_trig_port = int(DataBase.select('sensor1_trig_port'))
+            sensor1_echo_port = int(DataBase.select('sensor1_echo_port'))
+            sensor1_depth_threshold = float(DataBase.select('sensor1_depth_threshold'))
+            self.sensor1 = DistanceSensor(sensor1_trig_port, sensor1_echo_port, max_distance=1, threshold_distance=sensor1_depth_threshold/100, pin_factory=factory)
+            self.sensor1.when_in_range = self.startRecycleItem
                     
-            print('sensor ready')
+            print('sensor1 ready')
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            if hasattr(self, 'sensor2'):
+                self.sensor2.close()
+                print("sensor2 close")
+            sensor2_trig_port = int(DataBase.select('sensor2_trig_port'))
+            sensor2_echo_port = int(DataBase.select('sensor2_echo_port'))
+            sensor2_depth_threshold = float(DataBase.select('sensor2_depth_threshold'))
+            self.sensor2 = DistanceSensor(sensor2_trig_port, sensor2_echo_port, max_distance=1, threshold_distance=sensor2_depth_threshold/100, pin_factory=factory)
+            self.sensor2.when_in_range = self.endRecycleItem
+                    
+            print('sensor2 ready')
         except Exception as e:
             print("error:", e)
 
@@ -609,9 +623,9 @@ class MainWindow(QWidget):
     def startRecycleItem(self):
         try:
             if self.device_mode == 'auto':
-                #self.auto_delivery_items_thread.start()
-                #self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                #self.auto_delivery_items_thread_stop_timer.start()
+                self.auto_delivery_items_thread.start()
+                self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
+                self.auto_delivery_items_thread_stop_timer.start()
                 pass
 
             if hasattr(self, 'motor_off_timer'):
