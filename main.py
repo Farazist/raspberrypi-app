@@ -614,6 +614,7 @@ class MainWindow(QWidget):
 
         
     def startRecycleItem(self):
+        print('startRecycleItem')
         try:
             if self.delivery_items_flag == True:
                 self.detect_item_flag = True
