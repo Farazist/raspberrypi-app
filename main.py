@@ -335,18 +335,11 @@ class MainWindow(QWidget):
         try:
             if hasattr(self, 'press_motor'):
                 self.motor.close()
-<<<<<<< HEAD
                 print("press motor close")
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
             self.press_motor = Motor(forward=self.press_motor_forward_port, backward=press_motor_backward_port, pin_factory=factory)
             print('press motor ready')
-=======
-                print("motor close")
-            self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
-            self.motor = LED(self.press_motor_forward_port, pin_factory=factory)
-            print('motor ready')
->>>>>>> f3e41e58c0a3b5fbfd14e33dd79a6a549c47e104
         except Exception as e:
             print("error:", e)
 
@@ -364,18 +357,11 @@ class MainWindow(QWidget):
         try:
             if hasattr(self, 'conveyor_motor'):
                 self.conveyor.close()
-<<<<<<< HEAD
                 print("conveyor motor close")
             self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
             self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=conveyor_motor_backward_port, pin_factory=factory)
             print('conveyor motor ready')
-=======
-                print("conveyor close")
-            self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
-            self.conveyor = LED(self.conveyor_motor_forward_port, pin_factory=factory)
-            print('conveyor ready')
->>>>>>> f3e41e58c0a3b5fbfd14e33dd79a6a549c47e104
         except Exception as e:
             print("error:", e)
         
