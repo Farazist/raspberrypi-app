@@ -7,7 +7,7 @@ from time import sleep, time
 from threading import Thread, Timer, Event
 from functools import partial
 # from escpos.printer import Usb
-from gpiozero import DistanceSensor, LED
+from gpiozero import DistanceSensor, Motor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -39,6 +39,8 @@ DEVICE_VERSION = 'ورژن {}'
 stack_timer = 240000
 motor_timer = 2.0
 camera_timer = 3.0
+separation_motor_timer = 1.0
+predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -161,7 +163,7 @@ class AutoDeliveryItemsThread(QThread):
                         stream.seek(0)
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
-                        if prob > 0.7:
+                        if prob > predict_item_threshold:
                             window.predicted_items.append(label_id)
                             print(label_id, prob)
                         stream.seek(0)
@@ -330,22 +332,35 @@ class MainWindow(QWidget):
 
     def initHardwares(self):
         try:
-            if hasattr(self, 'motor'):
+            if hasattr(self, 'press_motor'):
                 self.motor.close()
-                print("motor close")
-            self.press_motor_port1 = int(DataBase.select('press_motor_port1'))
-            self.motor = LED(self.press_motor_port1, pin_factory=factory)
-            print('motor ready')
+                print("press motor close")
+            self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
+            self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
+            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=press_motor_backward_port, pin_factory=factory)
+            print('press motor ready')
         except Exception as e:
             print("error:", e)
 
         try:
-            if hasattr(self, 'conveyor'):
+            if hasattr(self, 'separation_motor'):
+                self.motor.close()
+                print("separation motor close")
+            self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
+            self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
+            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=separation_motor_backward_port, pin_factory=factory)
+            print('separation motor ready')
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            if hasattr(self, 'conveyor_motor'):
                 self.conveyor.close()
-                print("conveyor close")
-            self.conveyor_port1 = int(DataBase.select('conveyor_port1'))
-            self.conveyor = LED(self.conveyor_port1, pin_factory=factory)
-            print('conveyor ready')
+                print("conveyor motor close")
+            self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
+            self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
+            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=conveyor_motor_backward_port, pin_factory=factory)
+            print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
         
@@ -358,7 +373,6 @@ class MainWindow(QWidget):
             sensor1_depth_threshold = float(DataBase.select('sensor1_depth_threshold'))
             self.sensor1 = DistanceSensor(sensor1_trig_port, sensor1_echo_port, max_distance=1, threshold_distance=sensor1_depth_threshold/100, pin_factory=factory)
             self.sensor1.when_in_range = self.startRecycleItem
-                    
             print('sensor1 ready')
         except Exception as e:
             print("error:", e)
@@ -372,7 +386,6 @@ class MainWindow(QWidget):
             sensor2_depth_threshold = float(DataBase.select('sensor2_depth_threshold'))
             self.sensor2 = DistanceSensor(sensor2_trig_port, sensor2_echo_port, max_distance=1, threshold_distance=sensor2_depth_threshold/100, pin_factory=factory)
             self.sensor2.when_in_range = self.endRecycleItem
-                    
             print('sensor2 ready')
         except Exception as e:
             print("error:", e)
@@ -626,17 +639,25 @@ class MainWindow(QWidget):
                     # self.auto_delivery_items_thread_stop_timer.start()
                     # pass
 
-                if hasattr(self, 'motor_off_timer'):
-                    self.motor_off_timer.cancel()
-                self.motorOn()
-                self.motor_off_timer = Timer(motor_timer, self.motorOff)
-                self.motor_off_timer.start()
+                if hasattr(self, 'press_motor_stop_timer'):
+                    self.press_motor_stop_timer.cancel()
+                try:
+                    self.press_motor.forward()
+                    print('press motor on')
+                    self.press_motor_stop_timer = Timer(motor_timer, self.press_motor.stop)
+                    self.press_motor_stop_timer.start()
+                except Exception as e:
+                    print("error:", e)
 
-                if hasattr(self, 'conveyor_off_timer'):
-                    self.conveyor_off_timer.cancel()
-                self.conveyorOn()
-                self.conveyor_off_timer = Timer(motor_timer, self.conveyorOff)
-                self.conveyor_off_timer.start()
+                if hasattr(self, 'conveyor_motor_stop_timer'):
+                    self.conveyor_motor_stop_timer.cancel()
+                try:
+                    self.conveyor_motor.on()
+                    print('conveyor motor on')
+                    self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
+                    self.conveyor_motor_stop_timer.start()
+                except Exception as e:
+                    print("error:", e)
         except Exception as e:
             print("error:", e)
 
@@ -664,6 +685,19 @@ class MainWindow(QWidget):
                             self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
                         elif self.selected_item['category_id'] == 4:
                             self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+
+                if hasattr(self, 'separation_motor_stop_timer'):
+                    self.separation_motor_stop_timer.cancel()
+                try:
+                    if self.selected_item['category_id'] == 1:
+                        self.separation_motor.forward()
+                    else:
+                        self.separation_motor.backward()
+                    print('separation motor on')
+                    self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
+                    self.separation_motor_stop_timer.start()
+                except Exception as e:
+                    print("error:", e)
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -709,20 +743,6 @@ class MainWindow(QWidget):
         try:
             self.conveyor.off()
             print("conveyor off")
-        except Exception as e:
-            print("error:", e)
-
-    def motorOn(self):
-        try:
-            self.motor.on()
-            print('motor on')
-        except Exception as e:
-            print("error:", e)
-    
-    def conveyorOn(self):
-        try:
-            self.conveyor.on()
-            print('conveyor on')
         except Exception as e:
             print("error:", e)
 
