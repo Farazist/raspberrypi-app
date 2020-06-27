@@ -903,8 +903,8 @@ class MainWindow(QWidget):
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_motor_forward_port')))
-        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_motor_backward_port')))
+        self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
+        self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
@@ -955,11 +955,11 @@ class MainWindow(QWidget):
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
 
-        if self.ui.tbConveyorPort1.text() != '':
-            result = DataBase.update('conveyor_motor_forward_port', self.ui.tbConveyorPort1.text())
+        if self.ui.tb_conveyor_motor_forward_port.text() != '':
+            result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
 
-        if self.ui.tbConveyorPort2.text() != '':
-            result = DataBase.update('conveyor_motor_backward_port', self.ui.tbConveyorPort2.text())
+        if self.ui.tb_conveyor_motor_backward_port.text() != '':
+            result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
 
         self.initHardwares()
 
