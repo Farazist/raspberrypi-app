@@ -310,8 +310,8 @@ class MainWindow(QWidget):
         try:
             self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
             self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
-            self.ui.btnConveyorOn.clicked.connect(self.conveyor.on)
-            self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
+            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
+            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
         except Exception as e:
             print("error:", e)
 

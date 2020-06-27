@@ -2404,7 +2404,7 @@ color:#000000;</string>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="btn_conveyor_motor_backward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2462,7 +2462,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnConveyorOn">
+                 <widget class="QPushButton" name="btn_conveyor_motor_forward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
