@@ -1,6 +1,6 @@
 # raspberrypi-app
 App for smart recycle waste bottles
-![img1](images/raed_me/1.jpg){:width="50px"}
+![img1](images/raed_me/1.jpg){width="50px"}
 ## Requirements
 * Raspberry Pi OS (32-bit)
 * Python 3.7
