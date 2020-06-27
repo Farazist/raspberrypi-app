@@ -1,6 +1,6 @@
 # raspberrypi-app
 App for smart recycle waste bottles
-![test][https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/1.jpg | width=100px | alt=Bridge]
+![test](https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/1.jpg | width=100px | alt=Bridge)
 
 ## Requirements
 * Raspberry Pi OS (32-bit)
