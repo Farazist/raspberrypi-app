@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1836,7 +1836,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnMotorOff">
+                 <widget class="QPushButton" name="btn_press_motor_off">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1952,22 +1952,80 @@ color:#000000;
                 </property>
                </widget>
               </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lbl_separation_motor_timer">
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>تایمر موتور تفکیک</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLineEdit" name="tb_separation_motor_timer">
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
+</string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
+               </widget>
+              </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_31">
                 <item>
-                 <widget class="QPushButton" name="btnSeparationMotorOff">
+                 <widget class="QPushButton" name="btn_separation_motor_backward_on">
                   <property name="minimumSize">
                    <size>
-                    <width>80</width>
-                    <height>90</height>
+                    <width>0</width>
+                    <height>70</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 22pt &quot;IRANSansFaNum&quot;;
+padding-left: 10px; 
+padding-right: 10px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>پورت 2 روشن</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_separation_motor_off">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>70</height>
                    </size>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
 background-color:  #FF0022;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
+font: 22pt &quot;IRANSansFaNum&quot;;
+padding-left: 10px; 
+padding-right: 10px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;
@@ -1983,19 +2041,20 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnSeparationMotorOn">
+                 <widget class="QPushButton" name="btn_separation_motor_forward_on">
                   <property name="minimumSize">
                    <size>
-                    <width>80</width>
-                    <height>90</height>
+                    <width>0</width>
+                    <height>70</height>
                    </size>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
-padding: 3px; 
+font: 22pt &quot;IRANSansFaNum&quot;;
+padding-left: 10px; 
+padding-right: 10px; 
 border: none; 
 border-radius: 6px;
 outline-style: none;
@@ -2006,7 +2065,7 @@ border-style: inset;
 }</string>
                   </property>
                   <property name="text">
-                   <string>روشن</string>
+                   <string>پورت 1 روشن</string>
                   </property>
                  </widget>
                 </item>
@@ -3210,8 +3269,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5013,8 +5072,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>381</width>
+             <height>16</height>
             </rect>
            </property>
           </widget>
