@@ -1,5 +1,6 @@
 # raspberrypi-app
 App for smart recycle waste bottles
+</br>
 <img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/1.jpg" width="300">
 <img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/2.jpg" width="300">
 <img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/3.jpg" width="300">
