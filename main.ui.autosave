@@ -1836,7 +1836,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnMotorOff">
+                 <widget class="QPushButton" name="btn_press_motor_off">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
