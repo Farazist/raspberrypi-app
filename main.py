@@ -856,10 +856,6 @@ class MainWindow(QWidget):
     
     def chargeCharity(self):
         self.deposit_to_charity = int(self.ui.lblPayment_charity.text())
-        self.minus_wallet_charity = self.deposit_to_charity 
-        self.minus_wallet_charity += self.minus_wallet_charity
-        self.ui.lblDepositToCharity.setText(str(self.minus_wallet_charity))
-        
         self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.deposit_to_charity))
         print(self.minus_wallet_charity)
 
