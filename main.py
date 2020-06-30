@@ -302,10 +302,17 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
+        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
+
         self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
         self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
         self.ui.btnCharity_3.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_3.text()))
         self.ui.btnCharity_4.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_4.text()))
+        
+        self.ui.btnEnvirnmentalProtection_1.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text()))
+        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
+        self.ui.btnEnvirnmentalProtection_3.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_3.text()))
+        self.ui.btnEnvirnmentalProtection_4.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_4.text()))
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
@@ -864,6 +871,12 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
+
+    def chargeEnvirnment(self):
+        self.deposit_to_envirnmental_organizatiion = int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.deposit_to_envirnmental_organizatiion))
+
+
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
