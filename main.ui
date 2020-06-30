@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>18</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -4770,7 +4770,7 @@ color:#000000;</string>
          <number>9</number>
         </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_32">
+         <layout class="QHBoxLayout" name="horizontalLayout_32">
           <property name="spacing">
            <number>20</number>
           </property>
@@ -4781,40 +4781,77 @@ color:#000000;</string>
            <number>50</number>
           </property>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_38">
-            <item alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblAddressTitle">
+           <layout class="QVBoxLayout" name="verticalLayout_32">
+            <property name="topMargin">
+             <number>20</number>
+            </property>
+            <property name="bottomMargin">
+             <number>200</number>
+            </property>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblCharge">
               <property name="styleSheet">
                <string notr="true">font: 26pt &quot;IRANSans&quot;;
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>آدرس شما</string>
+               <string>مبلغ شارژ</string>
               </property>
              </widget>
             </item>
-            <item alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblUserAddress">
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLineEdit" name="tbChargeUnitPrice">
+              <property name="minimumSize">
+               <size>
+                <width>290</width>
+                <height>70</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>290</width>
+                <height>70</height>
+               </size>
+              </property>
               <property name="styleSheet">
-               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+               <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
               </property>
-              <property name="text">
-               <string/>
+              <property name="inputMethodHints">
+               <set>Qt::ImhDigitsOnly</set>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="btnChangedUserAddress">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnChargePayment">
+              <property name="minimumSize">
+               <size>
+                <width>290</width>
+                <height>70</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>290</width>
+                <height>70</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
-padding-left: 20px; 
-padding-right: 20px; 
-padding-top: 3px; 
-padding-bottom: 3px; 
+padding-left: 10px; 
+padding-right:10px;
+padding-top:3px;
+padding-bottom:3px;
 border: none; 
 border-radius: 6px;
 outline-style: none;
@@ -4825,50 +4862,92 @@ border-style: inset;
 }</string>
               </property>
               <property name="text">
-               <string>ویرایش آدرس</string>
+               <string>تایید و پرداخت</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QTextEdit" name="tbUserNewAddress">
-            <property name="focusPolicy">
-             <enum>Qt::ClickFocus</enum>
-            </property>
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::RightToLeft</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-            </property>
-            <property name="tabChangesFocus">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>آدرس را وارد نمایید</string>
+           <widget class="Line" name="line_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignLeft">
-           <widget class="QPushButton" name="btnUserNewAddress">
-            <property name="styleSheet">
-             <string notr="true">QPushButton{
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_38">
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_56">
+              <property name="topMargin">
+               <number>20</number>
+              </property>
+              <property name="bottomMargin">
+               <number>20</number>
+              </property>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lblAddressTitle">
+                <property name="styleSheet">
+                 <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+                </property>
+                <property name="text">
+                 <string>آدرس شما</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QLabel" name="lblUserAddress">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QPushButton" name="btnEditUserAddress">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
 font: 24pt &quot;IRANSans&quot;;
-padding-left: 20px; 
-padding-right: 20px; 
-padding-top: 3px; 
-padding-bottom: 3px; 
+padding-left: 10px; 
+padding-right:10px;
+padding-top:3px;
+padding-bottom:3px;
 border: none; 
 border-radius: 6px;
 outline-style: none;
@@ -4877,11 +4956,92 @@ QPushButton:pressed {
 background-color: #145222;
 border-style: inset;
 }</string>
-            </property>
-            <property name="text">
-             <string>تغییر و ثبت آدرس</string>
-            </property>
-           </widget>
+                </property>
+                <property name="text">
+                 <string>ویرایش آدرس</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_55">
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLineEdit" name="tbUserNewAddress">
+                <property name="minimumSize">
+                 <size>
+                  <width>290</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>290</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
+                <property name="inputMask">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>شناسه کاربری مالک</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QPushButton" name="btnChangedUserAddress">
+                <property name="minimumSize">
+                 <size>
+                  <width>290</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>290</width>
+                  <height>70</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding-left: 10px; 
+padding-right:10px;
+padding-top:3px;
+padding-bottom:3px;
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+                </property>
+                <property name="text">
+                 <string>تایید آدرس جدید</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

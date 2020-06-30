@@ -750,6 +750,7 @@ class MainWindow(QWidget):
                 btn = QPushButton()
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
+
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 btn.setMinimumSize(250, 100)
@@ -821,13 +822,26 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def stackChargingResidentialUnit(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         self.ui.lblUserAddress.setText(self.user['address'])
         print(self.user['address'])
-        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        sp_retain = QSizePolicy()
+        sp_retain.setRetainSizeWhenHidden(True)
+        self.ui.tbUserNewAddress.setSizePolicy(sp_retain)
+        self.ui.btnChangedUserAddress.setSizePolicy(sp_retain)
+        self.ui.tbUserNewAddress.hide()
+        self.ui.btnChangedUserAddress.hide()
+        self.ui.btnEditUserAddress.clicked.connect(self.editUserAddress)
         self.ui.Stack.setCurrentWidget(self.ui.pageChargingResidentialUnit)
+
+    def editUserAddress(self):
+        self.ui.tbUserNewAddress.show()
+        self.ui.btnChangedUserAddress.show()
 
     def stackDepositToWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageDepositToWallet)
 
     def stackCharity(self):
