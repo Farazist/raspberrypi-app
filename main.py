@@ -301,7 +301,11 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_2.clicked.connect(self.stackDepositToWallet)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
-        self.ui.btnPlus_charity.clicked.connect(self.depositToCharity)
+        self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
+        self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
+        self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
+        self.ui.btnCharity_3.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_3.text()))
+        self.ui.btnCharity_4.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_4.text()))
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
@@ -328,8 +332,6 @@ class MainWindow(QWidget):
         self.playSound('audio2')
         self.refresh()
 
-    def depositToCharity(self):
-        pass
 
     def initHardwares(self):
         try:
@@ -848,16 +850,17 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
-        self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
-        self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
-        self.ui.btnCharity_3.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_3.text()))
-        self.ui.btnCharity_4.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_4.text()))
-        self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
+        
         #self.ui.btnPlus_charity.clicked.connect(lambda: self.ui.lblPayment_charity.setText(str(int(self.ui.lblPayment_charity.text()+200))))
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
     
     def chargeCharity(self):
-        pass
+        self.deposit_to_charity = int(self.ui.lblPayment_charity.text()) + 200
+        self.ui.lblPayment_charity.setText(str(self.deposit_to_charity))
+        print(self.deposit_to_charity)
+        self.minus_wallet_charity = int(self.ui.lblTotalPrice_charity.text()) - 200
+        self.ui.lblTotalPrice_charity.setText(str(self.minus_wallet_charity))
+        print(self.minus_wallet_charity)
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
