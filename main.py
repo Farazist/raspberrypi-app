@@ -867,6 +867,7 @@ class MainWindow(QWidget):
         self.ui.lbl_name_environmental_organization.hide()
         self.ui.lbl_deposit_price_environmental_organization.hide()
         self.ui.lbl_currency_environmental_organization.hide()
+        self.ui.lbl_deposit_price_environmental_organization.setText('0')
 
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
@@ -876,8 +877,10 @@ class MainWindow(QWidget):
         self.ui.lbl_name_environmental_organization.show()
         self.ui.lbl_deposit_price_environmental_organization.show()
         self.ui.lbl_currency_environmental_organization.show()
-        self.deposit_to_envirnmental_organizatiion = int(self.ui.lblPayment_envirnmentalProtection.text())
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.deposit_to_envirnmental_organizatiion))
+        self.money_envirnmental_organizatiion = int(self.ui.lblPayment_envirnmentalProtection.text())
+        #self.deposit_to_envirnmental_organizatiion += self.money_envirnmental_organizatiion
+        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organizatiion))
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organizatiion))
 
 
 
