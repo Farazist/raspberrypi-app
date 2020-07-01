@@ -851,15 +851,23 @@ class MainWindow(QWidget):
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.ui.lbl_name_charity_organization.hide()
+        self.ui.lbl_deposit_price_charity_organization.hide()
+        self.ui.lbl_currency_charity_organization.hide()
+        self.ui.lbl_deposit_price_charity_organization.setText('0')
         self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
-        #self.ui.btnPlus_charity.clicked.connect(lambda: self.ui.lblPayment_charity.setText(str(int(self.ui.lblPayment_charity.text()+200))))
+        
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
     
     def chargeCharity(self):
-        self.deposit_to_charity = int(self.ui.lblPayment_charity.text())
-        self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.deposit_to_charity))
-        print(self.minus_wallet_charity)
+        self.ui.lbl_name_charity_organization.show()
+        self.ui.lbl_deposit_price_charity_organization.show()
+        self.ui.lbl_currency_charity_organization.show()
+        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
+        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
+        self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.money_charity_organization))
+
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -868,7 +876,6 @@ class MainWindow(QWidget):
         self.ui.lbl_deposit_price_environmental_organization.hide()
         self.ui.lbl_currency_environmental_organization.hide()
         self.ui.lbl_deposit_price_environmental_organization.setText('0')
-
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
@@ -877,9 +884,9 @@ class MainWindow(QWidget):
         self.ui.lbl_name_environmental_organization.show()
         self.ui.lbl_deposit_price_environmental_organization.show()
         self.ui.lbl_currency_environmental_organization.show()
-        self.money_envirnmental_organizatiion = int(self.ui.lblPayment_envirnmentalProtection.text())
-        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organizatiion))
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organizatiion))
+        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organization))
 
 
 
