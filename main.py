@@ -298,7 +298,7 @@ class MainWindow(QWidget):
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
         self.ui.btnSetting8.clicked.connect(self.stackLicense)
         self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
-        self.ui.btnWalletServices_2.clicked.connect(self.stackDepositToWallet)
+        
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
@@ -847,11 +847,6 @@ class MainWindow(QWidget):
     def editUserAddress(self):
         self.ui.tbUserNewAddress.show()
         self.ui.btnChangedUserAddress.show()
-
-    def stackDepositToWallet(self):
-        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, show=False)
-        self.ui.Stack.setCurrentWidget(self.ui.pageDepositToWallet)
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
