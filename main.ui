@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>16</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4311,7 +4311,7 @@ color:#000000;</string>
 color:#000000;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -4451,8 +4451,8 @@ outline-style: none;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>437</width>
-             <height>525</height>
+             <width>417</width>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
@@ -4462,8 +4462,8 @@ outline-style: none;</string>
                <widget class="QPushButton" name="btnEnvirnmentalProtection_1">
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4516,8 +4516,8 @@ color:#000000;</string>
                <widget class="QPushButton" name="btnEnvirnmentalProtection_4">
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4570,8 +4570,8 @@ color:#000000;</string>
                <widget class="QPushButton" name="btnEnvirnmentalProtection_2">
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4631,8 +4631,8 @@ color:#000000;</string>
                <widget class="QPushButton" name="btnEnvirnmentalProtection_3">
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">

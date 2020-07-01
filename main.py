@@ -865,6 +865,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
+        self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
     def chargeEnvirnment(self):
