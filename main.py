@@ -878,7 +878,6 @@ class MainWindow(QWidget):
         self.ui.lbl_deposit_price_environmental_organization.show()
         self.ui.lbl_currency_environmental_organization.show()
         self.money_envirnmental_organizatiion = int(self.ui.lblPayment_envirnmentalProtection.text())
-        #self.deposit_to_envirnmental_organizatiion += self.money_envirnmental_organizatiion
         self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organizatiion))
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organizatiion))
 

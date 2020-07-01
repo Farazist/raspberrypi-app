@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>16</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -3886,6 +3886,52 @@ color:#000000;</string>
               </property>
               <property name="text">
                <string>موجودی حساب شما</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_34">
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+             <widget class="QLabel" name="lbl_currency_charity_organization">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>تومان</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="lbl_deposit_price_charity_organization">
+              <property name="styleSheet">
+               <string notr="true">font: 87 28pt &quot;IRANSansFaNum Black&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="lbl_name_charity_organization">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>مبلغ واریزی به سازمان مورد نظر</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
