@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>18</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4012,8 +4012,8 @@ outline-style: none;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>460</width>
-             <height>525</height>
+             <width>453</width>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4029,8 +4029,8 @@ outline-style: none;
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4089,8 +4089,8 @@ color:#000000;</string>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4166,8 +4166,8 @@ color:#000000;</string>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -4233,8 +4233,8 @@ color:#000000;</string>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
-                  <height>200</height>
+                  <width>190</width>
+                  <height>190</height>
                  </size>
                 </property>
                 <property name="styleSheet">
