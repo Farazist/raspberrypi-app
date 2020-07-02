@@ -303,6 +303,7 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
+        self.ui.btnPlus_RFID.clicked.connect(self.depositToRFID)
 
         self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
         self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
@@ -842,6 +843,25 @@ class MainWindow(QWidget):
         self.ui.tbUserNewAddress.show()
         self.ui.btnChangedUserAddress.show()
 
+    def depositToRFID(self):
+        self.ui.lbl_deposit_RFID.show()
+        self.ui.lbl_deposit_to_RFID.show()
+        self.ui.lb_currency_RFID.show()
+        self.money_RFID = int(self.ui.lblPayment_RFID.text())
+        self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
+        self.ui.lbl_total_wallet_RFID.setText(str(int(self.ui.lbl_total_wallet_RFID.text()) - self.money_RFID))
+
+
+    def stackRFID(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lbl_deposit_RFID.hide()
+        self.ui.lbl_deposit_to_RFID.hide()
+        self.ui.lb_currency_RFID.hide()
+        self.ui.lbl_deposit_to_RFID.setText('0')
+        self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']))
+        self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
+
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
@@ -854,9 +874,6 @@ class MainWindow(QWidget):
         
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
-    def stackRFID(self):
-        pass
-    
     def chargeCharity(self):
         self.ui.lbl_name_charity_organization.show()
         self.ui.lbl_deposit_price_charity_organization.show()
