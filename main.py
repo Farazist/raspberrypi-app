@@ -298,7 +298,7 @@ class MainWindow(QWidget):
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
         self.ui.btnSetting8.clicked.connect(self.stackLicense)
         self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
-        
+        self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
@@ -853,6 +853,9 @@ class MainWindow(QWidget):
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
+
+    def stackRFID(self):
+        pass
     
     def chargeCharity(self):
         self.ui.lbl_name_charity_organization.show()

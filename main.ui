@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>19</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>494</width>
+               <width>631</width>
                <height>648</height>
               </rect>
              </property>
@@ -3644,13 +3644,13 @@ border-style: inset;
            <number>20</number>
           </property>
           <property name="leftMargin">
-           <number>150</number>
+           <number>60</number>
           </property>
           <property name="topMargin">
            <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>150</number>
+           <number>60</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
@@ -3815,6 +3815,60 @@ color:#000000;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_53">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btnWalletServices_2">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/Deposit to card recycling.png</normaloff>images/GreenMainMenu/Deposit to card recycling.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lblWalletServices_2">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>انتقال به کارت</string>
               </property>
              </widget>
             </item>
