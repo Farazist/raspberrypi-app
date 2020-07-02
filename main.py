@@ -810,6 +810,10 @@ class MainWindow(QWidget):
 
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.tbUnit_FastCharging.setText('')
+        self.ui.tbWeight_FastCharging.setText('')
+
 
         self.layout_SArea_FastCharging = QGridLayout()
         for row in range(4):

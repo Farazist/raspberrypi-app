@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>19</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -5168,6 +5168,9 @@ color:#000000;</string>
                <property name="inputMethodHints">
                 <set>Qt::ImhDigitsOnly</set>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -5208,6 +5211,9 @@ color:#000000;</string>
                </property>
                <property name="inputMethodHints">
                 <set>Qt::ImhDigitsOnly</set>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -5337,8 +5343,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>
