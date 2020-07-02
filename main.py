@@ -278,7 +278,7 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnMainMenu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
@@ -298,20 +298,32 @@ class MainWindow(QWidget):
         self.ui.btnSetting7.clicked.connect(self.stackHelp)
         self.ui.btnSetting8.clicked.connect(self.stackLicense)
         self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
-        self.ui.btnWalletServices_2.clicked.connect(self.stackDepositToWallet)
+        self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
-        self.ui.btnPlus_charity.clicked.connect(self.depositToCharity)
+        self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
+        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
+        self.ui.btnPlus_RFID.clicked.connect(self.depositToRFID)
+
+        self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
+        self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
+        self.ui.btnCharity_3.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_3.text()))
+        self.ui.btnCharity_4.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_4.text()))
+        
+        self.ui.btnEnvirnmentalProtection_1.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text()))
+        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
+        self.ui.btnEnvirnmentalProtection_3.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_3.text()))
+        self.ui.btnEnvirnmentalProtection_4.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_4.text()))
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
         self.ui.tbUserId.textChanged.connect(self.hideNotification)
         self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
         try:
-            self.ui.btnMotorOn.clicked.connect(self.motor.on)
-            self.ui.btnMotorOff.clicked.connect(self.motor.off)
-            self.ui.btnConveyorOn.clicked.connect(self.conveyor.on)
-            self.ui.btnConveyorOff.clicked.connect(self.conveyor.off)
+            self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
+            self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
+            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
+            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
         except Exception as e:
             print("error:", e)
 
@@ -328,8 +340,6 @@ class MainWindow(QWidget):
         self.playSound('audio2')
         self.refresh()
 
-    def depositToCharity(self):
-        pass
 
     def initHardwares(self):
         try:
@@ -338,7 +348,7 @@ class MainWindow(QWidget):
                 print("press motor close")
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=press_motor_backward_port, pin_factory=factory)
+            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, pin_factory=factory)
             print('press motor ready')
         except Exception as e:
             print("error:", e)
@@ -349,7 +359,7 @@ class MainWindow(QWidget):
                 print("separation motor close")
             self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=separation_motor_backward_port, pin_factory=factory)
+            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, pin_factory=factory)
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
@@ -360,7 +370,7 @@ class MainWindow(QWidget):
                 print("conveyor motor close")
             self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=conveyor_motor_backward_port, pin_factory=factory)
+            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, pin_factory=factory)
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
@@ -541,9 +551,6 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -552,25 +559,19 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.playSound('audio10')
         self.ui.lblNotification.hide()
-        
+
         gif_loading = QMovie("animations/Rolling.gif")
         self.ui.lblPixmapQr.setMovie(gif_loading)
         gif_loading.start()
 
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def showQrcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
@@ -583,9 +584,6 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
-        #timer.timeout.connect(self.signOutUser)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -597,9 +595,6 @@ class MainWindow(QWidget):
         gif_wallet.start()
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
-        # timer.timeout.connect(self.signOutUser)
-        # timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWalletServices(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -733,20 +728,6 @@ class MainWindow(QWidget):
         self.endRecycleItem()
 
 
-    def motorOff(self):
-        try:
-            self.motor.off()
-            print("motor off")
-        except Exception as e:
-            print("error:", e)
-
-    def conveyorOff(self):
-        try:
-            self.conveyor.off()
-            print("conveyor off")
-        except Exception as e:
-            print("error:", e)
-
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -764,6 +745,7 @@ class MainWindow(QWidget):
                 btn = QPushButton()
                 self.items[i]['count'] = 0
                 btn.setText(self.items[i]['name'])
+
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 btn.setMinimumSize(250, 100)
@@ -812,8 +794,17 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def fastChargingDeliveryRecycleItem(self):
+        pass
+
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnRecycleItem_FastCharging, function=self.fastChargingDeliveryRecycleItem)
+        self.ui.lblRecycledDone_FastCharging.hide()
+        self.ui.tbUnit_FastCharging.setText('')
+        self.ui.tbWeight_FastCharging.setText('')
+
 
         self.layout_SArea_FastCharging = QGridLayout()
         for row in range(4):
@@ -835,26 +826,83 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def stackChargingResidentialUnit(self):
+        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         self.ui.lblUserAddress.setText(self.user['address'])
         print(self.user['address'])
-        self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        sp_retain = QSizePolicy()
+        sp_retain.setRetainSizeWhenHidden(True)
+        self.ui.tbUserNewAddress.setSizePolicy(sp_retain)
+        self.ui.btnChangedUserAddress.setSizePolicy(sp_retain)
+        self.ui.tbUserNewAddress.hide()
+        self.ui.btnChangedUserAddress.hide()
+        self.ui.btnEditUserAddress.clicked.connect(self.editUserAddress)
         self.ui.Stack.setCurrentWidget(self.ui.pageChargingResidentialUnit)
 
-    def stackDepositToWallet(self):
+    def editUserAddress(self):
+        self.ui.tbUserNewAddress.show()
+        self.ui.btnChangedUserAddress.show()
+
+    def depositToRFID(self):
+        self.ui.lbl_deposit_RFID.show()
+        self.ui.lbl_deposit_to_RFID.show()
+        self.ui.lb_currency_RFID.show()
+        self.money_RFID = int(self.ui.lblPayment_RFID.text())
+        self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
+        self.ui.lbl_total_wallet_RFID.setText(str(int(self.ui.lbl_total_wallet_RFID.text()) - self.money_RFID))
+
+
+    def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageDepositToWallet)
+        self.setButton(self.ui.btnRight, show=False)
+        self.ui.lbl_deposit_RFID.hide()
+        self.ui.lbl_deposit_to_RFID.hide()
+        self.ui.lb_currency_RFID.hide()
+        self.ui.lbl_deposit_to_RFID.setText('0')
+        self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']))
+        self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.ui.lbl_name_charity_organization.hide()
+        self.ui.lbl_deposit_price_charity_organization.hide()
+        self.ui.lbl_currency_charity_organization.hide()
+        self.ui.lbl_deposit_price_charity_organization.setText('0')
         self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
+        self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
+        
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
+
+    def chargeCharity(self):
+        self.ui.lbl_name_charity_organization.show()
+        self.ui.lbl_deposit_price_charity_organization.show()
+        self.ui.lbl_currency_charity_organization.show()
+        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
+        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
+        self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.money_charity_organization))
+
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.ui.lbl_name_environmental_organization.hide()
+        self.ui.lbl_deposit_price_environmental_organization.hide()
+        self.ui.lbl_currency_environmental_organization.hide()
+        self.ui.lbl_deposit_price_environmental_organization.setText('0')
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']))
+        self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
+
+    def chargeEnvirnment(self):
+        self.ui.lbl_name_environmental_organization.show()
+        self.ui.lbl_deposit_price_environmental_organization.show()
+        self.ui.lbl_currency_environmental_organization.show()
+        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organization))
+
+
 
     def stackSetting(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -917,8 +965,8 @@ class MainWindow(QWidget):
 
     def stackConveyorPort(self):
         self.ui.lblNotification.hide()
-        self.ui.tbConveyorPort1.setText(str(DataBase.select('conveyor_motor_forward_port')))
-        self.ui.tbConveyorPort2.setText(str(DataBase.select('conveyor_motor_backward_port')))
+        self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
+        self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
@@ -969,11 +1017,11 @@ class MainWindow(QWidget):
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
 
-        if self.ui.tbConveyorPort1.text() != '':
-            result = DataBase.update('conveyor_motor_forward_port', self.ui.tbConveyorPort1.text())
+        if self.ui.tb_conveyor_motor_forward_port.text() != '':
+            result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
 
-        if self.ui.tbConveyorPort2.text() != '':
-            result = DataBase.update('conveyor_motor_backward_port', self.ui.tbConveyorPort2.text())
+        if self.ui.tb_conveyor_motor_backward_port.text() != '':
+            result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
 
         self.initHardwares()
 
@@ -997,6 +1045,6 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    timer = QTimer()
-    timer.start(10000) #it's aboat 1 seconds
+    #timer = QTimer()
+    #timer.start(10000) #it's aboat 1 seconds
     app.exec_()
