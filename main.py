@@ -808,9 +808,14 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def fastChargingDeliveryRecycleItem(self):
+        pass
+
     def stackFastCharging(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnRecycleItem_FastCharging, function=self.fastChargingDeliveryRecycleItem)
+        self.ui.lblRecycledDone_FastCharging.hide()
         self.ui.tbUnit_FastCharging.setText('')
         self.ui.tbWeight_FastCharging.setText('')
 

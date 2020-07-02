@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5168,9 +5168,6 @@ color:#000000;</string>
                <property name="inputMethodHints">
                 <set>Qt::ImhDigitsOnly</set>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -5211,9 +5208,6 @@ color:#000000;</string>
                </property>
                <property name="inputMethodHints">
                 <set>Qt::ImhDigitsOnly</set>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
