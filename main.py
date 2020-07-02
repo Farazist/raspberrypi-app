@@ -1025,6 +1025,6 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    timer = QTimer()
-    timer.start(10000) #it's aboat 1 seconds
+    #timer = QTimer()
+    #timer.start(10000) #it's aboat 1 seconds
     app.exec_()
