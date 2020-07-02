@@ -22,6 +22,26 @@ App for smart recycle waste bottles
 ## Hardware requirements
  * Raspberry Pi 4 (model B - 4GB RAM)
  * Raspberry Pi NoIR Camera V2
+ 
+### Setup RFID (mfrc522 module)
+* GPIO pins:
+    * RST: 25
+    * MISO: 9
+    * MOSI: 10
+    * SCK: 11
+    * SDA: 8
+* commands:
+
+```
+lsmod | grep spi
+```
+```
+sudo pip3 install spidev
+```
+```
+sudo pip3 install mfrc522
+```
+ 
 ## Status
 This project is early in development and does not yet have a stable API.
   
