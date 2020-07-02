@@ -278,7 +278,7 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
         self.ui.btnMainMenu_2.clicked.connect(self.stackWallet)
-        # self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btnMainMenu_3.clicked.connect(self.stackFastCharging)
         self.ui.btnMainMenu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
