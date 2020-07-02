@@ -550,9 +550,6 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -561,25 +558,19 @@ class MainWindow(QWidget):
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btnLeft, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.playSound('audio10')
         self.ui.lblNotification.hide()
-        
+
         gif_loading = QMovie("animations/Rolling.gif")
         self.ui.lblPixmapQr.setMovie(gif_loading)
         gif_loading.start()
 
         self.qrcode_thread.start()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
-        #timer.timeout.connect(self.stackStart)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.stackStart)
 
     def showQrcode(self, qrcode_signin_token):
         qrcode_img = qrcode.make(qrcode_signin_token)
@@ -592,9 +583,6 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
-        #timer.timeout.connect(self.signOutUser)
-        #timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWallet(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -606,9 +594,6 @@ class MainWindow(QWidget):
         gif_wallet.start()
         self.ui.lblWallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
-        # timer.timeout.connect(self.signOutUser)
-        # timer.start(stack_timer)
-        #QTimer.singleShot(10000, self.signOutUser)
 
     def stackWalletServices(self):
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
