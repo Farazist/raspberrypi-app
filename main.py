@@ -844,9 +844,9 @@ class MainWindow(QWidget):
         self.ui.btnChangedUserAddress.show()
 
     def depositToRFID(self):
-        self.ui.lbl_deposit_RFID.show()
-        self.ui.lbl_deposit_to_RFID.show()
-        self.ui.lb_currency_RFID.show()
+        #self.ui.lbl_deposit_RFID.show()
+        #self.ui.lbl_deposit_to_RFID.show()
+        #self.ui.lb_currency_RFID.show()
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
         self.ui.lbl_total_wallet_RFID.setText(str(int(self.ui.lbl_total_wallet_RFID.text()) - self.money_RFID))
@@ -855,10 +855,10 @@ class MainWindow(QWidget):
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.ui.lbl_deposit_RFID.hide()
-        self.ui.lbl_deposit_to_RFID.hide()
-        self.ui.lb_currency_RFID.hide()
-        self.ui.lbl_deposit_to_RFID.setText('0')
+        #self.ui.lbl_deposit_RFID.hide()
+        #self.ui.lbl_deposit_to_RFID.hide()
+        #self.ui.lb_currency_RFID.hide()
+        self.ui.lbl_deposit_to_RFID.setText(self.ui.lbl_deposit_to_RFID.text())
         self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 

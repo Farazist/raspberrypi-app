@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>494</width>
                <height>648</height>
               </rect>
              </property>
@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3882,17 +3882,9 @@ color:#000000;</string>
        <layout class="QHBoxLayout" name="horizontalLayout_37">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_57">
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="label_15">
-            <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
+          <property name="bottomMargin">
+           <number>100</number>
+          </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_42">
             <item alignment="Qt::AlignRight|Qt::AlignVCenter">
@@ -3962,7 +3954,7 @@ color:#000000;</string>
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>0</string>
+               <string>200</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -4056,7 +4048,30 @@ outline-style: none;
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_58"/>
+         <layout class="QVBoxLayout" name="verticalLayout_58">
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+           <widget class="QLabel" name="label_18">
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>500</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>images/vector/rfid.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -5573,8 +5588,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>449</width>
-             <height>447</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
