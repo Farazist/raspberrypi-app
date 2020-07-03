@@ -854,7 +854,7 @@ class MainWindow(QWidget):
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, show=False)
+        self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
         #self.ui.lbl_deposit_RFID.hide()
         #self.ui.lbl_deposit_to_RFID.hide()
         #self.ui.lb_currency_RFID.hide()

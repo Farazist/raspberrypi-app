@@ -3882,12 +3882,27 @@ color:#000000;</string>
        <layout class="QHBoxLayout" name="horizontalLayout_37">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_57">
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="topMargin">
+           <number>50</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
           <property name="bottomMargin">
            <number>100</number>
           </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_42">
-            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="label_24">
               <property name="styleSheet">
                <string notr="true">font: 26pt &quot;IRANSans&quot;;
@@ -3933,7 +3948,13 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_43">
-            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lb_currency_RFID">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
@@ -4049,6 +4070,18 @@ outline-style: none;
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_58">
+          <property name="leftMargin">
+           <number>20</number>
+          </property>
+          <property name="topMargin">
+           <number>20</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
+          <property name="bottomMargin">
+           <number>20</number>
+          </property>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="label_18">
             <property name="maximumSize">
