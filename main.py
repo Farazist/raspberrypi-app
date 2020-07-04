@@ -44,6 +44,13 @@ predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
     show_qrcode_signal = Signal(str)
@@ -574,7 +581,10 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMethods)
 
     def showQrcode(self, qrcode_signin_token):
-        qrcode_img = qrcode.make(qrcode_signin_token)
+        qr.clear()
+        qr.add_data(qrcode_signin_token)
+        qr.make(fit=True)
+        qrcode_img = qr.make_image(fill_color="black", back_color="white")
         self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
         self.ui.lblNotification.hide()
 
