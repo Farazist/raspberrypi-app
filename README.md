@@ -8,6 +8,7 @@ App for smart recycle waste bottles
 <img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/4.jpg" width="400">
 ## Resources
 The mobile application of FARAZIST is available via the following link:
+* https://cafebazaar.ir/app/ir.farazist.farazist_app
 ## Requirements
 * Raspberry Pi OS (32-bit)
 * Python 3.7
