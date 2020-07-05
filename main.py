@@ -868,8 +868,8 @@ class MainWindow(QWidget):
         #self.ui.lbl_deposit_RFID.hide()
         #self.ui.lbl_deposit_to_RFID.hide()
         #self.ui.lb_currency_RFID.hide()
-        self.ui.lbl_deposit_to_RFID.setText(self.ui.lbl_deposit_to_RFID.text())
-        self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']))
+        self.ui.lbl_deposit_to_RFID.setText(self.ui.lblPayment_RFID.text())
+        self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']-int(self.ui.lblPayment_RFID.text())))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def stackCharity(self):

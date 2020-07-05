@@ -4069,6 +4069,13 @@ outline-style: none;
          </layout>
         </item>
         <item>
+         <widget class="Line" name="line_11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_58">
           <property name="leftMargin">
            <number>20</number>
