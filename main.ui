@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>494</width>
+               <width>631</width>
                <height>648</height>
               </rect>
              </property>
@@ -2610,7 +2610,7 @@ color:#000000;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2638,7 +2638,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color:  #FF0022;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2666,7 +2666,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2694,7 +2694,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2722,7 +2722,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2750,7 +2750,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2777,7 +2777,7 @@ border-style: inset;
                 <property name="styleSheet">
                  <string notr="true">background-color: #003cbd;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2800,7 +2800,7 @@ outline-style: none;</string>
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2828,7 +2828,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2856,7 +2856,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
@@ -2884,7 +2884,7 @@ border-style: inset;
                  <string notr="true">QPushButton{
 background-color: #28a745;
 color: rgb(255, 255, 255);
-font: 24pt &quot;IRANSans&quot;;
+font: 24pt &quot;IRANSansFaNum&quot;;
 padding: 3px; 
 border: none; 
 border-radius: 6px;
