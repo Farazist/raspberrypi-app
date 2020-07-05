@@ -866,25 +866,27 @@ class MainWindow(QWidget):
         self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']-int(self.ui.lblPayment_RFID.text())))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
+    def chargeCharity(self):
+        #self.ui.lbl_name_charity_organization.show()
+        #self.ui.lbl_deposit_price_charity_organization.show()
+        #self.ui.lbl_currency_charity_organization.show()
+        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
+        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
+        self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.money_charity_organization))
+
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        self.ui.lbl_name_charity_organization.hide()
-        self.ui.lbl_deposit_price_charity_organization.hide()
-        self.ui.lbl_currency_charity_organization.hide()
-        self.ui.lbl_deposit_price_charity_organization.setText('0')
+        #self.ui.lbl_name_charity_organization.hide()
+        #self.ui.lbl_deposit_price_charity_organization.hide()
+        #self.ui.lbl_currency_charity_organization.hide()
+        self.ui.lbl_deposit_price_charity_organization.setText(self.ui.lbl_deposit_price_charity_organization.text())
         self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
-    def chargeCharity(self):
-        self.ui.lbl_name_charity_organization.show()
-        self.ui.lbl_deposit_price_charity_organization.show()
-        self.ui.lbl_currency_charity_organization.show()
-        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
-        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
-        self.ui.lblTotalPrice_charity.setText(str(int(self.ui.lblTotalPrice_charity.text()) - self.money_charity_organization))
+   
 
 
     def stackEnvirnmentalProtection(self):
