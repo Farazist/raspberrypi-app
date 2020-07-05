@@ -856,14 +856,18 @@ class MainWindow(QWidget):
     def depositToRFID(self):
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
-        self.ui.lbl_total_wallet_RFID.setText(str(int(self.ui.lbl_total_wallet_RFID.text()) - self.money_RFID))
+        self.user_wallet -= self.money_RFID
+        self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
 
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+
+        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_RFID.text())
+
         self.ui.lbl_deposit_to_RFID.setText(self.ui.lblPayment_RFID.text())
-        self.ui.lbl_total_wallet_RFID.setText(str(self.user['wallet']-int(self.ui.lblPayment_RFID.text())))
+        self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def chargeCharity(self):
