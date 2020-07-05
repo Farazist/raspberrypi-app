@@ -27,11 +27,18 @@ The mobile application of FARAZIST is available via the following link:
  
 ### Setup RFID (mfrc522 module)
 * GPIO pins:
-    * RST: 25
-    * MISO: 9
-    * MOSI: 10
-    * SCK: 11
-    * SDA: 8
+
+| Name | Pin # | Pin name   |
+|:------:|:-------:|:------------:|
+| SDA  | 24    | GPIO8      |
+| SCK  | 23    | GPIO11     |
+| MOSI | 19    | GPIO10     |
+| MISO | 21    | GPIO9      |
+| IRQ  | None  | None       |
+| GND  | Any   | Any Ground |
+| RST  | 22    | GPIO25     |
+| 3.3V | 1     | 3V3        |
+
 * commands:
 
 ```
