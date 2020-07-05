@@ -880,9 +880,6 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def chargeEnvirnment(self):
-        #self.ui.lbl_name_environmental_organization.show()
-        #self.ui.lbl_deposit_price_environmental_organization.show()
-        #self.ui.lbl_currency_environmental_organization.show()
         self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
         self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(int(self.ui.lblTotalPrice_envirnmentalProtection.text()) - self.money_envirnmental_organization))
@@ -890,9 +887,6 @@ class MainWindow(QWidget):
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
-        #self.ui.lbl_name_environmental_organization.hide()
-        #self.ui.lbl_deposit_price_environmental_organization.hide()
-        #self.ui.lbl_currency_environmental_organization.hide()
         self.ui.lbl_deposit_price_environmental_organization.setText(self.ui.lblPayment_envirnmentalProtection.text())
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user['wallet']-int(self.ui.lblPayment_envirnmentalProtection.text())))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
