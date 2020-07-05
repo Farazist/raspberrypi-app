@@ -4736,7 +4736,7 @@ color:#000000;</string>
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>200</string>
+               <string>0</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -4792,7 +4792,7 @@ outline-style: none;</string>
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               </property>
               <property name="text">
-               <string>200</string>
+               <string>300</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
