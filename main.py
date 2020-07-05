@@ -881,7 +881,7 @@ class MainWindow(QWidget):
         #self.ui.lbl_deposit_price_charity_organization.hide()
         #self.ui.lbl_currency_charity_organization.hide()
         self.ui.lbl_deposit_price_charity_organization.setText(self.ui.lbl_deposit_price_charity_organization.text())
-        self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']))
+        self.ui.lblTotalPrice_charity.setText(str(self.user['wallet']-int(self.ui.lbl_deposit_price_charity_organization.text())))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
