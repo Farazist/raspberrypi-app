@@ -863,7 +863,6 @@ class MainWindow(QWidget):
         self.stackWalletServices()
 
     def plusRFID(self):
-        
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
         self.user_wallet -= self.money_RFID
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
@@ -888,7 +887,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def plusCharity(self):
-        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
+        
         self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
         self.user_wallet -= self.money_charity_organization
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
@@ -906,6 +905,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
 
         self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_charity.text())
+        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
 
         self.ui.lbl_deposit_price_charity_organization.setText(self.ui.lblPayment_charity.text())
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
