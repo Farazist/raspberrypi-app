@@ -4067,7 +4067,7 @@ outline-style: none;
            </layout>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="btn_confirm_deposit_to_RFIDcard">
             <property name="minimumSize">
              <size>
               <width>200</width>
