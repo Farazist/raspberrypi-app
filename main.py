@@ -312,6 +312,7 @@ class MainWindow(QWidget):
         self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
         self.ui.btnPlus_RFID.clicked.connect(self.plusRFID)
+        self.ui.btnMinus_RFID.clicked.connect(self.minusRFID)
         self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
 
         self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
@@ -865,6 +866,13 @@ class MainWindow(QWidget):
         self.user_wallet -= self.money_RFID
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
 
+    def minusRFID(self):
+        if int(self.ui.lbl_deposit_to_RFID.text()) > 0:
+            self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) - self.money_RFID))
+            self.user_wallet += self.money_RFID
+            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+        else:
+            pass
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
