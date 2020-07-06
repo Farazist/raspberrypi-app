@@ -892,7 +892,9 @@ class MainWindow(QWidget):
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
 
     def minusCharity(self):
-        pass
+        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) - self.money_charity_organization))
+        self.user_wallet += self.money_charity_organization
+        self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
