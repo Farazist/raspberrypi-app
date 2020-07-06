@@ -34,6 +34,7 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
+DEPOSITE_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
@@ -310,7 +311,8 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
-        self.ui.btnPlus_RFID.clicked.connect(self.depositToRFID)
+        self.ui.btnPlus_RFID.clicked.connect(self.plusRFID)
+        self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
 
         self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
         self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
@@ -853,7 +855,12 @@ class MainWindow(QWidget):
         self.ui.tbUserNewAddress.show()
         self.ui.btnChangedUserAddress.show()
 
-    def depositToRFID(self):
+    def depositToRFIDcard(self):
+        self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
+        #time.sleep(5)
+        #self.ui.stackWalletServices()
+
+    def plusRFID(self):
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
         self.user_wallet -= self.money_RFID
