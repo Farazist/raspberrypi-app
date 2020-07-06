@@ -446,6 +446,12 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def stopSound(self):
+        try:
+                mixer.music.stop()
+        except Exception as e:
+            print("error:", e)
+
     def makeGif(self):
         pngdir = 'images/slider'
         images = []
@@ -597,6 +603,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
+        self.stopSound()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
