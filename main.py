@@ -312,6 +312,7 @@ class MainWindow(QWidget):
         self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
         self.ui.btnMinus_charity.clicked.connect(self.minusCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
+        self.ui.btnMinus_envirnmentalProtection.clicked.connect(self.minusEnvirnment)
         self.ui.btnPlus_RFID.clicked.connect(self.plusRFID)
         self.ui.btnMinus_RFID.clicked.connect(self.minusRFID)
         self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
@@ -915,6 +916,9 @@ class MainWindow(QWidget):
         self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
         self.user_wallet -= self.money_envirnmental_organization
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+
+    def minusEnvirnment(self):
+        pass
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
