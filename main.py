@@ -887,7 +887,6 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def plusCharity(self):
-        
         self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
         self.user_wallet -= self.money_charity_organization
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
@@ -913,7 +912,6 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def plusEnvirnment(self):
-        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
         self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
         self.user_wallet -= self.money_envirnmental_organization
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
@@ -931,6 +929,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
 
         self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
 
         self.ui.lbl_deposit_price_environmental_organization.setText(self.ui.lblPayment_envirnmentalProtection.text())
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
