@@ -3892,7 +3892,7 @@ color:#000000;</string>
            <number>50</number>
           </property>
           <property name="bottomMargin">
-           <number>100</number>
+           <number>50</number>
           </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_42">
@@ -4066,7 +4066,7 @@ outline-style: none;
             </item>
            </layout>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
            <widget class="QPushButton" name="pushButton">
             <property name="minimumSize">
              <size>
