@@ -310,7 +310,7 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
-        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
+        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
         self.ui.btnPlus_RFID.clicked.connect(self.plusRFID)
         self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
 
@@ -893,7 +893,7 @@ class MainWindow(QWidget):
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
-    def chargeEnvirnment(self):
+    def plusEnvirnment(self):
         self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
         self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
         self.user_wallet -= self.money_envirnmental_organization
