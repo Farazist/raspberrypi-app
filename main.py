@@ -918,9 +918,12 @@ class MainWindow(QWidget):
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
 
     def minusEnvirnment(self):
-        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) - self.money_envirnmental_organization))
-        self.user_wallet += self.money_envirnmental_organization
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+        if int(self.ui.lbl_deposit_price_environmental_organization.text()) > 0:
+            self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) - self.money_envirnmental_organization))
+            self.user_wallet += self.money_envirnmental_organization
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+        else:
+            pass
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
