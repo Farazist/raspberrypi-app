@@ -574,6 +574,7 @@ class MainWindow(QWidget):
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.stopSound()
         self.ui.tbUserMobile.setText('')
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
