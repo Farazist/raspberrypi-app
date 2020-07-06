@@ -862,7 +862,7 @@ class MainWindow(QWidget):
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
 
         self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_RFID.text())
 
