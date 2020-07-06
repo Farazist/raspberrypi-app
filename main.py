@@ -863,7 +863,7 @@ class MainWindow(QWidget):
         self.stackWalletServices()
 
     def plusRFID(self):
-        self.money_RFID = int(self.ui.lblPayment_RFID.text())
+        
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
         self.user_wallet -= self.money_RFID
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
@@ -881,6 +881,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnRight, show=False)
 
         self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_RFID.text())
+        self.money_RFID = int(self.ui.lblPayment_RFID.text())
 
         self.ui.lbl_deposit_to_RFID.setText(self.ui.lblPayment_RFID.text())
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
