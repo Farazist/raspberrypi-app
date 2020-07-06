@@ -857,8 +857,7 @@ class MainWindow(QWidget):
 
     def depositToRFIDcard(self):
         self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
-        #time.sleep(5)
-        #self.ui.stackWalletServices()
+        self.stackWalletServices()
 
     def plusRFID(self):
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
