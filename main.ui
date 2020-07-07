@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>17</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>494</width>
                <height>648</height>
               </rect>
              </property>
@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -4829,7 +4829,7 @@ outline-style: none;</string>
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               </property>
               <property name="text">
-               <string>300</string>
+               <string>500</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

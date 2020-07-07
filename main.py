@@ -35,6 +35,7 @@ PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEPOSITE_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
@@ -921,9 +922,12 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def plusEnvirnment(self):
-        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
-        self.user_wallet -= self.money_envirnmental_organization
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+        if self.user_wallet < int(self.ui.lblPayment_envirnmentalProtection.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
+            self.user_wallet -= self.money_envirnmental_organization
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
 
     def minusEnvirnment(self):
         if int(self.ui.lbl_deposit_price_environmental_organization.text()) > 0:
@@ -936,6 +940,7 @@ class MainWindow(QWidget):
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.hideNotification()
 
         self.user_wallet = self.user['wallet']
         self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
@@ -943,6 +948,7 @@ class MainWindow(QWidget):
         self.ui.lbl_deposit_price_environmental_organization.setText('0')
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
+
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
     def stackSetting(self):
