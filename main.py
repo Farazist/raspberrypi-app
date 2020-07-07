@@ -897,9 +897,12 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def plusCharity(self):
-        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
-        self.user_wallet -= self.money_charity_organization
-        self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+        if self.user_wallet < int(self.ui.lblPayment_charity.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
+            self.user_wallet -= self.money_charity_organization
+            self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
 
     def minusCharity(self):
         if int(self.ui.lbl_deposit_price_charity_organization.text()) > 0:
@@ -912,6 +915,7 @@ class MainWindow(QWidget):
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.hideNotification()
 
         self.user_wallet = self.user['wallet']
         self.money_charity_organization = int(self.ui.lblPayment_charity.text())
