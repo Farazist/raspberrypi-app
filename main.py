@@ -888,10 +888,10 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_RFID.text())
+        self.user_wallet = self.user['wallet']
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
 
-        self.ui.lbl_deposit_to_RFID.setText(self.ui.lblPayment_RFID.text())
+        self.ui.lbl_deposit_to_RFID.setText('0')
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
