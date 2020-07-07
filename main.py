@@ -873,9 +873,12 @@ class MainWindow(QWidget):
         self.stackWalletServices()
 
     def plusRFID(self):
-        self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
-        self.user_wallet -= self.money_RFID
-        self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+        if self.user_wallet < int(self.ui.lblPayment_RFID.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
+            self.user_wallet -= self.money_RFID
+            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
 
     def minusRFID(self):
         if int(self.ui.lbl_deposit_to_RFID.text()) > 0:
@@ -888,6 +891,7 @@ class MainWindow(QWidget):
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.hideNotification()
 
         self.user_wallet = self.user['wallet']
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
