@@ -4829,7 +4829,7 @@ outline-style: none;</string>
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               </property>
               <property name="text">
-               <string>500</string>
+               <string>310</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
