@@ -937,10 +937,10 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.user_wallet = self.user['wallet']
         self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
 
-        self.ui.lbl_deposit_price_environmental_organization.setText(self.ui.lblPayment_envirnmentalProtection.text())
+        self.ui.lbl_deposit_price_environmental_organization.setText('0')
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
