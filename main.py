@@ -912,10 +912,10 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_charity.text())
+        self.user_wallet = self.user['wallet']
         self.money_charity_organization = int(self.ui.lblPayment_charity.text())
 
-        self.ui.lbl_deposit_price_charity_organization.setText(self.ui.lblPayment_charity.text())
+        self.ui.lbl_deposit_price_charity_organization.setText('0')
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
