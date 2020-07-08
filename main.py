@@ -1024,6 +1024,7 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
+        self.ui.tb_conveyor_motor_timer.setText(str(DataBase.select('conveyor_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
