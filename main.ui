@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>10</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -3892,7 +3892,7 @@ color:#000000;</string>
            <number>50</number>
           </property>
           <property name="bottomMargin">
-           <number>100</number>
+           <number>50</number>
           </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_42">
@@ -4065,6 +4065,43 @@ outline-style: none;
              </widget>
             </item>
            </layout>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+           <widget class="QPushButton" name="btn_confirm_deposit_to_RFIDcard">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: #28a745;
+color: rgb(255, 255, 255);
+font: 24pt &quot;IRANSans&quot;;
+padding-left: 10px; 
+padding-right:10px;
+padding-top:3px;
+padding-bottom:3px; 
+border: none; 
+border-radius: 6px;
+outline-style: none;
+}
+QPushButton:pressed {
+background-color: #145222;
+border-style: inset;
+}</string>
+            </property>
+            <property name="text">
+             <string>تایید و انتقال به کارت</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -5139,7 +5176,7 @@ color:#000000;</string>
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>مبلغ شارژ</string>
+               <string>مبلغ شارژ (تومان)</string>
               </property>
              </widget>
             </item>
@@ -5244,9 +5281,12 @@ color:#000000;</string>
                 <property name="text">
                  <string>آدرس شما</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <item alignment="Qt::AlignTop">
                <widget class="QLabel" name="lblUserAddress">
                 <property name="minimumSize">
                  <size>
@@ -5266,6 +5306,12 @@ color:#000000;</string>
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -5336,7 +5382,7 @@ color:#000000;</string>
                  <set>Qt::AlignCenter</set>
                 </property>
                 <property name="placeholderText">
-                 <string>شناسه کاربری مالک</string>
+                 <string>شناسه کاربری</string>
                 </property>
                </widget>
               </item>
@@ -5628,8 +5674,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>

@@ -35,6 +35,8 @@ RECYCLE_MESSAGE = 'پسماند دریافت شد'
 PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
+DEPOSITE_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
@@ -308,9 +310,13 @@ class MainWindow(QWidget):
         self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
         self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
-        self.ui.btnPlus_charity.clicked.connect(self.chargeCharity)
-        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.chargeEnvirnment)
-        self.ui.btnPlus_RFID.clicked.connect(self.depositToRFID)
+        self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
+        self.ui.btnMinus_charity.clicked.connect(self.minusCharity)
+        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
+        self.ui.btnMinus_envirnmentalProtection.clicked.connect(self.minusEnvirnment)
+        self.ui.btnPlus_RFID.clicked.connect(self.plusRFID)
+        self.ui.btnMinus_RFID.clicked.connect(self.minusRFID)
+        self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
 
         self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
         self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
@@ -441,6 +447,12 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
+    def stopSound(self):
+        try:
+                mixer.music.stop()
+        except Exception as e:
+            print("error:", e)
+
     def makeGif(self):
         pngdir = 'images/slider'
         images = []
@@ -554,6 +566,7 @@ class MainWindow(QWidget):
     def stackSignInUserIDNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.stopSound()
         self.ui.tbUserId.setText('')
         self.ui.tbUserPasswordID.setText('')
         self.qrcode_thread.stop()
@@ -562,6 +575,7 @@ class MainWindow(QWidget):
     def stackSignInUserMobileNumber(self):
         self.setButton(self.ui.btnLeft, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
+        self.stopSound()
         self.ui.tbUserMobile.setText('')
         self.ui.tbUserPasswordMobile.setText('')
         self.qrcode_thread.stop()
@@ -592,6 +606,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnLeft, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btnRight, show=False)
         self.ui.lblNotification.hide()
+        self.stopSound()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
@@ -853,54 +868,95 @@ class MainWindow(QWidget):
         self.ui.tbUserNewAddress.show()
         self.ui.btnChangedUserAddress.show()
 
-    def depositToRFID(self):
-        self.money_RFID = int(self.ui.lblPayment_RFID.text())
-        self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
-        self.user_wallet -= self.money_RFID
-        self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+    def depositToRFIDcard(self):
+        self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
+        self.stackWalletServices()
+
+    def plusRFID(self):
+        if self.user_wallet < int(self.ui.lblPayment_RFID.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
+            self.user_wallet -= self.money_RFID
+            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+
+    def minusRFID(self):
+        if int(self.ui.lbl_deposit_to_RFID.text()) > 0:
+            self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) - self.money_RFID))
+            self.user_wallet += self.money_RFID
+            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+        else:
+            print('End of minus operations')
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
+        self.hideNotification()
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_RFID.text())
+        self.user_wallet = self.user['wallet']
+        self.money_RFID = int(self.ui.lblPayment_RFID.text())
 
-        self.ui.lbl_deposit_to_RFID.setText(self.ui.lblPayment_RFID.text())
+        self.ui.lbl_deposit_to_RFID.setText('0')
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
-    def chargeCharity(self):
-        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
-        self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
-        self.user_wallet -= self.money_charity_organization
-        self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+    def plusCharity(self):
+        if self.user_wallet < int(self.ui.lblPayment_charity.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
+            self.user_wallet -= self.money_charity_organization
+            self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+
+    def minusCharity(self):
+        if int(self.ui.lbl_deposit_price_charity_organization.text()) > 0:
+            self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) - self.money_charity_organization))
+            self.user_wallet += self.money_charity_organization
+            self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+        else:
+            print('End of minus operations')
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.hideNotification()
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_charity.text())
+        self.user_wallet = self.user['wallet']
+        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
 
-        self.ui.lbl_deposit_price_charity_organization.setText(self.ui.lblPayment_charity.text())
+        self.ui.lbl_deposit_price_charity_organization.setText('0')
         self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
-    def chargeEnvirnment(self):
-        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
-        self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
-        self.user_wallet -= self.money_envirnmental_organization
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+    def plusEnvirnment(self):
+        if self.user_wallet < int(self.ui.lblPayment_envirnmentalProtection.text()):
+            self.showNotification(MONEY_ERROR_MESSAGE)
+        else:
+            self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
+            self.user_wallet -= self.money_envirnmental_organization
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+
+    def minusEnvirnment(self):
+        if int(self.ui.lbl_deposit_price_environmental_organization.text()) > 0:
+            self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) - self.money_envirnmental_organization))
+            self.user_wallet += self.money_envirnmental_organization
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+        else:
+            print('End of minus operations')
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.hideNotification()
 
-        self.user_wallet = self.user['wallet'] - int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.user_wallet = self.user['wallet']
+        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
 
-        self.ui.lbl_deposit_price_environmental_organization.setText(self.ui.lblPayment_envirnmentalProtection.text())
+        self.ui.lbl_deposit_price_environmental_organization.setText('0')
         self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
+
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
     def stackSetting(self):
@@ -940,12 +996,14 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
         self.ui.tb_press_motor_forward_port.setText(str(DataBase.select('press_motor_forward_port')))
         self.ui.tb_press_motor_backward_port.setText(str(DataBase.select('press_motor_backward_port')))
+        self.ui.tb_press_motor_timer.setText(str(DataBase.select('press_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotor)
 
     def stackSeparationMotor(self):
         self.ui.lblNotification.hide()
         self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
         self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
+        self.ui.tb_separation_motor_timer.setText(str(DataBase.select('separation_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
     def stackSensor1Ports(self):
@@ -966,6 +1024,7 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
+        self.ui.tb_conveyor_motor_timer.setText(str(DataBase.select('conveyor_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
@@ -977,6 +1036,7 @@ class MainWindow(QWidget):
         self.ui.lbl_version.show()
 
     def stackLicense(self):
+        self.ui.tbLicense.setText(str(DataBase.select('app_version')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
 
     def changePredictItemFlag(self, value):

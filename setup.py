@@ -14,7 +14,7 @@ __license__ = "GPL"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-database_list = [[None for _ in range(2)] for j in range(8)]
+database_list = [[None for _ in range(2)] for j in range(18)]
 print(database_list)
 
 class MainWindow(QWidget):
@@ -66,41 +66,86 @@ class MainWindow(QWidget):
 
     def stackBottleRecognizeMode(self):
         self.setButton(self.ui.btn_previous, function=self.stackSystemId, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackConveyorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageBottleRecognizeMode)
 
-    #def stackpageCameraPort(self):
-    #    self.setButton(self.ui.btn_previous,function=self.stackBottleRecognizeMode, text='مرحله قبل', icon='images/icon/back.png',  show=True)
-    #    self.setButton(self.ui.btn_next, function=self.stackConveyorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-    #    self.ui.Stack.setCurrentWidget(self.ui.pageCameraPort)
-
-    def stackConveyorPort(self):
+    def stackConveyorMotorForwardPort(self):
         self.setButton(self.ui.btn_previous, function=self.stackBottleRecognizeMode, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackMotorPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageConveyorPort)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorForwardPort)
 
-    def stackMotorPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackConveyorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSensorDepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageMotorPort)
+    def stackConveyorMotorBackwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorForwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorMotorTimer, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorBackwardPort)
+
+    def stackConveyorMotorTimer(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackPressMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorTimer)
+
+    def stackPressMotorForwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackPressMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorForwardPort)
+
+    def stackPressMotorBackwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackPressMotorForwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackPressMotorTimer, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorBackwardPort)
+
+    def stackPressMotorTimer(self):
+        self.setButton(self.ui.btn_previous, function=self.stackPressMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorTimer)
+
+    def stackSeparationMotorForwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackPressMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorForwardPort)
+
+    def stackSeparationMotorBackwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorForwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorTimer, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorBackwardPort)
+
+    def stackSeparationMotorTimer(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor1DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorTimer)
     
-    def stackSensorDepthThreshold(self):
-        self.setButton(self.ui.btn_previous, function=self.stackMotorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSensorTrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorDepthThreshold)
+    def stackSensor1DepthThreshold(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor1TrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1DepthThreshold)
     
-    def stackSensorTrigPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackSensorDepthThreshold, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSensorEchoPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorTrigPort)
+    def stackSensor1TrigPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSensor1DepthThreshold, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor1EchoPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1TrigPort)
     
-    def stackSensorEchoPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackSensorTrigPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+    def stackSensor1EchoPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSensor1TrigPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor2DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1EchoPort)
+
+    def stackSensor2DepthThreshold(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSensor1EchoPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor2TrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor2DepthThreshold)
+    
+    def stackSensor2TrigPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSensor2DepthThreshold, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensor2EchoPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor2TrigPort)
+    
+    def stackSensor2EchoPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackSensor2TrigPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackAppVersion, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorEchoPort)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor2EchoPort)
     
     def stackAppVersion(self):
-        self.setButton(self.ui.btn_previous, function=self.stackSensorEchoPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackSensor2EchoPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.createDataBase, text='پایان', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageAppVersion)
 
@@ -114,20 +159,54 @@ class MainWindow(QWidget):
 
         database_list[0][0] = 'system_id'
         database_list[1][0] = 'bottle_recognize_mode'
-        database_list[2][0] = 'conveyor_port'
-        database_list[3][0] = 'motor_port'
-        database_list[4][0] = 'sensor_depth_threshold'
-        database_list[5][0] = 'sensor_trig_port'
-        database_list[6][0] = 'sensor_echo_port'
-        database_list[7][0] = 'app_version'
+
+        database_list[2][0] = 'conveyor_motor_forward_port'
+        database_list[3][0] = 'conveyor_motor_backward_port'
+        database_list[4][0] = 'conveyor_motor_timer'
+
+        database_list[5][0] = 'press_motor_forward_port'
+        database_list[6][0] = 'press_motor_backward_port'
+        database_list[7][0] = 'press_motor_timer'
+
+        database_list[8][0] = 'separation_motor_forward_port'
+        database_list[9][0] = 'separation_motor_backward_port'
+        database_list[10][0] = 'separation_motor_timer'
+
+        database_list[11][0] = 'sensor1_depth_threshold'
+        database_list[12][0] = 'sensor1_trig_port'
+        database_list[13][0] = 'sensor1_echo_port'
+
+        database_list[14][0] = 'sensor2_depth_threshold'
+        database_list[15][0] = 'sensor2_trig_port'
+        database_list[16][0] = 'sensor2_echo_port'
+
+        database_list[17][0] = 'app_version'
+
 
         database_list[0][1] = self.ui.tb_system_id.text()
-        database_list[2][1] = self.ui.tb_conveyor_port.text()
-        database_list[3][1] = self.ui.tb_motor_port.text()
-        database_list[4][1] = self.ui.tb_sensor_depth_threshold.text()
-        database_list[5][1] = self.ui.tb_sensor_trig_port.text()
-        database_list[6][1] = self.ui.tb_sensor_echo_port.text()
-        database_list[7][1] = self.ui.tb_app_version.text()
+
+        database_list[2][1] = self.ui.tb_conveyor_motor_forward_port.text()
+        database_list[3][1] = self.ui.tb_conveyor_motor_backward_port.text()
+        database_list[4][1] = self.ui.tb_conveyor_motor_timer.text()
+
+        database_list[5][1] = self.ui.tb_press_motor_forward_port.text()
+        database_list[6][1] = self.ui.tb_press_motor_backward_port.text()
+        database_list[7][1] = self.ui.tb_press_motor_timer.text()
+
+        database_list[8][1] = self.ui.tb_separation_motor_forward_port.text()
+        database_list[9][1] = self.ui.tb_separation_motor_backward_port.text()
+        database_list[10][1] = self.ui.tb_separation_motor_timer.text()
+
+        database_list[11][1] = self.ui.tb_sensor1_depth_threshold.text()
+        database_list[12][1] = self.ui.tb_sensor1_trig_port.text()
+        database_list[13][1] = self.ui.tb_sensor1_echo_port.text()
+
+        database_list[14][1] = self.ui.tb_sensor2_depth_threshold.text()
+        database_list[15][1] = self.ui.tb_sensor2_trig_port.text()
+        database_list[16][1] = self.ui.tb_sensor2_echo_port.text()
+
+        database_list[17][1] = self.ui.tb_app_version.text()
+
         print(database_list)
         DataBase.createTable("CREATE TABLE IF NOT EXISTS information (name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);")
         for item in database_list:

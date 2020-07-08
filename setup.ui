@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1495</width>
-    <height>600</height>
+    <width>1056</width>
+    <height>399</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -291,7 +291,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageConveyorPort">
+      <widget class="QWidget" name="pageConveyorMotorForwardPort">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <property name="leftMargin">
          <number>200</number>
@@ -300,9 +300,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_conveyorPort">
+         <layout class="QHBoxLayout" name="h_layout_conveyorMotorForwardPort">
           <item>
-           <widget class="QLineEdit" name="tb_conveyor_port">
+           <widget class="QLineEdit" name="tb_conveyor_motor_forward_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -335,13 +335,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_conveyor_port">
+           <widget class="QLabel" name="lbl_conveyor_motor_forward_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>شماره پورت نوار نقاله </string>
+             <string>پورت 1 نوار نقاله </string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -352,7 +352,135 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageMotorPort">
+      <widget class="QWidget" name="pageConveyorMotorBackwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_conveyorMotorBackwardPort">
+          <item>
+           <widget class="QLineEdit" name="tb_conveyor_motor_backward_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_conveyor_motor_backward_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت 2 نوار نقاله </string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageConveyorMotorTimer">
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_conveyorMotorTimer">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="tb_conveyor_motor_timer">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>32767</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_conveyor_motor_timer">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>تایمر نوار نقاله</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pagePressMotorForwardPort">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <property name="leftMargin">
          <number>200</number>
@@ -361,9 +489,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_motorPort">
+         <layout class="QHBoxLayout" name="h_layout_pressMotorForwardPort">
           <item>
-           <widget class="QLineEdit" name="tb_motor_port">
+           <widget class="QLineEdit" name="tb_press_motor_forward_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -396,13 +524,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_motor_port">
+           <widget class="QLabel" name="lbl_press_motor_forward_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>شماره پورت موتور</string>
+             <string>پورت 1 موتور پرس</string>
             </property>
            </widget>
           </item>
@@ -410,7 +538,291 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorDepthThreshold">
+      <widget class="QWidget" name="pagePressMotorBackwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_pressMotorBackwardPort">
+          <item>
+           <widget class="QLineEdit" name="tb_press_motor_backward_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_press_motor_backward_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت 2 موتور پرس</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pagePressMotorTimer">
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_pressMotorTimer">
+          <item>
+           <widget class="QLineEdit" name="tb_press_motor_timer">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_press_motor_timer">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>تایمر موتور پرس</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorForwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_16">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorForwardPort">
+          <item>
+           <widget class="QLineEdit" name="tb_separation_motor_forward_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_separation_motor_forward_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت 1 موتور تفکیک</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorBackwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_17">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorBackwardPort">
+          <item>
+           <widget class="QLineEdit" name="tb_separation_motor_backward_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_separation_motor_backward_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت 2 موتور تفکیک</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorTimer">
+       <layout class="QVBoxLayout" name="verticalLayout_18">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorTimer">
+          <item>
+           <widget class="QLineEdit" name="tb_separation_motor_timer">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_separation_motor_timer">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>تایمر موتور تفکیک</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor1DepthThreshold">
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <property name="leftMargin">
          <number>200</number>
@@ -419,9 +831,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorDepthThreshold">
+         <layout class="QHBoxLayout" name="h_layout_sensor1DepthThreshold">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_depth_threshold">
+           <widget class="QLineEdit" name="tb_sensor1_depth_threshold">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -446,7 +858,7 @@ color:#000000;</string>
              <set>Qt::ImhDigitsOnly</set>
             </property>
             <property name="maxLength">
-             <number>2</number>
+             <number>5</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -454,13 +866,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_depth_threshold">
+           <widget class="QLabel" name="lbl_sensor1_depth_threshold">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>آستانه عمق سنجی سنسور</string>
+             <string>آستانه عمق سنجی سنسور 1</string>
             </property>
            </widget>
           </item>
@@ -468,7 +880,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorTrigPort">
+      <widget class="QWidget" name="pageSensor1TrigPort">
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="leftMargin">
          <number>200</number>
@@ -477,9 +889,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorTrigPort">
+         <layout class="QHBoxLayout" name="h_layout_sensor1TrigPort">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_trig_port">
+           <widget class="QLineEdit" name="tb_sensor1_trig_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -512,13 +924,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_trig_port">
+           <widget class="QLabel" name="lbl_sensor1_trig_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>شماره پورت trig سنسور</string>
+             <string>پورت trig سنسور 1</string>
             </property>
            </widget>
           </item>
@@ -526,7 +938,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorEchoPort">
+      <widget class="QWidget" name="pageSensor1EchoPort">
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <property name="leftMargin">
          <number>200</number>
@@ -535,9 +947,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorEchoPort">
+         <layout class="QHBoxLayout" name="h_layout_sensor1EchoPort">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_echo_port">
+           <widget class="QLineEdit" name="tb_sensor1_echo_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -570,7 +982,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_echo_port">
+           <widget class="QLabel" name="lbl_sensor1_echo_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
@@ -579,10 +991,184 @@ color: #000000;</string>
              <set>Qt::ImhDigitsOnly</set>
             </property>
             <property name="text">
-             <string>شماره پورت echo سنسور</string>
+             <string>پورت echo سنسور 1</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor2DepthThreshold">
+       <layout class="QVBoxLayout" name="verticalLayout_19">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_sensor2DepthThreshold">
+          <item>
+           <widget class="QLineEdit" name="tb_sensor2_depth_threshold">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>5</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_sensor2_depth_threshold">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>آستانه عمق سنجی سنسور 2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor2TrigPort">
+       <layout class="QVBoxLayout" name="verticalLayout_20">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_sensor2TrigPort">
+          <item>
+           <widget class="QLineEdit" name="tb_sensor2_trig_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_sensor2_trig_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت trig سنسور 2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor2EchoPort">
+       <layout class="QVBoxLayout" name="verticalLayout_21">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_sensor2EchoPort">
+          <item>
+           <widget class="QLineEdit" name="tb_sensor2_echo_port">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_sensor2_echo_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>پورت echo سنسور 2</string>
             </property>
            </widget>
           </item>
