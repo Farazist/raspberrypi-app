@@ -998,7 +998,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_sensor2DepthThreshold">
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="tb_sensor2_depth_threshold">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -1011,6 +1011,14 @@ color: #000000;</string>
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
@@ -1020,7 +1028,11 @@ color: #000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="lbl_sensor2_depth_threshold">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1041,7 +1053,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_sensor2TrigPort">
           <item>
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="tb_sensor2_trig_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -1054,6 +1066,14 @@ color: #000000;</string>
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
@@ -1063,7 +1083,11 @@ color: #000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="lbl_sensor2_trig_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1097,6 +1121,14 @@ color: #000000;</string>
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
@@ -1106,7 +1138,11 @@ color: #000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="lbl_sensor2_echo_port">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
