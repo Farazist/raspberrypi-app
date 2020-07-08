@@ -15,6 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
+from mfrc522 import SimpleMFRC522
 
 from server import Server
 from database import DataBase
@@ -65,16 +66,15 @@ class QRCodeThread(QThread):
     def run(self):
         self.event = Event()
         while not self.event.isSet():
-            print('while qr 1')
+            print('make QRcode SignIn Token')
             try:
                 qrcode_signin_token = Server.makeQRcodeSignInToken(window.system['id'])
                 print(qrcode_signin_token)
                 self.show_qrcode_signal.emit(qrcode_signin_token)
                 counter = 0
                 while not self.event.wait(4) and counter < 4:
-                    print('while qr 2')
                     counter += 1
-                    print('server request')
+                    print('check QRcode SignIn Token')
                     window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
                     if window.user:
                         self.stop()
@@ -858,7 +858,6 @@ class MainWindow(QWidget):
         self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
         self.user_wallet -= self.money_RFID
         self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
-
 
     def stackRFID(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
