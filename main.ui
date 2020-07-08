@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>17</number>
+       <number>19</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -5176,7 +5176,7 @@ color:#000000;</string>
 color:#000000;</string>
               </property>
               <property name="text">
-               <string>مبلغ شارژ</string>
+               <string>مبلغ شارژ (تومان)</string>
               </property>
              </widget>
             </item>
@@ -5281,9 +5281,12 @@ color:#000000;</string>
                 <property name="text">
                  <string>آدرس شما</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <item alignment="Qt::AlignTop">
                <widget class="QLabel" name="lblUserAddress">
                 <property name="minimumSize">
                  <size>
@@ -5303,6 +5306,12 @@ color:#000000;</string>
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -5373,7 +5382,7 @@ color:#000000;</string>
                  <set>Qt::AlignCenter</set>
                 </property>
                 <property name="placeholderText">
-                 <string>شناسه کاربری مالک</string>
+                 <string>شناسه کاربری</string>
                 </property>
                </widget>
               </item>
@@ -5665,8 +5674,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>
