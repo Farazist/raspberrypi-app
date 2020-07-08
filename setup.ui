@@ -1034,7 +1034,7 @@ color:#000000;</string>
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string>آستانه عمق سنجی سنسور 2</string>
             </property>
            </widget>
           </item>
@@ -1089,7 +1089,7 @@ color:#000000;</string>
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string>پورت trig سنسور 2</string>
             </property>
            </widget>
           </item>
@@ -1108,7 +1108,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_sensor2EchoPort">
           <item>
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="tb_sensor2_echo_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -1144,7 +1144,7 @@ color:#000000;</string>
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string>پورت echo سنسور 2</string>
             </property>
            </widget>
           </item>
