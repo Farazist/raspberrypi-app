@@ -14,7 +14,7 @@ __license__ = "GPL"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-database_list = [[None for _ in range(2)] for j in range(8)]
+database_list = [[None for _ in range(2)] for j in range(18)]
 print(database_list)
 
 class MainWindow(QWidget):
@@ -114,12 +114,23 @@ class MainWindow(QWidget):
 
         database_list[0][0] = 'system_id'
         database_list[1][0] = 'bottle_recognize_mode'
-        database_list[2][0] = 'conveyor_port'
-        database_list[3][0] = 'motor_port'
-        database_list[4][0] = 'sensor_depth_threshold'
-        database_list[5][0] = 'sensor_trig_port'
-        database_list[6][0] = 'sensor_echo_port'
-        database_list[7][0] = 'app_version'
+        database_list[2][0] = 'conveyor_motor_forward_port'
+        database_list[3][0] = 'conveyor_motor_backward_port'
+        database_list[4][0] = 'conveyor_motor_timer'
+        database_list[5][0] = 'press_motor_forward_port'
+        database_list[6][0] = 'press_motor_backward_port'
+        database_list[7][0] = 'press_motor_timer'
+        database_list[8][0] = 'separation_motor_forward_port'
+        database_list[9][0] = 'separation_motor_backward_port'
+        database_list[10][0] = 'separation_motor_timer'
+        database_list[11][0] = 'sensor1_depth_threshold'
+        database_list[12][0] = 'sensor1_trig_port'
+        database_list[13][0] = 'sensor1_echo_port'
+        database_list[14][0] = 'sensor2_depth_threshold'
+        database_list[15][0] = 'sensor2_trig_port'
+        database_list[16][0] = 'sensor2_echo_port'
+        database_list[17][0] = 'app_version'
+
 
         database_list[0][1] = self.ui.tb_system_id.text()
         database_list[2][1] = self.ui.tb_conveyor_port.text()
