@@ -807,7 +807,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorDepthThreshold">
+      <widget class="QWidget" name="pageSensor1DepthThreshold">
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <property name="leftMargin">
          <number>200</number>
@@ -816,9 +816,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorDepthThreshold">
+         <layout class="QHBoxLayout" name="h_layout_sensor1DepthThreshold">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_depth_threshold">
+           <widget class="QLineEdit" name="tb_sensor1_depth_threshold">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -851,13 +851,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_depth_threshold">
+           <widget class="QLabel" name="lbl_sensor1_depth_threshold">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>آستانه عمق سنجی سنسور</string>
+             <string>آستانه عمق سنجی سنسور 1</string>
             </property>
            </widget>
           </item>
@@ -865,7 +865,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorTrigPort">
+      <widget class="QWidget" name="pageSensor1TrigPort">
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="leftMargin">
          <number>200</number>
@@ -874,9 +874,9 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorTrigPort">
+         <layout class="QHBoxLayout" name="h_layout_sensor1TrigPort">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_trig_port">
+           <widget class="QLineEdit" name="tb_sensor1_trig_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -909,13 +909,13 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_trig_port">
+           <widget class="QLabel" name="lbl_sensor1_trig_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>شماره پورت trig سنسور</string>
+             <string>پورت trig سنسور 1</string>
             </property>
            </widget>
           </item>
@@ -923,7 +923,7 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensorEchoPort">
+      <widget class="QWidget" name="pageSensor1EchoPort">
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <property name="leftMargin">
          <number>200</number>
@@ -932,7 +932,7 @@ color: #000000;</string>
          <number>200</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="h_layout_sensorEchoPort">
+         <layout class="QHBoxLayout" name="h_layout_sensor1EchoPort">
           <item>
            <widget class="QLineEdit" name="tb_sensor_echo_port">
             <property name="minimumSize">
@@ -967,7 +967,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_sensor_echo_port">
+           <widget class="QLabel" name="lbl_sensor1_echo_port">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
@@ -976,7 +976,7 @@ color: #000000;</string>
              <set>Qt::ImhDigitsOnly</set>
             </property>
             <property name="text">
-             <string>شماره پورت echo سنسور</string>
+             <string>پورت echo سنسور 1</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
