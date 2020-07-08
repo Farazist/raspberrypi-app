@@ -987,9 +987,45 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSensor2DepthThreshold"/>
-      <widget class="QWidget" name="pageSensor2TrigPort"/>
-      <widget class="QWidget" name="page_3"/>
+      <widget class="QWidget" name="pageSensor2DepthThreshold">
+       <layout class="QVBoxLayout" name="verticalLayout_19">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_sensor2DepthThreshold"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor2TrigPort">
+       <layout class="QVBoxLayout" name="verticalLayout_20">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_sensor2TrigPort"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSensor2EchoPort">
+       <layout class="QVBoxLayout" name="verticalLayout_21">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageAppVersion">
        <layout class="QVBoxLayout" name="verticalLayout_10">
         <property name="leftMargin">
