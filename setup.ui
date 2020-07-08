@@ -642,6 +642,45 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="pageSeparationMotorForwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_16">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorForwardPort"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorBackwardPort">
+       <layout class="QVBoxLayout" name="verticalLayout_17">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorBackwardPort"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorTimer">
+       <layout class="QVBoxLayout" name="verticalLayout_18">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageSensorDepthThreshold">
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <property name="leftMargin">
