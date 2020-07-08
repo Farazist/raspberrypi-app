@@ -934,7 +934,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_sensor1EchoPort">
           <item>
-           <widget class="QLineEdit" name="tb_sensor_echo_port">
+           <widget class="QLineEdit" name="tb_sensor1_echo_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -987,6 +987,9 @@ color: #000000;</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="pageSensor2DepthThreshold"/>
+      <widget class="QWidget" name="pageSensor2TrigPort"/>
+      <widget class="QWidget" name="page_3"/>
       <widget class="QWidget" name="pageAppVersion">
        <layout class="QVBoxLayout" name="verticalLayout_10">
         <property name="leftMargin">
