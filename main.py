@@ -1036,6 +1036,7 @@ class MainWindow(QWidget):
         self.ui.lbl_version.show()
 
     def stackLicense(self):
+        self.ui.tbLicense.setText(str(DataBase.select('app_version')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
 
     def changePredictItemFlag(self, value):
