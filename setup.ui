@@ -387,6 +387,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
@@ -450,6 +453,9 @@ color:#000000;</string>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>32767</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -567,6 +573,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
@@ -677,6 +686,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
@@ -731,6 +743,9 @@ color:#000000;</string>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -843,7 +858,7 @@ color:#000000;</string>
              <set>Qt::ImhDigitsOnly</set>
             </property>
             <property name="maxLength">
-             <number>2</number>
+             <number>5</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1022,6 +1037,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="maxLength">
+             <number>5</number>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
@@ -1077,6 +1095,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
@@ -1131,6 +1152,9 @@ color:#000000;</string>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
