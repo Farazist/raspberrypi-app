@@ -353,11 +353,10 @@ class MainWindow(QWidget):
         self.playSound('audio2')
         self.refresh()
 
-
     def initHardwares(self):
         try:
             if hasattr(self, 'press_motor'):
-                self.motor.close()
+                self.press_motor.close()
                 print("press motor close")
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
@@ -368,7 +367,7 @@ class MainWindow(QWidget):
 
         try:
             if hasattr(self, 'separation_motor'):
-                self.motor.close()
+                self.separation_motor.close()
                 print("separation motor close")
             self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
@@ -389,28 +388,35 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            if hasattr(self, 'sensor1'):
-                self.sensor1.close()
-                print("sensor1 close")
-            sensor1_trig_port = int(DataBase.select('sensor1_trig_port'))
-            sensor1_echo_port = int(DataBase.select('sensor1_echo_port'))
-            sensor1_depth_threshold = float(DataBase.select('sensor1_depth_threshold'))
-            self.sensor1 = DistanceSensor(sensor1_trig_port, sensor1_echo_port, max_distance=1, threshold_distance=sensor1_depth_threshold/100, pin_factory=factory)
-            self.sensor1.when_in_range = self.startRecycleItem
-            print('sensor1 ready')
+            if hasattr(self, 'distance_sensor1'):
+                self.distance_sensor1.close()
+                print("distance sensor 1 close")
+            distance_sensor1_trig_port = int(DataBase.select('distance_sensor1_trig_port'))
+            distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
+            distance_sensor1_depth_threshold = float(DataBase.select('distance_sensor1_depth_threshold'))
+            self.distance_sensor1 = DistanceSensor(distance_sensor1_trig_port, distance_sensor1_echo_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor1.when_in_range = self.startRecycleItem
+            print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
 
         try:
-            if hasattr(self, 'sensor2'):
-                self.sensor2.close()
-                print("sensor2 close")
-            sensor2_trig_port = int(DataBase.select('sensor2_trig_port'))
-            sensor2_echo_port = int(DataBase.select('sensor2_echo_port'))
-            sensor2_depth_threshold = float(DataBase.select('sensor2_depth_threshold'))
-            self.sensor2 = DistanceSensor(sensor2_trig_port, sensor2_echo_port, max_distance=1, threshold_distance=sensor2_depth_threshold/100, pin_factory=factory)
-            self.sensor2.when_in_range = self.endRecycleItem
-            print('sensor2 ready')
+            if hasattr(self, 'distance_sensor2'):
+                self.distance_sensor2.close()
+                print("distance sensor 2 close")
+            distance_sensor2_trig_port = int(DataBase.select('distance_sensor2_trig_port'))
+            distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
+            distance_sensor2_depth_threshold = float(DataBase.select('distance_sensor2_depth_threshold'))
+            self.distance_sensor2 = DistanceSensor(distance_sensor2_trig_port, distance_sensor2_echo_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor2.when_in_range = self.endRecycleItem
+            print('distance sensor 2 ready')
+        except Exception as e:
+            print("error:", e)
+
+        try:
+            if not hasattr(self, 'rfid_sensor'):
+                self.rfid_sensor = SimpleMFRC522()
+                print('RFID sensor ready')
         except Exception as e:
             print("error:", e)
 
@@ -869,7 +875,15 @@ class MainWindow(QWidget):
         self.ui.btnChangedUserAddress.show()
 
     def depositToRFIDcard(self):
-        self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
+        try:
+            print("Now place your tag to write")
+            data = 'test'
+            self.rfid_sensor.write(data)
+            print("Written")
+            self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
+        except Exception as e:
+            print("error:", e)
+
         self.stackWalletServices()
 
     def plusRFID(self):
