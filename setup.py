@@ -98,21 +98,36 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_previous, function=self.stackConveyorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSensorDepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorTimer)
+
+    def stackSeparationMotorForwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensorDepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorForwardPort)
+
+    def stackSeparationMotorBackwardPort(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensorDepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorBackwardPort)
+
+    def stackSeparationMotorTimer(self):
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSensorDepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorTimer)
     
-    def stackSensorDepthThreshold(self):
+    def stackSensor1DepthThreshold(self):
         self.setButton(self.ui.btn_previous, function=self.stackMotorPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSensorTrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorDepthThreshold)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1DepthThreshold)
     
-    def stackSensorTrigPort(self):
+    def stackSensor1TrigPort(self):
         self.setButton(self.ui.btn_previous, function=self.stackSensorDepthThreshold, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSensorEchoPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorTrigPort)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1TrigPort)
     
-    def stackSensorEchoPort(self):
+    def stackSensor1EchoPort(self):
         self.setButton(self.ui.btn_previous, function=self.stackSensorTrigPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackAppVersion, text='مرحله بعد', icon='images/icon/next.png', show=True)
-        self.ui.Stack.setCurrentWidget(self.ui.pageSensorEchoPort)
+        self.ui.Stack.setCurrentWidget(self.ui.pageSensor1EchoPort)
     
     def stackAppVersion(self):
         self.setButton(self.ui.btn_previous, function=self.stackSensorEchoPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
