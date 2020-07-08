@@ -387,6 +387,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -447,6 +450,9 @@ color:#000000;</string>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -561,6 +567,9 @@ color:#000000;</string>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -571,6 +580,61 @@ color: #000000;</string>
             </property>
             <property name="text">
              <string>پورت 2 موتور پرس</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pagePressMotorTimer">
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_pressMotorTimer">
+          <item>
+           <widget class="QLineEdit" name="tb_press_motor_timer">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_press_motor_timer">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>تایمر موتور پرس</string>
             </property>
            </widget>
           </item>
