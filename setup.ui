@@ -302,7 +302,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_conveyorPort">
           <item>
-           <widget class="QLineEdit" name="tb_onveyor_motor_forward_port">
+           <widget class="QLineEdit" name="tb_conveyor_motor_forward_port">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -393,7 +393,7 @@ color:#000000;</string>
 color: #000000;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string>پورت 2 نوار نقاله </string>
             </property>
            </widget>
           </item>
