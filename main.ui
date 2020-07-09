@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>17</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4027,7 +4027,7 @@ outline-style: none;
 
 }
 QPushButton:pressed {
-background-color: #800011;
+background-color: #ff4e4e;
 border-style: inset;
 }</string>
               </property>
@@ -4340,7 +4340,7 @@ outline-style: none;
 
 }
 QPushButton:pressed {
-background-color: #800011;
+background-color: #ff4e4e;
 border-style: inset;
 }</string>
               </property>
@@ -4882,7 +4882,7 @@ outline-style: none;
 
 }
 QPushButton:pressed {
-background-color: #800011;
+background-color: #ff4e4e;
 border-style: inset;
 }</string>
               </property>
