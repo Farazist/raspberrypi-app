@@ -892,13 +892,13 @@ class MainWindow(QWidget):
         else:
             self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) + self.money_RFID))
             self.user_wallet -= self.money_RFID
-            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+            self.ui.lbl_total_wallet_RFID.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusRFID(self):
         if int(self.ui.lbl_deposit_to_RFID.text()) > 0:
             self.ui.lbl_deposit_to_RFID.setText(str(int(self.ui.lbl_deposit_to_RFID.text()) - self.money_RFID))
             self.user_wallet += self.money_RFID
-            self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+            self.ui.lbl_total_wallet_RFID.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
             print('End of minus operations')
 
@@ -911,7 +911,7 @@ class MainWindow(QWidget):
         self.money_RFID = int(self.ui.lblPayment_RFID.text())
 
         self.ui.lbl_deposit_to_RFID.setText('0')
-        self.ui.lbl_total_wallet_RFID.setText(str(self.user_wallet))
+        self.ui.lbl_total_wallet_RFID.setText(str("{:,.0f}".format(self.user_wallet)))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def plusCharity(self):
