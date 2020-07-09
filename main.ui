@@ -4711,11 +4711,16 @@ color:#000000;</string>
           <property name="rightMargin">
            <number>50</number>
           </property>
-          <item alignment="Qt::AlignHCenter">
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblSelectedEnvirnmentalProtection">
             <property name="styleSheet">
              <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color:#000000;</string>
+color:#000000;
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 10px;
+outline-style: none;
+padding: 3px;</string>
             </property>
             <property name="text">
              <string/>
