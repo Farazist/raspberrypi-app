@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>17</number>
+       <number>16</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4178,10 +4178,15 @@ border-style: inset;
           <property name="rightMargin">
            <number>50</number>
           </property>
-          <item alignment="Qt::AlignHCenter">
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblSelectedCharity">
             <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;
+             <string notr="true">background-color: #ffffff; 
+padding-left: 10px; 
+padding-right: 10px;
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
             </property>
             <property name="text">
