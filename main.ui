@@ -4714,13 +4714,13 @@ color:#000000;</string>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblSelectedEnvirnmentalProtection">
             <property name="styleSheet">
-             <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color:#000000;
-background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 10px;
-outline-style: none;
-padding: 3px;</string>
+             <string notr="true">background-color: #ffffff; 
+padding-left: 10px; 
+padding-right: 10px;
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
             </property>
             <property name="text">
              <string/>
