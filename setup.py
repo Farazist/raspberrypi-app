@@ -183,29 +183,29 @@ class MainWindow(QWidget):
         database_list[17][0] = 'app_version'
 
 
-        database_list[0][1] = self.ui.tb_system_id.text()
+        database_list[0][1] = int(self.ui.tb_system_id.text())
 
-        database_list[2][1] = self.ui.tb_conveyor_motor_forward_port.text()
-        database_list[3][1] = self.ui.tb_conveyor_motor_backward_port.text()
-        database_list[4][1] = self.ui.tb_conveyor_motor_timer.text()
+        database_list[2][1] = int(self.ui.tb_conveyor_motor_forward_port.text())
+        database_list[3][1] = int(self.ui.tb_conveyor_motor_backward_port.text())
+        database_list[4][1] = int(self.ui.tb_conveyor_motor_timer.text())
 
-        database_list[5][1] = self.ui.tb_press_motor_forward_port.text()
-        database_list[6][1] = self.ui.tb_press_motor_backward_port.text()
-        database_list[7][1] = self.ui.tb_press_motor_timer.text()
+        database_list[5][1] = int(self.ui.tb_press_motor_forward_port.text())
+        database_list[6][1] = int(self.ui.tb_press_motor_backward_port.text())
+        database_list[7][1] = int(self.ui.tb_press_motor_timer.text())
 
-        database_list[8][1] = self.ui.tb_separation_motor_forward_port.text()
-        database_list[9][1] = self.ui.tb_separation_motor_backward_port.text()
-        database_list[10][1] = self.ui.tb_separation_motor_timer.text()
+        database_list[8][1] = int(self.ui.tb_separation_motor_forward_port.text())
+        database_list[9][1] = int(self.ui.tb_separation_motor_backward_port.text())
+        database_list[10][1] = int(self.ui.tb_separation_motor_timer.text())
 
-        database_list[11][1] = self.ui.tb_sensor1_depth_threshold.text()
-        database_list[12][1] = self.ui.tb_sensor1_trig_port.text()
-        database_list[13][1] = self.ui.tb_sensor1_echo_port.text()
+        database_list[11][1] = int(self.ui.tb_sensor1_depth_threshold.text())
+        database_list[12][1] = int(self.ui.tb_sensor1_trig_port.text())
+        database_list[13][1] = int(self.ui.tb_sensor1_echo_port.text())
 
-        database_list[14][1] = self.ui.tb_sensor2_depth_threshold.text()
-        database_list[15][1] = self.ui.tb_sensor2_trig_port.text()
-        database_list[16][1] = self.ui.tb_sensor2_echo_port.text()
+        database_list[14][1] = int(self.ui.tb_sensor2_depth_threshold.text())
+        database_list[15][1] = int(self.ui.tb_sensor2_trig_port.text())
+        database_list[16][1] = int(self.ui.tb_sensor2_echo_port.text())
 
-        database_list[17][1] = self.ui.tb_app_version.text()
+        database_list[17][1] = int(self.ui.tb_app_version.text())
 
         print(database_list)
         DataBase.createTable("CREATE TABLE IF NOT EXISTS information (name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);")
