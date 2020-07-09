@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>16</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -4291,8 +4291,17 @@ color:#000000;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">border: none;
-outline-style: none;</string>
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #ff0022; 
+border-radius: 10px;
+outline-style: none;
+
+}
+QPushButton:pressed {
+background-color: #800011;
+border-style: inset;
+}</string>
               </property>
               <property name="text">
                <string/>
@@ -4341,9 +4350,17 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">border: none;
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 10px;
 outline-style: none;
-</string>
+
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
               </property>
               <property name="text">
                <string/>
@@ -5674,8 +5691,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>449</width>
-             <height>447</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
