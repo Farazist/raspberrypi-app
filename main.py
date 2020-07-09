@@ -949,13 +949,13 @@ class MainWindow(QWidget):
         else:
             self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
             self.user_wallet -= self.money_envirnmental_organization
-            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusEnvirnment(self):
         if int(self.ui.lbl_deposit_price_environmental_organization.text()) > 0:
             self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) - self.money_envirnmental_organization))
             self.user_wallet += self.money_envirnmental_organization
-            self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+            self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
             print('End of minus operations')
 
@@ -968,7 +968,7 @@ class MainWindow(QWidget):
         self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
 
         self.ui.lbl_deposit_price_environmental_organization.setText('0')
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str(self.user_wallet))
+        self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
         self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
 
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
