@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from server import Server
 from database import DataBase
@@ -920,13 +920,13 @@ class MainWindow(QWidget):
         else:
             self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
             self.user_wallet -= self.money_charity_organization
-            self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+            self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusCharity(self):
         if int(self.ui.lbl_deposit_price_charity_organization.text()) > 0:
             self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) - self.money_charity_organization))
             self.user_wallet += self.money_charity_organization
-            self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+            self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
             print('End of minus operations')
 
@@ -939,7 +939,7 @@ class MainWindow(QWidget):
         self.money_charity_organization = int(self.ui.lblPayment_charity.text())
 
         self.ui.lbl_deposit_price_charity_organization.setText('0')
-        self.ui.lblTotalPrice_charity.setText(str(self.user_wallet))
+        self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
