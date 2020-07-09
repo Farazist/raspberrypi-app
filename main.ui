@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>16</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4115,7 +4115,7 @@ border-style: inset;
 }</string>
             </property>
             <property name="text">
-             <string>تایید و انتقال به کارت</string>
+             <string>تایید</string>
             </property>
            </widget>
           </item>
