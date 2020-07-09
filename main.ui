@@ -4757,7 +4757,31 @@ color:#000000;</string>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_29">
-            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="label_13">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>موجودی حساب شما</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_38">
+            <property name="leftMargin">
+             <number>50</number>
+            </property>
+            <property name="rightMargin">
+             <number>70</number>
+            </property>
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="label_19">
               <property name="styleSheet">
                <string notr="true">font: 26pt &quot;IRANSans&quot;;
@@ -4779,20 +4803,6 @@ color:#000000;</string>
               </property>
               <property name="text">
                <string>0</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="label_13">
-              <property name="styleSheet">
-               <string notr="true">font: 26pt &quot;IRANSans&quot;;
-color:#000000;</string>
-              </property>
-              <property name="text">
-               <string>موجودی حساب شما</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
