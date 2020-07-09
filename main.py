@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from server import Server
 from database import DataBase
@@ -932,7 +932,7 @@ class MainWindow(QWidget):
 
     def stackCharity(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         self.hideNotification()
 
         self.user_wallet = self.user['wallet']
@@ -961,7 +961,7 @@ class MainWindow(QWidget):
 
     def stackEnvirnmentalProtection(self):
         self.setButton(self.ui.btnLeft, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btnRight, text='تایید', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btnRight, show=False)
         self.hideNotification()
 
         self.user_wallet = self.user['wallet']
