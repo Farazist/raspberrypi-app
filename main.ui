@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>16</number>
+       <number>17</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4191,7 +4191,7 @@ border-style: inset;
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblSelectedCharity">
             <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
+             <string notr="true">background-color: none; 
 padding-left: 10px; 
 padding-right: 10px;
 border: 2px solid #28a745;
@@ -4620,7 +4620,7 @@ border-style: inset;
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>images/charity/kahrizak.png</normaloff>images/charity/kahrizak.png</iconset>
+                  <normaloff>images/charity/eb.png</normaloff>images/charity/eb.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -4637,7 +4637,7 @@ border-style: inset;
 color:#000000;</string>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;خانه ای بی&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -4739,7 +4739,7 @@ color:#000000;</string>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lblSelectedEnvirnmentalProtection">
             <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
+             <string notr="true">background-color: none; 
 padding-left: 10px; 
 padding-right: 10px;
 border: 2px solid #28a745;
