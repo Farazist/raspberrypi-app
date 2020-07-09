@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>17</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4021,7 +4021,7 @@ color:#000000;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #ff0022; 
+border: 2px solid #ff0022; 
 border-radius: 10px;
 outline-style: none;
 
@@ -4065,7 +4065,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #28a745; 
+border: 2px solid #28a745; 
 border-radius: 10px;
 outline-style: none;
 
@@ -4334,7 +4334,7 @@ color:#000000;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #ff0022; 
+border: 2px solid #ff0022; 
 border-radius: 10px;
 outline-style: none;
 
@@ -4393,7 +4393,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #28a745; 
+border: 2px solid #28a745; 
 border-radius: 10px;
 outline-style: none;
 
@@ -4876,7 +4876,7 @@ color:#000000;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #ff0022; 
+border: 2px solid #ff0022; 
 border-radius: 10px;
 outline-style: none;
 
@@ -4923,7 +4923,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
-border: 3px solid #28a745; 
+border: 2px solid #28a745; 
 border-radius: 10px;
 outline-style: none;
 
