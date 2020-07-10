@@ -220,8 +220,8 @@ class MainWindow(QWidget):
         sp_retain.setRetainSizeWhenHidden(True)
         self.ui.btn_left.setSizePolicy(sp_retain)
         self.ui.btn_right.setSizePolicy(sp_retain) 
-        self.ui.lblDeviceInfo.setSizePolicy(sp_retain)
-        self.ui.btnSetting.setSizePolicy(sp_retain)
+        self.ui.lbl_device_info.setSizePolicy(sp_retain)
+        self.ui.btn_setting.setSizePolicy(sp_retain)
 
         self.btnOwnerLogin = CustomButton()
         self.btnOwnerLogin.setGif("animations/Rolling-white.gif")
@@ -274,7 +274,7 @@ class MainWindow(QWidget):
 
         # signals
         self.ui.btn_refresh_loading.clicked.connect(self.refresh)
-        self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
+        self.ui.btn_setting.clicked.connect(self.stackSignInOwner)
         self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
         self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
         self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
@@ -433,11 +433,11 @@ class MainWindow(QWidget):
             button.hide()
 
     def showNotification(self, text):
-        self.ui.lblNotification.setText(text)
-        self.ui.lblNotification.show()
+        self.ui.lbl_notification.setText(text)
+        self.ui.lbl_notification.show()
 
     def hideNotification(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
 
     def playSound(self, path):
         try:
@@ -469,22 +469,22 @@ class MainWindow(QWidget):
         self.loading_thread.start()            
 
     def stackLoading(self):
-        self.ui.lblLogo.hide()
+        self.ui.lbl_logo.hide()
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, show=False)
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
 
     def stackSignInOwner(self):
-        self.ui.lblLogo.show()
+        self.ui.lbl_logo.show()
         self.qrcode_thread.stop()
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         if self.flag_system_startup_now:
             self.setButton(self.ui.btn_left, show=False)
         else:
             if hasattr(self, 'user') == True:
                 self.user = None
             self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
-            self.ui.lblDeviceInfo.setText(self.deviceInfo)
+            self.ui.lbl_device_info.setText(self.deviceInfo)
         self.setButton(self.ui.btn_right, show=False)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
@@ -522,7 +522,7 @@ class MainWindow(QWidget):
 
     def afterSignInUser(self):
         if self.user != 0:
-            self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
+            self.ui.lbl_device_info.setText(self.user['name'] + '\nخوش آمدید')
             self.stackMainMenu()
             self.playSound('audio2')
         else:
@@ -536,7 +536,7 @@ class MainWindow(QWidget):
 
     def afterSignInUserMobile(self):
         if self.user != 0:
-            self.ui.lblDeviceInfo.setText(self.user['name'] + '\nخوش آمدید')
+            self.ui.lbl_device_info.setText(self.user['name'] + '\nخوش آمدید')
             self.stackMainMenu()
             self.playSound('audio2')
         else:
@@ -554,8 +554,8 @@ class MainWindow(QWidget):
     def stackStart(self):
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lblNotification.hide()
-        self.ui.lblDeviceInfo.setText(self.deviceInfo)
+        self.ui.lbl_notification.hide()
+        self.ui.lbl_device_info.setText(self.deviceInfo)
         self.ui.tbOwnerUsername.setText('')
         self.ui.tbOwnerPassword.setText('')
         gif_start = QMovie("animations/slider1.gif")
@@ -586,7 +586,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
         self.playSound('audio10')
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
 
         gif_loading = QMovie("animations/Rolling.gif")
         self.ui.lbl_pixmap_qr.setMovie(gif_loading)
@@ -601,12 +601,12 @@ class MainWindow(QWidget):
         qr.make(fit=True)
         qrcode_img = qr.make_image(fill_color="black", back_color="white")
         self.ui.lbl_pixmap_qr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
 
     def stackMainMenu(self):
         self.setButton(self.ui.btn_left, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.stopSound()
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
@@ -614,7 +614,7 @@ class MainWindow(QWidget):
     def stackWallet(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         gif_wallet = QMovie("animations/wallet.gif")
         gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
         self.ui.lblGifWallet.setMovie(gif_wallet)
@@ -625,13 +625,13 @@ class MainWindow(QWidget):
     def stackWalletServices(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
 
     def stackAutoDeliveryItems(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         # self.ui.listAutoDeliveryItems.clear()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
@@ -807,7 +807,7 @@ class MainWindow(QWidget):
             self.playSound('audio11')
             self.setButton(self.ui.btn_left, show=False)
             self.setButton(self.ui.btn_right, show=False)
-            self.ui.lblNotification.hide()
+            self.ui.lbl_notification.hide()
             gif_afterDelivery = QMovie("animations/earth.gif")
             self.ui.lbl_gif_after_delivery.setMovie(gif_afterDelivery)
             gif_afterDelivery.start()
@@ -973,15 +973,15 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
         self.qrcode_thread.stop()
-        self.ui.lblNotification.hide()
-        self.ui.lblDeviceInfo.setText(self.deviceInfo)
+        self.ui.lbl_notification.hide()
+        self.ui.lbl_device_info.setText(self.deviceInfo)
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)
         self.ui.Stack.setCurrentWidget(self.ui.pageSetting)
 
     def stackDisableDevice(self):
         self.ui.btn_left.hide()
         self.ui.btn_right.hide()
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageDisableDevice)
 
     def checkDeviceMode(self):
@@ -999,39 +999,39 @@ class MainWindow(QWidget):
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDeviceMode)
 
     def stackExitApp(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingExit)
 
     def stackPressMotor(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.tb_press_motor_forward_port.setText(str(DataBase.select('press_motor_forward_port')))
         self.ui.tb_press_motor_backward_port.setText(str(DataBase.select('press_motor_backward_port')))
         self.ui.tb_press_motor_timer.setText(str(DataBase.select('press_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotor)
 
     def stackSeparationMotor(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
         self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
         self.ui.tb_separation_motor_timer.setText(str(DataBase.select('separation_motor_timer')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
     def stackSensor1Ports(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
         self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
         self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor1Ports)
 
     def stackSensor2Ports(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('sensor2_trig_port')))
         self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('sensor2_echo_port')))
         self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('sensor2_depth_threshold')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor2Ports)
 
     def stackConveyorPort(self):
-        self.ui.lblNotification.hide()
+        self.ui.lbl_notification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
         self.ui.tb_conveyor_motor_timer.setText(str(DataBase.select('conveyor_motor_timer')))
