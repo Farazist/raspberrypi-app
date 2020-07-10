@@ -286,8 +286,8 @@ class MainWindow(QWidget):
         self.ui.btnMainMenu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
-        self.ui.btnPrintReceiptNo.clicked.connect(self.stackMainMenu)
-        self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
+        self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
+        self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
         self.ui.btnYExitApp.clicked.connect(self.exitProgram)
         self.ui.btn_setting_start.clicked.connect(self.stackStart)
@@ -301,10 +301,10 @@ class MainWindow(QWidget):
         self.ui.btn_setting_4.clicked.connect(self.stackAddOpetator)
         self.ui.btn_setting_7.clicked.connect(self.stackHelp)
         self.ui.btn_setting_8.clicked.connect(self.stackLicense)
-        self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
-        self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
-        self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
-        self.ui.btnWalletServices_4.clicked.connect(self.stackEnvirnmentalProtection)
+        self.ui.btn_wallet_services_1.clicked.connect(self.stackChargingResidentialUnit)
+        self.ui.btn_wallet_services_2.clicked.connect(self.stackRFID)
+        self.ui.btn_wallet_services_3.clicked.connect(self.stackCharity)
+        self.ui.btn_wallet_services_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
         self.ui.btnMinus_charity.clicked.connect(self.minusCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
@@ -783,7 +783,7 @@ class MainWindow(QWidget):
                     break
             row += 1
         self.SelectItem(self.items[0], self.layout_FArea.itemAt(0))
-        self.ui.scrollWidgetManualDelivery.setLayout(self.layout_FArea)
+        self.ui.scroll_widget_manual_delivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
         
     def printReceipt(self):
@@ -809,9 +809,9 @@ class MainWindow(QWidget):
             self.setButton(self.ui.btn_right, show=False)
             self.ui.lblNotification.hide()
             gif_afterDelivery = QMovie("animations/earth.gif")
-            self.ui.lblGifAfterDelivery.setMovie(gif_afterDelivery)
+            self.ui.lbl_gif_after_delivery.setMovie(gif_afterDelivery)
             gif_afterDelivery.start()
-            self.ui.lblTotalPrice.setText(str(self.total_price))
+            self.ui.lbl_total_price.setText(str(self.total_price))
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
     

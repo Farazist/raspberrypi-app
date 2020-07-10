@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>10</number>
+       <number>14</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -3215,7 +3215,7 @@ border-radius: 6px;</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_15">
                <item>
-                <widget class="QLabel" name="lblSelectedItemCount">
+                <widget class="QLabel" name="lbl_selected_item_count">
                  <property name="maximumSize">
                   <size>
                    <width>16777215</width>
@@ -3322,7 +3322,7 @@ border-style: inset;
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
-            <widget class="QWidget" name="scrollWidgetManualDelivery">
+            <widget class="QWidget" name="scroll_widget_manual_delivery">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -3373,7 +3373,7 @@ color: rgb(204, 0, 0);</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_21">
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="lblGifAfterDelivery">
+           <widget class="QLabel" name="lbl_gif_after_delivery">
             <property name="text">
              <string/>
             </property>
@@ -3403,7 +3403,7 @@ color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lblTotalPrice">
+             <widget class="QLabel" name="lbl_total_price">
               <property name="styleSheet">
                <string notr="true">color: rgb(0, 0, 0);
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
@@ -3466,7 +3466,7 @@ color: rgb(0, 0, 0);</string>
              <number>20</number>
             </property>
             <item>
-             <widget class="QPushButton" name="btnPrintReceiptYes">
+             <widget class="QPushButton" name="btn_print_receipt_yes">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3494,7 +3494,7 @@ border-style: inset;
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnPrintReceiptNo">
+             <widget class="QPushButton" name="btn_print_receipt_no">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3658,7 +3658,7 @@ border-style: inset;
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_45">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnWalletServices_1">
+             <widget class="QPushButton" name="btn_wallet_services_1">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -3694,7 +3694,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblWalletServices_1">
+             <widget class="QLabel" name="lbl_wallet_services_1">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3715,7 +3715,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_44">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnWalletServices_3">
+             <widget class="QPushButton" name="btn_wallet_services_3">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -3751,7 +3751,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblWalletServices_3">
+             <widget class="QLabel" name="lbl_wallet_services_3">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3769,7 +3769,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_43">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnWalletServices_4">
+             <widget class="QPushButton" name="btn_wallet_services_4">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -3805,7 +3805,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblWalletServices_4">
+             <widget class="QLabel" name="lbl_wallet_services_4">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3826,7 +3826,7 @@ color:#000000;</string>
              <number>0</number>
             </property>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnWalletServices_2">
+             <widget class="QPushButton" name="btn_wallet_services_2">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -3862,7 +3862,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblWalletServices_2">
+             <widget class="QLabel" name="lbl_wallet_services_2">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
