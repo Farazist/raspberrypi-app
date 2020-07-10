@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>10</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">

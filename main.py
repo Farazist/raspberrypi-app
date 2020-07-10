@@ -993,9 +993,9 @@ class MainWindow(QWidget):
     def stackDeviceMode(self):
         result = DataBase.select('bottle_recognize_mode')
         if result == 'manual':
-            self.ui.btnManualDevice.setChecked(True)
+            self.ui.rb_manual_device_mode_setting.setChecked(True)
         elif result == 'auto':
-            self.ui.btnAutoDevice.setChecked(True)
+            self.ui.rb_auto_device_mode_setting.setChecked(True)
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDeviceMode)
 
     def stackExitApp(self):
@@ -1055,9 +1055,9 @@ class MainWindow(QWidget):
 
     def saveSetting(self):
         self.showNotification(SETTING_SAVE_MESSAGE)
-        if self.ui.btnManualDevice.isChecked() == True:
+        if self.ui.rb_manual_device_mode_setting.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'manual')
-        if self.ui.btnAutoDevice.isChecked() == True:
+        if self.ui.rb_auto_device_mode_setting.isChecked() == True:
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         if self.ui.tb_sensor1_trig_port.text() != '':
