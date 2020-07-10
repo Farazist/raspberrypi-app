@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from server import Server
 from database import DataBase
@@ -218,7 +218,7 @@ class MainWindow(QWidget):
 
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
-        self.ui.btnLeft.setSizePolicy(sp_retain)
+        self.ui.btn_left.setSizePolicy(sp_retain)
         self.ui.btnRight.setSizePolicy(sp_retain) 
         self.ui.lblDeviceInfo.setSizePolicy(sp_retain)
         self.ui.btnSetting.setSizePolicy(sp_retain)
@@ -290,17 +290,17 @@ class MainWindow(QWidget):
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
         self.ui.btnYExitApp.clicked.connect(self.exitProgram)
-        self.ui.btnSettingStart.clicked.connect(self.stackStart)
-        self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
-        self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
-        self.ui.btnSetting2.clicked.connect(self.stackPressMotor)
-        self.ui.btnSetting10.clicked.connect(self.stackSeparationMotor)
-        self.ui.btnSetting3.clicked.connect(self.stackSensor1Ports)
-        self.ui.btnSetting9.clicked.connect(self.stackSensor2Ports)
-        self.ui.btnSetting6.clicked.connect(self.stackExitApp)
-        self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
-        self.ui.btnSetting7.clicked.connect(self.stackHelp)
-        self.ui.btnSetting8.clicked.connect(self.stackLicense)
+        self.ui.btn_setting_start.clicked.connect(self.stackStart)
+        self.ui.btn_setting_1.clicked.connect(self.stackDeviceMode)
+        self.ui.btn_setting_5.clicked.connect(self.stackConveyorPort)
+        self.ui.btn_setting_2.clicked.connect(self.stackPressMotor)
+        self.ui.btn_setting_10.clicked.connect(self.stackSeparationMotor)
+        self.ui.btn_setting_3.clicked.connect(self.stackSensor1Ports)
+        self.ui.btn_setting_9.clicked.connect(self.stackSensor2Ports)
+        self.ui.btn_setting_6.clicked.connect(self.stackExitApp)
+        self.ui.btn_setting_4.clicked.connect(self.stackAddOpetator)
+        self.ui.btn_setting_7.clicked.connect(self.stackHelp)
+        self.ui.btn_setting_8.clicked.connect(self.stackLicense)
         self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
         self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
@@ -1045,7 +1045,7 @@ class MainWindow(QWidget):
         self.ui.lbl_version.show()
 
     def stackLicense(self):
-        self.ui.tbLicense.setText(str(DataBase.select('app_version')))
+        self.ui.tb_license.setText(str(DataBase.select('app_version')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
 
     def changePredictItemFlag(self, value):

@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>10</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -2516,7 +2516,7 @@ color: rgb(0, 0, 0);</string>
                <number>200</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblLicense">
+               <widget class="QLabel" name="lbl_license">
                 <property name="styleSheet">
                  <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
@@ -2528,7 +2528,7 @@ color: #000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tbLicense">
+               <widget class="QLineEdit" name="tb_license">
                 <property name="styleSheet">
                  <string notr="true">background-color: #ffffff; 
 padding: 3px; 
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>634</width>
+               <width>631</width>
                <height>648</height>
               </rect>
              </property>
@@ -2599,7 +2599,7 @@ color:#000000;
                <number>9</number>
               </property>
               <item row="4" column="1">
-               <widget class="QPushButton" name="btnSetting4">
+               <widget class="QPushButton" name="btn_setting_4">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2627,7 +2627,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="btnSetting6">
+               <widget class="QPushButton" name="btn_setting_6">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2655,7 +2655,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="3" column="3">
-               <widget class="QPushButton" name="btnSetting5">
+               <widget class="QPushButton" name="btn_setting_5">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2683,7 +2683,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="5" column="3">
-               <widget class="QPushButton" name="btnSetting8">
+               <widget class="QPushButton" name="btn_setting_8">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -2711,7 +2711,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="4" column="3">
-               <widget class="QPushButton" name="btnSetting7">
+               <widget class="QPushButton" name="btn_setting_7">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2739,7 +2739,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QPushButton" name="btnSetting1">
+               <widget class="QPushButton" name="btn_setting_1">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2767,7 +2767,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="0" column="3">
-               <widget class="QPushButton" name="btnSettingStart">
+               <widget class="QPushButton" name="btn_setting_start">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2789,7 +2789,7 @@ outline-style: none;</string>
                </widget>
               </item>
               <item row="1" column="3">
-               <widget class="QPushButton" name="btnSetting2">
+               <widget class="QPushButton" name="btn_setting_2">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2817,7 +2817,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="2" column="3">
-               <widget class="QPushButton" name="btnSetting3">
+               <widget class="QPushButton" name="btn_setting_3">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2845,7 +2845,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QPushButton" name="btnSetting9">
+               <widget class="QPushButton" name="btn_setting_9">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -2873,7 +2873,7 @@ border-style: inset;
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QPushButton" name="btnSetting10">
+               <widget class="QPushButton" name="btn_setting_10">
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
@@ -4444,7 +4444,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>455</width>
+             <width>453</width>
              <height>505</height>
             </rect>
            </property>
