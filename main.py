@@ -273,9 +273,9 @@ class MainWindow(QWidget):
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
         # signals
-        self.ui.btnRefresh.clicked.connect(self.refresh)
+        self.ui.btn_refresh_loading.clicked.connect(self.refresh)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
-        self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
+        self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
         self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
         self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
@@ -725,14 +725,14 @@ class MainWindow(QWidget):
                 self.showNotification(RECYCLE_MESSAGE)
                 self.ui.btn_right.show()
                 self.selected_item['count'] += 1
-                self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+                self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
                 for user_item in self.user_items:
                     if self.selected_item['id'] == user_item['id']:
                         break
                 else:
                     self.user_items.append(self.selected_item)
                 self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-                self.ui.lblTotal.setText(str(self.total_price))
+                self.ui.lbl_total.setText(str(self.total_price))
              
         except Exception as e:
             print("error:", e)
@@ -742,8 +742,8 @@ class MainWindow(QWidget):
         self.selected_item = item
         self.selected_item['name'] = item['name']
         self.ui.lbl_selected_item.setText(self.selected_item['name'])
-        self.ui.lblUnit.setText(str(self.selected_item['price']))
-        self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
+        self.ui.lbl_unit.setText(str(self.selected_item['price']))
+        self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
         # for btn in self.layout_FArea.findChildren(QPushButton):
         #     btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
 
@@ -754,13 +754,14 @@ class MainWindow(QWidget):
         self.endRecycleItem()
 
 
+
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
-        self.ui.lblTotal.setText("0")
+        self.ui.lbl_total.setText("0")
         self.ui.lbl_recycled_done.hide()
         self.user_items = []
         self.layout_FArea = QGridLayout()
