@@ -4189,7 +4189,7 @@ border-style: inset;
            <number>50</number>
           </property>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="lblSelectedCharity">
+           <widget class="QLabel" name="lbl_selected_charity">
             <property name="styleSheet">
              <string notr="true">background-color: none; 
 padding-left: 10px; 
@@ -4452,7 +4452,7 @@ border-style: inset;
             <item row="0" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_39">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnCharity_2">
+               <widget class="QPushButton" name="btn_charity_2">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -4494,7 +4494,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblCharity_2">
+               <widget class="QLabel" name="lbl_charity_2">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4512,7 +4512,7 @@ color:#000000;</string>
             <item row="2" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_36">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnCharity_3">
+               <widget class="QPushButton" name="btn_charity_3">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -4554,7 +4554,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblCharity_3">
+               <widget class="QLabel" name="lbl_charity_3">
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;کمیته امداد امام خمینی&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -4589,7 +4589,7 @@ color:#000000;</string>
             <item row="2" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_35">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnCharity_4">
+               <widget class="QPushButton" name="btn_charity_4">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -4631,7 +4631,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblCharity_4">
+               <widget class="QLabel" name="lbl_charity_4">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4656,7 +4656,7 @@ color:#000000;</string>
             <item row="0" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_37">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnCharity_1">
+               <widget class="QPushButton" name="btn_charity_1">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>

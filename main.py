@@ -313,10 +313,10 @@ class MainWindow(QWidget):
         self.ui.btn_minus_rfid.clicked.connect(self.minusRFID)
         self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
 
-        self.ui.btnCharity_1.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text()))
-        self.ui.btnCharity_2.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_2.text()))
-        self.ui.btnCharity_3.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_3.text()))
-        self.ui.btnCharity_4.clicked.connect(lambda: self.ui.lblSelectedCharity.setText(self.ui.lblCharity_4.text()))
+        self.ui.btn_charity_1.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_1.text()))
+        self.ui.btn_charity_2.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_2.text()))
+        self.ui.btn_charity_3.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_3.text()))
+        self.ui.btn_charity_4.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_4.text()))
         
         self.ui.btnEnvirnmentalProtection_1.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text()))
         self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
@@ -936,7 +936,7 @@ class MainWindow(QWidget):
 
         self.ui.lbl_deposit_price_charity_organization.setText('0')
         self.ui.lbl_total_price_charity.setText(str("{:,.0f}".format(self.user_wallet)))
-        self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
+        self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def plusEnvirnment(self):
