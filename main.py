@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from server import Server
 from database import DataBase
@@ -276,8 +276,8 @@ class MainWindow(QWidget):
         self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
-        self.ui.btnSignInUserIDNumber.clicked.connect(self.stackSignInUserIDNumber)
-        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
+        self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
+        self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
@@ -290,17 +290,17 @@ class MainWindow(QWidget):
         self.ui.btnPrintReceiptYes.clicked.connect(self.printReceipt)
         self.ui.btnNExitApp.clicked.connect(self.stackSetting)
         self.ui.btnYExitApp.clicked.connect(self.exitProgram)
-        self.ui.btnSettingStart.clicked.connect(self.stackStart)
-        self.ui.btnSetting1.clicked.connect(self.stackDeviceMode)
-        self.ui.btnSetting5.clicked.connect(self.stackConveyorPort)
-        self.ui.btnSetting2.clicked.connect(self.stackPressMotor)
-        self.ui.btnSetting10.clicked.connect(self.stackSeparationMotor)
-        self.ui.btnSetting3.clicked.connect(self.stackSensor1Ports)
-        self.ui.btnSetting9.clicked.connect(self.stackSensor2Ports)
-        self.ui.btnSetting6.clicked.connect(self.stackExitApp)
-        self.ui.btnSetting4.clicked.connect(self.stackAddOpetator)
-        self.ui.btnSetting7.clicked.connect(self.stackHelp)
-        self.ui.btnSetting8.clicked.connect(self.stackLicense)
+        self.ui.btn_setting_start.clicked.connect(self.stackStart)
+        self.ui.btn_setting_1.clicked.connect(self.stackDeviceMode)
+        self.ui.btn_setting_5.clicked.connect(self.stackConveyorPort)
+        self.ui.btn_setting_2.clicked.connect(self.stackPressMotor)
+        self.ui.btn_setting_10.clicked.connect(self.stackSeparationMotor)
+        self.ui.btn_setting_3.clicked.connect(self.stackSensor1Ports)
+        self.ui.btn_setting_9.clicked.connect(self.stackSensor2Ports)
+        self.ui.btn_setting_6.clicked.connect(self.stackExitApp)
+        self.ui.btn_setting_4.clicked.connect(self.stackAddOpetator)
+        self.ui.btn_setting_7.clicked.connect(self.stackHelp)
+        self.ui.btn_setting_8.clicked.connect(self.stackLicense)
         self.ui.btnWalletServices_1.clicked.connect(self.stackChargingResidentialUnit)
         self.ui.btnWalletServices_2.clicked.connect(self.stackRFID)
         self.ui.btnWalletServices_3.clicked.connect(self.stackCharity)
@@ -589,7 +589,7 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         gif_loading = QMovie("animations/Rolling.gif")
-        self.ui.lblPixmapQr.setMovie(gif_loading)
+        self.ui.lbl_pixmap_qr.setMovie(gif_loading)
         gif_loading.start()
 
         self.qrcode_thread.start()
@@ -600,7 +600,7 @@ class MainWindow(QWidget):
         qr.add_data(qrcode_signin_token)
         qr.make(fit=True)
         qrcode_img = qr.make_image(fill_color="black", back_color="white")
-        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
+        self.ui.lbl_pixmap_qr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
         self.ui.lblNotification.hide()
 
     def stackMainMenu(self):
@@ -741,7 +741,7 @@ class MainWindow(QWidget):
     def SelectItem(self, item, this_btn):
         self.selected_item = item
         self.selected_item['name'] = item['name']
-        self.ui.lblSelectedItem.setText(self.selected_item['name'])
+        self.ui.lbl_selected_item.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         # for btn in self.layout_FArea.findChildren(QPushButton):
@@ -761,7 +761,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btnManualDeliveryRecycleItem, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
-        self.ui.lblRecycledDone.hide()
+        self.ui.lbl_recycled_done.hide()
         self.user_items = []
         self.layout_FArea = QGridLayout()
         i = 0
@@ -1045,7 +1045,7 @@ class MainWindow(QWidget):
         self.ui.lbl_version.show()
 
     def stackLicense(self):
-        self.ui.tbLicense.setText(str(DataBase.select('app_version')))
+        self.ui.tb_license.setText(str(DataBase.select('app_version')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingLicense)
 
     def changePredictItemFlag(self, value):
