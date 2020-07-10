@@ -328,7 +328,7 @@ class MainWindow(QWidget):
         self.ui.tbUserId.textChanged.connect(self.hideNotification)
         self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
         try:
-            self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
+            self.ui.btnPressMotorForwardOn.clicked.connect(self.motor.on)
             self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
             self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
             self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
