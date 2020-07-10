@@ -181,11 +181,6 @@ class AutoDeliveryItemsThread(QThread):
                         break
         except Exception as e:
             print("error:", e)
-     
-            # category_index = self.items[most_probability_item]['category_id'] - 1
-            # categories_count[category_index] += 1
-            # for i in range(len(categories_count)):
-            #     window.grid_widget_s4[i].setText(str(categories_count[i]))
         
 
 class AfterDeliveryThread(QThread):
