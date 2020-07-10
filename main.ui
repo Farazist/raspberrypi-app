@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -863,7 +863,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblMainMenu_4">
+             <widget class="QLabel" name="lbl_main_menu_4">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -896,7 +896,7 @@ color:#000000;</string>
            <number>10</number>
           </property>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblTitle">
+           <widget class="QLabel" name="lbl_title">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -916,7 +916,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblOwnerLogin">
+           <widget class="QLabel" name="lbl_owner_login">
             <property name="maximumSize">
              <size>
               <width>290</width>
@@ -966,7 +966,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblOwnerPassword">
+           <widget class="QLabel" name="lbl_owner_password">
             <property name="maximumSize">
              <size>
               <width>290</width>
@@ -1037,7 +1037,7 @@ color:#000000;</string>
            <number>20</number>
           </property>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="lblGifWallet">
+           <widget class="QLabel" name="lbl_gif_wallet">
             <property name="styleSheet">
              <string notr="true">font: 18pt &quot;IRANSans&quot;;</string>
             </property>
@@ -1075,7 +1075,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="lblTxtWallet">
+           <widget class="QLabel" name="lbl_txt_wallet">
             <property name="styleSheet">
              <string notr="true">font: 26pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -1117,7 +1117,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_31">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="lblAutoSelectedItem">
+             <widget class="QLabel" name="lbl_auto_selected_item">
               <property name="maximumSize">
                <size>
                 <width>500</width>
@@ -1297,7 +1297,7 @@ border-style: inset;
              <number>5</number>
             </property>
             <item row="3" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblNumCategory2">
+             <widget class="QLabel" name="lbl_num_category_2">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -1366,7 +1366,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="3" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblNumCategory3">
+             <widget class="QLabel" name="lbl_num_category_3">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -1402,7 +1402,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="3" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblNumCategory1">
+             <widget class="QLabel" name="lbl_num_category_1">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>

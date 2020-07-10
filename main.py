@@ -617,9 +617,9 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         gif_wallet = QMovie("animations/wallet.gif")
         gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
-        self.ui.lblGifWallet.setMovie(gif_wallet)
+        self.ui.lbl_gif_wallet.setMovie(gif_wallet)
         gif_wallet.start()
-        self.ui.lblWallet.setText(str(self.user['wallet']))
+        self.ui.lbl_wallet.setText(str(self.user['wallet']))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
 
     def stackWalletServices(self):
@@ -632,7 +632,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lbl_notification.hide()
-        # self.ui.listAutoDeliveryItems.clear()
+        # self.ui.list_auto_delivery_items.clear()
         self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
@@ -697,16 +697,16 @@ class MainWindow(QWidget):
                         self.selected_item = self.items[most_probability_item]
                         print('most probability item:', window.selected_item['name'])
 
-                        self.ui.listAutoDeliveryItems.addItems([self.selected_item['name']])
+                        self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
 
                         if self.selected_item['category_id'] == 1:
-                            self.ui.lblNumCategory1.setText(str(int(self.ui.lblNumCategory1.text()) + 1))
+                            self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
                         elif self.selected_item['category_id'] == 2:
-                            self.ui.lblNumCategory2.setText(str(int(self.ui.lblNumCategory2.text()) + 1))
+                            self.ui.lbl_num_category_2.setText(str(int(self.ui.lbl_num_category_2.text()) + 1))
                         elif self.selected_item['category_id'] == 3:
-                            self.ui.lblNumCategory3.setText(str(int(self.ui.lblNumCategory3.text()) + 1))
+                            self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
                         elif self.selected_item['category_id'] == 4:
-                            self.ui.lblNumCategory4.setText(str(int(self.ui.lblNumCategory4.text()) + 1))
+                            self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
 
                 if hasattr(self, 'separation_motor_stop_timer'):
                     self.separation_motor_stop_timer.cancel()
