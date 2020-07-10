@@ -5545,7 +5545,7 @@ border-style: inset;
            <number>0</number>
           </property>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblSelectedItem_FastCharging">
+           <widget class="QLabel" name="lbl_selected_item_fast_charging">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
@@ -5578,7 +5578,7 @@ border-radius: 6px;</string>
               <number>25</number>
              </property>
              <item row="1" column="0">
-              <widget class="QLineEdit" name="tbWeight_FastCharging">
+              <widget class="QLineEdit" name="tb_weight_fast_charging">
                <property name="maximumSize">
                 <size>
                  <width>290</width>
@@ -5599,7 +5599,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="lblTotal_FastCharging">
+              <widget class="QLabel" name="lbl_total__fast_charging">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -5619,7 +5619,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLineEdit" name="tbUnit_FastCharging">
+              <widget class="QLineEdit" name="tb_unit_fast_charging">
                <property name="maximumSize">
                 <size>
                  <width>290</width>
@@ -5640,7 +5640,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLabel" name="lblWeight_FastCharging">
+              <widget class="QLabel" name="lbl_weight_fast_charging">
                <property name="styleSheet">
                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5654,7 +5654,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLabel" name="lblTotalPrice_FastCharging">
+              <widget class="QLabel" name="lbl_total_price_fast_charging">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -5674,7 +5674,7 @@ color:#000000;</string>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLabel" name="lblUnit_FastCharging">
+              <widget class="QLabel" name="lbl_unit_fast_charging">
                <property name="styleSheet">
                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5760,7 +5760,7 @@ border-style: inset;
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetFastCharging">
+          <widget class="QWidget" name="scroll_area_widget_fast_charging">
            <property name="geometry">
             <rect>
              <x>0</x>

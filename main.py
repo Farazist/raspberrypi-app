@@ -829,8 +829,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.setButton(self.ui.btn_recycle_item_fast_charging, function=self.fastChargingDeliveryRecycleItem)
         self.ui.lbl_recycled_done_fast_charging.hide()
-        self.ui.tbUnit_FastCharging.setText('')
-        self.ui.tbWeight_FastCharging.setText('')
+        self.ui.tb_unit_fast_charging.setText('')
+        self.ui.tb_weight_fast_charging.setText('')
 
 
         self.layout_SArea_FastCharging = QGridLayout()
@@ -849,7 +849,7 @@ class MainWindow(QWidget):
             #        break
             #row += 1
         #self.SelectItem(self.items[0])
-        self.ui.scrollAreaWidgetFastCharging.setLayout(self.layout_SArea_FastCharging)
+        self.ui.scroll_area_widget_fast_charging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
     def stackChargingResidentialUnit(self):
