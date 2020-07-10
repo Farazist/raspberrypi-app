@@ -633,10 +633,10 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lbl_notification.hide()
         # self.ui.list_auto_delivery_items.clear()
-        self.ui.lblPixmapCategory1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
-        self.ui.lblPixmapCategory2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
-        self.ui.lblPixmapCategory3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
-        self.ui.lblPixmapCategory4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
+        self.ui.lbl_pixmap_category_1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
+        self.ui.lbl_pixmap_category_2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
+        self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
+        self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
         self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
         

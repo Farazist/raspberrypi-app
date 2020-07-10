@@ -1308,7 +1308,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="1" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPixmapCategory3">
+             <widget class="QLabel" name="lbl_pixmap_category_3">
               <property name="text">
                <string/>
               </property>
@@ -1324,7 +1324,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="1" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPixmapCategory1">
+             <widget class="QLabel" name="lbl_pixmap_category_1">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -1355,7 +1355,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="3" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblNumCategory4">
+             <widget class="QLabel" name="lbl_num_category_4">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -1377,7 +1377,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="1" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPixmapCategory4">
+             <widget class="QLabel" name="lbl_pixmap_category_4">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -1413,7 +1413,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="2" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblTxtCategory1">
+             <widget class="QLabel" name="lbl_txt_category_1">
               <property name="styleSheet">
                <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -1424,7 +1424,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="2" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblTxtCategory4">
+             <widget class="QLabel" name="lbl_txt_category_4">
               <property name="styleSheet">
                <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -1435,7 +1435,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblTxtCategory3">
+             <widget class="QLabel" name="lbl_txt_category_3">
               <property name="styleSheet">
                <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -1446,7 +1446,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="1" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPixmapCategory2">
+             <widget class="QLabel" name="lbl_pixmap_category_2">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -1468,7 +1468,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="2" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblTxtCategory2">
+             <widget class="QLabel" name="lbl_txt_category_2">
               <property name="styleSheet">
                <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
