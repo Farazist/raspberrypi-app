@@ -305,8 +305,8 @@ class MainWindow(QWidget):
         self.ui.btn_wallet_services_2.clicked.connect(self.stackRFID)
         self.ui.btn_wallet_services_3.clicked.connect(self.stackCharity)
         self.ui.btn_wallet_services_4.clicked.connect(self.stackEnvirnmentalProtection)
-        self.ui.btnPlus_charity.clicked.connect(self.plusCharity)
-        self.ui.btnMinus_charity.clicked.connect(self.minusCharity)
+        self.ui.btn_plus_charity.clicked.connect(self.plusCharity)
+        self.ui.btn_minus_charity.clicked.connect(self.minusCharity)
         self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
         self.ui.btnMinus_envirnmentalProtection.clicked.connect(self.minusEnvirnment)
         self.ui.btn_plus_rfid.clicked.connect(self.plusRFID)
@@ -911,18 +911,18 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 
     def plusCharity(self):
-        if self.user_wallet < int(self.ui.lblPayment_charity.text()):
+        if self.user_wallet < int(self.ui.lbl_payment_charity.text()):
             self.showNotification(MONEY_ERROR_MESSAGE)
         else:
             self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) + self.money_charity_organization))
             self.user_wallet -= self.money_charity_organization
-            self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
+            self.ui.lbl_total_price_charity.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusCharity(self):
         if int(self.ui.lbl_deposit_price_charity_organization.text()) > 0:
             self.ui.lbl_deposit_price_charity_organization.setText(str(int(self.ui.lbl_deposit_price_charity_organization.text()) - self.money_charity_organization))
             self.user_wallet += self.money_charity_organization
-            self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
+            self.ui.lbl_total_price_charity.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
             print('End of minus operations')
 
@@ -932,10 +932,10 @@ class MainWindow(QWidget):
         self.hideNotification()
 
         self.user_wallet = self.user['wallet']
-        self.money_charity_organization = int(self.ui.lblPayment_charity.text())
+        self.money_charity_organization = int(self.ui.lbl_payment_charity.text())
 
         self.ui.lbl_deposit_price_charity_organization.setText('0')
-        self.ui.lblTotalPrice_charity.setText(str("{:,.0f}".format(self.user_wallet)))
+        self.ui.lbl_total_price_charity.setText(str("{:,.0f}".format(self.user_wallet)))
         self.ui.lblSelectedCharity.setText(self.ui.lblCharity_1.text())
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 

@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>16</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -4047,7 +4047,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPayment_RFID">
+             <widget class="QLabel" name="lbl_payment_rfid">
               <property name="styleSheet">
                <string notr="true">color: rgb(0, 0, 0);
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
@@ -4093,7 +4093,7 @@ border-style: inset;
            </layout>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-           <widget class="QPushButton" name="btnTransformToRFIDSensorConfirm">
+           <widget class="QPushButton" name="btn_confirm_deposit_to_RFIDcard">
             <property name="minimumSize">
              <size>
               <width>200</width>
@@ -4248,7 +4248,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblTotalPrice_charity">
+             <widget class="QLabel" name="lbl_total_price_charity">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -4318,7 +4318,7 @@ color:#000000;</string>
              <number>50</number>
             </property>
             <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="btnMinus_charity">
+             <widget class="QPushButton" name="btn_minus_charity">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -4363,7 +4363,7 @@ border-style: inset;
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lblPayment_charity">
+             <widget class="QLabel" name="lbl_payment_charity">
               <property name="styleSheet">
                <string notr="true">color: rgb(0, 0, 0);
 font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
@@ -4377,7 +4377,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="btnPlus_charity">
+             <widget class="QPushButton" name="btn_plus_charity">
               <property name="minimumSize">
                <size>
                 <width>0</width>
