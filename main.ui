@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>17</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>10</number>
+             <number>7</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1807,7 +1807,7 @@ color:#000000;
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
-                 <widget class="QPushButton" name="btn_press_motor_backward_on">
+                 <widget class="QPushButton" name="btnPressMotorBackwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1836,7 +1836,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_press_motor_off">
+                 <widget class="QPushButton" name="btnPressMotorOff">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1865,7 +1865,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_press_motor_forward_on">
+                 <widget class="QPushButton" name="btnPressMotorForwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1983,7 +1983,7 @@ color:#000000;
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_31">
                 <item>
-                 <widget class="QPushButton" name="btn_separation_motor_backward_on">
+                 <widget class="QPushButton" name="btnSeparationMotorBackwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2012,7 +2012,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_separation_motor_off">
+                 <widget class="QPushButton" name="btnSeparationMotorOff">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2041,7 +2041,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_separation_motor_forward_on">
+                 <widget class="QPushButton" name="btnSeparationMotorForwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2073,7 +2073,7 @@ border-style: inset;
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingSensor1Ports">
+            <widget class="QWidget" name="pageSettingDistanceSensor1">
              <layout class="QVBoxLayout" name="verticalLayout_21">
               <property name="bottomMargin">
                <number>50</number>
@@ -2212,7 +2212,7 @@ color:#000000;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="pageSettingSensor2Ports">
+            <widget class="QWidget" name="pageSettingDistanceSensor2">
              <layout class="QVBoxLayout" name="verticalLayout_51">
               <property name="bottomMargin">
                <number>50</number>
@@ -2404,7 +2404,7 @@ color:#000000;</string>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <widget class="QPushButton" name="btn_conveyor_motor_backward_on">
+                 <widget class="QPushButton" name="btnConveyorMotorBackwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2462,7 +2462,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_conveyor_motor_forward_on">
+                 <widget class="QPushButton" name="btnConveyorMotorForwardOn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>634</width>
                <height>648</height>
               </rect>
              </property>
@@ -3327,7 +3327,7 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
+               <width>384</width>
                <height>16</height>
               </rect>
              </property>
@@ -4093,7 +4093,7 @@ border-style: inset;
            </layout>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-           <widget class="QPushButton" name="btn_confirm_deposit_to_RFIDcard">
+           <widget class="QPushButton" name="btnTransformToRFIDSensorConfirm">
             <property name="minimumSize">
              <size>
               <width>200</width>
@@ -4444,7 +4444,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>453</width>
+             <width>455</width>
              <height>505</height>
             </rect>
            </property>
@@ -5765,7 +5765,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
+             <width>384</width>
              <height>16</height>
             </rect>
            </property>
