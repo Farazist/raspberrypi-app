@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>14</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -3941,7 +3941,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lbl_total_wallet_RFID">
+             <widget class="QLabel" name="lbl_total_wallet_rfid">
               <property name="styleSheet">
                <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -3965,7 +3965,7 @@ color:#000000;</string>
              <number>0</number>
             </property>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lb_currency_RFID">
+             <widget class="QLabel" name="lb_currency_rfid">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -3979,7 +3979,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lbl_deposit_to_RFID">
+             <widget class="QLabel" name="lbl_deposit_to_rfid">
               <property name="styleSheet">
                <string notr="true">font: 87 28pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -3993,7 +3993,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lbl_deposit_RFID">
+             <widget class="QLabel" name="lbl_deposit_rfid">
               <property name="styleSheet">
                <string notr="true">font: 22pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -4017,7 +4017,7 @@ color:#000000;</string>
              <number>50</number>
             </property>
             <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="btnMinus_RFID">
+             <widget class="QPushButton" name="btn_minus_rfid">
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
@@ -4061,7 +4061,7 @@ font: 87 32pt &quot;IRANSansFaNum Black&quot;;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="btnPlus_RFID">
+             <widget class="QPushButton" name="btn_plus_rfid">
               <property name="styleSheet">
                <string notr="true">QPushButton{
 background-color: #ffffff; 
