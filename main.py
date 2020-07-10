@@ -307,8 +307,8 @@ class MainWindow(QWidget):
         self.ui.btn_wallet_services_4.clicked.connect(self.stackEnvirnmentalProtection)
         self.ui.btn_plus_charity.clicked.connect(self.plusCharity)
         self.ui.btn_minus_charity.clicked.connect(self.minusCharity)
-        self.ui.btnPlus_envirnmentalProtection.clicked.connect(self.plusEnvirnment)
-        self.ui.btnMinus_envirnmentalProtection.clicked.connect(self.minusEnvirnment)
+        self.ui.btn_plus_envirnmental_protection.clicked.connect(self.plusEnvirnment)
+        self.ui.btn_minus_envirnmental_protection.clicked.connect(self.minusEnvirnment)
         self.ui.btn_plus_rfid.clicked.connect(self.plusRFID)
         self.ui.btn_minus_rfid.clicked.connect(self.minusRFID)
         self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
@@ -318,10 +318,10 @@ class MainWindow(QWidget):
         self.ui.btn_charity_3.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_3.text()))
         self.ui.btn_charity_4.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_4.text()))
         
-        self.ui.btnEnvirnmentalProtection_1.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text()))
-        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
-        self.ui.btnEnvirnmentalProtection_3.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_3.text()))
-        self.ui.btnEnvirnmentalProtection_4.clicked.connect(lambda: self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_4.text()))
+        self.ui.btn_envirnmental_protection_1.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_1.text()))
+        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
+        self.ui.btnEnvirnmentalProtection_3.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lblEnvirnmentalProtection_3.text()))
+        self.ui.btn_envirnmental_protection_4.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_4.text()))
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
         self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
@@ -940,18 +940,18 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageCharity)
 
     def plusEnvirnment(self):
-        if self.user_wallet < int(self.ui.lblPayment_envirnmentalProtection.text()):
+        if self.user_wallet < int(self.ui.lbl_payment_envirnmental_protection.text()):
             self.showNotification(MONEY_ERROR_MESSAGE)
         else:
             self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) + self.money_envirnmental_organization))
             self.user_wallet -= self.money_envirnmental_organization
-            self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
+            self.ui.lbl_total_price_envirnmental_protection.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusEnvirnment(self):
         if int(self.ui.lbl_deposit_price_environmental_organization.text()) > 0:
             self.ui.lbl_deposit_price_environmental_organization.setText(str(int(self.ui.lbl_deposit_price_environmental_organization.text()) - self.money_envirnmental_organization))
             self.user_wallet += self.money_envirnmental_organization
-            self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
+            self.ui.lbl_total_price_envirnmental_protection.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
             print('End of minus operations')
 
@@ -961,11 +961,11 @@ class MainWindow(QWidget):
         self.hideNotification()
 
         self.user_wallet = self.user['wallet']
-        self.money_envirnmental_organization = int(self.ui.lblPayment_envirnmentalProtection.text())
+        self.money_envirnmental_organization = int(self.ui.lbl_payment_envirnmental_protection.text())
 
         self.ui.lbl_deposit_price_environmental_organization.setText('0')
-        self.ui.lblTotalPrice_envirnmentalProtection.setText(str("{:,.0f}".format(self.user_wallet)))
-        self.ui.lblSelectedEnvirnmentalProtection.setText(self.ui.lblEnvirnmentalProtection_1.text())
+        self.ui.lbl_total_price_envirnmental_protection.setText(str("{:,.0f}".format(self.user_wallet)))
+        self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_1.text())
 
         self.ui.Stack.setCurrentWidget(self.ui.pageEnvirnmentalProtection)
 
