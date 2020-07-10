@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -2925,7 +2925,7 @@ border-style: inset;
            <number>50</number>
           </property>
           <item alignment="Qt::AlignVCenter">
-           <widget class="QLabel" name="lblPixmapQr">
+           <widget class="QLabel" name="lbl_pixmap_qr">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2938,7 +2938,7 @@ border-style: inset;
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lblQrText">
+           <widget class="QLabel" name="lbl_qr_text">
             <property name="minimumSize">
              <size>
               <width>500</width>
@@ -2986,7 +2986,7 @@ color: rgb(0, 0, 0);</string>
            <number>20</number>
           </property>
           <item alignment="Qt::AlignRight|Qt::AlignBottom">
-           <widget class="QPushButton" name="btnSignInUserMobileNumber">
+           <widget class="QPushButton" name="btn_sign_in_user_mobile_number">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -3031,7 +3031,7 @@ border-style: inset;
            </widget>
           </item>
           <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-           <widget class="QPushButton" name="btnSignInUserIDNumber">
+           <widget class="QPushButton" name="btn_sign_in_user_id_number">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -3253,7 +3253,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblRecycledDone">
+             <widget class="QLabel" name="lbl_recycled_done">
               <property name="styleSheet">
                <string notr="true">font: 32pt &quot;IRANSans&quot;;
 color: rgb(204, 0, 0);</string>
@@ -3264,7 +3264,7 @@ color: rgb(204, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnManualDeliveryRecycleItem">
+             <widget class="QPushButton" name="btn_manual_delivery_recycle_item">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">

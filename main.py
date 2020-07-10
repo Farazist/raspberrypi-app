@@ -276,8 +276,8 @@ class MainWindow(QWidget):
         self.ui.btnRefresh.clicked.connect(self.refresh)
         self.ui.btnSetting.clicked.connect(self.stackSignInOwner)
         self.ui.btnHere.clicked.connect(self.stackSignInUserMethods)
-        self.ui.btnSignInUserIDNumber.clicked.connect(self.stackSignInUserIDNumber)
-        self.ui.btnSignInUserMobileNumber.clicked.connect(self.stackSignInUserMobileNumber)
+        self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
+        self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btnMainMenu_1.clicked.connect(self.checkDeviceMode)
@@ -589,7 +589,7 @@ class MainWindow(QWidget):
         self.ui.lblNotification.hide()
 
         gif_loading = QMovie("animations/Rolling.gif")
-        self.ui.lblPixmapQr.setMovie(gif_loading)
+        self.ui.lbl_pixmap_qr.setMovie(gif_loading)
         gif_loading.start()
 
         self.qrcode_thread.start()
@@ -600,7 +600,7 @@ class MainWindow(QWidget):
         qr.add_data(qrcode_signin_token)
         qr.make(fit=True)
         qrcode_img = qr.make_image(fill_color="black", back_color="white")
-        self.ui.lblPixmapQr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
+        self.ui.lbl_pixmap_qr.setPixmap(QPixmap.fromImage(ImageQt(qrcode_img)).scaled(300, 300))
         self.ui.lblNotification.hide()
 
     def stackMainMenu(self):
@@ -741,7 +741,7 @@ class MainWindow(QWidget):
     def SelectItem(self, item, this_btn):
         self.selected_item = item
         self.selected_item['name'] = item['name']
-        self.ui.lblSelectedItem.setText(self.selected_item['name'])
+        self.ui.lbl_selected_item.setText(self.selected_item['name'])
         self.ui.lblUnit.setText(str(self.selected_item['price']))
         self.ui.lblSelectedItemCount.setText(str(self.selected_item['count']))
         # for btn in self.layout_FArea.findChildren(QPushButton):
@@ -758,10 +758,10 @@ class MainWindow(QWidget):
         self.delivery_items_flag = True
         self.setButton(self.ui.btnLeft, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btnRight, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        self.setButton(self.ui.btnManualDeliveryRecycleItem, function=self.manualDeliveryRecycleItem)
+        self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
-        self.ui.lblRecycledDone.hide()
+        self.ui.lbl_recycled_done.hide()
         self.user_items = []
         self.layout_FArea = QGridLayout()
         i = 0
