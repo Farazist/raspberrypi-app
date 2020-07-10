@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>17</number>
+       <number>20</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -2581,7 +2581,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>494</width>
+               <width>631</width>
                <height>648</height>
               </rect>
              </property>
@@ -5072,7 +5072,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblEnvirnmentalProtection_4">
+               <widget class="QLabel" name="lbl_envirnmental_protection_4">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5090,7 +5090,7 @@ color:#000000;</string>
             <item row="0" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_50">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnEnvirnmentalProtection_2">
+               <widget class="QPushButton" name="btn_envirnmental_protection_2">
                 <property name="maximumSize">
                  <size>
                   <width>190</width>
@@ -5126,7 +5126,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblEnvirnmentalProtection_2">
+               <widget class="QLabel" name="lbl_envirnmental_protection_2">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5151,7 +5151,7 @@ color:#000000;</string>
             <item row="2" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_48">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnEnvirnmentalProtection_3">
+               <widget class="QPushButton" name="btn_envirnmental_protection_3">
                 <property name="maximumSize">
                  <size>
                   <width>190</width>
@@ -5187,7 +5187,7 @@ border-style: inset;
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="lblEnvirnmentalProtection_3">
+               <widget class="QLabel" name="lbl_envirnmental_protection_3">
                 <property name="styleSheet">
                  <string notr="true">font: 18pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5261,7 +5261,7 @@ color:#000000;</string>
              <number>200</number>
             </property>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lblCharge">
+             <widget class="QLabel" name="lbl_charge">
               <property name="styleSheet">
                <string notr="true">font: 26pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5272,7 +5272,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLineEdit" name="tbChargeUnitPrice">
+             <widget class="QLineEdit" name="tb_charge_unit_price">
               <property name="minimumSize">
                <size>
                 <width>290</width>
@@ -5302,7 +5302,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnChargePayment">
+             <widget class="QPushButton" name="btn_charge_payment">
               <property name="minimumSize">
                <size>
                 <width>290</width>
@@ -5364,7 +5364,7 @@ border-style: inset;
                <number>20</number>
               </property>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lblAddressTitle">
+               <widget class="QLabel" name="lbl_address_title">
                 <property name="styleSheet">
                  <string notr="true">font: 26pt &quot;IRANSans&quot;;
 color:#000000;</string>
@@ -5378,7 +5378,7 @@ color:#000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignTop">
-               <widget class="QLabel" name="lblUserAddress">
+               <widget class="QLabel" name="lbl_user_address">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -5407,7 +5407,7 @@ color:#000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnEditUserAddress">
+               <widget class="QPushButton" name="btn_edit_user_address">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -5442,7 +5442,7 @@ border-style: inset;
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_55">
               <item alignment="Qt::AlignHCenter">
-               <widget class="QLineEdit" name="tbUserNewAddress">
+               <widget class="QLineEdit" name="tb_user_new_address">
                 <property name="minimumSize">
                  <size>
                   <width>290</width>
@@ -5478,7 +5478,7 @@ color:#000000;</string>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
-               <widget class="QPushButton" name="btnChangedUserAddress">
+               <widget class="QPushButton" name="btn_changed_user_address">
                 <property name="minimumSize">
                  <size>
                   <width>290</width>
@@ -5691,7 +5691,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="lblRecycledDone_FastCharging">
+           <widget class="QLabel" name="lbl_recycled_done_fast_charging">
             <property name="styleSheet">
              <string notr="true">font: 32pt &quot;IRANSans&quot;;
 color: rgb(204, 0, 0);</string>
@@ -5705,7 +5705,7 @@ color: rgb(204, 0, 0);</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnRecycleItem_FastCharging">
+           <widget class="QPushButton" name="btn_recycle_item_fast_charging">
             <property name="minimumSize">
              <size>
               <width>200</width>
@@ -5765,8 +5765,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>449</width>
+             <height>447</height>
             </rect>
            </property>
           </widget>

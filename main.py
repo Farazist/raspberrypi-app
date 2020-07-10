@@ -319,8 +319,8 @@ class MainWindow(QWidget):
         self.ui.btn_charity_4.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_4.text()))
         
         self.ui.btn_envirnmental_protection_1.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_1.text()))
-        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lblEnvirnmentalProtection_2.text()))
-        self.ui.btnEnvirnmentalProtection_3.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lblEnvirnmentalProtection_3.text()))
+        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_2.text()))
+        self.ui.btn_envirnmental_protection_3.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_3.text()))
         self.ui.btn_envirnmental_protection_4.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_4.text()))
 
         self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
@@ -827,8 +827,8 @@ class MainWindow(QWidget):
     def stackFastCharging(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.setButton(self.ui.btnRecycleItem_FastCharging, function=self.fastChargingDeliveryRecycleItem)
-        self.ui.lblRecycledDone_FastCharging.hide()
+        self.setButton(self.ui.btn_recycle_item_fast_charging, function=self.fastChargingDeliveryRecycleItem)
+        self.ui.lbl_recycled_done_fast_charging.hide()
         self.ui.tbUnit_FastCharging.setText('')
         self.ui.tbWeight_FastCharging.setText('')
 
@@ -855,20 +855,20 @@ class MainWindow(QWidget):
     def stackChargingResidentialUnit(self):
         self.setButton(self.ui.btn_left, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lblUserAddress.setText(self.user['address'])
+        self.ui.lbl_user_address.setText(self.user['address'])
         print(self.user['address'])
         sp_retain = QSizePolicy()
         sp_retain.setRetainSizeWhenHidden(True)
-        self.ui.tbUserNewAddress.setSizePolicy(sp_retain)
-        self.ui.btnChangedUserAddress.setSizePolicy(sp_retain)
-        self.ui.tbUserNewAddress.hide()
-        self.ui.btnChangedUserAddress.hide()
-        self.ui.btnEditUserAddress.clicked.connect(self.editUserAddress)
+        self.ui.tb_user_new_address.setSizePolicy(sp_retain)
+        self.ui.btn_changed_user_address.setSizePolicy(sp_retain)
+        self.ui.tb_user_new_address.hide()
+        self.ui.btn_changed_user_address.hide()
+        self.ui.btn_edit_user_address.clicked.connect(self.editUserAddress)
         self.ui.Stack.setCurrentWidget(self.ui.pageChargingResidentialUnit)
 
     def editUserAddress(self):
-        self.ui.tbUserNewAddress.show()
-        self.ui.btnChangedUserAddress.show()
+        self.ui.tb_user_new_address.show()
+        self.ui.btn_changed_user_address.show()
 
     def depositToRFIDcard(self):
         try:
