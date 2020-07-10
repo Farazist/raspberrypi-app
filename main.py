@@ -328,7 +328,7 @@ class MainWindow(QWidget):
         self.ui.tbUserId.textChanged.connect(self.hideNotification)
         self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
         try:
-            self.ui.btnPressMotorForwardOn.clicked.connect(self.motor.on)
+            self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
             self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
             self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
             self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
@@ -475,9 +475,9 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
 
     def stackSignInOwner(self):
-        self.ui.lbl_logo.show()
+        self.ui.lblLogo.show()
         self.qrcode_thread.stop()
-        self.ui.lbl_notification.hide()
+        self.ui.lblNotification.hide()
         if self.flag_system_startup_now:
             self.setButton(self.ui.btn_left, show=False)
         else:
@@ -758,7 +758,7 @@ class MainWindow(QWidget):
         self.delivery_items_flag = True
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
-        self.setButton(self.ui.btnManualDeliveryRecycleItem, function=self.manualDeliveryRecycleItem)
+        self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
         self.ui.lblTotal.setText("0")
         self.ui.lbl_recycled_done.hide()
