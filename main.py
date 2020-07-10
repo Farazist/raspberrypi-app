@@ -673,7 +673,6 @@ class MainWindow(QWidget):
         except Exception as e:
             print("error:", e)
 
-
     def endRecycleItem(self):
         print('endRecycleItem')
         try:

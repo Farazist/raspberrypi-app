@@ -2,7 +2,7 @@ from gpiozero import Motor
 import RPi.GPIO as GPIO
 from time import sleep
 
-motor = Motor(forward=24, backward=22)
+motor = Motor(forward=27, backward=4)
 
 # while True:
 motor.forward()
