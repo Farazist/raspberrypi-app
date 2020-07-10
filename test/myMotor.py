@@ -2,18 +2,18 @@ from gpiozero import Motor
 import RPi.GPIO as GPIO
 from time import sleep
 
-motor = Motor(forward=13, backward=26)
+motor = Motor(forward=24, backward=22)
 
 # while True:
 motor.forward()
-sleep(0.25)
+sleep(5)
 motor.stop()
-sleep(2)
+sleep(10)
 motor.backward()
-sleep(0.25)
+sleep(5)
 motor.stop()
-sleep(2)
+sleep(10)
 
-del motor
+# del motor
 
 GPIO.cleanup()

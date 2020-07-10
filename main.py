@@ -97,7 +97,9 @@ class SigninOwnerThread(QThread):
     
     def run(self):
         try:
-            window.owner = Server.signInUser(int(window.ui.tbOwnerUsername.text()), int(window.ui.tbOwnerPassword.text()))
+            id = int(window.ui.tb_owner_id.text())
+            password = int(window.ui.tb_owner_password.text())
+            window.owner = Server.signInUser(id, password)
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
@@ -111,21 +113,9 @@ class SigninUserThread(QThread):
     
     def run(self):
         try:
-            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
-            self.success_signal.emit()
-        except:
-            window.showNotification(SERVER_ERROR_MESSAGE)
-
-
-class SigninUserMobileThread(QThread):
-    success_signal = Signal()
-    
-    def __init__(self):
-        QThread.__init__(self)
-    
-    def run(self):
-        try:
-            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
+            id = int(window.ui.tb_user_id_or_mobile_number.text())
+            password = int(window.ui.tb_user_password.text())
+            window.user = Server.signInUser(id, password)
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
@@ -258,9 +248,6 @@ class MainWindow(QWidget):
         self.signin_user_thread = SigninUserThread()
         self.signin_user_thread.success_signal.connect(self.afterSignInUser)
 
-        self.signin_user_mobile_thread = SigninUserMobileThread()
-        self.signin_user_mobile_thread.success_signal.connect(self.afterSignInUserMobile)
-
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
         #self.loading_thread.success_signal.connect(self.stackMainMenu)
@@ -288,8 +275,8 @@ class MainWindow(QWidget):
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
-        self.ui.btnNExitApp.clicked.connect(self.stackSetting)
-        self.ui.btnYExitApp.clicked.connect(self.exitProgram)
+        self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
+        self.ui.btn_yes_exit_app_setting.clicked.connect(self.exitProgram)
         self.ui.btn_setting_start.clicked.connect(self.stackStart)
         self.ui.btn_setting_1.clicked.connect(self.stackDeviceMode)
         self.ui.btn_setting_5.clicked.connect(self.stackConveyorPort)
@@ -319,22 +306,15 @@ class MainWindow(QWidget):
         self.ui.btn_charity_4.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_4.text()))
         
         self.ui.btn_envirnmental_protection_1.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_1.text()))
-        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_2.text()))
+        self.ui.btn_envirnmental_protection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_2.text()))
         self.ui.btn_envirnmental_protection_3.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_3.text()))
         self.ui.btn_envirnmental_protection_4.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_4.text()))
 
-        self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
-        self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
-        self.ui.tbUserId.textChanged.connect(self.hideNotification)
-        self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
-        try:
-            self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
-            self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
-            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
-            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
-        except Exception as e:
-            print("error:", e)
-
+        self.ui.tb_owner_id.textChanged.connect(self.hideNotification)
+        self.ui.tb_owner_password.textChanged.connect(self.hideNotification)
+        self.ui.tb_user_id_or_mobile_number.textChanged.connect(self.hideNotification)
+        self.ui.tb_user_password.textChanged.connect(self.hideNotification)
+        
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
     
@@ -356,6 +336,10 @@ class MainWindow(QWidget):
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
             self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, pin_factory=factory)
+            
+            self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
+            self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
+            self.ui.btn_press_motor_off.clicked.connect(self.press_motor.stop)
             print('press motor ready')
         except Exception as e:
             print("error:", e)
@@ -367,17 +351,25 @@ class MainWindow(QWidget):
             self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
             self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, pin_factory=factory)
+        
+            self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
+            self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
+            self.ui.btn_separation_motor_off.clicked.connect(self.separation_motor.stop)
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
 
         try:
             if hasattr(self, 'conveyor_motor'):
-                self.conveyor.close()
+                self.conveyor_motor.close()
                 print("conveyor motor close")
             self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
             self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, pin_factory=factory)
+       
+            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
+            self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
+            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor_motor.stop)
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
@@ -450,7 +442,7 @@ class MainWindow(QWidget):
 
     def stopSound(self):
         try:
-                mixer.music.stop()
+            mixer.music.stop()
         except Exception as e:
             print("error:", e)
 
@@ -486,8 +478,8 @@ class MainWindow(QWidget):
             self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
             self.ui.lbl_device_info.setText(self.deviceInfo)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.tbOwnerUsername.setText('')
-        self.ui.tbOwnerPassword.setText('')
+        self.ui.tb_owner_id.setText('')
+        self.ui.tb_owner_password.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
     
     def signInOwner(self):
@@ -556,10 +548,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.ui.lbl_device_info.setText(self.deviceInfo)
-        self.ui.tbOwnerUsername.setText('')
-        self.ui.tbOwnerPassword.setText('')
         gif_start = QMovie("animations/slider1.gif")
-        self.ui.lblGifStart.setMovie(gif_start)
+        self.ui.lbl_slider_start.setMovie(gif_start)
         gif_start.start()
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
@@ -568,8 +558,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
         self.stopSound()
-        self.ui.tbUserId.setText('')
-        self.ui.tbUserPasswordID.setText('')
+        self.ui.tb_user_id_or_mobile_number.setText('')
+        self.ui.tb_user_password.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
 
@@ -638,7 +628,7 @@ class MainWindow(QWidget):
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
-        self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
+        self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startRecycleItem)
         
         self.delivery_items_flag = True
         self.user_items = []
@@ -753,8 +743,6 @@ class MainWindow(QWidget):
         self.startRecycleItem()
         self.endRecycleItem()
 
-
-
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -816,8 +804,8 @@ class MainWindow(QWidget):
             self.showNotification(SERVER_ERROR_MESSAGE)
     
         try:
-            self.motor.off()
-            self.conveyor.off()
+            self.press_motor.off()
+            self.conveyor_motor.off()
         except Exception as e:
             print("error:", e)
 
@@ -1021,14 +1009,14 @@ class MainWindow(QWidget):
         self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
         self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
         self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor1Ports)
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor1)
 
     def stackSensor2Ports(self):
         self.ui.lbl_notification.hide()
         self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('sensor2_trig_port')))
         self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('sensor2_echo_port')))
         self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('sensor2_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor2Ports)
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor2)
 
     def stackConveyorPort(self):
         self.ui.lbl_notification.hide()
