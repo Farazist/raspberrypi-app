@@ -39,7 +39,7 @@
        <number>15</number>
       </property>
       <item>
-       <widget class="QPushButton" name="btnLeft">
+       <widget class="QPushButton" name="btn_left">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -96,7 +96,7 @@ border-style: inset;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnRight">
+       <widget class="QPushButton" name="btn_right">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>15</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -167,7 +167,7 @@ border-style: inset;
          <number>20</number>
         </property>
         <item alignment="Qt::AlignVCenter">
-         <widget class="QLabel" name="lblPixmapLoading">
+         <widget class="QLabel" name="lbl_logo_loading">
           <property name="text">
            <string/>
           </property>
@@ -180,7 +180,7 @@ border-style: inset;
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnRefresh">
+         <widget class="QPushButton" name="btn_refresh_loading">
           <property name="styleSheet">
            <string notr="true">QPushButton{background-color: #28a745; color: rgb(255, 255, 255); font: 24pt &quot;IRANSans&quot;;  padding: 15px; border: none; border-radius: 6px; outline-style: none;}
 QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
@@ -218,7 +218,7 @@ QPushButton:pressed {background-color: #145222;border-style: inset;}</string>
          <number>0</number>
         </property>
         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-         <widget class="QLabel" name="lblGifStart">
+         <widget class="QLabel" name="lbl_slider_start">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -241,7 +241,7 @@ border-radius: 30px</string>
          </widget>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="btnHere">
+         <widget class="QPushButton" name="btn_start">
           <property name="minimumSize">
            <size>
             <width>500</width>
@@ -263,7 +263,7 @@ outline-style: none;
 font: 22pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string> برای ورود اینجا را کلیک کنید</string>
+           <string>شروع</string>
           </property>
          </widget>
         </item>
@@ -302,7 +302,7 @@ font: 22pt &quot;IRANSans&quot;;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserID">
+           <widget class="QLabel" name="lbl_user_id_or_mobile_number">
             <property name="maximumSize">
              <size>
               <width>290</width>
@@ -323,7 +323,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserId">
+           <widget class="QLineEdit" name="tb_user_id_or_mobile_number">
             <property name="minimumSize">
              <size>
               <width>290</width>
@@ -351,12 +351,12 @@ color:#000000;</string>
              <set>Qt::AlignCenter</set>
             </property>
             <property name="placeholderText">
-             <string>1****</string>
+             <string/>
             </property>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserPassword1">
+           <widget class="QLabel" name="lbl_user_password">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -376,7 +376,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserPasswordID">
+           <widget class="QLineEdit" name="tb_user_password">
             <property name="minimumSize">
              <size>
               <width>290</width>
@@ -408,7 +408,7 @@ color:#000000;
              <set>Qt::AlignCenter</set>
             </property>
             <property name="placeholderText">
-             <string>*****</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -593,7 +593,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_26">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnMainMenu_1">
+             <widget class="QPushButton" name="btn_main_menu_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -665,7 +665,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_27">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnMainMenu_2">
+             <widget class="QPushButton" name="btn_main_menu_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -743,7 +743,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_28">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnMainMenu_3">
+             <widget class="QPushButton" name="btn_main_menu_3">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -827,7 +827,7 @@ color:#000000;</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_41">
             <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btnMainMenu_4">
+             <widget class="QPushButton" name="btn_main_menu_4">
               <property name="maximumSize">
                <size>
                 <width>300</width>
@@ -936,7 +936,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbOwnerUsername">
+           <widget class="QLineEdit" name="tb_owner_id">
             <property name="minimumSize">
              <size>
               <width>290</width>
@@ -987,7 +987,7 @@ color:#000000;
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbOwnerPassword">
+           <widget class="QLineEdit" name="tb_owner_password">
             <property name="minimumSize">
              <size>
               <width>290</width>
@@ -1061,7 +1061,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="lblWallet">
+           <widget class="QLabel" name="lbl_wallet">
             <property name="styleSheet">
              <string notr="true">font: 87 32pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -1200,7 +1200,7 @@ border-radius: 6px;</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
-                <widget class="QLabel" name="label_10">
+                <widget class="QLabel" name="lbl_total_price_auto_delivery_items">
                  <property name="styleSheet">
                   <string notr="true">font: 87 30pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;
@@ -1232,7 +1232,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnAutoDeliveryRecycleItem">
+             <widget class="QPushButton" name="btn_recycle_auto_delivery_items">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1509,7 +1509,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1552,14 +1552,14 @@ color:#000000;</string>
 color: #000000;</string>
                 </property>
                 <property name="text">
-                 <string>لطفا نوع کارکرد دستگاه را انتخاب کنید</string>
+                 <string>حالت دستگاه</string>
                 </property>
                </widget>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                 <widget class="QRadioButton" name="btnManualDevice">
+                 <widget class="QRadioButton" name="rb_manual_device_mode_setting">
                   <property name="styleSheet">
                    <string notr="true">QRadioButton::indicator {width: 60px;height: 60px;}
 QRadioButton::indicator::unchecked {image: url(images/icon/unchecked.png);} QRadioButton::indicator:unchecked:hover {image: url(images/icon/unchecked-hover.png);}
@@ -1578,7 +1578,7 @@ QRadioButton{color:#000000;}
                  </widget>
                 </item>
                 <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                 <widget class="QRadioButton" name="btnAutoDevice">
+                 <widget class="QRadioButton" name="rb_auto_device_mode_setting">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -1611,7 +1611,7 @@ QRadioButton{color:#000000;}
 color: #000000;</string>
                   </property>
                   <property name="text">
-                   <string>آیا از برنامه خارج می شوید؟ قبل از خروج از برنامه با فشردن دکمه ذخیره، از ذخیره اطلاعات اطمینان حاصل نمایید.</string>
+                   <string>آیا از برنامه خارج می شوید؟ قبل از خروج با فشردن دکمه ذخیره، از ذخیره اطلاعات اطمینان حاصل نمایید.</string>
                   </property>
                   <property name="scaledContents">
                    <bool>false</bool>
@@ -1629,7 +1629,7 @@ color: #000000;</string>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item alignment="Qt::AlignVCenter">
-                 <widget class="QPushButton" name="btnNExitApp">
+                 <widget class="QPushButton" name="btn_no_exit_app_setting">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1663,7 +1663,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item alignment="Qt::AlignVCenter">
-                 <widget class="QPushButton" name="btnYExitApp">
+                 <widget class="QPushButton" name="btn_yes_exit_app_setting">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -1807,7 +1807,7 @@ color:#000000;
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
-                 <widget class="QPushButton" name="btnPressMotorBackwardOn">
+                 <widget class="QPushButton" name="btn_press_motor_backward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1836,7 +1836,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnPressMotorOff">
+                 <widget class="QPushButton" name="btn_press_motor_off">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1865,7 +1865,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnPressMotorForwardOn">
+                 <widget class="QPushButton" name="btn_press_motor_forward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1983,7 +1983,7 @@ color:#000000;
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_31">
                 <item>
-                 <widget class="QPushButton" name="btnSeparationMotorBackwardOn">
+                 <widget class="QPushButton" name="btn_separation_motor_backward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2012,7 +2012,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnSeparationMotorOff">
+                 <widget class="QPushButton" name="btn_separation_motor_off">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2041,7 +2041,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnSeparationMotorForwardOn">
+                 <widget class="QPushButton" name="btn_separation_motor_forward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2404,7 +2404,7 @@ color:#000000;</string>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <widget class="QPushButton" name="btnConveyorMotorBackwardOn">
+                 <widget class="QPushButton" name="btn_conveyor_motor_backward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2433,7 +2433,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnConveyorOff">
+                 <widget class="QPushButton" name="btn_conveyor_motor_off">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2462,7 +2462,7 @@ border-style: inset;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btnConveyorMotorForwardOn">
+                 <widget class="QPushButton" name="btn_conveyor_motor_forward_on">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -3327,8 +3327,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>384</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5765,8 +5765,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>384</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
