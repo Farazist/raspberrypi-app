@@ -1,19 +1,27 @@
 from gpiozero import Motor
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 from time import sleep
+from gpiozero.pins.native import NativeFactory
 
-motor = Motor(forward=27, backward=4)
+factory = NativeFactory()
+
+motor = Motor(19, 26)
 
 # while True:
 motor.forward()
-sleep(5)
+print('forward')
+sleep(1)
 motor.stop()
-sleep(10)
+print('stop')
+sleep(1)
 motor.backward()
-sleep(5)
+print('backward')
+sleep(1)
 motor.stop()
-sleep(10)
+print('stop')
+sleep(1)
 
+motor.close()
 # del motor
 
-GPIO.cleanup()
+# GPIO.cleanup()
