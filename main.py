@@ -609,7 +609,7 @@ class MainWindow(QWidget):
         gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
         self.ui.lbl_gif_wallet.setMovie(gif_wallet)
         gif_wallet.start()
-        self.ui.lbl_wallet.setText(str(self.user['wallet']))
+        self.ui.lbl_wallet.setText(str(("{:,.0f}").format(self.user['wallet'])))
         self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
 
     def stackWalletServices(self):
