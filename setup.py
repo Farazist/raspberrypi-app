@@ -172,13 +172,13 @@ class MainWindow(QWidget):
         database_list[9][0] = 'separation_motor_backward_port'
         database_list[10][0] = 'separation_motor_timer'
 
-        database_list[11][0] = 'sensor1_depth_threshold'
-        database_list[12][0] = 'sensor1_trig_port'
-        database_list[13][0] = 'sensor1_echo_port'
+        database_list[11][0] = 'distance_sensor1_depth_threshold'
+        database_list[12][0] = 'distance_sensor1_trig_port'
+        database_list[13][0] = 'distance_sensor1_echo_port'
 
-        database_list[14][0] = 'sensor2_depth_threshold'
-        database_list[15][0] = 'sensor2_trig_port'
-        database_list[16][0] = 'sensor2_echo_port'
+        database_list[14][0] = 'distance_sensor2_depth_threshold'
+        database_list[15][0] = 'distance_sensor2_trig_port'
+        database_list[16][0] = 'distance_sensor2_echo_port'
 
         database_list[17][0] = 'app_version'
 
