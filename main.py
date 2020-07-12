@@ -170,7 +170,7 @@ class AutoDeliveryItemsThread(QThread):
                     else:
                         break
         except Exception as e:
-            print("error AutoDeliveryItemsThread:", e)
+            print("error:", e)
         
 
 class AfterDeliveryThread(QThread):
@@ -342,7 +342,7 @@ class MainWindow(QWidget):
             self.ui.btn_press_motor_off.clicked.connect(self.press_motor.stop)
             print('press motor ready')
         except Exception as e:
-            print("error initHardwares press_motor:", e)
+            print("error:", e)
 
         try:
             if hasattr(self, 'separation_motor'):
@@ -357,7 +357,7 @@ class MainWindow(QWidget):
             self.ui.btn_separation_motor_off.clicked.connect(self.separation_motor.stop)
             print('separation motor ready')
         except Exception as e:
-            print("error initHardwares separation_motor:", e)
+            print("error:", e)
 
         try:
             if hasattr(self, 'conveyor_motor'):
@@ -372,7 +372,7 @@ class MainWindow(QWidget):
             self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor_motor.stop)
             print('conveyor motor ready')
         except Exception as e:
-            print("error initHardwares conveyor_motor:", e)
+            print("error:", e)
         
         try:
             if hasattr(self, 'distance_sensor1'):
@@ -385,7 +385,7 @@ class MainWindow(QWidget):
             self.distance_sensor1.when_in_range = self.startRecycleItem
             print('distance sensor 1 ready')
         except Exception as e:
-            print("error initHardwares distance_sensor1:", e)
+            print("error:", e)
 
         try:
             if hasattr(self, 'distance_sensor2'):
@@ -398,14 +398,14 @@ class MainWindow(QWidget):
             self.distance_sensor2.when_in_range = self.endRecycleItem
             print('distance sensor 2 ready')
         except Exception as e:
-            print("error initHardwares distance_sensor2:", e)
+            print("error:", e)
 
         try:
             if not hasattr(self, 'rfid_sensor'):
                 self.rfid_sensor = SimpleMFRC522()
                 print('RFID sensor ready')
         except Exception as e:
-            print("error initHardwares rfid_sensor:", e)
+            print("error:", e)
 
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -438,13 +438,13 @@ class MainWindow(QWidget):
                 mixer.music.load(path)
                 mixer.music.play()
         except Exception as e:
-            print("error playSound:", e)
+            print("error:", e)
 
     def stopSound(self):
         try:
             mixer.music.stop()
         except Exception as e:
-            print("error stopSound:", e)
+            print("error:", e)
 
     def makeGif(self):
         pngdir = 'images/slider'
@@ -659,7 +659,7 @@ class MainWindow(QWidget):
                     self.press_motor_stop_timer = Timer(motor_timer, self.press_motor.stop)
                     self.press_motor_stop_timer.start()
                 except Exception as e:
-                    print("error startRecycleItem press motor on:", e)
+                    print("error:", e)
 
                 if hasattr(self, 'conveyor_motor_stop_timer'):
                     self.conveyor_motor_stop_timer.cancel()
@@ -669,9 +669,9 @@ class MainWindow(QWidget):
                     self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
                     self.conveyor_motor_stop_timer.start()
                 except Exception as e:
-                    print("error startRecycleItem conveyor motor on:", e)
+                    print("error:", e)
         except Exception as e:
-            print("error startRecycleItem:", e)
+            print("error:", e)
 
     def endRecycleItem(self):
         print('endRecycleItem')
@@ -708,7 +708,7 @@ class MainWindow(QWidget):
                     self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
-                    print("error endRecycleItem:", e)
+                    print("error:", e)
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -724,7 +724,7 @@ class MainWindow(QWidget):
                 self.ui.lbl_total.setText(str(self.total_price))
              
         except Exception as e:
-            print("error endRecycleItem:", e)
+            print("error:", e)
 
 
     def SelectItem(self, item, this_btn):
@@ -806,7 +806,7 @@ class MainWindow(QWidget):
             self.press_motor.off()
             self.conveyor_motor.off()
         except Exception as e:
-            print("error stackAfterDelivery:", e)
+            print("error:", e)
 
     def fastChargingDeliveryRecycleItem(self):
         pass
@@ -865,7 +865,7 @@ class MainWindow(QWidget):
             print("Written")
             self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
         except Exception as e:
-            print("error depositToRFIDcard:", e)
+            print("error:", e)
 
         self.stackWalletServices()
 
@@ -1097,7 +1097,7 @@ if __name__ == '__main__':
     try:
         factory = NativeFactory()
     except Exception as e:
-        print("error NativeFactory:", e)
+        print("error:", e)
 
     app = QApplication(sys.argv)
     window = MainWindow()
