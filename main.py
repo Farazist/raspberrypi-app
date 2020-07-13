@@ -7,7 +7,7 @@ from time import sleep, time
 from threading import Thread, Timer, Event
 from functools import partial
 # from escpos.printer import Usb
-from gpiozero import DistanceSensor, Motor
+from gpiozero import DistanceSensor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -17,6 +17,7 @@ from PIL.ImageQt import ImageQt
 from scipy import stats
 from mfrc522 import SimpleMFRC522
 
+from utils.motor import Motor
 from server import Server
 from database import DataBase
 from custombutton import CustomButton
@@ -201,7 +202,7 @@ class MainWindow(QWidget):
         self.system_id = DataBase.select('system_id')
         self.device_version = DataBase.select('app_version')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        self.initHardwares()
+        
 
         loader = QUiLoader()
         self.ui = loader.load('main.ui', None)
@@ -324,6 +325,7 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
+        self.initHardwares()
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
@@ -335,7 +337,7 @@ class MainWindow(QWidget):
                 print("press motor close")
             self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, pin_factory=factory)
+            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, active_high=False, pin_factory=factory)
             
             self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
             self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
@@ -350,7 +352,7 @@ class MainWindow(QWidget):
                 print("separation motor close")
             self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, pin_factory=factory)
+            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, active_high=False, pin_factory=factory)
         
             self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
             self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
@@ -365,7 +367,7 @@ class MainWindow(QWidget):
                 print("conveyor motor close")
             self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, pin_factory=factory)
+            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, active_high=False, pin_factory=factory)
        
             self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
             self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
@@ -381,7 +383,7 @@ class MainWindow(QWidget):
             distance_sensor1_trig_port = int(DataBase.select('distance_sensor1_trig_port'))
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_depth_threshold = float(DataBase.select('distance_sensor1_depth_threshold'))
-            self.distance_sensor1 = DistanceSensor(distance_sensor1_trig_port, distance_sensor1_echo_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
             self.distance_sensor1.when_in_range = self.startRecycleItem
             print('distance sensor 1 ready')
         except Exception as e:
@@ -394,7 +396,7 @@ class MainWindow(QWidget):
             distance_sensor2_trig_port = int(DataBase.select('distance_sensor2_trig_port'))
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_depth_threshold = float(DataBase.select('distance_sensor2_depth_threshold'))
-            self.distance_sensor2 = DistanceSensor(distance_sensor2_trig_port, distance_sensor2_echo_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
             self.distance_sensor2.when_in_range = self.endRecycleItem
             print('distance sensor 2 ready')
         except Exception as e:
