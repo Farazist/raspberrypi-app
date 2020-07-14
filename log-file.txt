@@ -1,0 +1,12 @@
+2020-07-14 18:18:48 Server Error Message In LoadingThread
+2020-07-14 18:23:07 No module named 'picamera'In AutoDeliveryItemsThread
+2020-07-14 18:33:36 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-14 18:33:39 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-14 18:33:39 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-14 18:33:39 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-14 18:33:39 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-14 18:33:39 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-14 18:33:39 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-07-14 18:34:04 'MainWindow' object has no attribute 'press_motor' In press_motor_stop_timer startRecycleItem Method
+2020-07-14 18:34:04 'MainWindow' object has no attribute 'conveyor_motor' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-14 18:34:04 No module named 'picamera' In AutoDeliveryItemsThread
