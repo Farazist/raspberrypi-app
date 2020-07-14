@@ -1007,9 +1007,9 @@ class MainWindow(QWidget):
 
     def stackSensor1Ports(self):
         self.ui.lbl_notification.hide()
-        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
-        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
-        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
+        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('distance_sensor1_trig_port')))
+        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('distance_sensor1_echo_port')))
+        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('distance_sensor1_depth_threshold')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor1)
 
     def stackSensor2Ports(self):
