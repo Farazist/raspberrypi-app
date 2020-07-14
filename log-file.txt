@@ -10,3 +10,4 @@
 2020-07-14 18:34:04 'MainWindow' object has no attribute 'press_motor' In press_motor_stop_timer startRecycleItem Method
 2020-07-14 18:34:04 'MainWindow' object has no attribute 'conveyor_motor' In conveyor_motor_stop_timer startRecycleItem Method
 2020-07-14 18:34:04 No module named 'picamera' In AutoDeliveryItemsThread
+2020-07-14 23:54:41 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method

@@ -131,6 +131,7 @@ class SigninUserThread(QThread):
 
 class LoadingThread(QThread):
     success_signal = Signal()
+    fail_signal = Signal()
     
     def __init__(self):
         QThread.__init__(self)
@@ -148,7 +149,7 @@ class LoadingThread(QThread):
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
             LogFile.writeToFile('Server Error Message In LoadingThread')
-            #window.ui.btn_refresh_loading.show()
+            self.fail_signal.emit()
             
 
 
@@ -263,6 +264,7 @@ class MainWindow(QWidget):
 
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
+        self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
         #self.loading_thread.success_signal.connect(self.stackMainMenu)
         #self.user = Server.signInUser(105, 1234)
         #self.owner = Server.signInUser(104, 1234)
