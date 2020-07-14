@@ -579,13 +579,13 @@ color:#000000;</string>
            <number>20</number>
           </property>
           <property name="leftMargin">
-           <number>60</number>
+           <number>100</number>
           </property>
           <property name="topMargin">
            <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>60</number>
+           <number>100</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
