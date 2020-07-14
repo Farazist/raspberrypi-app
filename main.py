@@ -56,6 +56,8 @@ qr = qrcode.QRCode(
     border=4,
 )
 
+log_file = LogFile.checkExistsFile()
+
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
     show_qrcode_signal = Signal(str)

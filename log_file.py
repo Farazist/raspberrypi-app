@@ -17,6 +17,7 @@ class LogFile():
         time = datetime.datetime.now()
         f = open('log-file.txt', 'a', encoding='utf8')
         f.write(time.strftime("%Y-%m-%d %H:%M:%S ")+ log + '\n')
+        f.close()
 
 
 #test = LogFile.checkExistsFile()
