@@ -1,4 +1,4 @@
-# raspberrypi-app
+# Farazist RaspberryPi App
 App for smart recycle waste bottles
 </br>
 </br>
