@@ -1050,18 +1050,18 @@ class MainWindow(QWidget):
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         if self.ui.tb_sensor1_trig_port.text() != '':
-            result = DataBase.update('sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
+            result = DataBase.update('distance_sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
         if self.ui.tb_sensor1_echo_port.text() != '':
-            result = DataBase.update('sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
+            result = DataBase.update('distance_sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
         if self.ui.tb_sensor1_depth_threshold.text() != '':
-            result = DataBase.update('sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
+            result = DataBase.update('distance_sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
 
         if self.ui.tb_sensor2_trig_port.text() != '':
-            result = DataBase.update('sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
+            result = DataBase.update('distance_sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
         if self.ui.tb_sensor2_echo_port.text() != '':
-            result = DataBase.update('sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
+            result = DataBase.update('distance_sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
         if self.ui.tb_sensor2_depth_threshold.text() != '':
-            result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
+            result = DataBase.update('distance_sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
 
         if self.ui.tb_press_motor_forward_port.text() != '':
             result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
