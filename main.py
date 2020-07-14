@@ -1065,21 +1065,24 @@ class MainWindow(QWidget):
 
         if self.ui.tb_press_motor_forward_port.text() != '':
             result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
-
         if self.ui.tb_press_motor_backward_port.text() != '':
             result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
+        if self.ui.tb_press_motor_timer.text() != '':
+            result = DataBase.update('press_motor_timer', self.ui.tb_press_motor_timer.text())
 
         if self.ui.tb_separation_motor_forward_port.text() != '':
             result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
-
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
+        if self.ui.tb_separation_motor_timer.text() != '':
+            result = DataBase.update('separation_motor_timer', self.ui.tb_separation_motor_timer.text())
 
         if self.ui.tb_conveyor_motor_forward_port.text() != '':
             result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
-
         if self.ui.tb_conveyor_motor_backward_port.text() != '':
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
+        if self.ui.tb_conveyor_motor_timer.text() != '':
+            result = DataBase.update('conveyor_motor_timer', self.ui.tb_conveyor_motor_timer.text())
 
         self.initHardwares()
 
