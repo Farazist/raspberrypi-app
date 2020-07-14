@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -579,13 +579,13 @@ color:#000000;</string>
            <number>20</number>
           </property>
           <property name="leftMargin">
-           <number>100</number>
+           <number>150</number>
           </property>
           <property name="topMargin">
            <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>100</number>
+           <number>150</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
@@ -953,10 +953,10 @@ color:#000000;</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <property name="leftMargin">
-           <number>20</number>
+           <number>40</number>
           </property>
           <property name="rightMargin">
-           <number>20</number>
+           <number>40</number>
           </property>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lbl_gif_wallet">
@@ -3633,6 +3633,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3693,6 +3696,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3750,6 +3756,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3804,6 +3813,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3857,6 +3869,9 @@ color:#000000;</string>
               </property>
               <property name="text">
                <string>انتقال به کارت</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
