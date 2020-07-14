@@ -22,6 +22,7 @@ from server import Server
 from database import DataBase
 from custombutton import CustomButton
 from image_classifier import ImageClassifier
+from log_file import LogFile
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
