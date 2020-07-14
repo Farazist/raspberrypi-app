@@ -140,6 +140,8 @@ class LoadingThread(QThread):
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
+            window.ui.btn_refresh_loading.show()
+            
 
 
 class AutoDeliveryItemsThread(QThread):
@@ -269,7 +271,6 @@ class MainWindow(QWidget):
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
-        self.ui.btn_main_menu_2.clicked.connect(self.stackWallet)
         self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
@@ -293,6 +294,7 @@ class MainWindow(QWidget):
         self.ui.btn_wallet_services_2.clicked.connect(self.stackRFID)
         self.ui.btn_wallet_services_3.clicked.connect(self.stackCharity)
         self.ui.btn_wallet_services_4.clicked.connect(self.stackEnvirnmentalProtection)
+        self.ui.btn_wallet_services_5.clicked.connect(self.stackWallet)
         self.ui.btn_plus_charity.clicked.connect(self.plusCharity)
         self.ui.btn_minus_charity.clicked.connect(self.minusCharity)
         self.ui.btn_plus_envirnmental_protection.clicked.connect(self.plusEnvirnment)
@@ -466,6 +468,7 @@ class MainWindow(QWidget):
         self.ui.lbl_logo.hide()
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, show=False)
+        self.ui.btn_refresh_loading.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
 
     def stackSignInOwner(self):
@@ -603,16 +606,7 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
-    def stackWallet(self):
-        self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_right, show=False)
-        self.ui.lbl_notification.hide()
-        gif_wallet = QMovie("animations/wallet.gif")
-        gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
-        self.ui.lbl_gif_wallet.setMovie(gif_wallet)
-        gif_wallet.start()
-        self.ui.lbl_wallet.setText(str(("{:,.0f}").format(self.user['wallet'])))
-        self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
+    
 
     def stackWalletServices(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -840,6 +834,17 @@ class MainWindow(QWidget):
         #self.SelectItem(self.items[0])
         self.ui.scroll_area_widget_fast_charging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
+
+    def stackWallet(self):
+        self.setButton(self.ui.btn_left, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_right, show=False)
+        self.ui.lbl_notification.hide()
+        gif_wallet = QMovie("animations/wallet.gif")
+        gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
+        self.ui.lbl_gif_wallet.setMovie(gif_wallet)
+        gif_wallet.start()
+        self.ui.lbl_wallet.setText(str(("{:,.0f}").format(self.user['wallet'])))
+        self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
 
     def stackChargingResidentialUnit(self):
         self.setButton(self.ui.btn_left, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
