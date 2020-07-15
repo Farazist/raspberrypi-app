@@ -16,7 +16,7 @@ class LogFile():
     def writeToFile(log):
         time = datetime.datetime.now()
         f = open('log-file.txt', 'a', encoding='utf8')
-        f.write(time.strftime("%Y-%m-%d %H:%M:%S ")+ log + '\n')
+        f.write(time.strftime("%Y-%m-%d %H:%M:%S ") + log + '\n')
         f.close()
 
 
