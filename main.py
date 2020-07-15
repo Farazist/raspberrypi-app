@@ -349,9 +349,9 @@ class MainWindow(QWidget):
             if hasattr(self, 'press_motor'):
                 self.press_motor.close()
                 print("press motor close")
-            self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
-            self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, active_high=False, pin_factory=factory)
+            press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
+            press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
+            self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory)
             
             self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
             self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
@@ -365,9 +365,9 @@ class MainWindow(QWidget):
             if hasattr(self, 'separation_motor'):
                 self.separation_motor.close()
                 print("separation motor close")
-            self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
-            self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, active_high=False, pin_factory=factory)
+            separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
+            separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
+            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
         
             self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
             self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
@@ -381,9 +381,9 @@ class MainWindow(QWidget):
             if hasattr(self, 'conveyor_motor'):
                 self.conveyor_motor.close()
                 print("conveyor motor close")
-            self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
-            self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, active_high=False, pin_factory=factory)
+            conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
+            conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
+            self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory)
        
             self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
             self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
