@@ -1,19 +1,26 @@
-from gpiozero import Motor
-import RPi.GPIO as GPIO
+from motor import Motor
 from time import sleep
+from gpiozero.pins.native import NativeFactory
 
-motor = Motor(forward=13, backward=26)
+factory = NativeFactory()
 
-# while True:
-motor.forward()
-sleep(0.25)
-motor.stop()
-sleep(2)
-motor.backward()
-sleep(0.25)
-motor.stop()
-sleep(2)
+motor = Motor(19, 26, active_high=False)
 
-del motor
+while True:
+    motor.forward()
+    print('forward')
+    sleep(1)
+    motor.stop()
+    print('stop')
+    sleep(1)
+    motor.backward()
+    print('backward')
+    sleep(1)
+    motor.stop()
+    print('stop')
+    sleep(1)
 
-GPIO.cleanup()
+motor.close()
+# del motor
+
+# GPIO.cleanup()

@@ -1,6 +1,8 @@
 ﻿/build
 /dist
 /.vs
+/utils/__pycache__
+/test/__pycache__
 /__pycache__
 /.vscode
 Farazist.pyproject.user

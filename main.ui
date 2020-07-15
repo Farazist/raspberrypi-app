@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -579,13 +579,13 @@ color:#000000;</string>
            <number>20</number>
           </property>
           <property name="leftMargin">
-           <number>60</number>
+           <number>150</number>
           </property>
           <property name="topMargin">
            <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>60</number>
+           <number>150</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
@@ -654,84 +654,6 @@ color:#000000;</string>
               </property>
               <property name="text">
                <string>تحویل پسماند</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_27">
-            <item alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="btn_main_menu_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>300</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton{
-background-color: #ffffff; 
-border: 3px solid #28a745; 
-border-radius: 30px;
-outline-style: none;
-padding: 50px;
-}
-QPushButton:pressed {
-background-color: #6fdc89;
-border-style: inset;
-}</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>images/GreenMainMenu/wallet.png</normaloff>images/GreenMainMenu/wallet.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>150</width>
-                <height>150</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-             <widget class="QLabel" name="lbl_main_menu_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font: 22pt &quot;IRANSans&quot;;
-color:#000000;</string>
-              </property>
-              <property name="text">
-               <string>کیف پول</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1031,10 +953,10 @@ color:#000000;</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <property name="leftMargin">
-           <number>20</number>
+           <number>40</number>
           </property>
           <property name="rightMargin">
-           <number>20</number>
+           <number>40</number>
           </property>
           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QLabel" name="lbl_gif_wallet">
@@ -1509,7 +1431,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>5</number>
+             <number>7</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -3327,8 +3249,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3644,19 +3566,88 @@ border-style: inset;
            <number>20</number>
           </property>
           <property name="leftMargin">
-           <number>60</number>
+           <number>20</number>
           </property>
           <property name="topMargin">
            <number>80</number>
           </property>
           <property name="rightMargin">
-           <number>60</number>
+           <number>20</number>
           </property>
           <property name="bottomMargin">
            <number>20</number>
           </property>
           <item>
+           <layout class="QVBoxLayout" name="verticalLayout_54">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QPushButton" name="btn_wallet_services_5">
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+background-color: #ffffff; 
+border: 3px solid #28a745; 
+border-radius: 30px;
+outline-style: none;
+padding: 50px;
+}
+QPushButton:pressed {
+background-color: #6fdc89;
+border-style: inset;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>images/GreenMainMenu/wallet.png</normaloff>images/GreenMainMenu/wallet.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>150</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="lbl_wallet_services_5">
+              <property name="styleSheet">
+               <string notr="true">font: 22pt &quot;IRANSans&quot;;
+color:#000000;</string>
+              </property>
+              <property name="text">
+               <string>کیف پول</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
            <layout class="QVBoxLayout" name="verticalLayout_45">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
             <item alignment="Qt::AlignHCenter">
              <widget class="QPushButton" name="btn_wallet_services_1">
               <property name="maximumSize">
@@ -3704,6 +3695,9 @@ color:#000000;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -3762,6 +3756,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3816,6 +3813,9 @@ color:#000000;</string>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -3869,6 +3869,9 @@ color:#000000;</string>
               </property>
               <property name="text">
                <string>انتقال به کارت</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -5765,8 +5768,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>381</width>
+             <height>16</height>
             </rect>
            </property>
           </widget>

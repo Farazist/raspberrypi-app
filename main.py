@@ -7,7 +7,7 @@ from time import sleep, time
 from threading import Thread, Timer, Event
 from functools import partial
 # from escpos.printer import Usb
-from gpiozero import DistanceSensor, Motor
+from gpiozero import DistanceSensor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import Qt, QTimer, QDate, QTime, QSize, QThread, Signal
@@ -15,12 +15,14 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
+from utils.motor import Motor
 from server import Server
 from database import DataBase
 from custombutton import CustomButton
 from image_classifier import ImageClassifier
+from log_file import LogFile
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -54,6 +56,8 @@ qr = qrcode.QRCode(
     border=4,
 )
 
+log_file = LogFile.checkExistsFile()
+
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
     show_qrcode_signal = Signal(str)
@@ -82,6 +86,7 @@ class QRCodeThread(QThread):
                         self.stop()
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
+                LogFile.writeToFile('Server Error Message In QRCodeThread')
         
         if hasattr(window, 'user') and window.user:
             print('scan successfully')
@@ -97,10 +102,14 @@ class SigninOwnerThread(QThread):
     
     def run(self):
         try:
-            window.owner = Server.signInUser(int(window.ui.tbOwnerUsername.text()), int(window.ui.tbOwnerPassword.text()))
+            id = int(window.ui.tb_owner_id.text())
+            password = int(window.ui.tb_owner_password.text())
+            window.owner = Server.signInUser(id, password)
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
+            LogFile.writeToFile('Server Error Message In SigninOwnerThread')
+        
 
 
 class SigninUserThread(QThread):
@@ -111,28 +120,18 @@ class SigninUserThread(QThread):
     
     def run(self):
         try:
-            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
+            id = int(window.ui.tb_user_id_or_mobile_number.text())
+            password = int(window.ui.tb_user_password.text())
+            window.user = Server.signInUser(id, password)
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
-
-
-class SigninUserMobileThread(QThread):
-    success_signal = Signal()
-    
-    def __init__(self):
-        QThread.__init__(self)
-    
-    def run(self):
-        try:
-            window.user = Server.signInUser(int(window.ui.tbUserId.text()), int(window.ui.tbUserPasswordID.text()))
-            self.success_signal.emit()
-        except:
-            window.showNotification(SERVER_ERROR_MESSAGE)
+            LogFile.writeToFile('Server Error Message In SigninUserThread')
 
 
 class LoadingThread(QThread):
     success_signal = Signal()
+    fail_signal = Signal()
     
     def __init__(self):
         QThread.__init__(self)
@@ -149,6 +148,9 @@ class LoadingThread(QThread):
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
+            LogFile.writeToFile('Server Error Message In LoadingThread')
+            self.fail_signal.emit()
+            
 
 
 class AutoDeliveryItemsThread(QThread):
@@ -181,6 +183,7 @@ class AutoDeliveryItemsThread(QThread):
                         break
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In AutoDeliveryItemsThread')
         
 
 class AfterDeliveryThread(QThread):
@@ -201,6 +204,7 @@ class AfterDeliveryThread(QThread):
                 window.showNotification(TRANSFER_ERROR_MESSAGE)
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
+            LogFile.writeToFile('Server Error Message In AfterDeliveryThread')
 
 
 class MainWindow(QWidget):
@@ -211,7 +215,7 @@ class MainWindow(QWidget):
         self.system_id = DataBase.select('system_id')
         self.device_version = DataBase.select('app_version')
         self.device_mode = DataBase.select('bottle_recognize_mode')
-        self.initHardwares()
+        
 
         loader = QUiLoader()
         self.ui = loader.load('main.ui', None)
@@ -258,11 +262,9 @@ class MainWindow(QWidget):
         self.signin_user_thread = SigninUserThread()
         self.signin_user_thread.success_signal.connect(self.afterSignInUser)
 
-        self.signin_user_mobile_thread = SigninUserMobileThread()
-        self.signin_user_mobile_thread.success_signal.connect(self.afterSignInUserMobile)
-
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
+        self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
         #self.loading_thread.success_signal.connect(self.stackMainMenu)
         #self.user = Server.signInUser(105, 1234)
         #self.owner = Server.signInUser(104, 1234)
@@ -281,15 +283,14 @@ class MainWindow(QWidget):
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
-        self.ui.btn_main_menu_2.clicked.connect(self.stackWallet)
         self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
-        self.ui.btnNExitApp.clicked.connect(self.stackSetting)
-        self.ui.btnYExitApp.clicked.connect(self.exitProgram)
+        self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
+        self.ui.btn_yes_exit_app_setting.clicked.connect(self.exitProgram)
         self.ui.btn_setting_start.clicked.connect(self.stackStart)
         self.ui.btn_setting_1.clicked.connect(self.stackDeviceMode)
         self.ui.btn_setting_5.clicked.connect(self.stackConveyorPort)
@@ -305,6 +306,7 @@ class MainWindow(QWidget):
         self.ui.btn_wallet_services_2.clicked.connect(self.stackRFID)
         self.ui.btn_wallet_services_3.clicked.connect(self.stackCharity)
         self.ui.btn_wallet_services_4.clicked.connect(self.stackEnvirnmentalProtection)
+        self.ui.btn_wallet_services_5.clicked.connect(self.stackWallet)
         self.ui.btn_plus_charity.clicked.connect(self.plusCharity)
         self.ui.btn_minus_charity.clicked.connect(self.minusCharity)
         self.ui.btn_plus_envirnmental_protection.clicked.connect(self.plusEnvirnment)
@@ -319,22 +321,15 @@ class MainWindow(QWidget):
         self.ui.btn_charity_4.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_4.text()))
         
         self.ui.btn_envirnmental_protection_1.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_1.text()))
-        self.ui.btnEnvirnmentalProtection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_2.text()))
+        self.ui.btn_envirnmental_protection_2.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_2.text()))
         self.ui.btn_envirnmental_protection_3.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_3.text()))
         self.ui.btn_envirnmental_protection_4.clicked.connect(lambda: self.ui.lbl_selected_envirnmental_protection.setText(self.ui.lbl_envirnmental_protection_4.text()))
 
-        self.ui.tbOwnerUsername.textChanged.connect(self.hideNotification)
-        self.ui.tbOwnerPassword.textChanged.connect(self.hideNotification)
-        self.ui.tbUserId.textChanged.connect(self.hideNotification)
-        self.ui.tbUserPasswordID.textChanged.connect(self.hideNotification)
-        try:
-            self.ui.btn_press_motor_forward_on.clicked.connect(self.motor.on)
-            self.ui.btn_press_motor_off.clicked.connect(self.motor.off)
-            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor.on)
-            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor.off)
-        except Exception as e:
-            print("error:", e)
-
+        self.ui.tb_owner_id.textChanged.connect(self.hideNotification)
+        self.ui.tb_owner_password.textChanged.connect(self.hideNotification)
+        self.ui.tb_user_id_or_mobile_number.textChanged.connect(self.hideNotification)
+        self.ui.tb_user_password.textChanged.connect(self.hideNotification)
+        
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
     
@@ -344,6 +339,7 @@ class MainWindow(QWidget):
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
 
+        self.initHardwares()
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
@@ -353,34 +349,49 @@ class MainWindow(QWidget):
             if hasattr(self, 'press_motor'):
                 self.press_motor.close()
                 print("press motor close")
-            self.press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
-            self.press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor = Motor(forward=self.press_motor_forward_port, backward=self.press_motor_backward_port, pin_factory=factory)
+            press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
+            press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
+            self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory)
+            
+            self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
+            self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
+            self.ui.btn_press_motor_off.clicked.connect(self.press_motor.stop)
             print('press motor ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In press_motor initHardwares Method')
 
         try:
             if hasattr(self, 'separation_motor'):
                 self.separation_motor.close()
                 print("separation motor close")
-            self.separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
-            self.separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor = Motor(forward=self.separation_motor_forward_port, backward=self.separation_motor_backward_port, pin_factory=factory)
+            separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
+            separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
+            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
+        
+            self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
+            self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
+            self.ui.btn_separation_motor_off.clicked.connect(self.separation_motor.stop)
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
             if hasattr(self, 'conveyor_motor'):
-                self.conveyor.close()
+                self.conveyor_motor.close()
                 print("conveyor motor close")
-            self.conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
-            self.conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor = Motor(forward=self.conveyor_motor_forward_port, backward=self.conveyor_motor_backward_port, pin_factory=factory)
+            conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
+            conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
+            self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory)
+       
+            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
+            self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
+            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor_motor.stop)
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In conveyor_motor initHardwares Method')
         
         try:
             if hasattr(self, 'distance_sensor1'):
@@ -389,11 +400,12 @@ class MainWindow(QWidget):
             distance_sensor1_trig_port = int(DataBase.select('distance_sensor1_trig_port'))
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_depth_threshold = float(DataBase.select('distance_sensor1_depth_threshold'))
-            self.distance_sensor1 = DistanceSensor(distance_sensor1_trig_port, distance_sensor1_echo_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
             self.distance_sensor1.when_in_range = self.startRecycleItem
             print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In distance_sensor1 initHardwares Method')
 
         try:
             if hasattr(self, 'distance_sensor2'):
@@ -402,11 +414,12 @@ class MainWindow(QWidget):
             distance_sensor2_trig_port = int(DataBase.select('distance_sensor2_trig_port'))
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_depth_threshold = float(DataBase.select('distance_sensor2_depth_threshold'))
-            self.distance_sensor2 = DistanceSensor(distance_sensor2_trig_port, distance_sensor2_echo_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
+            self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
             self.distance_sensor2.when_in_range = self.endRecycleItem
             print('distance sensor 2 ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In distance_sensor2 initHardwares Method')
 
         try:
             if not hasattr(self, 'rfid_sensor'):
@@ -414,6 +427,7 @@ class MainWindow(QWidget):
                 print('RFID sensor ready')
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In rfid_sensor initHardwares Method')
 
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -447,12 +461,14 @@ class MainWindow(QWidget):
                 mixer.music.play()
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In playSound Method')
 
     def stopSound(self):
         try:
-                mixer.music.stop()
+            mixer.music.stop()
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In stopSound Method')
 
     def makeGif(self):
         pngdir = 'images/slider'
@@ -472,6 +488,7 @@ class MainWindow(QWidget):
         self.ui.lbl_logo.hide()
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, show=False)
+        self.ui.btn_refresh_loading.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageLoading)
 
     def stackSignInOwner(self):
@@ -486,8 +503,8 @@ class MainWindow(QWidget):
             self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
             self.ui.lbl_device_info.setText(self.deviceInfo)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.tbOwnerUsername.setText('')
-        self.ui.tbOwnerPassword.setText('')
+        self.ui.tb_owner_id.setText('')
+        self.ui.tb_owner_password.setText('')
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInOwner)
     
     def signInOwner(self):
@@ -511,6 +528,7 @@ class MainWindow(QWidget):
                 self.hideNotification()
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
+                LogFile.writeToFile('Server Error Message In stopSound Method')
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)    
@@ -556,10 +574,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.ui.lbl_device_info.setText(self.deviceInfo)
-        self.ui.tbOwnerUsername.setText('')
-        self.ui.tbOwnerPassword.setText('')
         gif_start = QMovie("animations/slider1.gif")
-        self.ui.lblGifStart.setMovie(gif_start)
+        self.ui.lbl_slider_start.setMovie(gif_start)
         gif_start.start()
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
@@ -568,8 +584,8 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
         self.stopSound()
-        self.ui.tbUserId.setText('')
-        self.ui.tbUserPasswordID.setText('')
+        self.ui.tb_user_id_or_mobile_number.setText('')
+        self.ui.tb_user_password.setText('')
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
 
@@ -611,17 +627,6 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
-    def stackWallet(self):
-        self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_right, show=False)
-        self.ui.lbl_notification.hide()
-        gif_wallet = QMovie("animations/wallet.gif")
-        gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
-        self.ui.lbl_gif_wallet.setMovie(gif_wallet)
-        gif_wallet.start()
-        self.ui.lbl_wallet.setText(str(self.user['wallet']))
-        self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
-
     def stackWalletServices(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
@@ -638,7 +643,7 @@ class MainWindow(QWidget):
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
-        self.setButton(self.ui.btnAutoDeliveryRecycleItem, function=self.startRecycleItem)
+        self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startRecycleItem)
         
         self.delivery_items_flag = True
         self.user_items = []
@@ -670,6 +675,7 @@ class MainWindow(QWidget):
                     self.press_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
+                    LogFile.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
 
                 if hasattr(self, 'conveyor_motor_stop_timer'):
                     self.conveyor_motor_stop_timer.cancel()
@@ -680,9 +686,10 @@ class MainWindow(QWidget):
                     self.conveyor_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
+                    LogFile.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
         except Exception as e:
             print("error:", e)
-
+            LogFile.writeToFile(str(e) + ' In startRecycleItem Method')
 
     def endRecycleItem(self):
         print('endRecycleItem')
@@ -720,6 +727,7 @@ class MainWindow(QWidget):
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
+                    LogFile.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -736,6 +744,7 @@ class MainWindow(QWidget):
              
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In endRecycleItem Method')
 
 
     def SelectItem(self, item, this_btn):
@@ -752,8 +761,6 @@ class MainWindow(QWidget):
     def manualDeliveryRecycleItem(self):
         self.startRecycleItem()
         self.endRecycleItem()
-
-
 
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
@@ -814,12 +821,14 @@ class MainWindow(QWidget):
             self.ui.lbl_total_price.setText(str(self.total_price))
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
+            LogFile.writeToFile('Server Error Message')
     
         try:
-            self.motor.off()
-            self.conveyor.off()
+            self.press_motor.off()
+            self.conveyor_motor.off()
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In stackAfterDelivery Method')
 
     def fastChargingDeliveryRecycleItem(self):
         pass
@@ -852,6 +861,17 @@ class MainWindow(QWidget):
         self.ui.scroll_area_widget_fast_charging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
 
+    def stackWallet(self):
+        self.setButton(self.ui.btn_left, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_right, show=False)
+        self.ui.lbl_notification.hide()
+        gif_wallet = QMovie("animations/wallet.gif")
+        gif_wallet.setScaledSize(QSize().scaled(256, 256, Qt.KeepAspectRatio))
+        self.ui.lbl_gif_wallet.setMovie(gif_wallet)
+        gif_wallet.start()
+        self.ui.lbl_wallet.setText(str(("{:,.0f}").format(self.user['wallet'])))
+        self.ui.Stack.setCurrentWidget(self.ui.pageWallet)
+
     def stackChargingResidentialUnit(self):
         self.setButton(self.ui.btn_left, function=self.stackWalletServices, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
@@ -879,6 +899,7 @@ class MainWindow(QWidget):
             self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
         except Exception as e:
             print("error:", e)
+            LogFile.writeToFile(str(e) + ' In depositToRFIDcard Method')
 
         self.stackWalletServices()
 
@@ -1018,17 +1039,17 @@ class MainWindow(QWidget):
 
     def stackSensor1Ports(self):
         self.ui.lbl_notification.hide()
-        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('sensor1_trig_port')))
-        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('sensor1_echo_port')))
-        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('sensor1_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor1Ports)
+        self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('distance_sensor1_trig_port')))
+        self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('distance_sensor1_echo_port')))
+        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('distance_sensor1_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor1)
 
     def stackSensor2Ports(self):
         self.ui.lbl_notification.hide()
-        self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('sensor2_trig_port')))
-        self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('sensor2_echo_port')))
-        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('sensor2_depth_threshold')))
-        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSensor2Ports)
+        self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('distance_sensor2_trig_port')))
+        self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('distance_sensor2_echo_port')))
+        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('distance_sensor2_depth_threshold')))
+        self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor2)
 
     def stackConveyorPort(self):
         self.ui.lbl_notification.hide()
@@ -1061,36 +1082,39 @@ class MainWindow(QWidget):
             result = DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         if self.ui.tb_sensor1_trig_port.text() != '':
-            result = DataBase.update('sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
+            result = DataBase.update('distance_sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
         if self.ui.tb_sensor1_echo_port.text() != '':
-            result = DataBase.update('sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
+            result = DataBase.update('distance_sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
         if self.ui.tb_sensor1_depth_threshold.text() != '':
-            result = DataBase.update('sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
+            result = DataBase.update('distance_sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
 
         if self.ui.tb_sensor2_trig_port.text() != '':
-            result = DataBase.update('sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
+            result = DataBase.update('distance_sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
         if self.ui.tb_sensor2_echo_port.text() != '':
-            result = DataBase.update('sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
+            result = DataBase.update('distance_sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
         if self.ui.tb_sensor2_depth_threshold.text() != '':
-            result = DataBase.update('sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
+            result = DataBase.update('distance_sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
 
         if self.ui.tb_press_motor_forward_port.text() != '':
             result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
-
         if self.ui.tb_press_motor_backward_port.text() != '':
             result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
+        if self.ui.tb_press_motor_timer.text() != '':
+            result = DataBase.update('press_motor_timer', self.ui.tb_press_motor_timer.text())
 
         if self.ui.tb_separation_motor_forward_port.text() != '':
             result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
-
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
+        if self.ui.tb_separation_motor_timer.text() != '':
+            result = DataBase.update('separation_motor_timer', self.ui.tb_separation_motor_timer.text())
 
         if self.ui.tb_conveyor_motor_forward_port.text() != '':
             result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
-
         if self.ui.tb_conveyor_motor_backward_port.text() != '':
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
+        if self.ui.tb_conveyor_motor_timer.text() != '':
+            result = DataBase.update('conveyor_motor_timer', self.ui.tb_conveyor_motor_timer.text())
 
         self.initHardwares()
 
@@ -1111,6 +1135,7 @@ if __name__ == '__main__':
         factory = NativeFactory()
     except Exception as e:
         print("error:", e)
+        LogFile.writeToFile(str(e) + ' In NativeFactory')
 
     app = QApplication(sys.argv)
     window = MainWindow()
