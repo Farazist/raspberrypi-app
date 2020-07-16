@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1431,7 +1431,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>10</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1847,6 +1847,9 @@ font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
                 </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
@@ -1871,6 +1874,9 @@ border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
                 </property>
                </widget>
               </item>
@@ -2294,6 +2300,9 @@ border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;</string>
                 </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
+                </property>
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
@@ -2459,6 +2468,9 @@ border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhDigitsOnly</set>
                 </property>
                </widget>
               </item>
@@ -3249,8 +3261,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5768,8 +5780,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
