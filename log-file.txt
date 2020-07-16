@@ -1,0 +1,14 @@
+2020-07-16 09:07:48 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-16 09:07:51 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-16 09:07:51 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-16 09:07:51 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-16 09:07:51 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-16 09:07:51 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-16 09:07:51 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-07-16 09:09:15 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-16 09:09:16 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-16 09:09:16 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-16 09:09:16 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-16 09:09:16 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-16 09:09:16 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-16 09:09:16 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
