@@ -2,7 +2,7 @@ import os.path
 import datetime
 
 
-class LogFile():
+class ErrorLog():
     @staticmethod
     def checkExistsFile():
         #file = pathlib.Path()

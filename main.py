@@ -15,14 +15,14 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-#from mfrc522 import SimpleMFRC522
+from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from server import Server
 from database import DataBase
 from custombutton import CustomButton
 from image_classifier import ImageClassifier
-from log_file import LogFile
+from error_log import ErrorLog
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -32,7 +32,6 @@ __status__ = "Production"
 
 SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
-SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
@@ -56,7 +55,7 @@ qr = qrcode.QRCode(
     border=4,
 )
 
-log_file = LogFile.checkExistsFile()
+log_file = ErrorLog.checkExistsFile()
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -86,7 +85,7 @@ class QRCodeThread(QThread):
                         self.stop()
             except:
                 window.showNotification(SERVER_ERROR_MESSAGE)
-                LogFile.writeToFile('Server Error Message In QRCodeThread')
+                ErrorLog.writeToFile('Server Error Message In QRCodeThread')
         
         if hasattr(window, 'user') and window.user:
             print('scan successfully')
@@ -108,7 +107,7 @@ class SigninOwnerThread(QThread):
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
-            LogFile.writeToFile('Server Error Message In SigninOwnerThread')
+            ErrorLog.writeToFile('Server Error Message In SigninOwnerThread')
         
 
 
@@ -126,7 +125,7 @@ class SigninUserThread(QThread):
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
-            LogFile.writeToFile('Server Error Message In SigninUserThread')
+            ErrorLog.writeToFile('Server Error Message In SigninUserThread')
 
 
 class LoadingThread(QThread):
@@ -148,10 +147,9 @@ class LoadingThread(QThread):
             self.success_signal.emit()
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
-            LogFile.writeToFile('Server Error Message In LoadingThread')
+            ErrorLog.writeToFile('Server Error Message In LoadingThread')
             self.fail_signal.emit()
             
-
 
 class AutoDeliveryItemsThread(QThread):
     success_signal = Signal()
@@ -183,7 +181,7 @@ class AutoDeliveryItemsThread(QThread):
                         break
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In AutoDeliveryItemsThread')
+            ErrorLog.writeToFile(str(e) + ' In AutoDeliveryItemsThread')
         
 
 class AfterDeliveryThread(QThread):
@@ -204,7 +202,7 @@ class AfterDeliveryThread(QThread):
                 window.showNotification(TRANSFER_ERROR_MESSAGE)
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
-            LogFile.writeToFile('Server Error Message In AfterDeliveryThread')
+            ErrorLog.writeToFile('Server Error Message In AfterDeliveryThread')
 
 
 class MainWindow(QWidget):
@@ -229,10 +227,7 @@ class MainWindow(QWidget):
 
         self.btnOwnerLogin = CustomButton()
         self.btnOwnerLogin.setGif("animations/Rolling-white.gif")
-        self.btnOwnerPassRecovery = QPushButton('بازیابی رمز عبور')
-        self.btnOwnerPassRecovery.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
         self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerLogin)
-        self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerPassRecovery)
         self.ui.vLayoutSignInOwner.setAlignment(Qt.AlignHCenter)
 
         self.btnUserLoginID = CustomButton()
@@ -265,9 +260,9 @@ class MainWindow(QWidget):
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
         self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
-        #self.loading_thread.success_signal.connect(self.stackMainMenu)
-        #self.user = Server.signInUser(105, 1234)
-        #self.owner = Server.signInUser(104, 1234)
+        # self.loading_thread.success_signal.connect(self.stackMainMenu)
+        # self.user = Server.signInUser(105, 1234)
+        # self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
     
@@ -283,10 +278,9 @@ class MainWindow(QWidget):
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
-        self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
+        #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
-        self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
         self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
@@ -335,6 +329,7 @@ class MainWindow(QWidget):
     
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
+        self.detect_item_flag = False
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -359,7 +354,7 @@ class MainWindow(QWidget):
             print('press motor ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In press_motor initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In press_motor initHardwares Method')
 
         try:
             if hasattr(self, 'separation_motor'):
@@ -375,7 +370,7 @@ class MainWindow(QWidget):
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In separation_motor initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
             if hasattr(self, 'conveyor_motor'):
@@ -391,7 +386,7 @@ class MainWindow(QWidget):
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In conveyor_motor initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In conveyor_motor initHardwares Method')
         
         try:
             if hasattr(self, 'distance_sensor1'):
@@ -405,7 +400,7 @@ class MainWindow(QWidget):
             print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In distance_sensor1 initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In distance_sensor1 initHardwares Method')
 
         try:
             if hasattr(self, 'distance_sensor2'):
@@ -419,7 +414,7 @@ class MainWindow(QWidget):
             print('distance sensor 2 ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In distance_sensor2 initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In distance_sensor2 initHardwares Method')
 
         try:
             if not hasattr(self, 'rfid_sensor'):
@@ -427,7 +422,7 @@ class MainWindow(QWidget):
                 print('RFID sensor ready')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In rfid_sensor initHardwares Method')
+            ErrorLog.writeToFile(str(e) + ' In rfid_sensor initHardwares Method')
 
     def setButton(self, button, function=None, text=None, icon=None, show=True):
         try:
@@ -461,14 +456,14 @@ class MainWindow(QWidget):
                 mixer.music.play()
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In playSound Method')
+            ErrorLog.writeToFile(str(e) + ' In playSound Method')
 
     def stopSound(self):
         try:
             mixer.music.stop()
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In stopSound Method')
+            ErrorLog.writeToFile(str(e) + ' In stopSound Method')
 
     def makeGif(self):
         pngdir = 'images/slider'
@@ -528,7 +523,7 @@ class MainWindow(QWidget):
                 self.hideNotification()
             except:
                 self.showNotification(SERVER_ERROR_MESSAGE)
-                LogFile.writeToFile('Server Error Message In stopSound Method')
+                ErrorLog.writeToFile('Server Error Message In stopSound Method')
         else:
             print("mobile number or password is incurrect")
             self.showNotification(SIGNIN_ERROR_MESSAGE)    
@@ -565,9 +560,6 @@ class MainWindow(QWidget):
         print('user log out')
         self.user = None
         self.stackStart()
-
-    def ownerRecovery(self):
-        self.showNotification(SUPPORT_ERROR_MESSAGE)
 
     def stackStart(self):
         self.setButton(self.ui.btn_left, show=False)
@@ -675,7 +667,7 @@ class MainWindow(QWidget):
                     self.press_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
-                    LogFile.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
+                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
 
                 if hasattr(self, 'conveyor_motor_stop_timer'):
                     self.conveyor_motor_stop_timer.cancel()
@@ -685,16 +677,16 @@ class MainWindow(QWidget):
                     self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
                     self.conveyor_motor_stop_timer.start()
                 except Exception as e:
-                    print("error:", e)
-                    LogFile.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
+                    print("error:", e) 
+                    ErrorLog.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In startRecycleItem Method')
+            ErrorLog.writeToFile(str(e) + ' In startRecycleItem Method')
 
     def endRecycleItem(self):
         print('endRecycleItem')
         try:
-            if hasattr(self, 'detect_item_flag') and self.detect_item_flag == True:
+            if self.detect_item_flag == True:
                 self.detect_item_flag = False
                 if self.device_mode == 'auto':
                     self.auto_delivery_items_thread.stop()
@@ -727,7 +719,7 @@ class MainWindow(QWidget):
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
-                    LogFile.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
+                    ErrorLog.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -744,7 +736,7 @@ class MainWindow(QWidget):
              
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In endRecycleItem Method')
+            ErrorLog.writeToFile(str(e) + ' In endRecycleItem Method')
 
 
     def SelectItem(self, item, this_btn):
@@ -821,14 +813,14 @@ class MainWindow(QWidget):
             self.ui.lbl_total_price.setText(str(self.total_price))
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
-            LogFile.writeToFile('Server Error Message')
+            ErrorLog.writeToFile('Server Error Message')
     
         try:
             self.press_motor.off()
             self.conveyor_motor.off()
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In stackAfterDelivery Method')
+            ErrorLog.writeToFile(str(e) + ' In stackAfterDelivery Method')
 
     def fastChargingDeliveryRecycleItem(self):
         pass
@@ -899,7 +891,7 @@ class MainWindow(QWidget):
             self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
         except Exception as e:
             print("error:", e)
-            LogFile.writeToFile(str(e) + ' In depositToRFIDcard Method')
+            ErrorLog.writeToFile(str(e) + ' In depositToRFIDcard Method')
 
         self.stackWalletServices()
 
@@ -1135,7 +1127,7 @@ if __name__ == '__main__':
         factory = NativeFactory()
     except Exception as e:
         print("error:", e)
-        LogFile.writeToFile(str(e) + ' In NativeFactory')
+        ErrorLog.writeToFile(str(e) + ' In NativeFactory')
 
     app = QApplication(sys.argv)
     window = MainWindow()
