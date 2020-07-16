@@ -151,7 +151,6 @@ class LoadingThread(QThread):
             self.fail_signal.emit()
             
 
-
 class AutoDeliveryItemsThread(QThread):
     success_signal = Signal()
 
@@ -261,9 +260,9 @@ class MainWindow(QWidget):
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
         self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
-        #self.loading_thread.success_signal.connect(self.stackMainMenu)
-        #self.user = Server.signInUser(105, 1234)
-        #self.owner = Server.signInUser(104, 1234)
+        # self.loading_thread.success_signal.connect(self.stackMainMenu)
+        # self.user = Server.signInUser(105, 1234)
+        # self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
     
@@ -330,6 +329,7 @@ class MainWindow(QWidget):
     
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
+        self.detect_item_flag = False
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -677,7 +677,7 @@ class MainWindow(QWidget):
                     self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
                     self.conveyor_motor_stop_timer.start()
                 except Exception as e:
-                    print("error:", e)
+                    print("error:", e) 
                     ErrorLog.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
         except Exception as e:
             print("error:", e)
@@ -686,7 +686,7 @@ class MainWindow(QWidget):
     def endRecycleItem(self):
         print('endRecycleItem')
         try:
-            if hasattr(self, 'detect_item_flag') and self.detect_item_flag == True:
+            if self.detect_item_flag == True:
                 self.detect_item_flag = False
                 if self.device_mode == 'auto':
                     self.auto_delivery_items_thread.stop()
