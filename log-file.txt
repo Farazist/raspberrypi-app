@@ -123,3 +123,10 @@
 2020-07-16 20:44:08 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
 2020-07-16 20:44:32 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
 2020-07-16 21:06:42 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:13:38 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:37 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:41 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:44 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 23:58:51 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In conveyor_motor initHardwares Method
+2020-07-16 23:59:42 'Motor' object has no attribute 'on' In startRecycleItem Method
+2020-07-17 00:05:28 'PySide2.QtWidgets.QMainWindow' object has no attribute 'list_auto_delivery_items' In endRecycleItem Method

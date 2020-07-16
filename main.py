@@ -41,9 +41,7 @@ MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکن
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-motor_timer = 2.0
 camera_timer = 3.0
-separation_motor_timer = 1.0
 predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
@@ -346,8 +344,10 @@ class MainWindow(QWidget):
                 print("press motor close")
             press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
+            press_motor_timer = int(DataBase.select('press_motor_timer'))
             self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory)
-            
+            self.press_motor_stop_timer = Timer(press_motor_timer, self.press_motor.stop)
+
             self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
             self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
             self.ui.btn_press_motor_off.clicked.connect(self.press_motor.stop)
@@ -362,8 +362,10 @@ class MainWindow(QWidget):
                 print("separation motor close")
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
+            separation_motor_timer = int(DataBase.select('separation_motor_timer'))
             self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
-        
+            self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
+
             self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
             self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
             self.ui.btn_separation_motor_off.clicked.connect(self.separation_motor.stop)
@@ -378,8 +380,10 @@ class MainWindow(QWidget):
                 print("conveyor motor close")
             conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
+            conveyor_motor_timer = int(DataBase.select('conveyor_motor_timer'))
             self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory)
-       
+            self.conveyor_motor_stop_timer = Timer(conveyor_motor_timer, self.conveyor_motor.stop)
+
             self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
             self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
             self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor_motor.stop)
@@ -648,37 +652,19 @@ class MainWindow(QWidget):
     def startRecycleItem(self):
         print('startRecycleItem')
         try:
-            if self.delivery_items_flag == True:
+            if self.delivery_items_flag == True and self.detect_item_flag == False:
                 self.detect_item_flag = True
 
                 if self.device_mode == 'auto':
                     self.predicted_items = []
                     self.auto_delivery_items_thread.start()
-                    # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                    # self.auto_delivery_items_thread_stop_timer.start()
-                    # pass
 
-                if hasattr(self, 'press_motor_stop_timer'):
-                    self.press_motor_stop_timer.cancel()
-                try:
-                    self.press_motor.forward()
-                    print('press motor on')
-                    self.press_motor_stop_timer = Timer(motor_timer, self.press_motor.stop)
-                    self.press_motor_stop_timer.start()
-                except Exception as e:
-                    print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
+                self.conveyor_motor_stop_timer.cancel()
+                self.conveyor_motor.forward()
+                print('conveyor motor forward')
 
-                if hasattr(self, 'conveyor_motor_stop_timer'):
-                    self.conveyor_motor_stop_timer.cancel()
-                try:
-                    self.conveyor_motor.on()
-                    print('conveyor motor on')
-                    self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
+                if not self.distance_sensor2:
                     self.conveyor_motor_stop_timer.start()
-                except Exception as e:
-                    print("error:", e) 
-                    ErrorLog.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In startRecycleItem Method')
@@ -720,6 +706,17 @@ class MainWindow(QWidget):
                 except Exception as e:
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
+
+                if hasattr(self, 'press_motor_stop_timer'):
+                    self.press_motor_stop_timer.cancel()
+                try:
+                    self.press_motor.forward()
+                    print('press motor on')
+                    self.press_motor_stop_timer = Timer(motor_timer, self.press_motor.stop)
+                    self.press_motor_stop_timer.start()
+                except Exception as e:
+                    print("error:", e)
+                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
