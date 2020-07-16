@@ -32,7 +32,6 @@ __status__ = "Production"
 
 SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
-SUPPORT_ERROR_MESSAGE = 'لطفا با واحد پشتیبانی فرازیست تماس حاصل فرمایید'+ '\n' + '9165 689 0915'
 RECYCLE_MESSAGE = 'پسماند دریافت شد'
 PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
@@ -229,10 +228,7 @@ class MainWindow(QWidget):
 
         self.btnOwnerLogin = CustomButton()
         self.btnOwnerLogin.setGif("animations/Rolling-white.gif")
-        self.btnOwnerPassRecovery = QPushButton('بازیابی رمز عبور')
-        self.btnOwnerPassRecovery.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
         self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerLogin)
-        self.ui.vLayoutSignInOwner.addWidget(self.btnOwnerPassRecovery)
         self.ui.vLayoutSignInOwner.setAlignment(Qt.AlignHCenter)
 
         self.btnUserLoginID = CustomButton()
@@ -286,7 +282,6 @@ class MainWindow(QWidget):
         #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
-        self.btnOwnerPassRecovery.clicked.connect(self.ownerRecovery)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
         self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
@@ -565,9 +560,6 @@ class MainWindow(QWidget):
         print('user log out')
         self.user = None
         self.stackStart()
-
-    def ownerRecovery(self):
-        self.showNotification(SUPPORT_ERROR_MESSAGE)
 
     def stackStart(self):
         self.setButton(self.ui.btn_left, show=False)
