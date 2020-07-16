@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1062,7 +1062,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QListWidget" name="listAutoDeliveryItems">
+             <widget class="QListWidget" name="list_auto_delivery_items">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2515,7 +2515,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>634</width>
                <height>648</height>
               </rect>
              </property>
@@ -4459,7 +4459,7 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>453</width>
+             <width>455</width>
              <height>505</height>
             </rect>
            </property>
