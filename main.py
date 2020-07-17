@@ -41,9 +41,7 @@ MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکن
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-motor_timer = 2.0
 camera_timer = 3.0
-separation_motor_timer = 1.0
 predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
@@ -109,7 +107,6 @@ class SigninOwnerThread(QThread):
             window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In SigninOwnerThread')
         
-
 
 class SigninUserThread(QThread):
     success_signal = Signal()
@@ -214,7 +211,6 @@ class MainWindow(QWidget):
         self.device_version = DataBase.select('app_version')
         self.device_mode = DataBase.select('bottle_recognize_mode')
         
-
         loader = QUiLoader()
         self.ui = loader.load('main.ui', None)
 
@@ -260,9 +256,6 @@ class MainWindow(QWidget):
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
         self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
-        # self.loading_thread.success_signal.connect(self.stackMainMenu)
-        # self.user = Server.signInUser(105, 1234)
-        # self.owner = Server.signInUser(104, 1234)
 
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
     
@@ -341,57 +334,75 @@ class MainWindow(QWidget):
 
     def initHardwares(self):
         try:
+            if hasattr(self, 'separation_motor'):
+                self.separation_motor.close()
+                print("separation motor close")
+        
             if hasattr(self, 'press_motor'):
                 self.press_motor.close()
                 print("press motor close")
+            
+            if hasattr(self, 'conveyor_motor'):
+                self.conveyor_motor.close()
+                print("conveyor motor close")
+
+            if hasattr(self, 'distance_sensor1'):
+                self.distance_sensor1.close()
+                print("distance sensor 1 close")
+            
+            if hasattr(self, 'distance_sensor2'):
+                self.distance_sensor2.close()
+                print("distance sensor 2 close")
+        
+        except Exception as e:
+            print("error:", e)
+        
+        try:
             press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
+            press_motor_timer = int(DataBase.select('press_motor_timer'))
             self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory)
-            
-            self.ui.btn_press_motor_forward_on.clicked.connect(self.press_motor.forward)
-            self.ui.btn_press_motor_backward_on.clicked.connect(self.press_motor.backward)
-            self.ui.btn_press_motor_off.clicked.connect(self.press_motor.stop)
+            self.press_motor_stop_timer = Timer(press_motor_timer, self.press_motor.stop)
+
+            self.setButton(self.ui.btn_press_motor_forward_on, function=self.press_motor.forward)
+            self.setButton(self.ui.btn_press_motor_backward_on, function=self.press_motor.backward)
+            self.setButton(self.ui.btn_press_motor_off, function=self.press_motor.stop)
             print('press motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In press_motor initHardwares Method')
 
         try:
-            if hasattr(self, 'separation_motor'):
-                self.separation_motor.close()
-                print("separation motor close")
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
+            separation_motor_timer = int(DataBase.select('separation_motor_timer'))
             self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
-        
-            self.ui.btn_separation_motor_forward_on.clicked.connect(self.separation_motor.forward)
-            self.ui.btn_separation_motor_backward_on.clicked.connect(self.separation_motor.backward)
-            self.ui.btn_separation_motor_off.clicked.connect(self.separation_motor.stop)
+            self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
+
+            self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
+            self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
+            self.setButton(self.ui.btn_separation_motor_off, function=self.separation_motor.stop)
             print('separation motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
-            if hasattr(self, 'conveyor_motor'):
-                self.conveyor_motor.close()
-                print("conveyor motor close")
             conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
+            conveyor_motor_timer = int(DataBase.select('conveyor_motor_timer'))
             self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory)
-       
-            self.ui.btn_conveyor_motor_forward_on.clicked.connect(self.conveyor_motor.forward)
-            self.ui.btn_conveyor_motor_backward_on.clicked.connect(self.conveyor_motor.backward)
-            self.ui.btn_conveyor_motor_off.clicked.connect(self.conveyor_motor.stop)
+            self.conveyor_motor_stop_timer = Timer(conveyor_motor_timer, self.conveyor_motor.stop)
+
+            self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
+            self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
+            self.setButton(self.ui.btn_conveyor_motor_off, function=self.conveyor_motor.stop)
             print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In conveyor_motor initHardwares Method')
         
         try:
-            if hasattr(self, 'distance_sensor1'):
-                self.distance_sensor1.close()
-                print("distance sensor 1 close")
             distance_sensor1_trig_port = int(DataBase.select('distance_sensor1_trig_port'))
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_depth_threshold = float(DataBase.select('distance_sensor1_depth_threshold'))
@@ -403,9 +414,6 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In distance_sensor1 initHardwares Method')
 
         try:
-            if hasattr(self, 'distance_sensor2'):
-                self.distance_sensor2.close()
-                print("distance sensor 2 close")
             distance_sensor2_trig_port = int(DataBase.select('distance_sensor2_trig_port'))
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_depth_threshold = float(DataBase.select('distance_sensor2_depth_threshold'))
@@ -616,7 +624,6 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.stopSound()
-
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
     def stackWalletServices(self):
@@ -644,41 +651,22 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
-        
     def startRecycleItem(self):
         print('startRecycleItem')
         try:
-            if self.delivery_items_flag == True:
+            if self.delivery_items_flag == True and self.detect_item_flag == False:
                 self.detect_item_flag = True
 
                 if self.device_mode == 'auto':
                     self.predicted_items = []
                     self.auto_delivery_items_thread.start()
-                    # self.auto_delivery_items_thread_stop_timer = Timer(camera_timer, self.auto_delivery_items_thread.stop)
-                    # self.auto_delivery_items_thread_stop_timer.start()
-                    # pass
 
-                if hasattr(self, 'press_motor_stop_timer'):
-                    self.press_motor_stop_timer.cancel()
-                try:
-                    self.press_motor.forward()
-                    print('press motor on')
-                    self.press_motor_stop_timer = Timer(motor_timer, self.press_motor.stop)
-                    self.press_motor_stop_timer.start()
-                except Exception as e:
-                    print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
+                self.conveyor_motor_stop_timer.cancel()
+                self.conveyor_motor.forward()
+                print('conveyor motor forward')
 
-                if hasattr(self, 'conveyor_motor_stop_timer'):
-                    self.conveyor_motor_stop_timer.cancel()
-                try:
-                    self.conveyor_motor.on()
-                    print('conveyor motor on')
-                    self.conveyor_motor_stop_timer = Timer(motor_timer, self.conveyor_motor.stop)
+                if not self.distance_sensor2:
                     self.conveyor_motor_stop_timer.start()
-                except Exception as e:
-                    print("error:", e) 
-                    ErrorLog.writeToFile(str(e) + ' In conveyor_motor_stop_timer startRecycleItem Method')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In startRecycleItem Method')
@@ -689,6 +677,7 @@ class MainWindow(QWidget):
             if self.detect_item_flag == True:
                 self.detect_item_flag = False
                 if self.device_mode == 'auto':
+
                     self.auto_delivery_items_thread.stop()
 
                     if len(self.predicted_items) > 0:
@@ -707,19 +696,29 @@ class MainWindow(QWidget):
                         elif self.selected_item['category_id'] == 4:
                             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
 
-                if hasattr(self, 'separation_motor_stop_timer'):
-                    self.separation_motor_stop_timer.cancel()
+                self.conveyor_motor.stop()
+                print('conveyor motor stop')
+
                 try:
+                    # self.separation_motor_stop_timer.cancel()
                     if self.selected_item['category_id'] == 1:
                         self.separation_motor.forward()
                     else:
                         self.separation_motor.backward()
                     print('separation motor on')
-                    self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
+
+                try:
+                    # self.press_motor_stop_timer.cancel()
+                    self.press_motor.forward()
+                    print('press motor on')
+                    self.press_motor_stop_timer.start()
+                except Exception as e:
+                    print("error:", e)
+                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -738,7 +737,6 @@ class MainWindow(QWidget):
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In endRecycleItem Method')
 
-
     def SelectItem(self, item, this_btn):
         self.selected_item = item
         self.selected_item['name'] = item['name']
@@ -747,7 +745,6 @@ class MainWindow(QWidget):
         self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
         # for btn in self.layout_FArea.findChildren(QPushButton):
         #     btn.setStyleSheet('background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
-
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def manualDeliveryRecycleItem(self):
@@ -833,7 +830,6 @@ class MainWindow(QWidget):
         self.ui.tb_unit_fast_charging.setText('')
         self.ui.tb_weight_fast_charging.setText('')
 
-
         self.layout_SArea_FastCharging = QGridLayout()
         for row in range(4):
             for col in range(2):
@@ -845,10 +841,7 @@ class MainWindow(QWidget):
                 btn.setStyleSheet('QPushButton:pressed { background-color: #9caf9f } QPushButton{ background-color: #ffffff} QPushButton{ border: 2px solid #28a745} QPushButton{ border-radius: 10px} QPushButton{ font: 24pt "IRANSans"} QPushButton{ font: 24pt "IRANSansFaNum"} QPushButton{ color: #000000}')
                 #btn.clicked.connect(partial(self.SelectItem, self.items[i]))
                 self.layout_SArea_FastCharging.addWidget(btn, row, col)
-            #    i += 1
-            #    if i >= len(self.items):
-            #        break
-            #row += 1
+
         #self.SelectItem(self.items[0])
         self.ui.scroll_area_widget_fast_charging.setLayout(self.layout_SArea_FastCharging)
         self.ui.Stack.setCurrentWidget(self.ui.pageFastDelivery)
@@ -1068,11 +1061,12 @@ class MainWindow(QWidget):
 
     def saveSetting(self):
         self.showNotification(SETTING_SAVE_MESSAGE)
-        if self.ui.rb_manual_device_mode_setting.isChecked() == True:
-            result = DataBase.update('bottle_recognize_mode', 'manual')
-        if self.ui.rb_auto_device_mode_setting.isChecked() == True:
-            result = DataBase.update('bottle_recognize_mode', 'auto')
+        if self.ui.rb_manual_device_mode_setting.isChecked():
+            DataBase.update('bottle_recognize_mode', 'manual')
+        elif self.ui.rb_auto_device_mode_setting.isChecked():
+            DataBase.update('bottle_recognize_mode', 'auto')
         self.device_mode = DataBase.select('bottle_recognize_mode')
+        
         if self.ui.tb_sensor1_trig_port.text() != '':
             result = DataBase.update('distance_sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
         if self.ui.tb_sensor1_echo_port.text() != '':

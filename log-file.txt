@@ -123,3 +123,26 @@
 2020-07-16 20:44:08 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
 2020-07-16 20:44:32 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
 2020-07-16 21:06:42 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:13:38 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:37 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:41 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 21:14:44 'Motor' object has no attribute 'on' In conveyor_motor_stop_timer startRecycleItem Method
+2020-07-16 23:58:51 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In conveyor_motor initHardwares Method
+2020-07-16 23:59:42 'Motor' object has no attribute 'on' In startRecycleItem Method
+2020-07-17 00:05:28 'PySide2.QtWidgets.QMainWindow' object has no attribute 'list_auto_delivery_items' In endRecycleItem Method
+2020-07-17 00:24:08 name 'separation_motor_timer' is not defined In separation motor on endRecycleItem Method
+2020-07-17 00:24:08 name 'motor_timer' is not defined In press_motor_stop_timer startRecycleItem Method
+2020-07-17 11:20:28 setButton() got an unexpected keyword argument 'functopn' In press_motor initHardwares Method
+2020-07-17 11:20:28 setButton() got an unexpected keyword argument 'functopn' In separation_motor initHardwares Method
+2020-07-17 11:20:28 setButton() got an unexpected keyword argument 'functopn' In conveyor_motor initHardwares Method
+2020-07-17 11:27:32 pin 2 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO2, active_high=False, is_active=False> In conveyor_motor initHardwares Method
+2020-07-17 11:29:23 pin 2 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO2, active_high=False, is_active=False> In conveyor_motor initHardwares Method
+2020-07-17 11:33:43 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:33:55 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:37:01 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:37:20 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:37:39 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:38:42 Server Error Message In SigninUserThread
+2020-07-17 11:41:05 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:42:42 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 11:43:03 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
