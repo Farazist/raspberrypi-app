@@ -210,7 +210,7 @@ QRadioButton{color:#000000;}
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_bottle_recognize_mode">
+           <widget class="QLabel" name="lbl_device_mode">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>

@@ -26,8 +26,8 @@ from error_log import ErrorLog
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
-__license__ = "GPL"
-__email__ = "sajjadaemmi@gmail.com"
+__license__ = "MIT"
+__email__ = "developer@farazist.ir"
 __status__ = "Production"
 
 SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
@@ -46,12 +46,7 @@ predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
-qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
-)
+qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
 
 log_file = ErrorLog.checkExistsFile()
 
@@ -209,7 +204,7 @@ class MainWindow(QWidget):
         
         self.system_id = DataBase.select('system_id')
         self.device_version = DataBase.select('app_version')
-        self.device_mode = DataBase.select('bottle_recognize_mode')
+        self.device_mode = DataBase.select('device_mode')
         
         loader = QUiLoader()
         self.ui = loader.load('main.ui', None)
@@ -405,8 +400,8 @@ class MainWindow(QWidget):
         try:
             distance_sensor1_trig_port = int(DataBase.select('distance_sensor1_trig_port'))
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
-            distance_sensor1_depth_threshold = float(DataBase.select('distance_sensor1_depth_threshold'))
-            self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_depth_threshold/100, pin_factory=factory)
+            distance_sensor1_threshold_distance = float(DataBase.select('distance_sensor1_threshold_distance'))
+            self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_threshold_distance/100, pin_factory=factory)
             self.distance_sensor1.when_in_range = self.startRecycleItem
             print('distance sensor 1 ready')
         except Exception as e:
@@ -416,8 +411,8 @@ class MainWindow(QWidget):
         try:
             distance_sensor2_trig_port = int(DataBase.select('distance_sensor2_trig_port'))
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
-            distance_sensor2_depth_threshold = float(DataBase.select('distance_sensor2_depth_threshold'))
-            self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_depth_threshold/100, pin_factory=factory)
+            distance_sensor2_threshold_distance = float(DataBase.select('distance_sensor2_threshold_distance'))
+            self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_threshold_distance/100, pin_factory=factory)
             self.distance_sensor2.when_in_range = self.endRecycleItem
             print('distance sensor 2 ready')
         except Exception as e:
@@ -997,7 +992,7 @@ class MainWindow(QWidget):
             self.stackAutoDeliveryItems()
     
     def stackDeviceMode(self):
-        result = DataBase.select('bottle_recognize_mode')
+        result = DataBase.select('device_mode')
         if result == 'manual':
             self.ui.rb_manual_device_mode_setting.setChecked(True)
         elif result == 'auto':
@@ -1026,14 +1021,14 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_sensor1_trig_port.setText(str(DataBase.select('distance_sensor1_trig_port')))
         self.ui.tb_sensor1_echo_port.setText(str(DataBase.select('distance_sensor1_echo_port')))
-        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('distance_sensor1_depth_threshold')))
+        self.ui.tb_sensor1_depth_threshold.setText(str(DataBase.select('distance_sensor1_threshold_distance')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor1)
 
     def stackSensor2Ports(self):
         self.ui.lbl_notification.hide()
         self.ui.tb_sensor2_trig_port.setText(str(DataBase.select('distance_sensor2_trig_port')))
         self.ui.tb_sensor2_echo_port.setText(str(DataBase.select('distance_sensor2_echo_port')))
-        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('distance_sensor2_depth_threshold')))
+        self.ui.tb_sensor2_depth_threshold.setText(str(DataBase.select('distance_sensor2_threshold_distance')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingDistanceSensor2)
 
     def stackConveyorPort(self):
@@ -1062,24 +1057,24 @@ class MainWindow(QWidget):
     def saveSetting(self):
         self.showNotification(SETTING_SAVE_MESSAGE)
         if self.ui.rb_manual_device_mode_setting.isChecked():
-            DataBase.update('bottle_recognize_mode', 'manual')
+            DataBase.update('device_mode', 'manual')
         elif self.ui.rb_auto_device_mode_setting.isChecked():
-            DataBase.update('bottle_recognize_mode', 'auto')
-        self.device_mode = DataBase.select('bottle_recognize_mode')
+            DataBase.update('device_mode', 'auto')
+        self.device_mode = DataBase.select('device_mode')
         
         if self.ui.tb_sensor1_trig_port.text() != '':
             result = DataBase.update('distance_sensor1_trig_port', self.ui.tb_sensor1_trig_port.text())
         if self.ui.tb_sensor1_echo_port.text() != '':
             result = DataBase.update('distance_sensor1_echo_port', self.ui.tb_sensor1_echo_port.text())
         if self.ui.tb_sensor1_depth_threshold.text() != '':
-            result = DataBase.update('distance_sensor1_depth_threshold', self.ui.tb_sensor1_depth_threshold.text())
+            result = DataBase.update('distance_sensor1_threshold_distance', self.ui.tb_sensor1_depth_threshold.text())
 
         if self.ui.tb_sensor2_trig_port.text() != '':
             result = DataBase.update('distance_sensor2_trig_port', self.ui.tb_sensor2_trig_port.text())
         if self.ui.tb_sensor2_echo_port.text() != '':
             result = DataBase.update('distance_sensor2_echo_port', self.ui.tb_sensor2_echo_port.text())
         if self.ui.tb_sensor2_depth_threshold.text() != '':
-            result = DataBase.update('distance_sensor2_depth_threshold', self.ui.tb_sensor2_depth_threshold.text())
+            result = DataBase.update('distance_sensor2_threshold_distance', self.ui.tb_sensor2_depth_threshold.text())
 
         if self.ui.tb_press_motor_forward_port.text() != '':
             result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
@@ -1114,7 +1109,6 @@ if __name__ == '__main__':
     os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
     os.environ["QT_QPA_FONTDIR"] = "fonts"
-    # os.environ["QT_QPA_PLATFORM"] = "minimalegl"
     # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
     try:
