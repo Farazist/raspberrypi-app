@@ -46,8 +46,6 @@ predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
-qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-
 log_file = ErrorLog.checkExistsFile()
 
 class QRCodeThread(QThread):
@@ -1111,6 +1109,7 @@ if __name__ == '__main__':
     os.environ["QT_QPA_FONTDIR"] = "fonts"
     # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
+    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
     try:
         factory = NativeFactory()
     except Exception as e:
