@@ -18,11 +18,11 @@ from scipy import stats
 from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
-from server import Server
-from database import DataBase
-from custombutton import CustomButton
-from image_classifier import ImageClassifier
-from error_log import ErrorLog
+from utils.server import Server
+from utils.database import DataBase
+from utils.custombutton import CustomButton
+from utils.image_classifier import ImageClassifier
+from utils.error_log import ErrorLog
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -41,12 +41,10 @@ MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکن
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-camera_timer = 3.0
+delivery_timer = 10.0
 predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
-
-log_file = ErrorLog.checkExistsFile()
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -312,7 +310,9 @@ class MainWindow(QWidget):
         
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
-    
+
+        self.cancel_delivery_item_timer = Timer(delivery_timer, self.cancelDeliveryItem)
+
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
         self.detect_item_flag = False
@@ -329,15 +329,12 @@ class MainWindow(QWidget):
         try:
             if hasattr(self, 'separation_motor'):
                 self.separation_motor.close()
-                print("separation motor close")
         
             if hasattr(self, 'press_motor'):
                 self.press_motor.close()
-                print("press motor close")
             
             if hasattr(self, 'conveyor_motor'):
                 self.conveyor_motor.close()
-                print("conveyor motor close")
 
             if hasattr(self, 'distance_sensor1'):
                 self.distance_sensor1.close()
@@ -354,13 +351,12 @@ class MainWindow(QWidget):
             press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
             press_motor_timer = int(DataBase.select('press_motor_timer'))
-            self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory)
+            self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory, name='press motor')
             self.press_motor_stop_timer = Timer(press_motor_timer, self.press_motor.stop)
 
             self.setButton(self.ui.btn_press_motor_forward_on, function=self.press_motor.forward)
             self.setButton(self.ui.btn_press_motor_backward_on, function=self.press_motor.backward)
             self.setButton(self.ui.btn_press_motor_off, function=self.press_motor.stop)
-            print('press motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In press_motor initHardwares Method')
@@ -369,13 +365,12 @@ class MainWindow(QWidget):
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
             separation_motor_timer = int(DataBase.select('separation_motor_timer'))
-            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
+            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory, name='separation motor')
             self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
 
             self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
             self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
             self.setButton(self.ui.btn_separation_motor_off, function=self.separation_motor.stop)
-            print('separation motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
@@ -384,13 +379,12 @@ class MainWindow(QWidget):
             conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
             conveyor_motor_timer = int(DataBase.select('conveyor_motor_timer'))
-            self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory)
+            self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory, name='conveyor motor')
             self.conveyor_motor_stop_timer = Timer(conveyor_motor_timer, self.conveyor_motor.stop)
 
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
             self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
             self.setButton(self.ui.btn_conveyor_motor_off, function=self.conveyor_motor.stop)
-            print('conveyor motor ready')
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In conveyor_motor initHardwares Method')
@@ -400,7 +394,7 @@ class MainWindow(QWidget):
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_threshold_distance = float(DataBase.select('distance_sensor1_threshold_distance'))
             self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_threshold_distance/100, pin_factory=factory)
-            self.distance_sensor1.when_in_range = self.startRecycleItem
+            self.distance_sensor1.when_in_range = self.startDeliveryItem
             print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
@@ -411,7 +405,7 @@ class MainWindow(QWidget):
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_threshold_distance = float(DataBase.select('distance_sensor2_threshold_distance'))
             self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_threshold_distance/100, pin_factory=factory)
-            self.distance_sensor2.when_in_range = self.endRecycleItem
+            self.distance_sensor2.when_in_range = self.endDeliveryItem
             print('distance sensor 2 ready')
         except Exception as e:
             print("error:", e)
@@ -635,7 +629,7 @@ class MainWindow(QWidget):
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
-        self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startRecycleItem)
+        self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
         self.delivery_items_flag = True
         self.user_items = []
@@ -644,11 +638,12 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
-    def startRecycleItem(self):
-        print('startRecycleItem')
+    def startDeliveryItem(self):
+        print('startDeliveryItem')
         try:
             if self.delivery_items_flag == True and self.detect_item_flag == False:
                 self.detect_item_flag = True
+                self.cancel_delivery_item_timer.start()
 
                 if self.device_mode == 'auto':
                     self.predicted_items = []
@@ -656,27 +651,36 @@ class MainWindow(QWidget):
 
                 self.conveyor_motor_stop_timer.cancel()
                 self.conveyor_motor.forward()
-                print('conveyor motor forward')
 
                 if not self.distance_sensor2:
                     self.conveyor_motor_stop_timer.start()
+
         except Exception as e:
             print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In startRecycleItem Method')
+            ErrorLog.writeToFile(str(e) + ' In startDeliveryItem Method')
 
-    def endRecycleItem(self):
-        print('endRecycleItem')
+    def cancelDeliveryItem(self):
+        self.detect_item_flag = False
+        self.auto_delivery_items_thread.stop()
+        self.conveyor_motor.stop()
+
+    def endDeliveryItem(self):
+        print('endDeliveryItem')
         try:
             if self.detect_item_flag == True:
                 self.detect_item_flag = False
+                self.cancel_delivery_item_timer.cancel()
                 if self.device_mode == 'auto':
 
                     self.auto_delivery_items_thread.stop()
 
                     if len(self.predicted_items) > 0:
-                        most_probability_item = stats.mode(self.predicted_items).mode[0]
-                        self.selected_item = self.items[most_probability_item]
+                        most_probability_item_index_index = stats.mode(self.predicted_items).mode[0]
+                        self.selected_item = self.items[most_probability_item_index]
                         print('most probability item:', window.selected_item['name'])
+
+                        if most_probability_item_index_index == 0:
+                            pass
 
                         self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
 
@@ -690,7 +694,6 @@ class MainWindow(QWidget):
                             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
 
                 self.conveyor_motor.stop()
-                print('conveyor motor stop')
 
                 try:
                     # self.separation_motor_stop_timer.cancel()
@@ -698,20 +701,18 @@ class MainWindow(QWidget):
                         self.separation_motor.forward()
                     else:
                         self.separation_motor.backward()
-                    print('separation motor on')
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In separation motor on endRecycleItem Method')
+                    ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
 
                 try:
                     # self.press_motor_stop_timer.cancel()
                     self.press_motor.forward()
-                    print('press motor on')
                     self.press_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startRecycleItem Method')
+                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
 
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
@@ -728,7 +729,7 @@ class MainWindow(QWidget):
              
         except Exception as e:
             print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In endRecycleItem Method')
+            ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
 
     def SelectItem(self, item, this_btn):
         self.selected_item = item
@@ -741,8 +742,8 @@ class MainWindow(QWidget):
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def manualDeliveryRecycleItem(self):
-        self.startRecycleItem()
-        self.endRecycleItem()
+        self.startDeliveryItem()
+        self.endDeliveryItem()
 
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
@@ -1106,10 +1107,10 @@ class MainWindow(QWidget):
 if __name__ == '__main__':
     os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-    os.environ["QT_QPA_FONTDIR"] = "fonts"
+    os.environ["QT_QPA_FONTDIR"] = "/fonts"
     # os.environ["ESCPOS_CAPABILITIES_FILE"] = "/usr/python-escpos/capabilities.json"
     mixer.init()
-    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
+    qr = qrcode.QRCode(version=2, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
     try:
         factory = NativeFactory()
     except Exception as e:
