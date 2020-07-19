@@ -248,9 +248,9 @@ class MainWindow(QWidget):
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
         self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
-
-        self.auto_delivery_items_thread = AutoDeliveryItemsThread()
     
+        self.auto_delivery_items_thread = AutoDeliveryItemsThread()
+
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
@@ -311,8 +311,6 @@ class MainWindow(QWidget):
         
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
-
-        self.cancel_delivery_item_timer = Timer(delivery_timer, self.cancelDeliveryItem)
 
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
@@ -644,10 +642,13 @@ class MainWindow(QWidget):
         try:
             if self.delivery_items_flag == True and self.detect_item_flag == False:
                 self.detect_item_flag = True
+                print(1)
+                self.cancel_delivery_item_timer = Timer(delivery_timer, self.cancelDeliveryItem)
                 self.cancel_delivery_item_timer.start()
-
+                print(2)
                 if self.device_mode == 'auto':
                     self.predicted_items = []
+                    
                     self.auto_delivery_items_thread.start()
 
                 self.conveyor_motor.forward()
