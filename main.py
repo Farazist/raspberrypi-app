@@ -38,6 +38,7 @@ SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 DEPOSITE_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
 MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
+ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
@@ -649,10 +650,10 @@ class MainWindow(QWidget):
                     self.predicted_items = []
                     self.auto_delivery_items_thread.start()
 
-                self.conveyor_motor_stop_timer.cancel()
                 self.conveyor_motor.forward()
 
                 if not self.distance_sensor2:
+                    self.conveyor_motor_stop_timer.cancel()
                     self.conveyor_motor_stop_timer.start()
 
         except Exception as e:
@@ -660,26 +661,31 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In startDeliveryItem Method')
 
     def cancelDeliveryItem(self):
-        self.detect_item_flag = False
-        self.auto_delivery_items_thread.stop()
-        self.conveyor_motor.stop()
+        print('cancelDeliveryItem')
+        try:
+            self.detect_item_flag = False
+            self.auto_delivery_items_thread.stop()
+            self.conveyor_motor.stop()
+        except Exception as e:
+            print("error:", e)
+            ErrorLog.writeToFile(str(e) + ' In cancelDeliveryItem Method')
 
     def endDeliveryItem(self):
         print('endDeliveryItem')
         try:
-            if self.detect_item_flag == True:
+            if self.delivery_items_flag == True and self.detect_item_flag == True:
                 self.detect_item_flag = False
                 self.cancel_delivery_item_timer.cancel()
-                if self.device_mode == 'auto':
 
+                if self.device_mode == 'auto':
                     self.auto_delivery_items_thread.stop()
 
                     if len(self.predicted_items) > 0:
-                        most_probability_item_index_index = stats.mode(self.predicted_items).mode[0]
+                        most_probability_item_index = stats.mode(self.predicted_items).mode[0]
                         self.selected_item = self.items[most_probability_item_index]
                         print('most probability item:', window.selected_item['name'])
 
-                        if most_probability_item_index_index == 0:
+                        if most_probability_item_index == 0:
                             pass
 
                         self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
@@ -692,23 +698,27 @@ class MainWindow(QWidget):
                             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
                         elif self.selected_item['category_id'] == 4:
                             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+                    else:
+                        self.conveyor_motor.backward()
+                        self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+                        return
 
                 self.conveyor_motor.stop()
 
                 try:
-                    # self.separation_motor_stop_timer.cancel()
                     if self.selected_item['category_id'] == 1:
                         self.separation_motor.forward()
                     else:
                         self.separation_motor.backward()
+                    self.separation_motor_stop_timer.cancel()
                     self.separation_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
 
                 try:
-                    # self.press_motor_stop_timer.cancel()
                     self.press_motor.forward()
+                    self.press_motor_stop_timer.cancel()
                     self.press_motor_stop_timer.start()
                 except Exception as e:
                     print("error:", e)
