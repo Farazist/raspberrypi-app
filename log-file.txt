@@ -146,3 +146,10 @@
 2020-07-17 11:41:05 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
 2020-07-17 11:42:42 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
 2020-07-17 11:43:03 invalid literal for int() with base 10: '0.5' In separation_motor initHardwares Method
+2020-07-17 13:32:11 Server Error Message In stopSound Method
+2020-07-17 13:32:19 Server Error Message In stopSound Method
+2020-07-17 13:49:53 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
+2020-07-17 13:50:54 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
+2020-07-17 13:52:05 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
+2020-07-17 13:56:06 Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled. In AutoDeliveryItemsThread
+2020-07-17 14:28:52 Server Error Message In QRCodeThread
