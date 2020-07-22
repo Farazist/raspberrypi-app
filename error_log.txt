@@ -23,3 +23,13 @@
 2020-07-19 23:53:05 threads can only be started once In startDeliveryItem Method
 2020-07-19 23:57:11 threads can only be started once In startDeliveryItem Method
 2020-07-20 00:07:36 pin 21 is already in use by <gpiozero.DistanceSensor object on pin GPIO21, pull_up=False> In distance_sensor2 initHardwares Method
+2020-07-20 18:21:16 threads can only be started once In separation motor on endDeliveryItem Method
+2020-07-20 18:21:16 threads can only be started once In press_motor_stop_timer startDeliveryItem Method
+2020-07-20 22:21:07 threads can only be started once In separation motor on endDeliveryItem Method
+2020-07-20 22:21:07 threads can only be started once In press_motor_stop_timer startDeliveryItem Method
+2020-07-22 09:32:19 threads can only be started once In separation motor on endDeliveryItem Method
+2020-07-22 09:32:19 threads can only be started once In press_motor_stop_timer startDeliveryItem Method
+2020-07-22 19:10:18 threads can only be started once In separation motor on endDeliveryItem Method
+2020-07-22 19:10:18 threads can only be started once In press_motor_stop_timer startDeliveryItem Method
+2020-07-22 19:10:49 threads can only be started once In separation motor on endDeliveryItem Method
+2020-07-22 19:10:49 threads can only be started once In press_motor_stop_timer startDeliveryItem Method

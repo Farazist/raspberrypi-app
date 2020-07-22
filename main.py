@@ -984,6 +984,13 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.saveSetting, text='ذخیره', icon='images/icon/save.png', show=True)
         self.qrcode_thread.stop()
+        
+        result = DataBase.select('device_mode')
+        if result == 'manual':
+            self.ui.rb_manual_device_mode_setting.setChecked(True)
+        elif result == 'auto':
+            self.ui.rb_auto_device_mode_setting.setChecked(True)
+
         self.ui.lbl_notification.hide()
         self.ui.lbl_device_info.setText(self.deviceInfo)
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingEmpty)

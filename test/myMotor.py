@@ -29,20 +29,16 @@ class Motor:
         self.forward_motor.close()
         self.backward_motor.close()
         
-motor = Motor(17, 27, active_high=False)
+motor = Motor(23, 24, active_high=0)
 
 while True:
     motor.forward()
-    print('forward')
     sleep(1)
     motor.stop()
-    print('stop')
     sleep(1)
     motor.backward()
-    print('backward')
     sleep(1)
     motor.stop()
-    print('stop')
     sleep(1)
 
 motor.close()
