@@ -1033,6 +1033,7 @@ class MainWindow(QWidget):
         self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
         self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
         self.ui.tb_separation_motor_timer.setText(str(DataBase.select('separation_motor_timer')))
+        self.ui.tb_separation_motor_active_high.setText(str(DataBase.select('separation_motor_active_high')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
     def stackSensor1Ports(self):
