@@ -1431,7 +1431,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1621,110 +1621,180 @@ border-style: inset;
               <property name="bottomMargin">
                <number>9</number>
               </property>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_press_motor_forward_port">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_39">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_27">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="lbl_press_motor_backward_port">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>پورت 1 موتور پرس</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_press_motor_forward_port">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>پورت 2 موتور پرس</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_press_motor_backward_port">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-                <property name="maxLength">
-                 <number>2</number>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_press_motor_backward_port">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lbl_press_motor_active_high">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>پورت 2 موتور پرس</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_press_motor_backward_port">
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>TextLabel</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_press_motor_active_high">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_press_motor_timer">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_61">
+                  <item>
+                   <widget class="QLabel" name="lbl_press_motor_forward_port">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>تایمر موتور پرس</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_press_motor_timer">
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>پورت 1 موتور پرس</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_press_motor_forward_port">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-               </widget>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="maxLength">
+                     <number>2</number>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lbl_press_motor_timer">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                    </property>
+                    <property name="text">
+                     <string>تایمر موتور پرس</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_press_motor_timer">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
+</string>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -3309,8 +3379,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>381</width>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5828,8 +5898,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>398</width>
-             <height>28</height>
+             <width>381</width>
+             <height>16</height>
             </rect>
            </property>
           </widget>
