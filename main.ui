@@ -2268,6 +2268,9 @@ color:#000000;</string>
                     <property name="inputMethodHints">
                      <set>Qt::ImhDigitsOnly</set>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -2297,6 +2300,9 @@ color:#000000;</string>
                     </property>
                     <property name="inputMethodHints">
                      <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -2332,6 +2338,9 @@ color:#000000;</string>
                     <property name="inputMethodHints">
                      <set>Qt::ImhDigitsOnly</set>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -2361,6 +2370,9 @@ color:#000000;</string>
                     </property>
                     <property name="inputMethodHints">
                      <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
