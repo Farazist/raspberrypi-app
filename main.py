@@ -1102,6 +1102,8 @@ class MainWindow(QWidget):
             result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
         if self.ui.tb_press_motor_timer.text() != '':
             result = DataBase.update('press_motor_timer', self.ui.tb_press_motor_timer.text())
+        if self.ui.tb_press_motor_active_high.text() != '':
+            result = DataBase.update('press_motor_active_high', self.ui.tb_press_motor_active_high.text())
 
         if self.ui.tb_separation_motor_forward_port.text() != '':
             result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
