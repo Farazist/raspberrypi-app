@@ -1431,7 +1431,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1894,89 +1894,159 @@ border-style: inset;
               <property name="bottomMargin">
                <number>9</number>
               </property>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_separation_motor_forward_port">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_40">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_62">
+                  <item>
+                   <widget class="QLabel" name="lbl_separation_motor_backward_port">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>پورت 1 موتور تفکیک</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_separation_motor_forward_port">
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>پورت 2 موتور تفکیک</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_separation_motor_backward_port">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_separation_motor_backward_port">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lbl_separation_motor_active_high">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>پورت 2 موتور تفکیک</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_separation_motor_backward_port">
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>TextLabel</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_separation_motor_active_high">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLabel" name="lbl_separation_motor_timer">
-                <property name="styleSheet">
-                 <string notr="true">font: 22pt &quot;IRANSans&quot;;
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_63">
+                  <item>
+                   <widget class="QLabel" name="lbl_separation_motor_forward_port">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
-                </property>
-                <property name="text">
-                 <string>تایمر موتور تفکیک</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-               <widget class="QLineEdit" name="tb_separation_motor_timer">
-                <property name="styleSheet">
-                 <string notr="true">background-color: #ffffff; 
+                    </property>
+                    <property name="text">
+                     <string>پورت 1 موتور تفکیک</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_separation_motor_forward_port">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
 padding: 3px; 
 border: 2px solid #28a745;
 border-radius: 6px;
 font: 26pt &quot;IRANSansFaNum&quot;;
 color:#000000;
 </string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhDigitsOnly</set>
-                </property>
-               </widget>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lbl_separation_motor_timer">
+                    <property name="styleSheet">
+                     <string notr="true">font: 22pt &quot;IRANSans&quot;;
+font: 22pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+                    </property>
+                    <property name="text">
+                     <string>تایمر موتور تفکیک</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignTop">
+                   <widget class="QLineEdit" name="tb_separation_motor_timer">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;
+</string>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhDigitsOnly</set>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_31">
