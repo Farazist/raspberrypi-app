@@ -1120,6 +1120,8 @@ class MainWindow(QWidget):
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
         if self.ui.tb_conveyor_motor_timer.text() != '':
             result = DataBase.update('conveyor_motor_timer', self.ui.tb_conveyor_motor_timer.text())
+        if self.ui.tb_conveyor_motor_active_high.text() != '':
+            result = DataBase.update('conveyor_motor_active_high', self.ui.tb_conveyor_motor_active_high.text())
 
         self.initHardwares()
 
