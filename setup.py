@@ -6,7 +6,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy
 
-from database import DataBase
+#from database import DataBase
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -81,11 +81,16 @@ class MainWindow(QWidget):
 
     def stackConveyorMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackPressMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorTimer)
 
+    def stackConveyorMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackPressMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorActiveHigh)
+
     def stackPressMotorForwardPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackPressMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorForwardPort)
 
