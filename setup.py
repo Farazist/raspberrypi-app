@@ -188,7 +188,7 @@ class MainWindow(QWidget):
 
         database_list[10][0] = 'separation_motor_forward_port'
         database_list[11][0] = 'separation_motor_backward_port'
-        database_list[12][0] = 'separation_motor_timer'
+        database_list[12][0] = 'separation_motor_time'
         database_list[13][0] = 'separation_motor_active_high'
 
         database_list[14][0] = 'distance_sensor1_threshold_distance'
@@ -216,7 +216,7 @@ class MainWindow(QWidget):
 
         database_list[10][1] = int(self.ui.tb_separation_motor_forward_port.text())
         database_list[11][1] = int(self.ui.tb_separation_motor_backward_port.text())
-        database_list[12][1] = int(self.ui.tb_separation_motor_timer.text())
+        database_list[12][1] = int(self.ui.tb_separation_motor_time.text())
         database_list[13][1] = int(self.ui.tb_separation_motor_active_high.text())
 
         database_list[14][1] = int(self.ui.tb_sensor1_depth_threshold.text())

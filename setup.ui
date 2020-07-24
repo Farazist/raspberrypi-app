@@ -665,7 +665,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_pressMotorTimer">
           <item>
-           <widget class="QLineEdit" name="tb_press_motor_timer">
+           <widget class="QLineEdit" name="tb_press_motor_time">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -695,7 +695,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_press_motor_timer">
+           <widget class="QLabel" name="lbl_press_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
@@ -921,7 +921,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_separation_motor_timer">
+           <widget class="QLabel" name="lbl_separation_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>

@@ -363,9 +363,9 @@ class MainWindow(QWidget):
         try:
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            separation_motor_timer = int(DataBase.select('separation_motor_timer'))
+            separation_motor_time = int(DataBase.select('separation_motor_time'))
             self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory, name='separation motor')
-            self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
+            self.separation_motor_stop_timer = Timer(separation_motor_time, self.separation_motor.stop)
 
             self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
             self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
@@ -1032,7 +1032,7 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
         self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
-        self.ui.tb_separation_motor_timer.setText(str(DataBase.select('separation_motor_timer')))
+        self.ui.tb_separation_motor_time.setText(str(DataBase.select('separation_motor_time')))
         self.ui.tb_separation_motor_active_high.setText(str(DataBase.select('separation_motor_active_high')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
@@ -1109,8 +1109,8 @@ class MainWindow(QWidget):
             result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
-        if self.ui.tb_separation_motor_timer.text() != '':
-            result = DataBase.update('separation_motor_timer', self.ui.tb_separation_motor_timer.text())
+        if self.ui.tb_separation_motor_time.text() != '':
+            result = DataBase.update('separation_motor_time', self.ui.tb_separation_motor_time.text())
         if self.ui.tb_separation_motor_active_high.text() != '':
             result = DataBase.update('separation_motor_active_high', self.ui.tb_separation_motor_active_high.text())
 

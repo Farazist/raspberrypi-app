@@ -1759,7 +1759,7 @@ color:#000000;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="lbl_press_motor_timer">
+                   <widget class="QLabel" name="lbl_press_motor_time">
                     <property name="styleSheet">
                      <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
@@ -1774,7 +1774,7 @@ color: #000000;</string>
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QLineEdit" name="tb_press_motor_timer">
+                   <widget class="QLineEdit" name="tb_press_motor_time">
                     <property name="styleSheet">
                      <string notr="true">background-color: #ffffff; 
 padding: 3px; 
@@ -2026,7 +2026,7 @@ color: #000000;</string>
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QLineEdit" name="tb_separation_motor_timer">
+                   <widget class="QLineEdit" name="tb_separation_motor_time">
                     <property name="styleSheet">
                      <string notr="true">background-color: #ffffff; 
 padding: 3px; 
@@ -2499,7 +2499,7 @@ color: #000000;</string>
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QLineEdit" name="tb_conveyor_motor_timer">
+                   <widget class="QLineEdit" name="tb_conveyor_motor_time">
                     <property name="styleSheet">
                      <string notr="true">background-color: #ffffff; 
 padding: 3px; 
