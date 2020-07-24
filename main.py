@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-#from mfrc522 import SimpleMFRC522
+from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -349,7 +349,7 @@ class MainWindow(QWidget):
         try:
             press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            press_motor_time = int(DataBase.select('press_motor_time'))
+            press_motor_time = float(DataBase.select('press_motor_time'))
             self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory, name='press motor')
             self.press_motor_stop_timer = Timer(press_motor_time, self.press_motor.stop)
 
@@ -363,8 +363,8 @@ class MainWindow(QWidget):
         try:
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            separation_motor_time = int(DataBase.select('separation_motor_time'))
-            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory, name='separation motor')
+            separation_motor_time = float(DataBase.select('separation_motor_time'))
+            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=True, pin_factory=factory, name='separation motor')
             self.separation_motor_stop_timer = Timer(separation_motor_time, self.separation_motor.stop)
 
             self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
@@ -377,7 +377,7 @@ class MainWindow(QWidget):
         try:
             conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            conveyor_motor_time = int(DataBase.select('conveyor_motor_time'))
+            conveyor_motor_time = float(DataBase.select('conveyor_motor_time'))
             self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory, name='conveyor motor')
             self.conveyor_motor_stop_timer = Timer(conveyor_motor_time, self.conveyor_motor.stop)
 
