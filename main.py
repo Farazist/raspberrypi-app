@@ -349,9 +349,9 @@ class MainWindow(QWidget):
         try:
             press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
             press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            press_motor_timer = int(DataBase.select('press_motor_timer'))
+            press_motor_time = int(DataBase.select('press_motor_time'))
             self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory, name='press motor')
-            self.press_motor_stop_timer = Timer(press_motor_timer, self.press_motor.stop)
+            self.press_motor_stop_timer = Timer(press_motor_time, self.press_motor.stop)
 
             self.setButton(self.ui.btn_press_motor_forward_on, function=self.press_motor.forward)
             self.setButton(self.ui.btn_press_motor_backward_on, function=self.press_motor.backward)
@@ -1024,7 +1024,7 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_press_motor_forward_port.setText(str(DataBase.select('press_motor_forward_port')))
         self.ui.tb_press_motor_backward_port.setText(str(DataBase.select('press_motor_backward_port')))
-        self.ui.tb_press_motor_timer.setText(str(DataBase.select('press_motor_timer')))
+        self.ui.tb_press_motor_time.setText(str(DataBase.select('press_motor_time')))
         self.ui.tb_press_motor_active_high.setText(str(DataBase.select('press_motor_active_high')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotor)
 
@@ -1100,8 +1100,8 @@ class MainWindow(QWidget):
             result = DataBase.update('press_motor_forward_port', self.ui.tb_press_motor_forward_port.text())
         if self.ui.tb_press_motor_backward_port.text() != '':
             result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
-        if self.ui.tb_press_motor_timer.text() != '':
-            result = DataBase.update('press_motor_timer', self.ui.tb_press_motor_timer.text())
+        if self.ui.tb_press_motor_time.text() != '':
+            result = DataBase.update('press_motor_time', self.ui.tb_press_motor_time.text())
         if self.ui.tb_press_motor_active_high.text() != '':
             result = DataBase.update('press_motor_active_high', self.ui.tb_press_motor_active_high.text())
 

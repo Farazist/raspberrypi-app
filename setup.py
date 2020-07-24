@@ -183,7 +183,7 @@ class MainWindow(QWidget):
 
         database_list[6][0] = 'press_motor_forward_port'
         database_list[7][0] = 'press_motor_backward_port'
-        database_list[8][0] = 'press_motor_timer'
+        database_list[8][0] = 'press_motor_time'
         database_list[9][0] = 'press_motor_active_high'
 
         database_list[10][0] = 'separation_motor_forward_port'
@@ -211,7 +211,7 @@ class MainWindow(QWidget):
 
         database_list[6][1] = int(self.ui.tb_press_motor_forward_port.text())
         database_list[7][1] = int(self.ui.tb_press_motor_backward_port.text())
-        database_list[8][1] = int(self.ui.tb_press_motor_timer.text())
+        database_list[8][1] = int(self.ui.tb_press_motor_time.text())
         database_list[9][1] = int(self.ui.tb_press_motor_active_high.text())
 
         database_list[10][1] = int(self.ui.tb_separation_motor_forward_port.text())
