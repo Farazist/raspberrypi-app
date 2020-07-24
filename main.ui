@@ -2484,7 +2484,7 @@ color:#000000;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="lbl_conveyor_motor_timer">
+                   <widget class="QLabel" name="lbl_conveyor_motor_time">
                     <property name="styleSheet">
                      <string notr="true">font: 22pt &quot;IRANSans&quot;;
 font: 22pt &quot;IRANSansFaNum&quot;;
@@ -3449,8 +3449,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>381</width>
-               <height>16</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5968,8 +5968,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>381</width>
-             <height>16</height>
+             <width>398</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>

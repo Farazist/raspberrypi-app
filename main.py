@@ -377,9 +377,9 @@ class MainWindow(QWidget):
         try:
             conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
             conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            conveyor_motor_timer = int(DataBase.select('conveyor_motor_timer'))
+            conveyor_motor_time = int(DataBase.select('conveyor_motor_time'))
             self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory, name='conveyor motor')
-            self.conveyor_motor_stop_timer = Timer(conveyor_motor_timer, self.conveyor_motor.stop)
+            self.conveyor_motor_stop_timer = Timer(conveyor_motor_time, self.conveyor_motor.stop)
 
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
             self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
@@ -1054,7 +1054,7 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
-        self.ui.tb_conveyor_motor_timer.setText(str(DataBase.select('conveyor_motor_timer')))
+        self.ui.tb_conveyor_motor_time.setText(str(DataBase.select('conveyor_motor_time')))
         self.ui.tb_conveyor_motor_active_high.setText(str(DataBase.select('conveyor_motor_active_high')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
@@ -1118,8 +1118,8 @@ class MainWindow(QWidget):
             result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
         if self.ui.tb_conveyor_motor_backward_port.text() != '':
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
-        if self.ui.tb_conveyor_motor_timer.text() != '':
-            result = DataBase.update('conveyor_motor_timer', self.ui.tb_conveyor_motor_timer.text())
+        if self.ui.tb_conveyor_motor_time.text() != '':
+            result = DataBase.update('conveyor_motor_time', self.ui.tb_conveyor_motor_time.text())
         if self.ui.tb_conveyor_motor_active_high.text() != '':
             result = DataBase.update('conveyor_motor_active_high', self.ui.tb_conveyor_motor_active_high.text())
 

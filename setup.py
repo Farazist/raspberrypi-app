@@ -177,7 +177,7 @@ class MainWindow(QWidget):
 
         database_list[2][0] = 'conveyor_motor_forward_port'
         database_list[3][0] = 'conveyor_motor_backward_port'
-        database_list[4][0] = 'conveyor_motor_timer'
+        database_list[4][0] = 'conveyor_motor_time'
         database_list[5][0] = 'conveyor_motor_active_high'
 
 
@@ -206,7 +206,7 @@ class MainWindow(QWidget):
 
         database_list[2][1] = int(self.ui.tb_conveyor_motor_forward_port.text())
         database_list[3][1] = int(self.ui.tb_conveyor_motor_backward_port.text())
-        database_list[4][1] = int(self.ui.tb_conveyor_motor_timer.text())
+        database_list[4][1] = int(self.ui.tb_conveyor_motor_time.text())
         database_list[5][1] = int(self.ui.tb_conveyor_motor_active_high.text())
 
         database_list[6][1] = int(self.ui.tb_press_motor_forward_port.text())

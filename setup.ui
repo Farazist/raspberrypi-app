@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1079</width>
+    <width>1086</width>
     <height>399</height>
    </rect>
   </property>
@@ -463,7 +463,7 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_conveyor_motor_timer">
+           <widget class="QLabel" name="lbl_conveyor_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
