@@ -651,22 +651,16 @@ class MainWindow(QWidget):
                     
                     self.auto_delivery_items_thread.start()
 
+                self.auto_delivery_items_timer = Timer(2, self.endRecycleItem)
+                self.auto_delivery_items_timer.start()
+
+                # self.conveyor_motor_stop_timer.cancel()
                 self.conveyor_motor.forward()
+                print('conveyor motor forward')
+                # self.separation_motor_stop_timer = Timer(self.separation_motor_time, self.separation_motor.stop)
 
-                if not self.distance_sensor2:
-                    self.conveyor_motor_stop_timer.cancel()
-                    self.conveyor_motor_stop_timer.start()
-
-        except Exception as e:
-            print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In startDeliveryItem Method')
-
-    def cancelDeliveryItem(self):
-        print('cancelDeliveryItem')
-        try:
-            self.detect_item_flag = False
-            self.auto_delivery_items_thread.stop()
-            self.conveyor_motor.stop()
+                # if not self.distance_sensor2:
+                # self.conveyor_motor_stop_timer.start()
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In cancelDeliveryItem Method')
