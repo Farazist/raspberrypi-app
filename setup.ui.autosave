@@ -720,7 +720,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="tb_press_motor_active_high">
             <property name="minimumSize">
              <size>
               <width>300</width>

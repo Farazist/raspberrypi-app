@@ -101,11 +101,16 @@ class MainWindow(QWidget):
 
     def stackPressMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackPressMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackPressMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorTimer)
 
+    def stackPressMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackPressMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackSeparationMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorActiveHigh)
+
     def stackSeparationMotorForwardPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackPressMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackPressMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSeparationMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorForwardPort)
 
