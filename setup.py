@@ -121,11 +121,16 @@ class MainWindow(QWidget):
 
     def stackSeparationMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSensor1DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorTimer)
+
+    def stackSeparationMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackSensor1DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorActiveHigh)
     
     def stackSensor1DepthThreshold(self):
-        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSensor1TrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSensor1DepthThreshold)
     
