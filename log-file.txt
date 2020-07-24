@@ -153,3 +153,4 @@
 2020-07-17 13:52:05 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
 2020-07-17 13:56:06 Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled. In AutoDeliveryItemsThread
 2020-07-17 14:28:52 Server Error Message In QRCodeThread
+2020-07-23 13:14:45 [Errno 13] Permission denied: '/sys/class/gpio/gpio19/edge' In distance_sensor1 initHardwares Method

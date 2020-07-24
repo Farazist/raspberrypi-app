@@ -375,9 +375,8 @@ class MainWindow(QWidget):
         try:
             separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
             separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            separation_motor_timer = int(DataBase.select('separation_motor_timer'))
-            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=False, pin_factory=factory)
-            self.separation_motor_stop_timer = Timer(separation_motor_timer, self.separation_motor.stop)
+            self.separation_motor_time = int(DataBase.select('separation_motor_timer'))
+            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=True, pin_factory=factory)
 
             self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
             self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
@@ -661,18 +660,26 @@ class MainWindow(QWidget):
                     self.predicted_items = []
                     self.auto_delivery_items_thread.start()
 
-                self.conveyor_motor_stop_timer.cancel()
+                self.auto_delivery_items_timer = Timer(2, self.endRecycleItem)
+                self.auto_delivery_items_timer.start()
+
+                # self.conveyor_motor_stop_timer.cancel()
                 self.conveyor_motor.forward()
                 print('conveyor motor forward')
+                # self.separation_motor_stop_timer = Timer(self.separation_motor_time, self.separation_motor.stop)
 
-                if not self.distance_sensor2:
-                    self.conveyor_motor_stop_timer.start()
+                # if not self.distance_sensor2:
+                # self.conveyor_motor_stop_timer.start()
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In startRecycleItem Method')
 
     def endRecycleItem(self):
         print('endRecycleItem')
+
+        self.conveyor_motor.stop()
+        print('conveyor motor stop')
+
         try:
             if self.detect_item_flag == True:
                 self.detect_item_flag = False
@@ -695,9 +702,6 @@ class MainWindow(QWidget):
                             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
                         elif self.selected_item['category_id'] == 4:
                             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
-
-                self.conveyor_motor.stop()
-                print('conveyor motor stop')
 
                 try:
                     # self.separation_motor_stop_timer.cancel()

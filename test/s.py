@@ -24,9 +24,9 @@ class Motor:
     def close(self):
         self.forward_motor.close()
         self.backward_motor.close()
-motor = Motor(20, 24, active_high=False)
+motor = Motor(12, 16, active_high=True)
 
-t = 2
+t = 0.25
 
 while True:
     motor.forward()
@@ -34,13 +34,13 @@ while True:
     sleep(t)
     motor.stop()
     print('stop')
-    sleep(t)
+    sleep(t * 6)
     motor.backward()
     print('backward')
     sleep(t)
     motor.stop()
     print('stop')
-    sleep(t)
+    sleep(t * 6)
 
 motor.close()
 # del motor
