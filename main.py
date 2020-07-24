@@ -312,6 +312,7 @@ class MainWindow(QWidget):
         self.ui.setWindowFlags(Qt.FramelessWindowHint|Qt.Dialog)
         self.ui.showMaximized()
 
+        self.back_delivery_item_flag = False
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
         self.detect_item_flag = False
@@ -666,9 +667,10 @@ class MainWindow(QWidget):
 
     def backDeliveryItem(self):
         print('backDeliveryItem')
-        self.delivery_items_flag = True
-        self.detect_item_flag = False
-
+        if self.back_delivery_item_flag == True:
+            self.delivery_items_flag = True
+            self.detect_item_flag = False
+            self.back_delivery_item_flag = False
 
     def validationDeliveryItem(self):
         if self.device_mode == 'auto':
@@ -693,6 +695,7 @@ class MainWindow(QWidget):
                 elif self.selected_item['category_id'] == 4:
                     self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
             else:
+                self.back_delivery_item_flag = True
                 self.conveyor_motor.backward()
                 self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
                 self.conveyor_motor_stop_timer.start()
