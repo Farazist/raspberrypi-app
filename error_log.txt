@@ -244,3 +244,7 @@
 2020-07-24 10:25:12 float() argument must be a string or a number, not 'NoneType' In conveyor_motor initHardwares Method
 2020-07-24 10:25:12 float() argument must be a string or a number, not 'NoneType' In distance_sensor1 initHardwares Method
 2020-07-24 10:25:12 float() argument must be a string or a number, not 'NoneType' In distance_sensor2 initHardwares Method
+2020-07-24 10:46:50 'MainWindow' object has no attribute 'endRecycleItem' In cancelDeliveryItem Method
+2020-07-24 10:49:19 'MainWindow' object has no attribute 'endRecycleItem' In cancelDeliveryItem Method
+2020-07-24 12:09:28 'MainWindow' object has no attribute 'distance_sensor2' In distance_sensor1 initHardwares Method
+2020-07-24 12:11:12 'MainWindow' object has no attribute 'distance_sensor2' In distance_sensor1 initHardwares Method

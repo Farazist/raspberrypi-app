@@ -28,6 +28,10 @@ motor = Motor(23, 18, active_high=False)
 
 t = 5
 
+motor.stop()
+print('stop')
+sleep(t * 2)
+
 while True:
     motor.forward()
     print('forward')
