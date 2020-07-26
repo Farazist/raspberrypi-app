@@ -28,7 +28,7 @@ class Motor:
     def close(self):
         self.forward_motor.close()
         self.backward_motor.close()
-motor = Motor(21, 24, active_high=False)
+motor = Motor(20, 24, active_high=False)
 
 t = 2
 

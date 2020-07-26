@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -42,8 +42,9 @@ ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-delivery_timer = 10.0
-predict_item_threshold = 0.9
+delivery_cancel_time = 10.0
+capture_time = 1
+predict_item_threshold = 0.1
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -147,17 +148,18 @@ class AutoDeliveryItemsThread(QThread):
         QThread.__init__(self)
     
     def stop(self):
-        self.delivery_item_flag = False
+        self.process_flag = False
 
     def run(self):
-        self.delivery_item_flag = True
+        self.process_flag = True
         try:
             import picamera
             with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
-                # camera.start_preview()
+                camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                    if self.delivery_item_flag:
+                    if self.process_flag:
+                        print('capturing...')
                         stream.seek(0)
                         results = window.image_classifier(stream)
                         label_id, prob = results[0]
@@ -167,6 +169,7 @@ class AutoDeliveryItemsThread(QThread):
                         stream.seek(0)
                         stream.truncate()
                     else:
+                        camera.stop_preview()
                         break
         except Exception as e:
             print("error:", e)
@@ -230,9 +233,6 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.setGif("animations/Rolling-white.gif")
         self.lbl = QLabel(None)
         self.lbl.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
-        self.ui.vLayoutSignInUserMobile.addWidget(self.btnUserLoginMobile)
-        self.ui.vLayoutSignInUserMobile.addWidget(self.lbl)
-        self.ui.vLayoutSignInUserMobile.setAlignment(Qt.AlignHCenter)
 
         # Threads
         self.qrcode_thread = QRCodeThread()
@@ -259,7 +259,6 @@ class MainWindow(QWidget):
         self.ui.btn_setting.clicked.connect(self.stackSignInOwner)
         self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
         self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
-        self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
@@ -316,6 +315,8 @@ class MainWindow(QWidget):
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
         self.detect_item_flag = False
+
+        self.delivery_state = 'default'
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -391,8 +392,8 @@ class MainWindow(QWidget):
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_threshold_distance = float(DataBase.select('distance_sensor1_threshold_distance'))
             self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_threshold_distance/100, pin_factory=factory)
-            self.distance_sensor1.when_in_range = self.startDeliveryItem
-            self.distance_sensor1.when_out_of_range = self.backDeliveryItem
+            self.distance_sensor1.when_in_range = self.distanceSensor1WhenInRange
+            self.distance_sensor1.when_out_of_range = self.distanceSensor1WhenOutOfRange
             print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
@@ -403,8 +404,8 @@ class MainWindow(QWidget):
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_threshold_distance = float(DataBase.select('distance_sensor2_threshold_distance'))
             self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_threshold_distance/100, pin_factory=factory)
-            # self.distance_sensor2.when_in_range = self.endDeliveryItem
-            self.distance_sensor2.when_out_of_range = self.endDeliveryItem
+            self.distance_sensor2.when_in_range = self.distanceSensor2WhenInRange
+            self.distance_sensor2.when_out_of_range = self.distanceSensor2WhenOutOfRange
             print('distance sensor 2 ready')
         except Exception as e:
             print("error:", e)
@@ -575,15 +576,6 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
 
-    def stackSignInUserMobileNumber(self):
-        self.setButton(self.ui.btn_left, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_right, show=False)
-        self.stopSound()
-        self.ui.tbUserMobile.setText('')
-        self.ui.tbUserPasswordMobile.setText('')
-        self.qrcode_thread.stop()
-        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
@@ -630,6 +622,8 @@ class MainWindow(QWidget):
         
         self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
+        self.delivery_state = 'ready'
+
         self.delivery_items_flag = True
         self.user_items = []
         for item in self.items:
@@ -637,83 +631,114 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
-    def startDeliveryItem(self):
-        print('startDeliveryItem')
+    def distanceSensor1WhenInRange(self):
+        if self.delivery_state == 'ready':
+            self.delivery_state = 'enter'
+            print('delivery state changed: ready to enter')
+            self.enterDeliveryItem()
+        elif self.delivery_state == 'reject':
+            self.delivery_state = 'pickup'
+            self.pickupDeliveryItem()
+ 
+    def distanceSensor1WhenOutOfRange(self):
+        if self.delivery_state == 'enter':
+            self.delivery_state = 'capture'
+            print('delivery state changed: enter to capture')
+            self.startDeliveryItem()
+        elif self.delivery_state == 'pickup':
+            self.delivery_state = 'ready'
+
+    def distanceSensor2WhenInRange(self):
+        pass
+
+    def distanceSensor2WhenOutOfRange(self):
+        pass
+
+    def pickupDeliveryItem(self):
         try:
-            if self.delivery_items_flag == True and self.detect_item_flag == False:
-                self.detect_item_flag = True
-                print(1)
-                self.cancel_delivery_item_timer = Timer(delivery_timer, self.cancelDeliveryItem)
-                self.cancel_delivery_item_timer.start()
-                print(2)
-                if self.device_mode == 'auto':
-                    self.predicted_items = []
-                    
-                    self.auto_delivery_items_thread.start()
-
-                self.auto_delivery_items_timer = Timer(1, self.validationDeliveryItem)
-                self.auto_delivery_items_timer.start()
-
-                # self.conveyor_motor_stop_timer.cancel()
-                self.conveyor_motor.forward()
-                print('conveyor motor forward')
-                # self.separation_motor_stop_timer = Timer(self.separation_motor_time, self.separation_motor.stop)
-
-                # if not self.distance_sensor2:
-                # self.conveyor_motor_stop_timer.start()
+            self.conveyor_motor.stop()
         except Exception as e:
             print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In cancelDeliveryItem Method')
 
-    def backDeliveryItem(self):
-        print('backDeliveryItem')
-        if self.back_delivery_item_flag == True:
-            self.delivery_items_flag = True
-            self.detect_item_flag = False
-            self.back_delivery_item_flag = False
+    def enterDeliveryItem(self):
+        try:
+            self.conveyor_motor.forward()
+            self.auto_delivery_items_thread.start()
+
+        except Exception as e:
+            print("error:", e)
+
+    def startDeliveryItem(self):
+        try:
+            self.predicted_items = []                    
+
+            self.auto_delivery_items_timer = Timer(capture_time, self.validationDeliveryItem)
+            self.auto_delivery_items_timer.start()
+
+            # self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
+            # self.cancel_delivery_item_timer.start()
+        except Exception as e:
+            print("error:", e)
+
+    def rejectDeliveryItem(self):
+        print('rejectDeliveryItem')
+        self.conveyor_motor.backward()
+        self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+
+    def acceptDeliveryItem(self):
+        print('acceptDeliveryItem')
+        most_probability_item_index = stats.mode(self.predicted_items).mode[0]
+        self.selected_item = self.items[most_probability_item_index]
+        print('most probability item:', window.selected_item['name'])
+
+        self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
+
+        # if self.selected_item['category_id'] == 1:
+        #     self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
+        # elif self.selected_item['category_id'] == 2:
+        #     self.ui.lbl_num_category_2.setText(str(int(self.ui.lbl_num_category_2.text()) + 1))
+        # elif self.selected_item['category_id'] == 3:
+        #     self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
+        # elif self.selected_item['category_id'] == 4:
+        #     self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+
+        self.endDeliveryItem()
 
     def validationDeliveryItem(self):
-        if self.device_mode == 'auto':
+        print('validationDeliveryItem')
+        if self.delivery_state == 'capture':
+            self.delivery_state = 'validate'
+            print('delivery state changed: capture to validate')
+    
             self.auto_delivery_items_thread.stop()
+            sleep(0.1)
 
             if len(self.predicted_items) > 0:
-                most_probability_item_index = stats.mode(self.predicted_items).mode[0]
-                self.selected_item = self.items[most_probability_item_index]
-                print('most probability item:', window.selected_item['name'])
-
-                if most_probability_item_index == 0:
-                    pass
-
-                self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
-
-                if self.selected_item['category_id'] == 1:
-                    self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
-                elif self.selected_item['category_id'] == 2:
-                    self.ui.lbl_num_category_2.setText(str(int(self.ui.lbl_num_category_2.text()) + 1))
-                elif self.selected_item['category_id'] == 3:
-                    self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
-                elif self.selected_item['category_id'] == 4:
-                    self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+                self.delivery_state = 'accept'
+                print('delivery state changed: validate to accept')
+                self.acceptDeliveryItem()
             else:
-                self.back_delivery_item_flag = True
-                self.conveyor_motor.backward()
-                self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
-                self.conveyor_motor_stop_timer.start()
-                self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
-                return
-
+                self.delivery_state = 'reject'
+                print('delivery state changed: validate to reject')
+                self.rejectDeliveryItem()
 
     def cancelDeliveryItem(self):
-        pass
+        self.conveyor_motor.stop()
+        self.press_motor.stop()
+        self.separation_motor.stop()
+        self.detect_item_flag = False
+        self.delivery_state = 'ready'
+        print('delivery state changed: ready')
 
     def endDeliveryItem(self):
         print('endDeliveryItem')
         try:
-            if self.delivery_items_flag == True and self.detect_item_flag == True:
-                self.detect_item_flag = False
-                self.cancel_delivery_item_timer.cancel()
+            if self.delivery_state == 'accept':
+                
+                # self.cancel_delivery_item_timer.cancel()
 
-                self.conveyor_motor.stop()
+                self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
+                self.conveyor_motor_stop_timer.start()
 
                 try:
                     if self.selected_item['category_id'] == 1:
@@ -736,15 +761,11 @@ class MainWindow(QWidget):
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
 
-                print(1)
-
                 self.playSound('audio3')
                 self.showNotification(RECYCLE_MESSAGE)
                 self.ui.btn_right.show()
                 self.selected_item['count'] += 1
                 self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
-                
-                print(2)
 
                 for user_item in self.user_items:
                     if self.selected_item['id'] == user_item['id']:
@@ -754,13 +775,11 @@ class MainWindow(QWidget):
                 self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
                 self.ui.lbl_total.setText(str(self.total_price))
              
-                print(3)
+                self.delivery_state = 'ready'
 
         except Exception as e:
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
-
-        print(4)
 
     def SelectItem(self, item, this_btn):
         self.selected_item = item

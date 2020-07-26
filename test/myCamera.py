@@ -10,5 +10,5 @@ camera.framerate = 15
 camera.start_preview()
 #camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
 sleep(60)
-camera.capture('/home/pi/Desktop/image.jpg')
+camera.capture('/home/pi/Desktop/image1.jpg')
 camera.stop_preview()

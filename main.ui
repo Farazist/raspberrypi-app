@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -409,161 +409,6 @@ color:#000000;
             </property>
             <property name="placeholderText">
              <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="pageSignInUserMobileNumber">
-       <layout class="QVBoxLayout" name="verticalLayout_30">
-        <item>
-         <layout class="QVBoxLayout" name="vLayoutSignInUserMobile">
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="label_11">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserMobile">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">
-font: 20pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="text">
-             <string>شماره همراه</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserMobile">
-            <property name="minimumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhDigitsOnly</set>
-            </property>
-            <property name="inputMask">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="maxLength">
-             <number>32767</number>
-            </property>
-            <property name="echoMode">
-             <enum>QLineEdit::Normal</enum>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>09** *** ****</string>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserPassword2">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="text">
-             <string>گذر واژه</string>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserPasswordMobile">
-            <property name="minimumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferNumbers|Qt::ImhSensitiveData</set>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>*****</string>
             </property>
            </widget>
           </item>
@@ -1431,7 +1276,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -2703,7 +2548,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>494</width>
                <height>648</height>
               </rect>
              </property>
@@ -3107,52 +2952,7 @@ color: rgb(0, 0, 0);</string>
           <property name="rightMargin">
            <number>20</number>
           </property>
-          <item alignment="Qt::AlignRight|Qt::AlignBottom">
-           <widget class="QPushButton" name="btn_sign_in_user_mobile_number">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{
-font: 22pt &quot;IRANSans&quot;;
-background-color: #28a745;
-color: rgb(255, 255, 255);
-padding: 20px; 
-border: none; 
-border-radius: 6px;
-text-align: center;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-            </property>
-            <property name="text">
-             <string>ورود به برنامه با شماره همراه </string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/icon/mobile.png</normaloff>images/icon/mobile.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
            <widget class="QPushButton" name="btn_sign_in_user_id_number">
             <property name="minimumSize">
              <size>
@@ -3449,8 +3249,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
