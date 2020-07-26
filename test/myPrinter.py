@@ -1,10 +1,11 @@
-from escpos.printer import File
-p = File(devfile='/dev/usb/lp0')
+from escpos.printer import File, Usb
+p = File(devfile='/dev/usb/lp2')
+# p = Usb(0x067b,0x2305, in_ep=0x66, out_ep=0x01)
 p.text("some text\n")
 p.text("some text\n")
 p.text("some text\n")
 p.text("some text\n")
-p.text("تست\n")
+# p.text("تست\n")
 
 
 # # import usb.core
@@ -32,4 +33,4 @@ p.text("تست\n")
 # # printer.text(mobile_number + "\n")
 # printer.text("farazist.ir" + "\n")
 # # printer.text(datetime)
-# printer.cut()
+# p.cut()
