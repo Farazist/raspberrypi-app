@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -259,7 +259,6 @@ class MainWindow(QWidget):
         self.ui.btn_setting.clicked.connect(self.stackSignInOwner)
         self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
         self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
-        self.ui.btn_sign_in_user_mobile_number.clicked.connect(self.stackSignInUserMobileNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
@@ -575,15 +574,6 @@ class MainWindow(QWidget):
         self.qrcode_thread.stop()
         self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserIDNumber)
 
-    def stackSignInUserMobileNumber(self):
-        self.setButton(self.ui.btn_left, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_right, show=False)
-        self.stopSound()
-        self.ui.tbUserMobile.setText('')
-        self.ui.tbUserPasswordMobile.setText('')
-        self.qrcode_thread.stop()
-        self.ui.Stack.setCurrentWidget(self.ui.pageSignInUserMobileNumber)
-
     def stackSignInUserMethods(self):
         self.setButton(self.ui.btn_left, function=self.stackStart, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
@@ -665,8 +655,8 @@ class MainWindow(QWidget):
         
     def startDeliveryItem(self):
         if self.device_mode == 'auto':
-                self.predicted_items = []                    
-                self.auto_delivery_items_thread.start()
+            self.predicted_items = []                    
+            self.auto_delivery_items_thread.start()
 
             self.auto_delivery_items_timer = Timer(1, self.validationDeliveryItem)
             self.auto_delivery_items_timer.start()

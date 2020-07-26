@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1431,7 +1431,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -3107,52 +3107,7 @@ color: rgb(0, 0, 0);</string>
           <property name="rightMargin">
            <number>20</number>
           </property>
-          <item alignment="Qt::AlignRight|Qt::AlignBottom">
-           <widget class="QPushButton" name="btn_sign_in_user_mobile_number">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{
-font: 22pt &quot;IRANSans&quot;;
-background-color: #28a745;
-color: rgb(255, 255, 255);
-padding: 20px; 
-border: none; 
-border-radius: 6px;
-text-align: center;
-outline-style: none;
-}
-QPushButton:pressed {
-background-color: #145222;
-border-style: inset;
-}</string>
-            </property>
-            <property name="text">
-             <string>ورود به برنامه با شماره همراه </string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/icon/mobile.png</normaloff>images/icon/mobile.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+          <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
            <widget class="QPushButton" name="btn_sign_in_user_id_number">
             <property name="minimumSize">
              <size>
