@@ -230,9 +230,6 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.setGif("animations/Rolling-white.gif")
         self.lbl = QLabel(None)
         self.lbl.setStyleSheet(BTN_PASS_RECOVERY_STYLE)
-        self.ui.vLayoutSignInUserMobile.addWidget(self.btnUserLoginMobile)
-        self.ui.vLayoutSignInUserMobile.addWidget(self.lbl)
-        self.ui.vLayoutSignInUserMobile.setAlignment(Qt.AlignHCenter)
 
         # Threads
         self.qrcode_thread = QRCodeThread()

@@ -416,161 +416,6 @@ color:#000000;
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageSignInUserMobileNumber">
-       <layout class="QVBoxLayout" name="verticalLayout_30">
-        <item>
-         <layout class="QVBoxLayout" name="vLayoutSignInUserMobile">
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="label_11">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserMobile">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">
-font: 20pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="text">
-             <string>شماره همراه</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserMobile">
-            <property name="minimumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhDigitsOnly</set>
-            </property>
-            <property name="inputMask">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="maxLength">
-             <number>32767</number>
-            </property>
-            <property name="echoMode">
-             <enum>QLineEdit::Normal</enum>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>09** *** ****</string>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblUserPassword2">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;IRANSans&quot;;
-color:#000000;</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="text">
-             <string>گذر واژه</string>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QLineEdit" name="tbUserPasswordMobile">
-            <property name="minimumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>290</width>
-              <height>70</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #ffffff; 
-padding: 3px; 
-border: 2px solid #28a745;
-border-radius: 6px;
-font: 26pt &quot;IRANSansFaNum&quot;;
-color:#000000;</string>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferNumbers|Qt::ImhSensitiveData</set>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>*****</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="pageMainMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
@@ -2703,7 +2548,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>494</width>
                <height>648</height>
               </rect>
              </property>
@@ -3404,8 +3249,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
