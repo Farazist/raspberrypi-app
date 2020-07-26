@@ -42,7 +42,7 @@ ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در تراکنش'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
-delivery_timer = 10.0
+delivery_cancel_time = 10.0
 predict_item_threshold = 0.9
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
@@ -391,8 +391,8 @@ class MainWindow(QWidget):
             distance_sensor1_echo_port = int(DataBase.select('distance_sensor1_echo_port'))
             distance_sensor1_threshold_distance = float(DataBase.select('distance_sensor1_threshold_distance'))
             self.distance_sensor1 = DistanceSensor(distance_sensor1_echo_port, distance_sensor1_trig_port, max_distance=1, threshold_distance=distance_sensor1_threshold_distance/100, pin_factory=factory)
-            self.distance_sensor1.when_in_range = self.startDeliveryItem
-            self.distance_sensor1.when_out_of_range = self.backDeliveryItem
+            self.distance_sensor1.when_in_range = self.distanceSensor1WhenInRange
+            self.distance_sensor1.when_out_of_range = self.distanceSensor1WhenOutOfRange
             print('distance sensor 1 ready')
         except Exception as e:
             print("error:", e)
@@ -403,8 +403,8 @@ class MainWindow(QWidget):
             distance_sensor2_echo_port = int(DataBase.select('distance_sensor2_echo_port'))
             distance_sensor2_threshold_distance = float(DataBase.select('distance_sensor2_threshold_distance'))
             self.distance_sensor2 = DistanceSensor(distance_sensor2_echo_port, distance_sensor2_trig_port, max_distance=1, threshold_distance=distance_sensor2_threshold_distance/100, pin_factory=factory)
-            # self.distance_sensor2.when_in_range = self.endDeliveryItem
-            self.distance_sensor2.when_out_of_range = self.endDeliveryItem
+            self.distance_sensor2.when_in_range = self.distanceSensor2WhenInRange
+            self.distance_sensor2.when_out_of_range = self.distanceSensor2WhenOutOfRange
             print('distance sensor 2 ready')
         except Exception as e:
             print("error:", e)
@@ -630,6 +630,8 @@ class MainWindow(QWidget):
         
         self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
+        self.delivery_state = 'default'
+
         self.delivery_items_flag = True
         self.user_items = []
         for item in self.items:
@@ -637,33 +639,41 @@ class MainWindow(QWidget):
 
         self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
+    def distanceSensor1WhenInRange(self):
+ 
+        if self.state == 'default':
+            if self.delivery_items_flag == True and self.detect_item_flag == False:           
+                try:
+                    self.state = 'start_enter'
+                    print('state changed: default to start_enter')
+                    self.detect_item_flag = True
+                    self.conveyor_motor.forward()
+                except Exception as e:
+                    print("error:", e)
+                    ErrorLog.writeToFile(str(e) + ' In cancelDeliveryItem Method')
+
+    def distanceSensor1WhenOutOfRange(self):
+        if self.state == 'start_enter':
+            self.state = 'end_enter'
+            print('state changed: default to start_enter')
+        
+    def distanceSensor2WhenInRange(self):
+        pass
+
+    def distanceSensor2WhenOutOfRange(self):
+        pass
+        
     def startDeliveryItem(self):
-        print('startDeliveryItem')
-        try:
-            if self.delivery_items_flag == True and self.detect_item_flag == False:
-                self.detect_item_flag = True
-                print(1)
-                self.cancel_delivery_item_timer = Timer(delivery_timer, self.cancelDeliveryItem)
-                self.cancel_delivery_item_timer.start()
-                print(2)
-                if self.device_mode == 'auto':
-                    self.predicted_items = []
-                    
-                    self.auto_delivery_items_thread.start()
+        if self.device_mode == 'auto':
+                self.predicted_items = []                    
+                self.auto_delivery_items_thread.start()
 
-                self.auto_delivery_items_timer = Timer(1, self.validationDeliveryItem)
-                self.auto_delivery_items_timer.start()
+            self.auto_delivery_items_timer = Timer(1, self.validationDeliveryItem)
+            self.auto_delivery_items_timer.start()
 
-                # self.conveyor_motor_stop_timer.cancel()
-                self.conveyor_motor.forward()
-                print('conveyor motor forward')
-                # self.separation_motor_stop_timer = Timer(self.separation_motor_time, self.separation_motor.stop)
+            self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
+            self.cancel_delivery_item_timer.start()
 
-                # if not self.distance_sensor2:
-                # self.conveyor_motor_stop_timer.start()
-        except Exception as e:
-            print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In cancelDeliveryItem Method')
 
     def backDeliveryItem(self):
         print('backDeliveryItem')
@@ -702,9 +712,12 @@ class MainWindow(QWidget):
                 self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
                 return
 
-
     def cancelDeliveryItem(self):
-        pass
+        self.conveyor_motor.stop()
+        self.press_motor.stop()
+        self.separation_motor.stop()
+        self.detect_item_flag = False
+        self.delivery_state = 'default'
 
     def endDeliveryItem(self):
         print('endDeliveryItem')
