@@ -248,3 +248,6 @@
 2020-07-24 10:49:19 'MainWindow' object has no attribute 'endRecycleItem' In cancelDeliveryItem Method
 2020-07-24 12:09:28 'MainWindow' object has no attribute 'distance_sensor2' In distance_sensor1 initHardwares Method
 2020-07-24 12:11:12 'MainWindow' object has no attribute 'distance_sensor2' In distance_sensor1 initHardwares Method
+2020-07-26 20:22:01 'ImageClassifier' object has no attribute 'width' In AutoDeliveryItemsThread
+2020-07-26 20:22:12 'ImageClassifier' object has no attribute 'width' In AutoDeliveryItemsThread
+2020-07-26 20:26:52 'MainWindow' object has no attribute 'cancel_delivery_item_timer' In endDeliveryItem Method
