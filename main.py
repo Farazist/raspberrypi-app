@@ -616,7 +616,6 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         # self.ui.list_auto_delivery_items.clear()
         self.ui.lbl_pixmap_category_1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
-        self.ui.lbl_pixmap_category_2.setPixmap(QPixmap("images/item/category2.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
         
@@ -695,8 +694,6 @@ class MainWindow(QWidget):
 
         # if self.selected_item['category_id'] == 1:
         #     self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
-        # elif self.selected_item['category_id'] == 2:
-        #     self.ui.lbl_num_category_2.setText(str(int(self.ui.lbl_num_category_2.text()) + 1))
         # elif self.selected_item['category_id'] == 3:
         #     self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         # elif self.selected_item['category_id'] == 4:
