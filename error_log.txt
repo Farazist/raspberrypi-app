@@ -321,3 +321,24 @@
 2020-07-28 22:18:47 name 'factory' is not defined In distance_sensor2 initHardwares Method
 2020-07-28 22:18:47 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
 2020-07-28 22:20:07 'MainWindow' object has no attribute 'rfid_sensor' In depositToRFIDcard Method
+2020-07-29 10:07:40 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-29 10:07:43 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-29 10:07:43 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-29 10:07:43 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-29 10:07:43 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-29 10:07:43 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-29 10:07:43 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-07-29 10:08:21 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-29 10:08:23 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-29 10:08:23 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-29 10:08:23 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-29 10:08:23 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-29 10:08:23 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-29 10:08:23 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-07-29 10:12:59 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-07-29 10:13:00 name 'factory' is not defined In press_motor initHardwares Method
+2020-07-29 10:13:00 name 'factory' is not defined In separation_motor initHardwares Method
+2020-07-29 10:13:00 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-07-29 10:13:00 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-07-29 10:13:00 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-07-29 10:13:00 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method

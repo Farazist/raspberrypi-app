@@ -919,8 +919,9 @@ class MainWindow(QWidget):
     def depositToRFIDcard(self):
         try:
             print("Now place your tag to write")
-            data = 'test'
-            self.rfid_sensor.write(data)
+            id, old_rfid_data = self.rfid_sensor.read()
+            data = self.ui.lbl_deposit_to_rfid.text()
+            self.rfid_sensor.write(str(old_rfid_data + data))
             print("Written")
             self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
         except Exception as e:
