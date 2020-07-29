@@ -240,6 +240,21 @@ border-radius: 30px</string>
           </property>
          </widget>
         </item>
+        <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+         <widget class="QLabel" name="lbl_text_start">
+          <property name="styleSheet">
+           <string notr="true">color: #28a745;
+outline-style: none;
+font: 22pt &quot;IRANSans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>برای شروع بطری را داخل درگاه بیاندازید</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="pageSignInUserIDNumber">
