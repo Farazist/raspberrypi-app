@@ -252,12 +252,12 @@ class MainWindow(QWidget):
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
 
         self.after_delivery_thread = AfterDeliveryThread()
-        self.after_delivery_thread.success_signal.connect(self.stackWalletServices)
+        self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
         # signals
         self.ui.btn_refresh_loading.clicked.connect(self.refresh)
         self.ui.btn_setting.clicked.connect(self.stackSignInOwner)
-        #self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
+        self.ui.btn_start.clicked.connect(self.stackSignInUserMethods)
         self.ui.btn_sign_in_user_id_number.clicked.connect(self.stackSignInUserIDNumber)
         self.btnUserLoginID.clicked.connect(self.signInUser)
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)

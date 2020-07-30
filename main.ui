@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -240,18 +240,30 @@ border-radius: 30px</string>
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-         <widget class="QLabel" name="lbl_text_start">
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QPushButton" name="btn_start">
+          <property name="minimumSize">
+           <size>
+            <width>500</width>
+            <height>80</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>80</height>
+           </size>
+          </property>
           <property name="styleSheet">
-           <string notr="true">color: #28a745;
+           <string notr="true">color: rgb(255, 255, 255);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #28a745, stop:0.5 #20c997,  stop:0.883 #18b6a3);
+color: rgb(255, 255, 255);
+border-radius: 6px;
 outline-style: none;
 font: 22pt &quot;IRANSans&quot;;</string>
           </property>
           <property name="text">
-           <string>برای شروع بطری را داخل درگاه بیاندازید</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>شروع</string>
           </property>
          </widget>
         </item>
@@ -3193,8 +3205,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>398</width>
-               <height>28</height>
+               <width>526</width>
+               <height>448</height>
               </rect>
              </property>
              <property name="maximumSize">
