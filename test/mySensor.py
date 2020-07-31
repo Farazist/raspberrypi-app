@@ -1,11 +1,16 @@
 from gpiozero import DistanceSensor, LED
 from signal import pause
 
-def test():
-    print('test')
+def in_range():
+    print('In range')
 
-sensor = DistanceSensor(15, 14, max_distance=1, threshold_distance=0.2)
+def out_of_range():
+    print('Out of range')
 
-sensor.when_in_range = test
+
+sensor = DistanceSensor(19, 26, max_distance=1, threshold_distance=0.2)
+
+sensor.when_in_range = in_range
+sensor.when_out_of_range = out_of_range
 
 pause()

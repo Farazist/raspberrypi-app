@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1056</width>
+    <width>1086</width>
     <height>399</height>
    </rect>
   </property>
@@ -463,13 +463,71 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_conveyor_motor_timer">
+           <widget class="QLabel" name="lbl_conveyor_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
              <string>تایمر نوار نقاله</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageConveyorMotorActiveHigh">
+       <layout class="QVBoxLayout" name="verticalLayout_22">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_conveyorMotorActiveHigh">
+          <item>
+           <widget class="QLineEdit" name="tb_conveyor_motor_active_high">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_conveyor_motor_active_high">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>نوار نقاله (Active high)</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -607,7 +665,7 @@ color: #000000;</string>
         <item>
          <layout class="QHBoxLayout" name="h_layout_pressMotorTimer">
           <item>
-           <widget class="QLineEdit" name="tb_press_motor_timer">
+           <widget class="QLineEdit" name="tb_press_motor_time">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -637,13 +695,68 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_press_motor_timer">
+           <widget class="QLabel" name="lbl_press_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
              <string>تایمر موتور پرس</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pagePressMotorActiveHigh">
+       <layout class="QVBoxLayout" name="verticalLayout_23">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLineEdit" name="tb_press_motor_active_high">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_press_motor_active_high">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>موتور پرس (Active high)</string>
             </property>
            </widget>
           </item>
@@ -808,13 +921,68 @@ color:#000000;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_separation_motor_timer">
+           <widget class="QLabel" name="lbl_separation_motor_time">
             <property name="styleSheet">
              <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
             </property>
             <property name="text">
              <string>تایمر موتور تفکیک</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSeparationMotorActiveHigh">
+       <layout class="QVBoxLayout" name="verticalLayout_24">
+        <property name="leftMargin">
+         <number>200</number>
+        </property>
+        <property name="rightMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="h_layout_separationMotorActiveHigh">
+          <item>
+           <widget class="QLineEdit" name="tb_separation_motor_active_high">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: #ffffff; 
+padding: 3px; 
+border: 2px solid #28a745;
+border-radius: 6px;
+font: 26pt &quot;IRANSansFaNum&quot;;
+color:#000000;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhDigitsOnly</set>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_separation_motor_active_high">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSansFaNum&quot;;
+color: #000000;</string>
+            </property>
+            <property name="text">
+             <string>موتور تفکیک (Active high)</string>
             </property>
            </widget>
           </item>

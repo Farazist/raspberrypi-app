@@ -6,7 +6,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy
 
-from database import DataBase
+#from database import DataBase
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -14,7 +14,7 @@ __license__ = "GPL"
 __email__ = "sajjadaemmi@gmail.com"
 __status__ = "Production"
 
-database_list = [[None for _ in range(2)] for j in range(18)]
+database_list = [[None for _ in range(2)] for j in range(21)]
 print(database_list)
 
 class MainWindow(QWidget):
@@ -81,11 +81,16 @@ class MainWindow(QWidget):
 
     def stackConveyorMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackPressMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackConveyorMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorTimer)
 
+    def stackConveyorMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackPressMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pageConveyorMotorActiveHigh)
+
     def stackPressMotorForwardPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackConveyorMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackPressMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorForwardPort)
 
@@ -96,11 +101,16 @@ class MainWindow(QWidget):
 
     def stackPressMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackPressMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackPressMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorTimer)
 
+    def stackPressMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackPressMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackSeparationMotorForwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pagePressMotorActiveHigh)
+
     def stackSeparationMotorForwardPort(self):
-        self.setButton(self.ui.btn_previous, function=self.stackPressMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackPressMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSeparationMotorBackwardPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorForwardPort)
 
@@ -111,11 +121,16 @@ class MainWindow(QWidget):
 
     def stackSeparationMotorTimer(self):
         self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorBackwardPort, text='مرحله قبل', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_next, function=self.stackSensor1DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+        self.setButton(self.ui.btn_next, function=self.stackSeparationMotorActiveHigh, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorTimer)
+
+    def stackSeparationMotorActiveHigh(self):
+         self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+         self.setButton(self.ui.btn_next, function=self.stackSensor1DepthThreshold, text='مرحله بعد', icon='images/icon/next.png', show=True)
+         self.ui.Stack.setCurrentWidget(self.ui.pageSeparationMotorActiveHigh)
     
     def stackSensor1DepthThreshold(self):
-        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorTimer, text='مرحله قبل', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_previous, function=self.stackSeparationMotorActiveHigh, text='مرحله قبل', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_next, function=self.stackSensor1TrigPort, text='مرحله بعد', icon='images/icon/next.png', show=True)
         self.ui.Stack.setCurrentWidget(self.ui.pageSensor1DepthThreshold)
     
@@ -162,50 +177,57 @@ class MainWindow(QWidget):
 
         database_list[2][0] = 'conveyor_motor_forward_port'
         database_list[3][0] = 'conveyor_motor_backward_port'
-        database_list[4][0] = 'conveyor_motor_timer'
+        database_list[4][0] = 'conveyor_motor_time'
+        database_list[5][0] = 'conveyor_motor_active_high'
 
-        database_list[5][0] = 'press_motor_forward_port'
-        database_list[6][0] = 'press_motor_backward_port'
-        database_list[7][0] = 'press_motor_timer'
 
-        database_list[8][0] = 'separation_motor_forward_port'
-        database_list[9][0] = 'separation_motor_backward_port'
-        database_list[10][0] = 'separation_motor_timer'
+        database_list[6][0] = 'press_motor_forward_port'
+        database_list[7][0] = 'press_motor_backward_port'
+        database_list[8][0] = 'press_motor_time'
+        database_list[9][0] = 'press_motor_active_high'
 
-        database_list[11][0] = 'distance_sensor1_threshold_distance'
-        database_list[12][0] = 'distance_sensor1_trig_port'
-        database_list[13][0] = 'distance_sensor1_echo_port'
+        database_list[10][0] = 'separation_motor_forward_port'
+        database_list[11][0] = 'separation_motor_backward_port'
+        database_list[12][0] = 'separation_motor_time'
+        database_list[13][0] = 'separation_motor_active_high'
 
-        database_list[14][0] = 'distance_sensor2_threshold_distance'
-        database_list[15][0] = 'distance_sensor2_trig_port'
-        database_list[16][0] = 'distance_sensor2_echo_port'
+        database_list[14][0] = 'distance_sensor1_threshold_distance'
+        database_list[15][0] = 'distance_sensor1_trig_port'
+        database_list[16][0] = 'distance_sensor1_echo_port'
 
-        database_list[17][0] = 'app_version'
+        database_list[17][0] = 'distance_sensor2_threshold_distance'
+        database_list[18][0] = 'distance_sensor2_trig_port'
+        database_list[19][0] = 'distance_sensor2_echo_port'
+
+        database_list[20][0] = 'app_version'
 
 
         database_list[0][1] = int(self.ui.tb_system_id.text())
 
         database_list[2][1] = int(self.ui.tb_conveyor_motor_forward_port.text())
         database_list[3][1] = int(self.ui.tb_conveyor_motor_backward_port.text())
-        database_list[4][1] = int(self.ui.tb_conveyor_motor_timer.text())
+        database_list[4][1] = int(self.ui.tb_conveyor_motor_time.text())
+        database_list[5][1] = int(self.ui.tb_conveyor_motor_active_high.text())
 
-        database_list[5][1] = int(self.ui.tb_press_motor_forward_port.text())
-        database_list[6][1] = int(self.ui.tb_press_motor_backward_port.text())
-        database_list[7][1] = int(self.ui.tb_press_motor_timer.text())
+        database_list[6][1] = int(self.ui.tb_press_motor_forward_port.text())
+        database_list[7][1] = int(self.ui.tb_press_motor_backward_port.text())
+        database_list[8][1] = int(self.ui.tb_press_motor_time.text())
+        database_list[9][1] = int(self.ui.tb_press_motor_active_high.text())
 
-        database_list[8][1] = int(self.ui.tb_separation_motor_forward_port.text())
-        database_list[9][1] = int(self.ui.tb_separation_motor_backward_port.text())
-        database_list[10][1] = int(self.ui.tb_separation_motor_timer.text())
+        database_list[10][1] = int(self.ui.tb_separation_motor_forward_port.text())
+        database_list[11][1] = int(self.ui.tb_separation_motor_backward_port.text())
+        database_list[12][1] = int(self.ui.tb_separation_motor_time.text())
+        database_list[13][1] = int(self.ui.tb_separation_motor_active_high.text())
 
-        database_list[11][1] = int(self.ui.tb_sensor1_depth_threshold.text())
-        database_list[12][1] = int(self.ui.tb_sensor1_trig_port.text())
-        database_list[13][1] = int(self.ui.tb_sensor1_echo_port.text())
+        database_list[14][1] = int(self.ui.tb_sensor1_depth_threshold.text())
+        database_list[15][1] = int(self.ui.tb_sensor1_trig_port.text())
+        database_list[16][1] = int(self.ui.tb_sensor1_echo_port.text())
 
-        database_list[14][1] = int(self.ui.tb_sensor2_depth_threshold.text())
-        database_list[15][1] = int(self.ui.tb_sensor2_trig_port.text())
-        database_list[16][1] = int(self.ui.tb_sensor2_echo_port.text())
+        database_list[17][1] = int(self.ui.tb_sensor2_depth_threshold.text())
+        database_list[18][1] = int(self.ui.tb_sensor2_trig_port.text())
+        database_list[19][1] = int(self.ui.tb_sensor2_echo_port.text())
 
-        database_list[17][1] = int(self.ui.tb_app_version.text())
+        database_list[20][1] = int(self.ui.tb_app_version.text())
 
         print(database_list)
         DataBase.createTable("CREATE TABLE IF NOT EXISTS information (name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL);")
