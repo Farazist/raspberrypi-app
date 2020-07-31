@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-#from mfrc522 import SimpleMFRC522
+from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -322,6 +322,12 @@ class MainWindow(QWidget):
         self.image_classifier = ImageClassifier()
 
         self.initHardwares()
+
+        try:
+            self.separation_motor.forward()
+        except Exception as e:
+            print("error:", e)
+
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
@@ -349,10 +355,7 @@ class MainWindow(QWidget):
             print("error:", e)
         
         try:
-            press_motor_forward_port = int(DataBase.select('press_motor_forward_port'))
-            press_motor_backward_port = int(DataBase.select('press_motor_backward_port'))
-            self.press_motor_time = float(DataBase.select('press_motor_time'))
-            self.press_motor = Motor(forward=press_motor_forward_port, backward=press_motor_backward_port, active_high=False, pin_factory=factory, name='press motor')
+            self.press_motor = Motor(name='press_motor', pin_factory=factory)
           
             self.setButton(self.ui.btn_press_motor_forward_on, function=self.press_motor.forward)
             self.setButton(self.ui.btn_press_motor_backward_on, function=self.press_motor.backward)
@@ -362,10 +365,7 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In press_motor initHardwares Method')
 
         try:
-            separation_motor_forward_port = int(DataBase.select('separation_motor_forward_port'))
-            separation_motor_backward_port = int(DataBase.select('separation_motor_backward_port'))
-            self.separation_motor_time = float(DataBase.select('separation_motor_time'))
-            self.separation_motor = Motor(forward=separation_motor_forward_port, backward=separation_motor_backward_port, active_high=True, pin_factory=factory, name='separation motor')
+            self.separation_motor = Motor(name='separation_motor', pin_factory=factory)
        
             self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
             self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
@@ -375,10 +375,7 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
-            conveyor_motor_forward_port = int(DataBase.select('conveyor_motor_forward_port'))
-            conveyor_motor_backward_port = int(DataBase.select('conveyor_motor_backward_port'))
-            self.conveyor_motor_time = float(DataBase.select('conveyor_motor_time'))
-            self.conveyor_motor = Motor(forward=conveyor_motor_forward_port, backward=conveyor_motor_backward_port, active_high=False, pin_factory=factory, name='conveyor motor')
+            self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
          
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
             self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
@@ -733,26 +730,22 @@ class MainWindow(QWidget):
             if self.delivery_state == 'accept':
                 
                 # self.cancel_delivery_item_timer.cancel()
-
-                self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
-                self.conveyor_motor_stop_timer.start()
+                # self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
+                # self.conveyor_motor_stop_timer.start()
 
                 try:
-                    if self.selected_item['category_id'] == 1:
-                        self.separation_motor.forward()
-                    else:
-                        self.separation_motor.backward()
+                    if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
+                        self.separation_motor.forward(True)
+                    elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
+                        self.separation_motor.backward(True)
                     # self.separation_motor_stop_timer.cancel()
-                    self.separation_motor_stop_timer = Timer(self.separation_motor_time, self.separation_motor.stop)
-                    self.separation_motor_stop_timer.start()
+                    
                 except Exception as e:
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
 
                 try:
-                    self.press_motor.forward()
-                    self.press_motor_stop_timer = Timer(self.press_motor_time, self.press_motor.stop)
-                    self.press_motor_stop_timer.start()
+                    self.press_motor.forward(True)
                     print('press_motor_stop_timer start')
                 except Exception as e:
                     print("error:", e)
