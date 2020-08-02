@@ -197,6 +197,21 @@ class AfterDeliveryThread(QThread):
             window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In AfterDeliveryThread')
 
+class RFIDThread(QThread):
+    success_signal = Signal()
+    fail_signal = Signal()
+    
+    def __init__(self):
+        QThread.__init__(self)
+    
+    def run(self):
+        try:
+            window.rfid_sensor.write(str(window.new_rfid_data))
+        except:
+            window.showNotification(TRANSFER_ERROR_MESSAGE)
+            ErrorLog.writeToFile('Transfer Error Message In RFIDThread')
+            self.fail_signal.emit()
+
 
 class MainWindow(QWidget):
    
@@ -254,6 +269,9 @@ class MainWindow(QWidget):
 
         self.after_delivery_thread = AfterDeliveryThread()
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
+
+        self.rfid_thread = RFIDThread()
+        self.rfid_thread.success_signal.connect(self.afterTransferToRFID)
 
         # signals
         self.ui.btn_refresh_loading.clicked.connect(self.refresh)
@@ -920,12 +938,13 @@ class MainWindow(QWidget):
             print("Now place your tag to write")
             id, rfid_data = self.rfid_sensor.read()
             data = int(self.ui.lbl_transfer_to_rfid.text())
+            self.new_rfid_data = 0
             if rfid_data.isdigit():
-                self.rfid_sensor.write(str(int(rfid_data) + data))
+                self.new_rfid_data = int(rfid_data) + data
                 print("Written")
             else:
                 rfid_data = 0
-                self.rfid_sensor.write(str(rfid_data + data))
+                self.new_rfid_data =  rfid_data + data
                 print("Written")
             self.showNotification(TRANSFER_TO_RFID_MESSAGE)
         except Exception as e:
@@ -933,6 +952,9 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In transferToRFIDCard Method')
 
         self.stackWalletServices()
+
+    def afterTransferToRFID(self):
+        self.showNotification(TRANSFER_TO_RFID_MESSAGE)
 
     def plusRFID(self):
         if self.user_wallet < int(self.ui.lbl_payment_rfid.text()):
