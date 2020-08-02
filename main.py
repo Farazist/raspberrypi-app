@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -32,13 +32,14 @@ __status__ = "Production"
 
 SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
 SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
-RECYCLE_MESSAGE = 'پسماند دریافت شد'
-PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید...'
+RECYCLE_MESSAGE = 'بطری دریافت شد'
+PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید ...'
+SOON_MESSAGE = 'به زودی ...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
-DEPOSITE_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+TRANSFER_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
 MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
-ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در تراکنش'
+ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'بطری تعریف نشده است'
 DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
@@ -263,6 +264,7 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
         #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
+        self.ui.btn_main_menu_3.clicked.connect(self.showSoonNotification)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
@@ -291,7 +293,7 @@ class MainWindow(QWidget):
         self.ui.btn_minus_envirnmental_protection.clicked.connect(self.minusEnvirnment)
         self.ui.btn_plus_rfid.clicked.connect(self.plusRFID)
         self.ui.btn_minus_rfid.clicked.connect(self.minusRFID)
-        self.ui.btn_confirm_deposit_to_RFIDcard.clicked.connect(self.depositToRFIDcard)
+        self.ui.btn_confirm_transfer_to_RFIDcard.clicked.connect(self.transferToRFIDCard)
 
         self.ui.btn_charity_1.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_1.text()))
         self.ui.btn_charity_2.clicked.connect(lambda: self.ui.lbl_selected_charity.setText(self.ui.lbl_charity_2.text()))
@@ -469,7 +471,10 @@ class MainWindow(QWidget):
 
     def refresh(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
-        self.loading_thread.start()            
+        self.loading_thread.start()  
+        
+    def showSoonNotification(self):
+        self.showNotification(SOON_MESSAGE)
 
     def stackLoading(self):
         self.ui.lbl_logo.hide()
@@ -857,6 +862,7 @@ class MainWindow(QWidget):
         pass
 
     def stackFastCharging(self):
+        
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
         self.setButton(self.ui.btn_recycle_item_fast_charging, function=self.fastChargingDeliveryRecycleItem)
@@ -909,17 +915,22 @@ class MainWindow(QWidget):
         self.ui.tb_user_new_address.show()
         self.ui.btn_changed_user_address.show()
 
-    def depositToRFIDcard(self):
+    def transferToRFIDCard(self):
         try:
             print("Now place your tag to write")
-            id, old_rfid_data = self.rfid_sensor.read()
-            data = int(self.ui.lbl_deposit_to_rfid.text())
-            self.rfid_sensor.write(str(int(old_rfid_data) + data))
-            print("Written")
-            self.showNotification(DEPOSITE_TO_RFID_MESSAGE)
+            id, rfid_data = self.rfid_sensor.read()
+            data = int(self.ui.lbl_transfer_to_rfid.text())
+            if rfid_data.isdigit():
+                self.rfid_sensor.write(str(int(rfid_data) + data))
+                print("Written")
+            else:
+                rfid_data = 0
+                self.rfid_sensor.write(str(rfid_data + data))
+                print("Written")
+            self.showNotification(TRANSFER_TO_RFID_MESSAGE)
         except Exception as e:
             print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In depositToRFIDcard Method')
+            ErrorLog.writeToFile(str(e) + ' In transferToRFIDCard Method')
 
         self.stackWalletServices()
 
@@ -927,13 +938,13 @@ class MainWindow(QWidget):
         if self.user_wallet < int(self.ui.lbl_payment_rfid.text()):
             self.showNotification(MONEY_ERROR_MESSAGE)
         else:
-            self.ui.lbl_deposit_to_rfid.setText(str(int(self.ui.lbl_deposit_to_rfid.text()) + self.money_RFID))
+            self.ui.lbl_transfer_to_rfid.setText(str(int(self.ui.lbl_transfer_to_rfid.text()) + self.money_RFID))
             self.user_wallet -= self.money_RFID
             self.ui.lbl_total_wallet_rfid.setText(str("{:,.0f}".format(self.user_wallet)))
 
     def minusRFID(self):
-        if int(self.ui.lbl_deposit_to_rfid.text()) > 0:
-            self.ui.lbl_deposit_to_rfid.setText(str(int(self.ui.lbl_deposit_to_rfid.text()) - self.money_RFID))
+        if int(self.ui.lbl_transfer_to_rfid.text()) > 0:
+            self.ui.lbl_transfer_to_rfid.setText(str(int(self.ui.lbl_transfer_to_rfid.text()) - self.money_RFID))
             self.user_wallet += self.money_RFID
             self.ui.lbl_total_wallet_rfid.setText(str("{:,.0f}".format(self.user_wallet)))
         else:
@@ -947,7 +958,7 @@ class MainWindow(QWidget):
         self.user_wallet = self.user['wallet']
         self.money_RFID = int(self.ui.lbl_payment_rfid.text())
 
-        self.ui.lbl_deposit_to_rfid.setText('0')
+        self.ui.lbl_transfer_to_rfid.setText('0')
         self.ui.lbl_total_wallet_rfid.setText(str("{:,.0f}".format(self.user_wallet)))
         self.ui.Stack.setCurrentWidget(self.ui.pageRFID)
 

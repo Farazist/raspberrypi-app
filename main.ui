@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>14</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1232,7 +1232,7 @@ color:#000000;</string>
              </size>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>9</number>
             </property>
             <widget class="QWidget" name="pageSettingEmpty">
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1477,7 +1477,7 @@ font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                     </property>
                     <property name="text">
-                     <string>TextLabel</string>
+                     <string>Active High</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1747,7 +1747,7 @@ font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                     </property>
                     <property name="text">
-                     <string>TextLabel</string>
+                     <string>Active High</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -2222,7 +2222,7 @@ font: 22pt &quot;IRANSansFaNum&quot;;
 color: #000000;</string>
                     </property>
                     <property name="text">
-                     <string>TextLabel</string>
+                     <string>Active High</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -2504,7 +2504,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>494</width>
+               <width>631</width>
                <height>648</height>
               </rect>
              </property>
@@ -3205,8 +3205,8 @@ border-style: inset;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>526</width>
-               <height>448</height>
+               <width>398</width>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3938,7 +3938,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lbl_deposit_to_rfid">
+             <widget class="QLabel" name="lbl_transfer_to_rfid">
               <property name="styleSheet">
                <string notr="true">font: 87 28pt &quot;IRANSansFaNum Black&quot;;
 color:#000000;</string>
@@ -4052,7 +4052,7 @@ border-style: inset;
            </layout>
           </item>
           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-           <widget class="QPushButton" name="btn_confirm_deposit_to_RFIDcard">
+           <widget class="QPushButton" name="btn_confirm_transfer_to_RFIDcard">
             <property name="minimumSize">
              <size>
               <width>200</width>
