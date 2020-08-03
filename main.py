@@ -70,7 +70,7 @@ class QRCodeThread(QThread):
                 print(qrcode_signin_token)
                 self.show_qrcode_signal.emit(qrcode_signin_token)
                 counter = 0
-                while not self.event.wait(4) and counter < 4:
+                while not self.event.wait(4) and counter < 1800:
                     counter += 1
                     print('check QRcode SignIn Token')
                     window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
