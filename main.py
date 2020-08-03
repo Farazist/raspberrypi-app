@@ -15,7 +15,7 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-# from mfrc522 import SimpleMFRC522
+from mfrc522 import SimpleMFRC522
 
 from utils.motor import Motor
 from utils.server import Server
@@ -37,7 +37,8 @@ PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید ...'
 SOON_MESSAGE = 'به زودی ...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
-TRANSFER_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+SUCCESS_TRANSFER_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+TRANSFER_TO_RFID_MESSAGE = 'کارت خود را نزدیک نمایید'
 MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
 ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'بطری تعریف نشده است'
 DEVICE_VERSION = 'ورژن {}'
@@ -207,10 +208,20 @@ class RFIDThread(QThread):
     
     def run(self):
         try:
-            window.rfid_sensor.write(str(window.new_rfid_data))
-        except:
-            window.showNotification(TRANSFER_ERROR_MESSAGE)
-            ErrorLog.writeToFile('Transfer Error Message In RFIDThread')
+            print("Now place your tag to write")
+            id, old_data = window.rfid_sensor.read()
+            new_data = window.ui.lbl_transfer_to_rfid.text()
+            
+            if old_data.isdigit():
+                data = int(new_data) + int(old_data)
+            else:
+                data = int(new_data)
+            window.rfid_sensor.write(str(data))
+            print("Written")
+            self.success_signal.emit()
+        except Exception as e:
+            print("error:", e)
+            ErrorLog.writeToFile(str(e) + ' In transferToRFIDCard Method')
             self.fail_signal.emit()
 
 
@@ -272,7 +283,8 @@ class MainWindow(QWidget):
         self.after_delivery_thread.success_signal.connect(self.stackAfterDelivery)
 
         self.rfid_thread = RFIDThread()
-        self.rfid_thread.success_signal.connect(self.afterTransferToRFID)
+        self.rfid_thread.success_signal.connect(self.successTransferToRFIDCard)
+        self.rfid_thread.fail_signal.connect(self.transferToRFIDCard)
 
         # signals
         self.ui.btn_refresh_loading.clicked.connect(self.refresh)
@@ -673,7 +685,8 @@ class MainWindow(QWidget):
         pass
 
     def distanceSensor2WhenOutOfRange(self):
-        pass
+        if self.delivery_state == 'accept':
+            self.endDeliveryItem()
 
     def pickupDeliveryItem(self):
         try:
@@ -751,46 +764,42 @@ class MainWindow(QWidget):
 
     def endDeliveryItem(self):
         print('endDeliveryItem')
-        try:
-            if self.delivery_state == 'accept':
-                
-                # self.cancel_delivery_item_timer.cancel()
-                # self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
-                # self.conveyor_motor_stop_timer.start()
+        try:                
+            # self.cancel_delivery_item_timer.cancel()
+            # self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
+            # self.conveyor_motor_stop_timer.start()
 
-                try:
-                    if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
-                        self.separation_motor.forward(True)
-                    elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
-                        self.separation_motor.backward(True)
-                    # self.separation_motor_stop_timer.cancel()
-                    
-                except Exception as e:
-                    print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
+            try:
+                if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
+                    self.separation_motor.forward(True)
+                elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
+                    self.separation_motor.backward(True)
+                # self.separation_motor_stop_timer.cancel()    
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
 
-                try:
-                    self.press_motor.forward(True)
-                    print('press_motor_stop_timer start')
-                except Exception as e:
-                    print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+            try:
+                self.press_motor.forward(True)
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
 
-                self.playSound('audio3')
-                self.showNotification(RECYCLE_MESSAGE)
-                self.ui.btn_right.show()
-                self.selected_item['count'] += 1
-                self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+            self.playSound('audio3')
+            self.showNotification(RECYCLE_MESSAGE)
+            self.ui.btn_right.show()
+            self.selected_item['count'] += 1
+            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
 
-                for user_item in self.user_items:
-                    if self.selected_item['id'] == user_item['id']:
-                        break
-                else:
-                    self.user_items.append(self.selected_item)
-                self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-                self.ui.lbl_total.setText(str(self.total_price))
-             
-                self.delivery_state = 'ready'
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lbl_total.setText(str(self.total_price))
+            
+            self.delivery_state = 'ready'
 
         except Exception as e:
             print("error:", e)
@@ -936,27 +945,12 @@ class MainWindow(QWidget):
         self.ui.btn_changed_user_address.show()
 
     def transferToRFIDCard(self):
-        try:
-            print("Now place your tag to write")
-            id, rfid_data = self.rfid_sensor.read()
-            data = int(self.ui.lbl_transfer_to_rfid.text())
-            self.new_rfid_data = 0
-            if rfid_data.isdigit():
-                self.new_rfid_data = int(rfid_data) + data
-                print("Written")
-            else:
-                rfid_data = 0
-                self.new_rfid_data =  rfid_data + data
-                print("Written")
-            self.showNotification(TRANSFER_TO_RFID_MESSAGE)
-        except Exception as e:
-            print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In transferToRFIDCard Method')
-
-        self.stackWalletServices()
-
-    def afterTransferToRFID(self):
         self.showNotification(TRANSFER_TO_RFID_MESSAGE)
+        self.rfid_thread.start()
+
+    def successTransferToRFIDCard(self):
+        self.stackWalletServices()
+        self.showNotification(SUCCESS_TRANSFER_TO_RFID_MESSAGE)
 
     def plusRFID(self):
         if self.user_wallet < int(self.ui.lbl_payment_rfid.text()):
