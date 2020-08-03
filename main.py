@@ -6,7 +6,7 @@ from pygame import mixer
 from time import sleep, time
 from threading import Thread, Timer, Event
 from functools import partial
-# from escpos.printer import Usb
+from escpos.printer import Usb
 from gpiozero import DistanceSensor
 from gpiozero.pins.native import NativeFactory
 from PySide2.QtUiTools import QUiLoader
