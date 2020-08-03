@@ -55,18 +55,18 @@ sudo pip3 install mfrc522
 * Extract the downloaded font file in command line (we extract it in the Downloads folder)
 * commands:
 
-'''
+```
 cd ~/Downloads/
-'''
-'''
+```
+```
 cp *.otf ~/.fonts/
-'''
-'''
+```
+```
 cp *.ttf ~/.fonts/
-'''
-'''
+```
+```
 fc-cache -v -f
-'''
+```
 ## Status
 This project is early in development and does not yet have a stable API.
   
