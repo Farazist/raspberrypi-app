@@ -82,6 +82,7 @@ class QRCodeThread(QThread):
         if hasattr(window, 'user') and window.user:
             print('scan successfully')
             window.playSound('audio2')
+            window.ui.lbl_device_info.setText(window.user['name'] + '\nخوش آمدید')
             self.scan_successfully_signal.emit()
 
 
@@ -620,7 +621,6 @@ class MainWindow(QWidget):
     def stackMainMenu(self):
         self.setButton(self.ui.btn_left, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.ui.lbl_device_info.setText(self.user['name'] + '\nخوش آمدید')
         self.ui.lbl_notification.hide()
         self.stopSound()
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
