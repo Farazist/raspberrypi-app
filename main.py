@@ -288,6 +288,7 @@ class MainWindow(QWidget):
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
+        self.ui.btn_other_services_after_delivery.clicked.connect(self.stackWalletServices)
         self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
         self.ui.btn_yes_exit_app_setting.clicked.connect(self.exitProgram)
         self.ui.btn_setting_start.clicked.connect(self.stackStart)
