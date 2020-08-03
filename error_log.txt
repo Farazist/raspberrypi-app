@@ -457,3 +457,5 @@
 2020-08-02 22:50:07 name 'factory' is not defined In distance_sensor2 initHardwares Method
 2020-08-02 22:50:07 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
 2020-08-02 22:50:31 'MainWindow' object has no attribute 'rfid_sensor' In transferToRFIDCard Method
+2020-08-03 06:48:59 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-08-03 06:51:02 'MainWindow' object has no attribute 'rfid_sensor' In transferToRFIDCard Method
