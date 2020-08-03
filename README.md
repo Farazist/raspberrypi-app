@@ -39,7 +39,7 @@ The mobile application of FARAZIST is available via the following link:
 | RST  | 22    | GPIO25     |
 | 3.3V | 1     | 3V3        |
 
-* commands:
+* Commands:
 
 ```
 lsmod | grep spi
@@ -53,7 +53,7 @@ sudo pip3 install mfrc522
 ## Install font on raspbian
 * Download the font
 * Extract the downloaded font file in command line (we extract it in the Downloads folder)
-* commands:
+* Commands:
 
 ```
 cd ~/Downloads/
