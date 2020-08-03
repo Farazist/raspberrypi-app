@@ -620,6 +620,7 @@ class MainWindow(QWidget):
     def stackMainMenu(self):
         self.setButton(self.ui.btn_left, function=self.signOutUser, text='خروج', icon='images/icon/log-out.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
+        self.ui.lbl_device_info.setText(self.user['name'] + '\nخوش آمدید')
         self.ui.lbl_notification.hide()
         self.stopSound()
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
