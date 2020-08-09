@@ -606,3 +606,6 @@
 2020-08-03 20:56:20 name 'factory' is not defined In distance_sensor2 initHardwares Method
 2020-08-03 20:56:20 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
 >>>>>>> 2ff7fbb6670fbc0878b8cee67285166af57a6c84
+2020-08-09 21:39:56 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
+2020-08-09 21:40:20 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
+2020-08-09 21:47:54 'ImageClassifier' object has no attribute 'width' In AutoDeliveryItemsThread
