@@ -45,7 +45,7 @@ DEVICE_VERSION = 'ورژن {}'
 
 stack_timer = 240000
 delivery_cancel_time = 20.0
-capture_time = 1
+capture_time = 2
 predict_item_threshold = 0.5
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
@@ -132,43 +132,36 @@ class LoadingThread(QThread):
         try:
             window.system = Server.getSystem(window.system_id)
             window.deviceInfo = window.system['name'] + '\n' + window.system['owner']['name'] + ' ' + window.system['owner']['mobile_number']
-            
             print('Startup Intormation:')
             print('Device Mode:', window.device_mode)
             print('System ID:', window.system['id'])
-
             self.success_signal.emit()
         except:
-            window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In LoadingThread')
             self.fail_signal.emit()
             
 
 class AutoDeliveryItemsThread(QThread):
-    success_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
     
-    def stop(self):
-        self.process_flag = False
-
     def run(self):
-        self.process_flag = True
+        self.predicted_items = []
         try:
             import picamera
             with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
                 camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                    if self.process_flag:
+                    if window.delivery_state in ['recognize', 'enter']:
                         print('capturing...')
                         stream.seek(0)
                         label, score = window.image_classifier(stream)
                         if score > predict_item_threshold:
-                            window.predicted_items.append(label)
+                            self.predicted_items.append(label)
                             print(label, score)
-                        stream.seek(0)
+                        # stream.seek(0)
                         stream.truncate()
                     else:
                         camera.stop_preview()
@@ -275,7 +268,7 @@ class MainWindow(QWidget):
 
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
-        self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
+        self.loading_thread.fail_signal.connect(self.loadingFail)
     
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
 
@@ -500,6 +493,10 @@ class MainWindow(QWidget):
         #         images.append(imageio.imread(file_path))
         # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
+    def loadingFail(self):
+        self.ui.btn_refresh_loading.show()
+        self.showNotification(SERVER_ERROR_MESSAGE)
+
     def refresh(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
         self.loading_thread.start()  
@@ -693,6 +690,7 @@ class MainWindow(QWidget):
 
     def pickupDeliveryItem(self):
         try:
+            self.cancel_delivery_item_timer.cancel()
             self.conveyor_motor.stop()
         except Exception as e:
             print("error:", e)
@@ -700,7 +698,6 @@ class MainWindow(QWidget):
     def enterDeliveryItem(self):
         try:
             self.conveyor_motor.forward()
-            self.predicted_items = []
             self.auto_delivery_items_thread.start()
         except Exception as e:
             print("error:", e)
@@ -721,11 +718,11 @@ class MainWindow(QWidget):
 
     def acceptDeliveryItem(self):
         print('acceptDeliveryItem')
-        most_probability_item_index = stats.mode(self.predicted_items).mode[0]
+        most_probability_item_index = stats.mode(self.auto_delivery_items_thread.predicted_items).mode[0]
         self.selected_item = self.items[most_probability_item_index]
         print('most probability item:', window.selected_item['name'])
 
-        self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
+        self.ui.list_auto_delivery_items.insertItem(0, self.selected_item['name'])
 
         if self.selected_item['category_id'] == 1:
             self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
@@ -742,10 +739,9 @@ class MainWindow(QWidget):
             self.delivery_state = 'validate'
             print('delivery state changed: recognize to validate')
     
-            self.auto_delivery_items_thread.stop()
             sleep(0.1)
 
-            if len(self.predicted_items) > 0:
+            if len(self.auto_delivery_items_thread.predicted_items) > 0:
                 self.delivery_state = 'accept'
                 print('delivery state changed: validate to accept')
                 self.acceptDeliveryItem()
@@ -1188,7 +1184,9 @@ class MainWindow(QWidget):
         self.close()
         QApplication.quit()
 
+
 if __name__ == '__main__':
+
     os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
     os.environ["QT_QPA_FONTDIR"] = "/fonts"

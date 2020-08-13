@@ -48,4 +48,4 @@ class ImageClassifier:
 
         index = np.argmax(scores)
         # elapsed_ms = (time() - start_time) * 1000
-        return classes[index], scores[index]
+        return int(classes[index]), scores[index]
