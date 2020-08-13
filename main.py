@@ -157,18 +157,17 @@ class AutoDeliveryItemsThread(QThread):
         self.process_flag = True
         try:
             import picamera
-            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
+            with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
                 camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
                     if self.process_flag:
                         print('capturing...')
                         stream.seek(0)
-                        label_id, label, score_id, score = window.image_classifier(stream)
-                        print(label_id, label, score_id, score)
+                        label, score = window.image_classifier(stream)
                         if score > predict_item_threshold:
-                            window.predicted_items.append(label_id)
-                            print(label_id, score)
+                            window.predicted_items.append(label)
+                            print(label, score)
                         stream.seek(0)
                         stream.truncate()
                     else:
@@ -198,6 +197,7 @@ class AfterDeliveryThread(QThread):
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In AfterDeliveryThread')
+
 
 class RFIDThread(QThread):
     success_signal = Signal()
@@ -755,6 +755,7 @@ class MainWindow(QWidget):
                 self.rejectDeliveryItem()
 
     def cancelDeliveryItem(self):
+        print('cancelDeliveryItem')
         self.conveyor_motor.stop()
         self.press_motor.stop()
         self.separation_motor.stop()
@@ -765,12 +766,13 @@ class MainWindow(QWidget):
         print('endDeliveryItem')
         try:                
             self.cancel_delivery_item_timer.cancel()
+            self.conveyor_motor.stop()
 
             try:
                 if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
-                    self.separation_motor.forward(True)
+                    self.separation_motor.forward(timer=True)
                 elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
-                    self.separation_motor.backward(True)   
+                    self.separation_motor.backward(timer=True)   
             except Exception as e:
                 print("error:", e)
                 ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')

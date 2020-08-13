@@ -46,8 +46,6 @@ class ImageClassifier:
         print('classes', classes)
         print('scores', scores)
 
-        ordered_classes = np.argpartition(-classes, top_k)
-        ordered_scores = np.argpartition(-scores, top_k)
+        index = np.argmax(scores)
         # elapsed_ms = (time() - start_time) * 1000
-        return ordered_classes[0], classes[ordered_classes[0]], ordered_scores[0], scores[ordered_scores[0]]
-        
+        return classes[index], scores[index]
