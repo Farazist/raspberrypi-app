@@ -16,6 +16,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, Q
 from PIL.ImageQt import ImageQt
 from scipy import stats
 from mfrc522 import SimpleMFRC522
+import picamera
 
 from utils.motor import Motor
 from utils.server import Server
@@ -46,7 +47,7 @@ DEVICE_VERSION = 'ورژن {}'
 stack_timer = 240000
 delivery_cancel_time = 20.0
 capture_time = 2
-predict_item_threshold = 0.5
+predict_item_threshold = 0.3
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -149,7 +150,6 @@ class AutoDeliveryItemsThread(QThread):
     def run(self):
         self.predicted_items = []
         try:
-            import picamera
             with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
                 camera.start_preview()
                 stream = BytesIO()
@@ -158,6 +158,7 @@ class AutoDeliveryItemsThread(QThread):
                         print('capturing...')
                         stream.seek(0)
                         label, score = window.image_classifier(stream)
+                        # label, score = 12, 0.5
                         if score > predict_item_threshold:
                             self.predicted_items.append(label)
                             print(label, score)
@@ -666,8 +667,10 @@ class MainWindow(QWidget):
             self.delivery_state = 'enter'
             print('delivery state changed: ready to enter')
             self.enterDeliveryItem()
+
         elif self.delivery_state == 'reject':
             self.delivery_state = 'pickup'
+            print('delivery state changed: reject to pickup')
             self.pickupDeliveryItem()
  
     def distanceSensor1WhenOutOfRange(self):
@@ -678,6 +681,7 @@ class MainWindow(QWidget):
             self.startDeliveryItem()
         elif self.delivery_state == 'pickup':
             self.delivery_state = 'ready'
+            print('delivery state changed: pickup to ready')
 
     def distanceSensor2WhenInRange(self):
         print('distanceSensor2WhenInRange')
@@ -689,6 +693,7 @@ class MainWindow(QWidget):
             self.endDeliveryItem()
 
     def pickupDeliveryItem(self):
+        print('distanceSensor2WhenOutOfRange')
         try:
             self.cancel_delivery_item_timer.cancel()
             self.conveyor_motor.stop()
@@ -696,6 +701,7 @@ class MainWindow(QWidget):
             print("error:", e)
 
     def enterDeliveryItem(self):
+        print('enterDeliveryItem')
         try:
             self.conveyor_motor.forward()
             self.auto_delivery_items_thread.start()
@@ -703,6 +709,7 @@ class MainWindow(QWidget):
             print("error:", e)
 
     def startDeliveryItem(self):
+        print('startDeliveryItem')
         try:
             self.auto_delivery_items_timer = Timer(capture_time, self.validationDeliveryItem)
             self.auto_delivery_items_timer.start()
@@ -713,8 +720,8 @@ class MainWindow(QWidget):
 
     def rejectDeliveryItem(self):
         print('rejectDeliveryItem')
-        self.conveyor_motor.backward(True)
         self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+        self.conveyor_motor.backward()
 
     def acceptDeliveryItem(self):
         print('acceptDeliveryItem')
@@ -761,7 +768,24 @@ class MainWindow(QWidget):
     def endDeliveryItem(self):
         print('endDeliveryItem')
         try:                
+            self.showNotification(RECYCLE_MESSAGE)
             self.cancel_delivery_item_timer.cancel()
+
+            self.playSound('audio3')
+            self.ui.btn_right.show()
+            self.selected_item['count'] += 1
+            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lbl_total.setText(str(self.total_price))
+            
+            self.delivery_state = 'ready'
+
             self.conveyor_motor.stop()
 
             try:
@@ -778,22 +802,6 @@ class MainWindow(QWidget):
             except Exception as e:
                 print("error:", e)
                 ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
-
-            self.playSound('audio3')
-            self.showNotification(RECYCLE_MESSAGE)
-            self.ui.btn_right.show()
-            self.selected_item['count'] += 1
-            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
-
-            for user_item in self.user_items:
-                if self.selected_item['id'] == user_item['id']:
-                    break
-            else:
-                self.user_items.append(self.selected_item)
-            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-            self.ui.lbl_total.setText(str(self.total_price))
-            
-            self.delivery_state = 'ready'
 
         except Exception as e:
             print("error:", e)

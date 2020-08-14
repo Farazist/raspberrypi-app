@@ -609,3 +609,14 @@
 2020-08-09 21:39:56 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
 2020-08-09 21:40:20 pin 19 is already in use by <gpiozero.DigitalOutputDevice object on pin GPIO19, active_high=False, is_active=False> In distance_sensor1 initHardwares Method
 2020-08-09 21:47:54 'ImageClassifier' object has no attribute 'width' In AutoDeliveryItemsThread
+2020-08-14 11:13:35 Server Error Message In LoadingThread
+2020-08-14 11:13:57 Server Error Message In LoadingThread
+2020-08-14 11:14:43 Server Error Message In LoadingThread
+2020-08-14 11:15:19 Server Error Message In LoadingThread
+2020-08-14 11:28:53 Server Error Message In LoadingThread
+2020-08-14 12:05:09 Server Error Message In SigninOwnerThread
+2020-08-14 12:05:56 Server Error Message In stopSound Method
+2020-08-14 12:07:07 Server Error Message In SigninUserThread
+2020-08-14 12:07:18 Server Error Message In SigninUserThread
+2020-08-14 12:07:36 Server Error Message In SigninUserThread
+2020-08-14 12:23:25 Server Error Message In stopSound Method
