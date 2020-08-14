@@ -542,7 +542,7 @@ class MainWindow(QWidget):
                     elif self.device_mode == 'auto':
                         self.items = Server.getItems(0)
 
-                    # Server.turnOnSystemSMS(self.owner, self.system)
+                    Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
                 self.playSound('audio2')
@@ -663,16 +663,20 @@ class MainWindow(QWidget):
 
     def distanceSensor1WhenInRange(self):
         print('distanceSensor1WhenInRange')
-        if self.delivery_state == 'ready':
-            self.delivery_state = 'enter'
-            print('delivery state changed: ready to enter')
-            self.enterDeliveryItem()
+        if self.device_mode == 'auto':
+            if self.delivery_state == 'ready':
+                self.delivery_state = 'enter'
+                print('delivery state changed: ready to enter')
+                self.enterDeliveryItem()
 
-        elif self.delivery_state == 'reject':
-            self.delivery_state = 'pickup'
-            print('delivery state changed: reject to pickup')
-            self.pickupDeliveryItem()
+            elif self.delivery_state == 'reject':
+                self.delivery_state = 'pickup'
+                print('delivery state changed: reject to pickup')
+                self.pickupDeliveryItem()
  
+        elif self.device_mode == 'manual':
+            self.manualDeliveryRecycleItem()
+
     def distanceSensor1WhenOutOfRange(self):
         print('distanceSensor1WhenOutOfRange')
         if self.delivery_state == 'enter':
@@ -818,8 +822,32 @@ class MainWindow(QWidget):
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def manualDeliveryRecycleItem(self):
-        self.startDeliveryItem()
-        self.endDeliveryItem()
+        try: 
+            self.showNotification(RECYCLE_MESSAGE)
+            self.conveyor_motor.forward(timer=True)
+        
+            self.playSound('audio3')
+            self.ui.btn_right.show()
+            self.selected_item['count'] += 1
+            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lbl_total.setText(str(self.total_price))
+
+            try:
+                self.press_motor.forward(timer=True)
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
+        except Exception as e:
+            print("error:", e)
+            ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
 
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
