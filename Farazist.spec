@@ -3,11 +3,11 @@
 block_cipher = None
 
 
-a = Analysis(['test/myPrinter.py'],
+a = Analysis(['main.py'],
              pathex=['/home/pi/Documents/raspberrypi-app'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['PySide2.QtXml'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -26,7 +26,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
+          console=False )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,

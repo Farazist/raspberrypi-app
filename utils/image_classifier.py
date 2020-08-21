@@ -1,4 +1,4 @@
-import tflite_runtime.interpreter as tflite
+from tflite_runtime.interpreter import Interpreter
 import numpy as np
 from PIL import Image
 from time import time
@@ -7,7 +7,7 @@ class ImageClassifier:
 
     def __init__(self):
         try:
-            self.interpreter = tflite.Interpreter(model_path='model.tflite')        
+            self.interpreter = Interpreter(model_path='model.tflite')        
             self.interpreter.allocate_tensors()
             _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
             print('model successfully loaded')

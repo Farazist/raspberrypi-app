@@ -47,7 +47,7 @@ DEVICE_VERSION = 'ورژن {}'
 stack_timer = 240000
 delivery_cancel_time = 20.0
 capture_time = 2
-predict_item_threshold = 0.3
+predict_item_threshold = 0.7
 
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
@@ -158,7 +158,6 @@ class AutoDeliveryItemsThread(QThread):
                         print('capturing...')
                         stream.seek(0)
                         label, score = window.image_classifier(stream)
-                        # label, score = 12, 0.5
                         if score > predict_item_threshold:
                             self.predicted_items.append(label)
                             print(label, score)
