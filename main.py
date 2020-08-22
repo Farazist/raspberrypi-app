@@ -161,7 +161,7 @@ class AutoDeliveryItemsThread(QThread):
                         if score > predict_item_threshold:
                             self.predicted_items.append(label)
                             print(label, score)
-                        # stream.seek(0)
+                        stream.seek(0)
                         stream.truncate()
                     else:
                         camera.stop_preview()
@@ -724,6 +724,7 @@ class MainWindow(QWidget):
     def rejectDeliveryItem(self):
         print('rejectDeliveryItem')
         self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+        sleep(0.01)
         self.conveyor_motor.backward()
 
     def acceptDeliveryItem(self):
@@ -736,9 +737,9 @@ class MainWindow(QWidget):
 
         if self.selected_item['category_id'] == 1:
             self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
-        elif self.selected_item['category_id'] == 2:
-            self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 3:
+            self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
+        elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
 
         self.endDeliveryItem()
@@ -772,6 +773,7 @@ class MainWindow(QWidget):
         print('endDeliveryItem')
         try:                
             self.showNotification(RECYCLE_MESSAGE)
+            sleep(0.01)
             self.cancel_delivery_item_timer.cancel()
 
             self.playSound('audio3')

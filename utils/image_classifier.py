@@ -27,9 +27,9 @@ class ImageClassifier:
 
         return tensor
 
-    def set_input_tensor(self, interpreter, image):
-        tensor_index = interpreter.get_input_details()[0]['index']
-        input_tensor = interpreter.tensor(tensor_index)()[0]
+    def set_input_tensor(self, image):
+        tensor_index = self.interpreter.get_input_details()[0]['index']
+        input_tensor = self.interpreter.tensor(tensor_index)()[0]
         input_tensor[:, :] = image
 
     def __call__(self, stream, top_k=1):
@@ -37,14 +37,14 @@ class ImageClassifier:
         image = Image.open(stream).convert('RGB').resize((self.width, self.height), Image.ANTIALIAS)
         image = np.array(image).astype('float') / 255.0
 
-        self.set_input_tensor(self.interpreter, image)
+        self.set_input_tensor(image)
         self.interpreter.invoke()
 
         classes = self.get_output_tensor(1)
         scores = self.get_output_tensor(2)
 
-        print('classes', classes)
-        print('scores', scores)
+        # print('classes', classes)
+        # print('scores', scores)
 
         index = np.argmax(scores)
         # elapsed_ms = (time() - start_time) * 1000
