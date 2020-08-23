@@ -4,8 +4,6 @@ import numpy as np
 from PIL import Image
 from time import time
 import picamera
-import matplotlib.pyplot as plt
-from IPython.display import display
 
 def get_output_tensor(index):
     """Returns the output tensor at the given index."""
@@ -28,6 +26,21 @@ def set_input_tensor(image):
 interpreter = Interpreter(model_path='model.tflite')        
 interpreter.allocate_tensors()
 _, height, width, _ = interpreter.get_input_details()[0]['shape']
+
+
+def name(id):
+    if id == 0:
+        print('pet small')
+    elif id == 1 or id == 4:
+        print('pet large')
+    elif id == 2:
+        print('aluminum 250')
+    elif id == 3:
+        print('aluminum 330')
+    elif id == 5:
+        print('detergante')
+        
+
 
 with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
     stream = BytesIO()
@@ -55,6 +68,7 @@ with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
 
         label, score = int(classes[index]), scores[index]
         if score > 0.7:
-            print(label, score, elapsed_ms)
+            name(label)
+            print(score, elapsed_ms)
         stream.seek(0)
         stream.truncate()
