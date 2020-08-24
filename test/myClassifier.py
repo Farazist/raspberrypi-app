@@ -31,16 +31,13 @@ _, height, width, _ = interpreter.get_input_details()[0]['shape']
 def name(id):
     if id == 0:
         print('pet small')
-    elif id == 1 or id == 4:
+    elif id == 1:
         print('pet large')
     elif id == 2:
-        print('aluminum 250')
+        print('aluminum')
     elif id == 3:
-        print('aluminum 330')
-    elif id == 5:
         print('detergante')
         
-
 
 with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
     stream = BytesIO()
