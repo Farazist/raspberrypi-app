@@ -23,7 +23,7 @@ def set_input_tensor(image):
     input_tensor[:, :] = image
 
 
-interpreter = Interpreter(model_path='model.tflite')        
+interpreter = Interpreter(model_path="model.tflite")        
 interpreter.allocate_tensors()
 _, height, width, _ = interpreter.get_input_details()[0]['shape']
 
@@ -42,9 +42,9 @@ def name(id):
 with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
     stream = BytesIO()
     camera.start_preview()
-    start_time = time()
+    # start_time = time()
     for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-
+        start_time = time()
         stream.seek(0)
 
         image = Image.open(stream).convert('RGB').resize((width, height), Image.ANTIALIAS)
@@ -61,11 +61,12 @@ with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
         # print('scores', scores)
 
         index = np.argmax(scores)
-        elapsed_ms = (time() - start_time)
+
 
         label, score = int(classes[index]), scores[index]
-        if score > 0.7:
+        if score > 0.8:
             name(label)
+            elapsed_ms = (time() - start_time)
             print(score, elapsed_ms)
         stream.seek(0)
         stream.truncate()

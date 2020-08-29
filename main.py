@@ -49,7 +49,6 @@ BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);borde
 stack_timer = 240000
 delivery_cancel_time = 20.0
 capture_time = 2
-predict_item_threshold = 0.7
 
 
 class QRCodeThread(QThread):
@@ -159,7 +158,7 @@ class AutoDeliveryItemsThread(QThread):
                         print('capturing...')
                         stream.seek(0)
                         label, score = window.image_classifier(stream)
-                        if score > predict_item_threshold:
+                        if score > window.predict_item_threshold:
                             self.predicted_items.append(label)
                             print(label, score)
                         stream.seek(0)
@@ -347,7 +346,7 @@ class MainWindow(QWidget):
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
-
+        self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
 
         try:
