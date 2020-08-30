@@ -24,6 +24,7 @@ from utils.database import DataBase
 from utils.custombutton import CustomButton
 from utils.image_classifier import ImageClassifier
 from utils.error_log import ErrorLog
+from utils.messages import *
 
 __author__ = "Sara Zarei, Sajjad Aemmi"
 __copyright__ = "Copyright 2020"
@@ -31,24 +32,11 @@ __license__ = "MIT"
 __email__ = "developer@farazist.ir"
 __status__ = "Production"
 
-SERVER_ERROR_MESSAGE = 'خطا در برقراری ارتباط با اینترنت'
-SIGNIN_ERROR_MESSAGE = 'اطلاعات وارد شده درست نیست'
-RECYCLE_MESSAGE = 'بطری دریافت شد'
-PLEASE_WAIT_MESSAGE = 'لطفا منتظر بمانید ...'
-SOON_MESSAGE = 'به زودی ...'
-SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
-TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
-SUCCESS_TRANSFER_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
-DELIVERY_ERROR_MESSAGE = 'خطا در عملیات بازیافت'
-TRANSFER_TO_RFID_MESSAGE = 'کارت خود را نزدیک نمایید'
-MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
-ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در شناسایی'
 DEVICE_VERSION = 'ورژن {}'
 BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 stack_timer = 240000
 delivery_cancel_time = 20.0
-capture_time = 2
 
 
 class QRCodeThread(QThread):
@@ -288,7 +276,6 @@ class MainWindow(QWidget):
         self.btnUserLoginMobile.clicked.connect(self.signInUserMobile)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
         #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
-        self.ui.btn_main_menu_3.clicked.connect(self.showSoonNotification)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
         self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
@@ -300,13 +287,10 @@ class MainWindow(QWidget):
         self.ui.btn_setting_1.clicked.connect(self.stackDeviceMode)
         self.ui.btn_setting_5.clicked.connect(self.stackConveyorPort)
         self.ui.btn_setting_2.clicked.connect(self.stackPressMotor)
-        self.ui.btn_setting_10.clicked.connect(self.stackSeparationMotor)
+        # self.ui.btn_setting_10.clicked.connect(self.stackSeparationMotor)
         self.ui.btn_setting_3.clicked.connect(self.stackSensor1Ports)
         self.ui.btn_setting_9.clicked.connect(self.stackSensor2Ports)
         self.ui.btn_setting_6.clicked.connect(self.stackExitApp)
-        self.ui.btn_setting_4.clicked.connect(self.stackAddOpetator)
-        self.ui.btn_setting_7.clicked.connect(self.stackHelp)
-        self.ui.btn_setting_8.clicked.connect(self.stackLicense)
         self.ui.btn_wallet_services_1.clicked.connect(self.stackChargingResidentialUnit)
         self.ui.btn_wallet_services_2.clicked.connect(self.stackRFID)
         self.ui.btn_wallet_services_3.clicked.connect(self.stackCharity)
@@ -349,19 +333,21 @@ class MainWindow(QWidget):
         self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
 
-        try:
-            self.separation_motor.forward()
-        except Exception as e:
-            print("error:", e)
-
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
 
     def initHardwares(self):
+
+        if self.device_mode == 'auto':
+            try:
+                camera = picamera.PiCamera(resolution=(1280, 720), framerate=30)
+            except Exception as e:
+                print("error:", e)
+
         try:
-            if hasattr(self, 'separation_motor'):
-                self.separation_motor.close()
+            # if hasattr(self, 'separation_motor'):
+            #     self.separation_motor.close()
         
             if hasattr(self, 'press_motor'):
                 self.press_motor.close()
@@ -390,18 +376,19 @@ class MainWindow(QWidget):
             print("error:", e)
             ErrorLog.writeToFile(str(e) + ' In press_motor initHardwares Method')
 
-        try:
-            self.separation_motor = Motor(name='separation_motor', pin_factory=factory)
+        # try:
+        #     self.separation_motor = Motor(name='separation_motor', pin_factory=factory)
        
-            self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
-            self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
-            self.setButton(self.ui.btn_separation_motor_off, function=self.separation_motor.stop)
-        except Exception as e:
-            print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
+        #     self.setButton(self.ui.btn_separation_motor_forward_on, function=self.separation_motor.forward)
+        #     self.setButton(self.ui.btn_separation_motor_backward_on, function=self.separation_motor.backward)
+        #     self.setButton(self.ui.btn_separation_motor_off, function=self.separation_motor.stop)
+        # except Exception as e:
+        #     print("error:", e)
+        #     ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
             self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
+            self.conveyor_motor.time_2 = float(DataBase.select('conveyor_motor_time_2'))
          
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
             self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
@@ -536,11 +523,7 @@ class MainWindow(QWidget):
         if self.owner != 0 and self.owner['id'] == self.system['owner']['id']: 
             try:
                 if self.flag_system_startup_now:
-                    if self.device_mode == 'manual':
-                        self.items = Server.getItems(self.owner['id'])
-                    elif self.device_mode == 'auto':
-                        self.items = Server.getItems(0)
-
+                    self.items = Server.getItems(self.owner['id'])
                     Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
@@ -710,7 +693,7 @@ class MainWindow(QWidget):
     def enterDeliveryItem(self):
         print('enterDeliveryItem')
         try:
-            self.conveyor_motor.forward()
+            self.conveyor_motor.forward(timer=True)
 
         except Exception as e:
             print("error:", e)
@@ -720,7 +703,7 @@ class MainWindow(QWidget):
         try:
             self.conveyor_motor.stop()
             self.auto_delivery_items_thread.start()
-            self.auto_delivery_items_timer = Timer(capture_time, self.validationDeliveryItem)
+            self.auto_delivery_items_timer = Timer(2, self.validationDeliveryItem)
             self.auto_delivery_items_timer.start()
             self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
             self.cancel_delivery_item_timer.start()
@@ -747,6 +730,8 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+        elif self.selected_item['category_id'] == 5:
+            self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.conveyor_motor.forward()
         self.end_delivery_items_timer = Timer(self.conveyor_motor.time, self.endDeliveryItem)
@@ -777,7 +762,7 @@ class MainWindow(QWidget):
         print('cancelDeliveryItem')
         self.conveyor_motor.stop()
         self.press_motor.stop()
-        self.separation_motor.stop()
+        # self.separation_motor.stop()
         self.delivery_state = 'ready'
         print('delivery state changed: ready')
 
@@ -805,15 +790,6 @@ class MainWindow(QWidget):
                 self.delivery_state = 'ready'
 
                 self.conveyor_motor.stop()
-
-                try:
-                    if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
-                        self.separation_motor.forward(timer=True)
-                    elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
-                        self.separation_motor.backward(timer=True)   
-                except Exception as e:
-                    print("error:", e)
-                    ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
 
                 try:
                     self.press_motor.forward(True)
@@ -1128,15 +1104,13 @@ class MainWindow(QWidget):
         self.ui.tb_press_motor_forward_port.setText(str(DataBase.select('press_motor_forward_port')))
         self.ui.tb_press_motor_backward_port.setText(str(DataBase.select('press_motor_backward_port')))
         self.ui.tb_press_motor_time.setText(str(DataBase.select('press_motor_time')))
-        self.ui.tb_press_motor_active_high.setText(str(DataBase.select('press_motor_active_high')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingPressMotor)
 
     def stackSeparationMotor(self):
         self.ui.lbl_notification.hide()
-        self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
-        self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
-        self.ui.tb_separation_motor_time.setText(str(DataBase.select('separation_motor_time')))
-        self.ui.tb_separation_motor_active_high.setText(str(DataBase.select('separation_motor_active_high')))
+        # self.ui.tb_separation_motor_forward_port.setText(str(DataBase.select('separation_motor_forward_port')))
+        # self.ui.tb_separation_motor_backward_port.setText(str(DataBase.select('separation_motor_backward_port')))
+        # self.ui.tb_separation_motor_time.setText(str(DataBase.select('separation_motor_time')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingSeparationMotor)
 
     def stackSensor1Ports(self):
@@ -1206,12 +1180,12 @@ class MainWindow(QWidget):
         if self.ui.tb_press_motor_time.text() != '':
             result = DataBase.update('press_motor_time', self.ui.tb_press_motor_time.text())
     
-        if self.ui.tb_separation_motor_forward_port.text() != '':
-            result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
-        if self.ui.tb_separation_motor_backward_port.text() != '':
-            result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
-        if self.ui.tb_separation_motor_time.text() != '':
-            result = DataBase.update('separation_motor_time', self.ui.tb_separation_motor_time.text())
+        # if self.ui.tb_separation_motor_forward_port.text() != '':
+        #     result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
+        # if self.ui.tb_separation_motor_backward_port.text() != '':
+        #     result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
+        # if self.ui.tb_separation_motor_time.text() != '':
+        #     result = DataBase.update('separation_motor_time', self.ui.tb_separation_motor_time.text())
      
         if self.ui.tb_conveyor_motor_forward_port.text() != '':
             result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())

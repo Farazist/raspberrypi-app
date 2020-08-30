@@ -664,3 +664,14 @@
 2020-08-28 11:35:34 Server Error Message In SigninOwnerThread
 2020-08-28 11:36:26 Server Error Message In stopSound Method
 2020-08-28 11:37:27 Server Error Message In SigninUserThread
+2020-08-30 11:48:35 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 11:48:35 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In separation_motor initHardwares Method
+2020-08-30 11:48:35 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+2020-08-30 12:01:15 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 12:01:15 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In separation_motor initHardwares Method
+2020-08-30 12:01:15 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+2020-08-30 12:08:33 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 12:08:33 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In separation_motor initHardwares Method
+2020-08-30 12:08:33 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+2020-08-30 12:10:45 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 12:10:45 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
