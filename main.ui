@@ -1131,9 +1131,6 @@ color:#000000;</string>
               <property name="text">
                <string/>
               </property>
-              <property name="pixmap">
-               <pixmap>images/item/category4.png</pixmap>
-              </property>
               <property name="scaledContents">
                <bool>true</bool>
               </property>
@@ -1219,9 +1216,6 @@ color:#000000;</string>
              <widget class="QLabel" name="lbl_pixmap_category_4">
               <property name="text">
                <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap>images/item/category5.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -2534,7 +2528,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>634</width>
+               <width>494</width>
                <height>648</height>
               </rect>
              </property>
@@ -3236,7 +3230,7 @@ border-style: inset;
                <x>0</x>
                <y>0</y>
                <width>398</width>
-               <height>16</height>
+               <height>28</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5790,7 +5784,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>398</width>
-             <height>16</height>
+             <height>28</height>
             </rect>
            </property>
           </widget>
