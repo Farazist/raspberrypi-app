@@ -388,7 +388,7 @@ class MainWindow(QWidget):
 
         try:
             self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
-            self.conveyor_motor.time_2 = float(DataBase.select('conveyor_motor_time_2'))
+            self.conveyor_motor_time_2 = float(DataBase.select('conveyor_motor_time_2'))
          
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
             self.setButton(self.ui.btn_conveyor_motor_backward_on, function=self.conveyor_motor.backward)
@@ -676,8 +676,8 @@ class MainWindow(QWidget):
 
     def distanceSensor2WhenInRange(self):
         print('distanceSensor2WhenInRange')
-        if self.delivery_state == 'accept':
-            self.endDeliveryItem()
+        # if self.delivery_state == 'accept':
+        #     self.endDeliveryItem()
 
     def distanceSensor2WhenOutOfRange(self):
         print('distanceSensor2WhenOutOfRange')
@@ -734,7 +734,7 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.conveyor_motor.forward()
-        self.end_delivery_items_timer = Timer(self.conveyor_motor.time_2, self.endDeliveryItem)
+        self.end_delivery_items_timer = Timer(self.conveyor_motor_time_2, self.endDeliveryItem)
         self.end_delivery_items_timer.start()
         self.delivery_state = 'end'
         # self.endDeliveryItem()
@@ -1194,9 +1194,7 @@ class MainWindow(QWidget):
             result = DataBase.update('conveyor_motor_time_1', self.ui.tb_conveyor_motor_time_1.text())
         if self.ui.tb_conveyor_motor_time_2.text() != '':
             result = DataBase.update('conveyor_motor_time_2', self.ui.tb_conveyor_motor_time_2.text())
-        if self.ui.tb_conveyor_motor_active_high.text() != '':
-            result = DataBase.update('conveyor_motor_active_high', self.ui.tb_conveyor_motor_active_high.text())
-
+        
         self.initHardwares()
 
     def exitProgram(self):
