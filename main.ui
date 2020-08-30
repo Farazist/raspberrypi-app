@@ -1191,16 +1191,7 @@ color:#000000;</string>
              </widget>
             </item>
             <item row="1" column="5">
-             <widget class="QLabel" name="lbl_pixmap_category_5">
-              <property name="frameShape">
-               <enum>QFrame::NoFrame</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
-              <property name="midLineWidth">
-               <number>0</number>
-              </property>
+            <widget class="QLabel" name="lbl_pixmap_category_5">
               <property name="text">
                <string/>
               </property>
@@ -1217,15 +1208,6 @@ color:#000000;</string>
             </item>
             <item row="1" column="4">
              <widget class="QLabel" name="lbl_pixmap_category_4">
-              <property name="frameShape">
-               <enum>QFrame::NoFrame</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
-              <property name="midLineWidth">
-               <number>0</number>
-              </property>
               <property name="text">
                <string/>
               </property>
