@@ -718,3 +718,5 @@
 2020-08-30 13:33:23 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
 2020-08-30 13:35:19 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
 2020-08-30 13:35:19 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+2020-08-30 13:39:13 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 13:39:13 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
