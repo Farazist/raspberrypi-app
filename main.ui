@@ -1126,13 +1126,6 @@ color:#000000;</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="6">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
          </layout>
@@ -4258,8 +4251,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>457</width>
-             <height>507</height>
+             <width>471</width>
+             <height>487</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4789,7 +4782,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>417</width>
-             <height>507</height>
+             <height>487</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
