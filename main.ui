@@ -1097,9 +1097,6 @@ color:#000000;</string>
               <property name="text">
                <string/>
               </property>
-              <property name="pixmap">
-               <pixmap>images/item/category5.png</pixmap>
-              </property>
               <property name="scaledContents">
                <bool>true</bool>
               </property>
