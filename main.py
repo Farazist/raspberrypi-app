@@ -1157,8 +1157,8 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
-        self.ui.tb_conveyor_motor_time.setText(str(DataBase.select('conveyor_motor_time')))
-        self.ui.tb_conveyor_motor_active_high.setText(str(DataBase.select('conveyor_motor_active_high')))
+        self.ui.tb_conveyor_motor_time_1.setText(str(DataBase.select('conveyor_motor_time_1')))
+        self.ui.tb_conveyor_motor_time_2.setText(str(DataBase.select('conveyor_motor_time_2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
     def stackAddOpetator(self):
@@ -1205,24 +1205,22 @@ class MainWindow(QWidget):
             result = DataBase.update('press_motor_backward_port', self.ui.tb_press_motor_backward_port.text())
         if self.ui.tb_press_motor_time.text() != '':
             result = DataBase.update('press_motor_time', self.ui.tb_press_motor_time.text())
-        if self.ui.tb_press_motor_active_high.text() != '':
-            result = DataBase.update('press_motor_active_high', self.ui.tb_press_motor_active_high.text())
-
+    
         if self.ui.tb_separation_motor_forward_port.text() != '':
             result = DataBase.update('separation_motor_forward_port', self.ui.tb_separation_motor_forward_port.text())
         if self.ui.tb_separation_motor_backward_port.text() != '':
             result = DataBase.update('separation_motor_backward_port', self.ui.tb_separation_motor_backward_port.text())
         if self.ui.tb_separation_motor_time.text() != '':
             result = DataBase.update('separation_motor_time', self.ui.tb_separation_motor_time.text())
-        if self.ui.tb_separation_motor_active_high.text() != '':
-            result = DataBase.update('separation_motor_active_high', self.ui.tb_separation_motor_active_high.text())
-
+     
         if self.ui.tb_conveyor_motor_forward_port.text() != '':
             result = DataBase.update('conveyor_motor_forward_port', self.ui.tb_conveyor_motor_forward_port.text())
         if self.ui.tb_conveyor_motor_backward_port.text() != '':
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
-        if self.ui.tb_conveyor_motor_time.text() != '':
-            result = DataBase.update('conveyor_motor_time', self.ui.tb_conveyor_motor_time.text())
+        if self.ui.tb_conveyor_motor_time_1.text() != '':
+            result = DataBase.update('conveyor_motor_time_1', self.ui.tb_conveyor_motor_time_1.text())
+        if self.ui.tb_conveyor_motor_time_2.text() != '':
+            result = DataBase.update('conveyor_motor_time_2', self.ui.tb_conveyor_motor_time_2.text())
         if self.ui.tb_conveyor_motor_active_high.text() != '':
             result = DataBase.update('conveyor_motor_active_high', self.ui.tb_conveyor_motor_active_high.text())
 
