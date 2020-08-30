@@ -2504,7 +2504,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>631</width>
+               <width>634</width>
                <height>648</height>
               </rect>
              </property>
@@ -3206,7 +3206,7 @@ border-style: inset;
                <x>0</x>
                <y>0</y>
                <width>398</width>
-               <height>28</height>
+               <height>16</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -3407,6 +3407,17 @@ border-style: inset;
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="styleSheet">
+             <string notr="true">font: 24pt &quot;IRANSans&quot;;
+color:#28a745;</string>
+            </property>
+            <property name="text">
+             <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید</string>
+            </property>
+           </widget>
+          </item>
           <item alignment="Qt::AlignHCenter">
            <widget class="QPushButton" name="btn_other_services_after_delivery">
             <property name="minimumSize">
@@ -3433,17 +3444,6 @@ border-style: inset;
             </property>
             <property name="text">
              <string>سایر خدمات</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="styleSheet">
-             <string notr="true">font: 24pt &quot;IRANSans&quot;;
-color:#28a745;</string>
-            </property>
-            <property name="text">
-             <string>با چاپ نکردن رسید به حفظ محیط زیست کمک کنید</string>
             </property>
            </widget>
           </item>
@@ -4438,8 +4438,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>453</width>
-             <height>505</height>
+             <width>457</width>
+             <height>507</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4969,7 +4969,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>417</width>
-             <height>505</height>
+             <height>507</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
@@ -5760,7 +5760,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>398</width>
-             <height>28</height>
+             <height>16</height>
             </rect>
            </property>
           </widget>
