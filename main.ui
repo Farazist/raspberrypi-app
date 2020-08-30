@@ -1066,7 +1066,7 @@ color:#000000;</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="4">
+            <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lbl_txt_category_4">
               <property name="styleSheet">
                <string notr="true">font: 18pt &quot;IRANSans&quot;;
@@ -4251,8 +4251,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>471</width>
-             <height>487</height>
+             <width>453</width>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4782,7 +4782,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>417</width>
-             <height>487</height>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
