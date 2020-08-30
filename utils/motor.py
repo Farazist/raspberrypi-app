@@ -7,11 +7,10 @@ class Motor:
         
         forward_port = int(DataBase.select(name + '_forward_port'))
         backward_port = int(DataBase.select(name + '_backward_port'))
-        active_high = int(DataBase.select(name + '_active_high'))
         time = float(DataBase.select(name + '_time'))
         
-        self.forward_motor = DigitalOutputDevice(pin=forward_port, active_high=active_high)
-        self.backward_motor = DigitalOutputDevice(pin=backward_port, active_high=active_high)
+        self.forward_motor = DigitalOutputDevice(pin=forward_port, active_high=False)
+        self.backward_motor = DigitalOutputDevice(pin=backward_port, active_high=False)
         self.time = time
         self.name = name
         self.last_state = 'forward'
