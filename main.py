@@ -339,13 +339,13 @@ class MainWindow(QWidget):
 
     def initHardwares(self):
 
-        if self.device_mode == 'auto':
-            try:
-                with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
-                    camera.start_preview()
-                    camera.stop_preview()
-            except Exception as e:
-                print("error:", e)
+        # if self.device_mode == 'auto':
+        #     try:
+        #         with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
+        #             camera.start_preview()
+        #             camera.stop_preview()
+        #     except Exception as e:
+        #         print("error:", e)
 
         try:
             # if hasattr(self, 'separation_motor'):
