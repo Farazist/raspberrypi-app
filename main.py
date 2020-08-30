@@ -734,7 +734,7 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.conveyor_motor.forward()
-        self.end_delivery_items_timer = Timer(self.conveyor_motor.time, self.endDeliveryItem)
+        self.end_delivery_items_timer = Timer(self.conveyor_motor.time_2, self.endDeliveryItem)
         self.end_delivery_items_timer.start()
         self.delivery_state = 'end'
         # self.endDeliveryItem()
@@ -788,7 +788,6 @@ class MainWindow(QWidget):
                 self.ui.lbl_total.setText(str(self.total_price))
                 
                 self.delivery_state = 'ready'
-
                 self.conveyor_motor.stop()
 
                 try:
