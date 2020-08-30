@@ -341,7 +341,9 @@ class MainWindow(QWidget):
 
         if self.device_mode == 'auto':
             try:
-                camera = picamera.PiCamera(resolution=(1280, 720), framerate=30)
+                with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
+                    camera.start_preview()
+                    camera.stop_preview()
             except Exception as e:
                 print("error:", e)
 
