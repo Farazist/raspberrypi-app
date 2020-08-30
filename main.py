@@ -16,6 +16,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, Q
 from PIL.ImageQt import ImageQt
 from scipy import stats
 from mfrc522 import SimpleMFRC522
+import picamera
 
 from utils.motor import Motor
 from utils.server import Server
@@ -38,17 +39,17 @@ SOON_MESSAGE = 'به زودی ...'
 SETTING_SAVE_MESSAGE = 'تغییرات با موفقیت اعمال شد'
 TRANSFER_ERROR_MESSAGE = 'خطا در تراکنش'
 SUCCESS_TRANSFER_TO_RFID_MESSAGE = 'انتقال به کارت با موفقیت انجام شد'
+DELIVERY_ERROR_MESSAGE = 'خطا در عملیات بازیافت'
 TRANSFER_TO_RFID_MESSAGE = 'کارت خود را نزدیک نمایید'
 MONEY_ERROR_MESSAGE = 'موجودی شما برای انجام این تراکنش کافی نمی باشد'
-ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'بطری تعریف نشده است'
+ITEM_NOT_RECOGNIZED_ERROR_MESSAGE = 'خطا در شناسایی'
 DEVICE_VERSION = 'ورژن {}'
+BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 stack_timer = 240000
-delivery_cancel_time = 10.0
-capture_time = 1
-predict_item_threshold = 0.1
+delivery_cancel_time = 20.0
+capture_time = 2
 
-BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);border: none; outline-style: none;'
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -70,7 +71,7 @@ class QRCodeThread(QThread):
                 print(qrcode_signin_token)
                 self.show_qrcode_signal.emit(qrcode_signin_token)
                 counter = 0
-                while not self.event.wait(4) and counter < 1800:
+                while not self.event.wait(4) and counter < 32:
                     counter += 1
                     print('check QRcode SignIn Token')
                     window.user = Server.checkQRcodeSignInToken(qrcode_signin_token)
@@ -132,43 +133,34 @@ class LoadingThread(QThread):
         try:
             window.system = Server.getSystem(window.system_id)
             window.deviceInfo = window.system['name'] + '\n' + window.system['owner']['name'] + ' ' + window.system['owner']['mobile_number']
-            
             print('Startup Intormation:')
             print('Device Mode:', window.device_mode)
             print('System ID:', window.system['id'])
-
             self.success_signal.emit()
         except:
-            window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In LoadingThread')
             self.fail_signal.emit()
             
 
 class AutoDeliveryItemsThread(QThread):
-    success_signal = Signal()
 
     def __init__(self):
         QThread.__init__(self)
     
-    def stop(self):
-        self.process_flag = False
-
     def run(self):
-        self.process_flag = True
+        self.predicted_items = []
         try:
-            import picamera
-            with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
+            with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
                 camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-                    if self.process_flag:
+                    if window.delivery_state in ['recognize', 'enter']:
                         print('capturing...')
                         stream.seek(0)
-                        results = window.image_classifier(stream)
-                        label_id, prob = results[0]
-                        if prob > predict_item_threshold:
-                            window.predicted_items.append(label_id)
-                            print(label_id, prob)
+                        label, score = window.image_classifier(stream)
+                        if score > window.predict_item_threshold:
+                            self.predicted_items.append(label)
+                            print(label, score)
                         stream.seek(0)
                         stream.truncate()
                     else:
@@ -198,6 +190,7 @@ class AfterDeliveryThread(QThread):
         except:
             window.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message In AfterDeliveryThread')
+
 
 class RFIDThread(QThread):
     success_signal = Signal()
@@ -275,7 +268,7 @@ class MainWindow(QWidget):
 
         self.loading_thread = LoadingThread()
         self.loading_thread.success_signal.connect(self.stackSignInOwner)
-        self.loading_thread.fail_signal.connect(self.ui.btn_refresh_loading.show)
+        self.loading_thread.fail_signal.connect(self.loadingFail)
     
         self.auto_delivery_items_thread = AutoDeliveryItemsThread()
 
@@ -348,13 +341,12 @@ class MainWindow(QWidget):
         self.back_delivery_item_flag = False
         self.flag_system_startup_now = True
         self.delivery_items_flag = False
-        self.detect_item_flag = False
 
         self.delivery_state = 'default'
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
-
+        self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
 
         try:
@@ -501,6 +493,10 @@ class MainWindow(QWidget):
         #         images.append(imageio.imread(file_path))
         # imageio.mimsave('animations/slider1.gif', images, 'GIF', **kargs)
 
+    def loadingFail(self):
+        self.ui.btn_refresh_loading.show()
+        self.showNotification(SERVER_ERROR_MESSAGE)
+
     def refresh(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
         self.loading_thread.start()  
@@ -545,7 +541,7 @@ class MainWindow(QWidget):
                     elif self.device_mode == 'auto':
                         self.items = Server.getItems(0)
 
-                    # Server.turnOnSystemSMS(self.owner, self.system)
+                    Server.turnOnSystemSMS(self.owner, self.system)
                     self.flag_system_startup_now = False
                 self.stackSetting()
                 self.playSound('audio2')
@@ -665,87 +661,108 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageAutoDeliveryItems)
 
     def distanceSensor1WhenInRange(self):
-        if self.delivery_state == 'ready':
-            self.delivery_state = 'enter'
-            print('delivery state changed: ready to enter')
-            self.enterDeliveryItem()
-        elif self.delivery_state == 'reject':
-            self.delivery_state = 'pickup'
-            self.pickupDeliveryItem()
- 
+        print('distanceSensor1WhenInRange')
+        if self.device_mode == 'auto':
+            if self.delivery_state == 'ready':
+                self.delivery_state = 'enter'
+                print('delivery state changed: ready to enter')
+                self.enterDeliveryItem()
+
+            elif self.delivery_state == 'reject':
+                self.delivery_state = 'pickup'
+                print('delivery state changed: reject to pickup')
+                self.pickupDeliveryItem()
+            
+            else:
+                self.delivery_state = 'cancel'
+                print('delivery state changed: cancel')
+                self.cancelDeliveryItem()
+
+        elif self.device_mode == 'manual':
+            self.manualDeliveryRecycleItem()
+
     def distanceSensor1WhenOutOfRange(self):
+        print('distanceSensor1WhenOutOfRange')
         if self.delivery_state == 'enter':
-            self.delivery_state = 'capture'
-            print('delivery state changed: enter to capture')
+            self.delivery_state = 'recognize'
+            print('delivery state changed: enter to recognize')
             self.startDeliveryItem()
         elif self.delivery_state == 'pickup':
             self.delivery_state = 'ready'
+            print('delivery state changed: pickup to ready')
 
     def distanceSensor2WhenInRange(self):
-        pass
-
-    def distanceSensor2WhenOutOfRange(self):
+        print('distanceSensor2WhenInRange')
         if self.delivery_state == 'accept':
             self.endDeliveryItem()
 
+    def distanceSensor2WhenOutOfRange(self):
+        print('distanceSensor2WhenOutOfRange')
+
     def pickupDeliveryItem(self):
+        print('distanceSensor2WhenOutOfRange')
         try:
+            self.cancel_delivery_item_timer.cancel()
             self.conveyor_motor.stop()
         except Exception as e:
             print("error:", e)
 
     def enterDeliveryItem(self):
+        print('enterDeliveryItem')
         try:
             self.conveyor_motor.forward()
-            self.auto_delivery_items_thread.start()
 
         except Exception as e:
             print("error:", e)
 
     def startDeliveryItem(self):
+        print('startDeliveryItem')
         try:
-            self.predicted_items = []                    
-
+            self.conveyor_motor.stop()
+            self.auto_delivery_items_thread.start()
             self.auto_delivery_items_timer = Timer(capture_time, self.validationDeliveryItem)
             self.auto_delivery_items_timer.start()
-
-            # self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
-            # self.cancel_delivery_item_timer.start()
+            self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
+            self.cancel_delivery_item_timer.start()
         except Exception as e:
             print("error:", e)
 
     def rejectDeliveryItem(self):
         print('rejectDeliveryItem')
-        self.conveyor_motor.backward()
         self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+        sleep(0.01)
+        self.conveyor_motor.backward()
 
     def acceptDeliveryItem(self):
         print('acceptDeliveryItem')
-        most_probability_item_index = stats.mode(self.predicted_items).mode[0]
+        most_probability_item_index = stats.mode(self.auto_delivery_items_thread.predicted_items).mode[0]
         self.selected_item = self.items[most_probability_item_index]
         print('most probability item:', window.selected_item['name'])
 
-        self.ui.list_auto_delivery_items.addItems([self.selected_item['name']])
+        self.ui.list_auto_delivery_items.insertItem(0, self.selected_item['name'])
 
-        # if self.selected_item['category_id'] == 1:
-        #     self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
-        # elif self.selected_item['category_id'] == 3:
-        #     self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
-        # elif self.selected_item['category_id'] == 4:
-        #     self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+        if self.selected_item['category_id'] == 1:
+            self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
+        elif self.selected_item['category_id'] == 3:
+            self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
+        elif self.selected_item['category_id'] == 4:
+            self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
 
-        self.endDeliveryItem()
+        self.conveyor_motor.forward()
+        self.end_delivery_items_timer = Timer(self.conveyor_motor.time, self.endDeliveryItem)
+        self.end_delivery_items_timer.start()
+        self.delivery_state = 'end'
+        # self.endDeliveryItem()
 
     def validationDeliveryItem(self):
         print('validationDeliveryItem')
-        if self.delivery_state == 'capture':
+        if self.delivery_state == 'recognize':
             self.delivery_state = 'validate'
-            print('delivery state changed: capture to validate')
+            print('delivery state changed: recognize to validate')
     
-            self.auto_delivery_items_thread.stop()
             sleep(0.1)
 
-            if len(self.predicted_items) > 0:
+            if len(self.auto_delivery_items_thread.predicted_items) > 0:
                 self.delivery_state = 'accept'
                 print('delivery state changed: validate to accept')
                 self.acceptDeliveryItem()
@@ -755,55 +772,58 @@ class MainWindow(QWidget):
                 self.rejectDeliveryItem()
 
     def cancelDeliveryItem(self):
+        self.showNotification(DELIVERY_ERROR_MESSAGE)
+        sleep(0.01)
+        print('cancelDeliveryItem')
         self.conveyor_motor.stop()
         self.press_motor.stop()
         self.separation_motor.stop()
-        self.detect_item_flag = False
         self.delivery_state = 'ready'
         print('delivery state changed: ready')
 
     def endDeliveryItem(self):
         print('endDeliveryItem')
-        try:                
-            # self.cancel_delivery_item_timer.cancel()
-            # self.conveyor_motor_stop_timer = Timer(self.conveyor_motor_time, self.conveyor_motor.stop)
-            # self.conveyor_motor_stop_timer.start()
+        if self.delivery_state == 'end':
+            try:                
+                self.showNotification(RECYCLE_MESSAGE)
+                sleep(0.01)
+                self.cancel_delivery_item_timer.cancel()
 
-            try:
-                if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
-                    self.separation_motor.forward(True)
-                elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
-                    self.separation_motor.backward(True)
-                # self.separation_motor_stop_timer.cancel()    
+                self.playSound('audio3')
+                self.ui.btn_right.show()
+                self.selected_item['count'] += 1
+                self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+
+                for user_item in self.user_items:
+                    if self.selected_item['id'] == user_item['id']:
+                        break
+                else:
+                    self.user_items.append(self.selected_item)
+                self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+                self.ui.lbl_total.setText(str(self.total_price))
+                
+                self.delivery_state = 'ready'
+
+                self.conveyor_motor.stop()
+
+                try:
+                    if self.selected_item['category_id'] == 1 and self.separation_motor.last_state != 'forward':
+                        self.separation_motor.forward(timer=True)
+                    elif self.selected_item['category_id'] == 2 and self.separation_motor.last_state != 'backward':
+                        self.separation_motor.backward(timer=True)   
+                except Exception as e:
+                    print("error:", e)
+                    ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
+
+                try:
+                    self.press_motor.forward(True)
+                except Exception as e:
+                    print("error:", e)
+                    ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
             except Exception as e:
                 print("error:", e)
-                ErrorLog.writeToFile(str(e) + ' In separation motor on endDeliveryItem Method')
-
-            try:
-                self.press_motor.forward(True)
-            except Exception as e:
-                print("error:", e)
-                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
-
-            self.playSound('audio3')
-            self.showNotification(RECYCLE_MESSAGE)
-            self.ui.btn_right.show()
-            self.selected_item['count'] += 1
-            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
-
-            for user_item in self.user_items:
-                if self.selected_item['id'] == user_item['id']:
-                    break
-            else:
-                self.user_items.append(self.selected_item)
-            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
-            self.ui.lbl_total.setText(str(self.total_price))
-            
-            self.delivery_state = 'ready'
-
-        except Exception as e:
-            print("error:", e)
-            ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
+                ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
 
     def SelectItem(self, item, this_btn):
         self.selected_item = item
@@ -816,8 +836,32 @@ class MainWindow(QWidget):
         # this_btn.setStyleSheet('background-color: #28a745; color:#ffffff; border-radius: 10px; outline-style: none; font: 24pt "IRANSansFaNum"')
         
     def manualDeliveryRecycleItem(self):
-        self.startDeliveryItem()
-        self.endDeliveryItem()
+        try: 
+            self.showNotification(RECYCLE_MESSAGE)
+            self.conveyor_motor.forward(timer=True)
+        
+            self.playSound('audio3')
+            self.ui.btn_right.show()
+            self.selected_item['count'] += 1
+            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lbl_total.setText(str(self.total_price))
+
+            try:
+                self.press_motor.forward(timer=True)
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
+        except Exception as e:
+            print("error:", e)
+            ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
 
     def stackManualDeliveryItems(self):
         self.delivery_items_flag = True
@@ -1190,7 +1234,9 @@ class MainWindow(QWidget):
         self.close()
         QApplication.quit()
 
+
 if __name__ == '__main__':
+
     os.environ["QT_QPA_FB_FORCE_FULLSCREEN"] = "0"
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
     os.environ["QT_QPA_FONTDIR"] = "/fonts"

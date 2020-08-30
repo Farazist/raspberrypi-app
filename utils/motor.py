@@ -18,8 +18,8 @@ class Motor:
         print(self.name, 'ready')
 
     def forward(self, timer=False):
-        self.forward_motor.on()
         self.backward_motor.off()
+        self.forward_motor.on()
         self.last_state = 'forward'
         if timer:
             self.timer = Timer(self.time, self.stop)
