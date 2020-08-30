@@ -675,5 +675,40 @@
 2020-08-30 12:08:33 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
 2020-08-30 12:10:45 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
 2020-08-30 12:10:45 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+<<<<<<< HEAD
 2020-08-30 12:20:23 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
 2020-08-30 12:20:23 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method
+=======
+2020-08-30 15:59:26 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-08-30 15:59:29 name 'factory' is not defined In press_motor initHardwares Method
+2020-08-30 15:59:29 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-08-30 15:59:29 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-08-30 15:59:29 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-08-30 15:59:29 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-08-30 16:02:45 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-08-30 16:02:47 name 'factory' is not defined In press_motor initHardwares Method
+2020-08-30 16:02:47 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-08-30 16:02:47 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-08-30 16:02:47 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-08-30 16:02:47 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-08-30 16:03:47 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-08-30 16:03:49 name 'factory' is not defined In press_motor initHardwares Method
+2020-08-30 16:03:49 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-08-30 16:03:49 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-08-30 16:03:49 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-08-30 16:03:49 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-08-30 16:05:25 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-08-30 16:05:30 name 'factory' is not defined In press_motor initHardwares Method
+2020-08-30 16:05:30 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-08-30 16:05:30 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-08-30 16:05:30 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-08-30 16:05:30 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-08-30 16:08:43 [Errno 2] No such file or directory: '/proc/cpuinfo' In NativeFactory
+2020-08-30 16:08:44 name 'factory' is not defined In press_motor initHardwares Method
+2020-08-30 16:08:44 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-08-30 16:08:44 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-08-30 16:08:44 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-08-30 16:08:44 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+>>>>>>> 610c59a6ffa4d300d8eaa348d0b37d2be88d2433
+2020-08-30 13:23:00 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In press_motor initHardwares Method
+2020-08-30 13:23:00 int() argument must be a string, a bytes-like object or a number, not 'NoneType' In conveyor_motor initHardwares Method

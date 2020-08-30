@@ -147,7 +147,7 @@ border-style: inset;
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="pageLoading">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
@@ -1106,7 +1106,7 @@ color:#000000;</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="5">
+            <item row="1" column="5" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lbl_pixmap_category_5">
               <property name="maximumSize">
                <size>
@@ -1137,7 +1137,7 @@ color:#000000;</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
+            <item row="1" column="4" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLabel" name="lbl_pixmap_category_4">
               <property name="text">
                <string/>
@@ -2456,7 +2456,7 @@ color:#000000;
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>634</width>
+               <width>631</width>
                <height>436</height>
               </rect>
              </property>
@@ -4278,8 +4278,8 @@ border-style: inset;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>457</width>
-             <height>507</height>
+             <width>453</width>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4809,7 +4809,7 @@ border-style: inset;
              <x>0</x>
              <y>0</y>
              <width>417</width>
-             <height>507</height>
+             <height>505</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
