@@ -50,7 +50,7 @@ sudo pip3 install spidev
 ```
 sudo pip3 install mfrc522
 ```
-## Install font on raspbian
+### Install font on RaspberryPi OS
 * Download the font
 * Extract the downloaded font file in command line (we extract it in the Downloads folder)
 * Commands:
@@ -60,6 +60,14 @@ cd ~/Downloads/
 cp *.otf ~/.fonts/
 cp *.ttf ~/.fonts/
 fc-cache -v -f
+```
+
+### Install DB Browser for SQLite on RaspberryPi OS
+
+Install the package using:
+```
+sudo apt-get update
+sudo apt-get install sqlitebrowser
 ```
 ## Status
 This project is early in development and does not yet have a stable API.
