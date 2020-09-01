@@ -2,10 +2,10 @@
 App for smart recycle waste bottles
 </br>
 </br>
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/1.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/2.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/3.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/4.jpg" width="400">
+<img src="./images/raed_me/1.jpg" width="400">
+<img src="./images/raed_me/2.jpg" width="400">
+<img src="./images/raed_me/3.jpg" width="400">
+<img src="./images/raed_me/4.jpg" width="400">
 ## Resources
 The mobile application of FARAZIST is available via the following link:
 * https://cafebazaar.ir/app/ir.farazist.farazist_app
@@ -57,14 +57,8 @@ sudo pip3 install mfrc522
 
 ```
 cd ~/Downloads/
-```
-```
 cp *.otf ~/.fonts/
-```
-```
 cp *.ttf ~/.fonts/
-```
-```
 fc-cache -v -f
 ```
 ## Status

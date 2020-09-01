@@ -732,8 +732,6 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
-        elif self.selected_item['category_id'] == 5:
-            self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.conveyor_motor.forward()
         self.end_delivery_items_timer = Timer(self.conveyor_motor_time_2, self.endDeliveryItem)
