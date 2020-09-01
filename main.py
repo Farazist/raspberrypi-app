@@ -139,7 +139,7 @@ class AutoDeliveryItemsThread(QThread):
         self.predicted_items = []
         try:
             with picamera.PiCamera(resolution=(1280, 720), framerate=30) as camera:
-                camera.start_preview()
+                # camera.start_preview()
                 stream = BytesIO()
                 for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
                     if window.delivery_state in ['recognize', 'enter']:
@@ -152,7 +152,7 @@ class AutoDeliveryItemsThread(QThread):
                         stream.seek(0)
                         stream.truncate()
                     else:
-                        camera.stop_preview()
+                        # camera.stop_preview()
                         break
         except Exception as e:
             print("error:", e)
@@ -324,7 +324,6 @@ class MainWindow(QWidget):
 
         self.back_delivery_item_flag = False
         self.flag_system_startup_now = True
-        self.delivery_items_flag = False
 
         self.delivery_state = 'default'
 
@@ -633,12 +632,17 @@ class MainWindow(QWidget):
         self.ui.lbl_pixmap_category_1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_4.setPixmap(QPixmap("images/item/category4.png").scaledToHeight(128))   
+
+        self.ui.lbl_num_category_1.setText(str(0))
+        self.ui.lbl_num_category_3.setText(str(0))
+        self.ui.lbl_num_category_4.setText(str(0))
         
+        self.ui.lbl_total_price_auto_delivery_items.setText(str(0))
+
         self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
         self.delivery_state = 'ready'
 
-        self.delivery_items_flag = True
         self.user_items = []
         for item in self.items:
             item['count'] = 0
@@ -647,7 +651,7 @@ class MainWindow(QWidget):
 
     def distanceSensor1WhenInRange(self):
         print('distanceSensor1WhenInRange')
-        if self.device_mode == 'auto':
+        if self.device_mode == 'auto' and self.delivery_state != 'default':
             if self.delivery_state == 'ready':
                 self.delivery_state = 'enter'
                 print('delivery state changed: ready to enter')
@@ -732,6 +736,8 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+
+        self.ui.lbl_total_price_auto_delivery_items.setText(str(int(self.ui.lbl_total_price_auto_delivery_items.text()) + self.selected_item['price']))
 
         self.conveyor_motor.forward()
         self.end_delivery_items_timer = Timer(self.conveyor_motor_time_2, self.endDeliveryItem)
@@ -839,7 +845,6 @@ class MainWindow(QWidget):
             ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
 
     def stackManualDeliveryItems(self):
-        self.delivery_items_flag = True
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
@@ -884,8 +889,7 @@ class MainWindow(QWidget):
 
     def stackAfterDelivery(self):
         try:
-            self.delivery_items_flag = False
-
+            self.delivery_state = 'default'
             self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
             self.playSound('audio11')
             self.setButton(self.ui.btn_left, show=False)
@@ -1130,7 +1134,7 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.tb_conveyor_motor_forward_port.setText(str(DataBase.select('conveyor_motor_forward_port')))
         self.ui.tb_conveyor_motor_backward_port.setText(str(DataBase.select('conveyor_motor_backward_port')))
-        self.ui.tb_conveyor_motor_time_1.setText(str(DataBase.select('conveyor_motor_time_1')))
+        self.ui.tb_conveyor_motor_time_1.setText(str(DataBase.select('conveyor_motor_time')))
         self.ui.tb_conveyor_motor_time_2.setText(str(DataBase.select('conveyor_motor_time_2')))
         self.ui.StackSetting.setCurrentWidget(self.ui.pageSettingConveyorMotor)
 
@@ -1191,7 +1195,7 @@ class MainWindow(QWidget):
         if self.ui.tb_conveyor_motor_backward_port.text() != '':
             result = DataBase.update('conveyor_motor_backward_port', self.ui.tb_conveyor_motor_backward_port.text())
         if self.ui.tb_conveyor_motor_time_1.text() != '':
-            result = DataBase.update('conveyor_motor_time_1', self.ui.tb_conveyor_motor_time_1.text())
+            result = DataBase.update('conveyor_motor_time', self.ui.tb_conveyor_motor_time_1.text())
         if self.ui.tb_conveyor_motor_time_2.text() != '':
             result = DataBase.update('conveyor_motor_time_2', self.ui.tb_conveyor_motor_time_2.text())
         
