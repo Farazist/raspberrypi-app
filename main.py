@@ -37,7 +37,7 @@ BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);borde
 
 stack_timer = 240000
 delivery_cancel_time = 20.0
-
+camera_time = 3
 
 class QRCodeThread(QThread):
     scan_successfully_signal = Signal()
@@ -709,7 +709,7 @@ class MainWindow(QWidget):
         try:
             self.conveyor_motor.stop()
             self.auto_delivery_items_thread.start()
-            self.auto_delivery_items_timer = Timer(2, self.validationDeliveryItem)
+            self.auto_delivery_items_timer = Timer(camera_time, self.validationDeliveryItem)
             self.auto_delivery_items_timer.start()
             self.cancel_delivery_item_timer = Timer(delivery_cancel_time, self.cancelDeliveryItem)
             self.cancel_delivery_item_timer.start()
@@ -720,7 +720,7 @@ class MainWindow(QWidget):
         print('rejectDeliveryItem')
         self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
         sleep(0.01)
-        self.conveyor_motor.backward()
+        self.conveyor_motor.backward(timer=True)
 
     def acceptDeliveryItem(self):
         print('acceptDeliveryItem')
@@ -736,8 +736,8 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
-        elif self.selected_item['category_id'] == 5:
-            self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
+        # elif self.selected_item['category_id'] == 5:
+        #     self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.ui.lbl_total_price_auto_delivery_items.setText(str(int(self.ui.lbl_total_price_auto_delivery_items.text()) + self.selected_item['price']))
 
@@ -879,7 +879,7 @@ class MainWindow(QWidget):
     def printReceipt(self):
         self.playSound('audio4')
         # printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
-        os.system('sudo python3 printer.py ' 
+        os.system('sudo -S python3 printer.py ' 
         + str(self.total_price)
         + ' --mobile_number ' + str(self.system['owner']['mobile_number'])
         + ' --datetime "' + QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate) + '"')
