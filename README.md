@@ -2,10 +2,10 @@
 App for smart recycle waste bottles
 </br>
 </br>
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/1.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/2.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/3.jpg" width="400">
-<img src="https://github.com/Farazist/farazist-raspberrypi-app/blob/master/images/raed_me/4.jpg" width="400">
+<img src="./images/raed_me/1.jpg" width="400">
+<img src="./images/raed_me/2.jpg" width="400">
+<img src="./images/raed_me/3.jpg" width="400">
+<img src="./images/raed_me/4.jpg" width="400">
 ## Resources
 The mobile application of FARAZIST is available via the following link:
 * https://cafebazaar.ir/app/ir.farazist.farazist_app
@@ -50,22 +50,24 @@ sudo pip3 install spidev
 ```
 sudo pip3 install mfrc522
 ```
-## Install font on raspbian
+### Install font on RaspberryPi OS
 * Download the font
 * Extract the downloaded font file in command line (we extract it in the Downloads folder)
 * Commands:
 
 ```
 cd ~/Downloads/
-```
-```
 cp *.otf ~/.fonts/
-```
-```
 cp *.ttf ~/.fonts/
-```
-```
 fc-cache -v -f
+```
+
+### Install DB Browser for SQLite on RaspberryPi OS
+
+Install the package using:
+```
+sudo apt-get update
+sudo apt-get install sqlitebrowser
 ```
 ## Status
 This project is early in development and does not yet have a stable API.
