@@ -8,6 +8,5 @@
 /.idea
 Farazist.pyproject.user
 Farazist
-main
-main.spec
+Farazist.spec
 .vscode/settings.json

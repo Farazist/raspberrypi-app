@@ -1,7 +1,7 @@
 import PyInstaller.__main__
 
 PyInstaller.__main__.run([
-    'main.py',
+    'main2.py',
     '--hidden-import=PySide2.QtXml',
     '--name=Farazist',
     '--onedir',
