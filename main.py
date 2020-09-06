@@ -736,6 +736,8 @@ class MainWindow(QWidget):
             self.ui.lbl_num_category_3.setText(str(int(self.ui.lbl_num_category_3.text()) + 1))
         elif self.selected_item['category_id'] == 4:
             self.ui.lbl_num_category_4.setText(str(int(self.ui.lbl_num_category_4.text()) + 1))
+        # elif self.selected_item['category_id'] == 5:
+        #     self.ui.lbl_num_category_5.setText(str(int(self.ui.lbl_num_category_5.text()) + 1))
 
         self.ui.lbl_total_price_auto_delivery_items.setText(str(int(self.ui.lbl_total_price_auto_delivery_items.text()) + self.selected_item['price']))
 
