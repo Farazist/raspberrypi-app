@@ -278,7 +278,7 @@ class MainWindow(QWidget):
         #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.btnOwnerLogin.clicked.connect(self.signInOwner)
-        self.ui.btn_print_receipt_no.clicked.connect(self.stackMainMenu)
+        self.ui.btn_print_receipt_no.clicked.connect(self.signOutUser)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
         self.ui.btn_other_services_after_delivery.clicked.connect(self.stackWalletServices)
         self.ui.btn_no_exit_app_setting.clicked.connect(self.stackSetting)
@@ -388,7 +388,14 @@ class MainWindow(QWidget):
         #     ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
-            self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
+
+            # normal
+            # self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
+
+            # red relay
+            self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory, active_high=True)
+            
+            
             self.conveyor_motor_time_2 = float(DataBase.select('conveyor_motor_time_2'))
          
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)
@@ -575,6 +582,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.ui.lbl_device_info.setText(self.deviceInfo)
+        self.playSound('audio11')
         gif_start = QMovie("animations/slider1.gif")
         self.ui.lbl_slider_start.setMovie(gif_start)
         gif_start.start()
@@ -584,7 +592,7 @@ class MainWindow(QWidget):
     def stackSignInUserIDNumber(self):
         self.setButton(self.ui.btn_left, function=self.stackSignInUserMethods, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
-        self.stopSound()
+        # self.stopSound()
         self.ui.tb_user_id_or_mobile_number.setText('')
         self.ui.tb_user_password.setText('')
         self.qrcode_thread.stop()
@@ -616,6 +624,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.stopSound()
+        self.delivery_state = 'default'
         self.ui.Stack.setCurrentWidget(self.ui.pageMainMenu)
 
     def stackWalletServices(self):
@@ -623,6 +632,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_right, show=False)
         self.ui.lbl_notification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
+
 
     def stackAutoDeliveryItems(self):
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
@@ -641,6 +651,7 @@ class MainWindow(QWidget):
 
         self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
+        self.playSound('audio7')
         self.delivery_state = 'ready'
 
         self.user_items = []
@@ -728,7 +739,7 @@ class MainWindow(QWidget):
         self.selected_item = self.items[most_probability_item_index]
         print('most probability item:', window.selected_item['name'])
 
-        self.ui.list_auto_delivery_items.insertItem(0, self.selected_item['name'])
+        # self.ui.list_auto_delivery_items.insertItem(0, self.selected_item['name'])
 
         if self.selected_item['category_id'] == 1:
             self.ui.lbl_num_category_1.setText(str(int(self.ui.lbl_num_category_1.text()) + 1))
@@ -741,7 +752,7 @@ class MainWindow(QWidget):
 
         self.ui.lbl_total_price_auto_delivery_items.setText(str(int(self.ui.lbl_total_price_auto_delivery_items.text()) + self.selected_item['price']))
 
-        self.conveyor_motor.forward()
+        self.conveyor_motor.forward(timer=True)
         self.end_delivery_items_timer = Timer(self.conveyor_motor_time_2, self.endDeliveryItem)
         self.end_delivery_items_timer.start()
         self.delivery_state = 'end'
@@ -795,14 +806,16 @@ class MainWindow(QWidget):
                 self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
                 self.ui.lbl_total.setText(str(self.total_price))
                 
-                self.delivery_state = 'ready'
-                self.conveyor_motor.stop()
+                # self.conveyor_motor.stop()
 
                 try:
                     self.press_motor.forward(True)
                 except Exception as e:
                     print("error:", e)
                     ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
+                sleep(3)
+                self.delivery_state = 'ready'
 
             except Exception as e:
                 print("error:", e)
@@ -881,9 +894,11 @@ class MainWindow(QWidget):
         # printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
         os.system('sudo -S python3 printer.py ' 
         + str(self.total_price)
-        + ' --mobile_number ' + str(self.system['owner']['mobile_number'])
+        + ' --owner_mobile_number ' + str(self.system['owner']['mobile_number'])
+        + ' --owner_id ' + str(self.system['owner']['id'])
+        + ' --user_id ' + str(self.user['id'])
         + ' --datetime "' + QDate.currentDate().toString(Qt.DefaultLocaleShortDate) + '-' + QTime.currentTime().toString(Qt.DefaultLocaleShortDate) + '"')
-        self.stackMainMenu()
+        self.signOutUser()
 
     def afterDelivery(self):
         self.showNotification(PLEASE_WAIT_MESSAGE)
@@ -893,7 +908,7 @@ class MainWindow(QWidget):
         try:
             self.delivery_state = 'default'
             self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
-            self.playSound('audio11')
+            self.playSound('audio12')
             self.setButton(self.ui.btn_left, show=False)
             self.setButton(self.ui.btn_right, show=False)
             self.ui.lbl_notification.hide()
@@ -916,7 +931,6 @@ class MainWindow(QWidget):
         pass
 
     def stackFastCharging(self):
-        
         self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
         self.setButton(self.ui.btn_right, show=False)
         self.setButton(self.ui.btn_recycle_item_fast_charging, function=self.fastChargingDeliveryRecycleItem)

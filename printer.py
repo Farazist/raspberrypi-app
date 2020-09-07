@@ -1,29 +1,29 @@
 import argparse
-from escpos.printer import Usb
+from escpos.printer import File
+
 
 parser = argparse.ArgumentParser(description=" ")
+parser.add_argument('total_price', metavar='total_price', help='')
+parser.add_argument('-owner_mobile_number', '--owner_mobile_number', metavar='owner_mobile_number', help='')
+parser.add_argument('-owner_id', '--owner_id', metavar='owner_id', help='')
+parser.add_argument('-user_id', '--user_id', metavar='user_id', help='')
+parser.add_argument('-datetime', '--datetime', metavar='datetime', help='')
 
-parser.add_argument('total_price', metavar='total_price',
-                    help='')
-parser.add_argument('-mobile_number', '--mobile_number', metavar='mobile_number',
-                    help='')
-parser.add_argument('-datetime', '--datetime', metavar='datetime',
-                    help='')
 
-d = parser.get_default
-
-def main(total_price, mobile_number, datetime):
+def main(total_price, owner_mobile_number, owner_id, user_id, datetime):
     try:            
-        printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
+        printer = File(devfile='/dev/usb/lp0')
         printer.profile.media['width']['pixels'] = 575
         printer.image("images/logo-text-small.png", center=True)
         # printer.image("images/logo-text-small.png")
         printer.set(align=u'center')
-        printer.text("Farazist" + "\n\n")
+        printer.text("\n")
+        printer.text('Your ID: ' + str(user_id) + "\n")
         printer.text(total_price + " Toman" + "\n")
-        printer.qr(total_price, size=8, center=True)
+        printer.qr(total_price, size=12, center=True)
         # printer.qr(str(self.total_price), size=8)
-        printer.text(mobile_number + "\n")
+        printer.text('Support: ' + owner_mobile_number + "\n")
+        printer.text('ID: ' + str(owner_id) + "\n")
         printer.text("farazist.ir" + "\n")
         printer.text(datetime)
         printer.cut()
