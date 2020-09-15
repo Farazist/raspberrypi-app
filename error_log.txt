@@ -744,3 +744,6 @@
 2020-08-30 17:27:52 name 'factory' is not defined In distance_sensor2 initHardwares Method
 2020-08-30 17:27:52 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
 >>>>>>> c591111a5c4eb7e588b1da22d756a7d774c96f33
+2020-09-15 11:19:36 Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled. In AutoDeliveryItemsThread
+2020-09-15 11:27:58 Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled. In AutoDeliveryItemsThread
+2020-09-15 11:29:12 Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled. In AutoDeliveryItemsThread

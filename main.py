@@ -331,7 +331,7 @@ class MainWindow(QWidget):
         self.image_classifier = ImageClassifier()
         self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
-
+       
         self.stackLoading()
         self.playSound('audio2')
         self.refresh()
