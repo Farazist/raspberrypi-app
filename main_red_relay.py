@@ -388,7 +388,7 @@ class MainWindow(QWidget):
         #     ErrorLog.writeToFile(str(e) + ' In separation_motor initHardwares Method')
 
         try:
-            self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory)
+            self.conveyor_motor = Motor(name='conveyor_motor', pin_factory=factory, active_high=True)
             self.conveyor_motor_time_2 = float(DataBase.select('conveyor_motor_time_2'))
          
             self.setButton(self.ui.btn_conveyor_motor_forward_on, function=self.conveyor_motor.forward)

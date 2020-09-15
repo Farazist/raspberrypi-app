@@ -1,5 +1,6 @@
 import argparse
-from escpos.printer import Usb
+from escpos.printer import File
+
 
 parser = argparse.ArgumentParser(description=" ")
 
@@ -14,7 +15,7 @@ d = parser.get_default
 
 def main(total_price, mobile_number, datetime):
     try:            
-        printer = Usb(idVendor=0x0416, idProduct=0x5011, timeout=0, in_ep=0x81, out_ep=0x03)
+        printer = File(devfile='/dev/usb/lp0')
         printer.profile.media['width']['pixels'] = 575
         printer.image("images/logo-text-small.png", center=True)
         # printer.image("images/logo-text-small.png")
