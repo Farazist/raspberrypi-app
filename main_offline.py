@@ -207,7 +207,7 @@ class MainWindow(QWidget):
         self.back_delivery_item_flag = False
         self.flag_system_startup_now = True
 
-        self.delivery_state = 'default'
+        self.delivery_state = 'none'
 
         # self.categories = Server.getCategories()
         self.image_classifier = ImageClassifier()
@@ -378,6 +378,7 @@ class MainWindow(QWidget):
         gif_start = QMovie("animations/slider1.gif")
         self.ui.lbl_slider_start.setMovie(gif_start)
         gif_start.start()
+        self.delivery_state = 'default'
         self.ui.Stack.setCurrentWidget(self.ui.pageStart)
 
     def stackMainMenu(self):
@@ -398,6 +399,7 @@ class MainWindow(QWidget):
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lbl_notification.hide()
+        self.ui.btn_setting.hide()
         # self.ui.list_auto_delivery_items.clear()
         self.ui.lbl_pixmap_category_1.setPixmap(QPixmap("images/item/category1.png").scaledToHeight(128))
         self.ui.lbl_pixmap_category_3.setPixmap(QPixmap("images/item/category3.png").scaledToHeight(128))
@@ -408,8 +410,6 @@ class MainWindow(QWidget):
         self.ui.lbl_num_category_4.setText(str(0))
         
         self.ui.lbl_total_price_auto_delivery_items.setText(str(0))
-
-        self.setButton(self.ui.btn_recycle_auto_delivery_items, function=self.startDeliveryItem)
         
         self.playSound('audio7')
         self.delivery_state = 'ready'
