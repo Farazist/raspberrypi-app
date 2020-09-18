@@ -162,7 +162,7 @@ class MainWindow(QWidget):
         # signals
         self.ui.btn_refresh_loading.clicked.connect(self.refresh)
         self.ui.btn_main_menu_1.clicked.connect(self.checkDeviceMode)
-        self.ui.btn_start.clicked.connect(self.stackAutoDeliveryItems)
+        self.ui.btn_start.hide()
         #self.ui.btn_main_menu_3.clicked.connect(self.stackFastCharging)
         self.ui.btn_main_menu_4.clicked.connect(self.stackWalletServices)
         self.ui.btn_print_receipt_yes.clicked.connect(self.printReceipt)
@@ -395,7 +395,7 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
 
     def stackAutoDeliveryItems(self):
-        self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.ui.lbl_notification.hide()
         # self.ui.list_auto_delivery_items.clear()
