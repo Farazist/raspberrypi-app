@@ -15,14 +15,14 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-from mfrc522 import SimpleMFRC522
-import picamera
+# from mfrc522 import SimpleMFRC522
+# import picamera
 
 from utils.motor import Motor
 from utils.server import Server
 from utils.database import DataBase
 from utils.custombutton import CustomButton
-from utils.image_classifier import ImageClassifier
+# from utils.image_classifier import ImageClassifier
 from utils.error_log import ErrorLog
 from utils.messages import *
 
@@ -210,7 +210,7 @@ class MainWindow(QWidget):
         self.delivery_state = 'none'
 
         # self.categories = Server.getCategories()
-        self.image_classifier = ImageClassifier()
+        # self.image_classifier = ImageClassifier()
         self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
         self.readFile()
@@ -395,6 +395,36 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
 
+    def stackManualDeliveryItems(self):
+        self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
+        self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
+        self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
+        self.playSound('audio7')
+        self.ui.lbl_total.setText("0")
+        self.ui.lbl_recycled_done.hide()
+        self.user_items = []
+        self.layout_FArea = QGridLayout()
+        i = 0
+        row = 0
+        while row < len(self.items) // 2:
+            for col in range(2):
+                btn = QPushButton()
+                self.items[i]['count'] = 0
+                btn.setText(self.items[i]['name'])
+
+                btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
+                btn.setMinimumSize(250, 100)
+                btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
+                self.layout_FArea.addWidget(btn, row, col)
+                i += 1
+                if i >= len(self.items):
+                    break
+            row += 1
+        self.SelectItem(self.items[0], self.layout_FArea.itemAt(0))
+        self.ui.scroll_widget_manual_delivery.setLayout(self.layout_FArea)
+        self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
+        
     def stackAutoDeliveryItems(self):
         self.setButton(self.ui.btn_left, show=False)
         self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
