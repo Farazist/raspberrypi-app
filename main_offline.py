@@ -38,26 +38,6 @@ BTN_PASS_RECOVERY_STYLE = 'font: 18pt "IRANSans";color: rgb(121, 121, 121);borde
 stack_timer = 240000
 delivery_cancel_time = 20.0
 camera_time = 3
-        
-
-class LoadingThread(QThread):
-    success_signal = Signal()
-    fail_signal = Signal()
-    
-    def __init__(self):
-        QThread.__init__(self)
-    
-    def run(self):
-        try:
-            window.system = Server.getSystem(window.system_id)
-            window.deviceInfo = window.system['name'] + '\n' + window.system['owner']['name'] + ' ' + window.system['owner']['mobile_number']
-            print('Startup Intormation:')
-            print('Device Mode:', window.device_mode)
-            print('System ID:', window.system['id'])
-            self.success_signal.emit()
-        except:
-            ErrorLog.writeToFile('Server Error Message In LoadingThread')
-            self.fail_signal.emit()
             
 
 class AutoDeliveryItemsThread(QThread):
@@ -560,8 +540,8 @@ class MainWindow(QWidget):
 
     def rejectDeliveryItem(self):
         print('rejectDeliveryItem')
-        self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
-        sleep(0.01)
+        # self.showNotification(ITEM_NOT_RECOGNIZED_ERROR_MESSAGE)
+        # sleep(0.01)
         self.conveyor_motor.backward(timer=True)
 
     def acceptDeliveryItem(self):
@@ -676,15 +656,15 @@ class MainWindow(QWidget):
             self.total_price = sum(user_item['price'] * user_item['count'] for user_item in window.user_items) 
             
             self.delivery_state = 'default'
-            self.ui.Stack.setCurrentWidget(self.ui.pageAfterDelivery)
             self.playSound('audio12')
-            self.setButton(self.ui.btn_left, show=False)
-            self.setButton(self.ui.btn_right, show=False)
+            # self.setButton(self.ui.btn_left, show=False)
+            # self.setButton(self.ui.btn_right, show=False)
             self.ui.lbl_notification.hide()
-            gif_afterDelivery = QMovie("animations/earth.gif")
-            self.ui.lbl_gif_after_delivery.setMovie(gif_afterDelivery)
-            gif_afterDelivery.start()
-            self.ui.lbl_total_price.setText(str(self.total_price))
+            # gif_afterDelivery = QMovie("animations/earth.gif")
+            # self.ui.lbl_gif_after_delivery.setMovie(gif_afterDelivery)
+            # gif_afterDelivery.start()
+            # self.ui.lbl_total_price.setText(str(self.total_price))
+            self.printReceipt()
         except:
             self.showNotification(SERVER_ERROR_MESSAGE)
             ErrorLog.writeToFile('Server Error Message')
