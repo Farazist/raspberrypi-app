@@ -15,14 +15,14 @@ from PySide2.QtGui import QMovie, QPixmap, QFont, QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QSizePolicy, QPushButton, QVBoxLayout, QGridLayout, QLabel
 from PIL.ImageQt import ImageQt
 from scipy import stats
-# from mfrc522 import SimpleMFRC522
-# import picamera
+from mfrc522 import SimpleMFRC522
+import picamera
 
 from utils.motor import Motor
 from utils.server import Server
 from utils.database import DataBase
 from utils.custombutton import CustomButton
-# from utils.image_classifier import ImageClassifier
+from utils.image_classifier import ImageClassifier
 from utils.error_log import ErrorLog
 from utils.messages import *
 
@@ -210,7 +210,7 @@ class MainWindow(QWidget):
         self.delivery_state = 'none'
 
         # self.categories = Server.getCategories()
-        # self.image_classifier = ImageClassifier()
+        self.image_classifier = ImageClassifier()
         self.predict_item_threshold = float(DataBase.select('predict_item_threshold'))
         self.initHardwares()
         self.readFile()
@@ -395,9 +395,42 @@ class MainWindow(QWidget):
         self.ui.lbl_notification.hide()
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
 
+    def manualDeliveryRecycleItem(self):
+        try: 
+            self.showNotification(RECYCLE_MESSAGE)
+            
+            try:
+                self.conveyor_motor.forward(timer=True)
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
+            self.playSound('audio3')
+            self.ui.btn_right.show()
+            self.selected_item['count'] += 1
+            self.ui.lbl_selected_item_count.setText(str(self.selected_item['count']))
+
+            for user_item in self.user_items:
+                if self.selected_item['id'] == user_item['id']:
+                    break
+            else:
+                self.user_items.append(self.selected_item)
+            self.total_price = sum(user_item['price'] * user_item['count'] for user_item in self.user_items)
+            self.ui.lbl_total.setText(str(self.total_price))
+
+            try:
+                self.press_motor.forward(timer=True)
+            except Exception as e:
+                print("error:", e)
+                ErrorLog.writeToFile(str(e) + ' In press_motor_stop_timer startDeliveryItem Method')
+
+        except Exception as e:
+            print("error:", e)
+            ErrorLog.writeToFile(str(e) + ' In endDeliveryItem Method')
+
     def stackManualDeliveryItems(self):
-        self.setButton(self.ui.btn_left, function=self.stackMainMenu, text='بازگشت', icon='images/icon/back.png', show=True)
-        self.setButton(self.ui.btn_right, function=self.afterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
+        self.setButton(self.ui.btn_left, show=False)
+        self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
         self.playSound('audio7')
         self.ui.lbl_total.setText("0")
@@ -455,6 +488,10 @@ class MainWindow(QWidget):
         if self.device_mode == 'auto' and self.delivery_state == 'default':
             self.delivery_state = 'ready'
             self.stackAutoDeliveryItems()
+
+        elif self.device_mode == 'manual' and self.delivery_state == 'default':
+            self.delivery_state = 'ready'
+            self.stackManualDeliveryItems()
 
         if self.device_mode == 'auto' and self.delivery_state != 'default':
             if self.delivery_state == 'ready':

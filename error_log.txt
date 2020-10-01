@@ -759,3 +759,47 @@
 2020-09-26 06:31:51 name 'factory' is not defined In distance_sensor1 initHardwares Method
 2020-09-26 06:31:51 name 'factory' is not defined In distance_sensor2 initHardwares Method
 2020-09-26 06:31:51 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:35:30 unable to locate Pi revision in /proc/device-tree or /proc/cpuinfo In NativeFactory
+2020-09-26 06:35:32 name 'factory' is not defined In press_motor initHardwares Method
+2020-09-26 06:35:32 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-09-26 06:35:32 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-09-26 06:35:32 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-09-26 06:35:32 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:36:05 unable to locate Pi revision in /proc/device-tree or /proc/cpuinfo In NativeFactory
+2020-09-26 06:36:09 name 'factory' is not defined In press_motor initHardwares Method
+2020-09-26 06:36:09 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-09-26 06:36:09 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-09-26 06:36:09 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-09-26 06:36:09 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:37:12 unable to locate Pi revision in /proc/device-tree or /proc/cpuinfo In NativeFactory
+2020-09-26 06:37:15 name 'factory' is not defined In press_motor initHardwares Method
+2020-09-26 06:37:15 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-09-26 06:37:15 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-09-26 06:37:15 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-09-26 06:37:15 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:38:12 unable to locate Pi revision in /proc/device-tree or /proc/cpuinfo In NativeFactory
+2020-09-26 06:38:14 name 'factory' is not defined In press_motor initHardwares Method
+2020-09-26 06:38:14 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-09-26 06:38:14 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-09-26 06:38:14 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-09-26 06:38:14 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:38:21 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:38:23 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:38:23 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:38:26 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:38:27 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:39:17 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:39:18 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:39:18 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:39:18 'MainWindow' object has no attribute 'conveyor_motor' In endDeliveryItem Method
+2020-09-26 06:40:25 unable to locate Pi revision in /proc/device-tree or /proc/cpuinfo In NativeFactory
+2020-09-26 06:40:27 name 'factory' is not defined In press_motor initHardwares Method
+2020-09-26 06:40:27 name 'factory' is not defined In conveyor_motor initHardwares Method
+2020-09-26 06:40:27 name 'factory' is not defined In distance_sensor1 initHardwares Method
+2020-09-26 06:40:27 name 'factory' is not defined In distance_sensor2 initHardwares Method
+2020-09-26 06:40:27 name 'SimpleMFRC522' is not defined In rfid_sensor initHardwares Method
+2020-09-26 06:40:30 'MainWindow' object has no attribute 'conveyor_motor' In press_motor_stop_timer startDeliveryItem Method
+2020-09-26 06:40:30 'MainWindow' object has no attribute 'press_motor' In press_motor_stop_timer startDeliveryItem Method
+2020-09-26 06:40:31 'MainWindow' object has no attribute 'conveyor_motor' In press_motor_stop_timer startDeliveryItem Method
+2020-09-26 06:40:31 'MainWindow' object has no attribute 'press_motor' In press_motor_stop_timer startDeliveryItem Method
+2020-09-26 06:40:33 'MainWindow' object has no attribute 'press_motor' In stackAfterDelivery Method
