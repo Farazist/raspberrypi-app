@@ -98,8 +98,7 @@ class RFIDThread(QThread):
 class MainWindow(QWidget):
    
     def __init__(self):
-        QWidget.__init__(self)
-        # super(MainWindow, self).__init__()
+        super(MainWindow, self).__init__()
         
         self.system_id = DataBase.select('system_id')
         self.device_version = DataBase.select('app_version')
@@ -377,9 +376,9 @@ class MainWindow(QWidget):
         self.ui.Stack.setCurrentWidget(self.ui.pageWalletServices)
 
     def manualDeliveryRecycleItem(self):
-        print('manualDeliveryRecycleItem')
         try: 
-            # self.showNotification(RECYCLE_MESSAGE)
+            self.showNotification(RECYCLE_MESSAGE)
+            
             try:
                 self.conveyor_motor.forward(timer=True)
             except Exception as e:
@@ -411,12 +410,13 @@ class MainWindow(QWidget):
 
     def stackManualDeliveryItems(self):
         self.setButton(self.ui.btn_left, show=False)
-        self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=True)
+        self.setButton(self.ui.btn_right, function=self.stackAfterDelivery, text='پایان', icon='images/icon/tick.png', show=False)
         self.setButton(self.ui.btn_manual_delivery_recycle_item, function=self.manualDeliveryRecycleItem)
-        # self.playSound('audio7')
+        self.playSound('audio7')
         self.ui.lbl_total.setText("0")
         self.ui.lbl_recycled_done.hide()
         self.user_items = []
+        self.layout_FArea = QGridLayout()
         i = 0
         row = 0
         while row < len(self.items) // 2:
@@ -429,14 +429,15 @@ class MainWindow(QWidget):
                 btn.setStyleSheet('QPushButton:pressed {background-color: #6fdc89;border-style: inset;} QPushButton{background-color: #ffffff; border: 2px solid #28a745; border-radius: 10px; outline-style: none; font: 22pt "IRANSansFaNum"}')
                 btn.setMinimumSize(250, 100)
                 btn.clicked.connect(partial(self.SelectItem, self.items[i], btn))
-                self.ui.gridLayout_6.addWidget(btn, row, col)
+                self.layout_FArea.addWidget(btn, row, col)
                 i += 1
                 if i >= len(self.items):
                     break
             row += 1
 
         self.total_price = 0
-        self.SelectItem(self.items[0], self.ui.gridLayout_6.itemAt(0))
+        self.SelectItem(self.items[0], self.layout_FArea.itemAt(0))
+        self.ui.scroll_widget_manual_delivery.setLayout(self.layout_FArea)
         self.ui.Stack.setCurrentWidget(self.ui.pageManualDeliveryItems)
         
     def stackAutoDeliveryItems(self):
@@ -476,7 +477,6 @@ class MainWindow(QWidget):
 
             elif self.device_mode == 'manual' and self.delivery_state == 'default':
                 self.delivery_state = 'ready'
-                print(1)
                 self.stackManualDeliveryItems()
 
             if self.device_mode == 'auto' and self.delivery_state != 'default':
@@ -496,7 +496,6 @@ class MainWindow(QWidget):
                     self.cancelDeliveryItem()
 
             elif self.device_mode == 'manual':
-                print(2)
                 self.manualDeliveryRecycleItem()
 
     def distanceSensor1WhenOutOfRange(self):

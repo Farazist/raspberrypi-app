@@ -13,13 +13,11 @@ class Motor:
         self.backward_motor = DigitalOutputDevice(pin=backward_port, active_high=active_high)
         self.time = time
         self.name = name
-        self.last_state = 'forward'
         print(self.name, 'ready')
 
     def forward(self, timer=False):
         self.backward_motor.off()
         self.forward_motor.on()
-        self.last_state = 'forward'
         if timer:
             self.timer = Timer(self.time, self.stop)
             self.timer.start()
@@ -31,7 +29,6 @@ class Motor:
         if timer:
             self.timer = Timer(self.time, self.stop)
             self.timer.start()
-        self.last_state = 'backward'
         print(self.name, 'backward')
 
     def stop(self):

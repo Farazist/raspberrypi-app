@@ -803,3 +803,14 @@
 2020-09-26 06:40:31 'MainWindow' object has no attribute 'conveyor_motor' In press_motor_stop_timer startDeliveryItem Method
 2020-09-26 06:40:31 'MainWindow' object has no attribute 'press_motor' In press_motor_stop_timer startDeliveryItem Method
 2020-09-26 06:40:33 'MainWindow' object has no attribute 'press_motor' In stackAfterDelivery Method
+2020-10-02 11:07:28 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:07:30 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:07:32 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:07:34 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:07:36 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:10:31 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:10:33 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:10:35 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 11:11:41 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 13:02:09 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
+2020-10-02 13:32:02 'MainWindow' object has no attribute 'selected_item' In endDeliveryItem Method
