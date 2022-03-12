@@ -1,7 +1,7 @@
 gpiozero==1.5.1
 numpy==1.16.2
 picamera==1.13
-Pillow==5.4.1
+Pillow==9.0.1
 pygame==1.9.4.post1
 pyinstaller==4.0.dev0
 python-escpos==3.0a8
