@@ -7,4 +7,4 @@ pyinstaller==4.0.dev0
 python-escpos==3.0a8
 qrcode==6.1
 scipy==1.4.1
-tflite-runtime==2.1.0.post1
+tflite-runtime==2.7.0
