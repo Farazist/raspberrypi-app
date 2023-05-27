@@ -1,14 +1,18 @@
 # Farazist RaspberryPi App
+
+[![Python application](https://github.com/Farazist/raspberrypi-app/actions/workflows/python-app.yml/badge.svg)](https://github.com/Farazist/raspberrypi-app/actions/workflows/python-app.yml)
+
 App for smart recycle waste bottles
-</br>
-</br>
+
 <img src="./images/raed_me/1.jpg" width="400">
 <img src="./images/raed_me/2.jpg" width="400">
 <img src="./images/raed_me/3.jpg" width="400">
 <img src="./images/raed_me/4.jpg" width="400">
+
 ## Resources
 The mobile application of FARAZIST is available via the following link:
 * https://cafebazaar.ir/app/ir.farazist.farazist_app
+
 ## Requirements
 * Raspberry Pi OS (32-bit)
 * Python 3.7
@@ -21,6 +25,7 @@ The mobile application of FARAZIST is available via the following link:
   * sqlite3
   * escpos
   * qtquick
+
 ## Hardware requirements
  * Raspberry Pi 4 (model B - 4GB RAM)
  * Raspberry Pi NoIR Camera V2
@@ -50,6 +55,7 @@ sudo pip3 install spidev
 ```
 sudo pip3 install mfrc522
 ```
+
 ### Install font on RaspberryPi OS
 * Download the font
 * Extract the downloaded font file in command line (we extract it in the Downloads folder)
