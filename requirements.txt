@@ -1,5 +1,5 @@
 gpiozero==1.5.1
-numpy==1.16.2
+numpy==1.22.0
 picamera==1.13
 Pillow==5.4.1
 pygame==1.9.4.post1
